@@ -1,1 +1,2 @@
-export const GET_RESTOS = 'GET_RESTOS'
+export const GET_RESTOS = 'GET_RESTOS';
+
