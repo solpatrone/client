@@ -1,0 +1,15 @@
+.selectOptions {
+    display: inline-block;
+    width: 275px;
+  }
+
+  .inputContainer {
+    width: 500px;
+    text-align: left;
+    margin-top: 5px;
+  }
+  
+  .inputText {
+    width: 150px;
+    display: inline-block;
+  }
