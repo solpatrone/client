@@ -10,7 +10,7 @@ export default function Navbar() {
         <NavLink to="/loginrestaurant">
           <p>Mi Restaurant</p>
         </NavLink>
-        <NavLink to="/registeruser">
+        <NavLink to="/registerOwner">
           <p>Registrar Restaurant</p>
         </NavLink>
       </div>
