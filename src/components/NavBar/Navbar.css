@@ -1,0 +1,29 @@
+.navBar {
+  position: sticky;
+  display: flex;
+  flex-direction: column;
+}
+.mainNavbar {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background-color: #bfc0c0;
+  padding: 5px;
+  align-items: flex-end;
+}
+
+.logo {
+  height: 90px;
+  width: auto;
+  margin-left: 2vw;
+}
+.links {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 2vw;
+}
+.links p {
+  margin-right: 2vw;
+}
