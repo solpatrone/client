@@ -1,30 +1,32 @@
 import { useDispatch, useSelector } from 'react-redux';
 import React, { useEffect } from 'react';
+import {createClient} from '../../actions';
 
 export default function RegisterUser() {
     let [input, setInput] = React.useState({
         name: '',
         email: '',
-        password: '',
+        password: ''
     })
 
     let [errors, setErrors] = React.useState({ hasErrors: true });
 
+    let dispatch = useDispatch();
 
     function validate(input) {
         let errors = { hasErrors: false }
         console.log("input", input)
 
         if (!input.name) {
-            errors.name = `Name is required`;
+            errors.name = `El nombre es requerido`;
             errors.hasErrors = true;
         } else if (!/^[a-zA-Z\s]*$/.test(input.name)) {
-            errors.name = `Name must be only letters`;
+            errors.name = `El nombre debe ser solo de letras`;
             errors.hasErrors = true;
         }
 
         if (!input.email) {
-            errors.email = `email is required`;
+            errors.email = `El email es requerido`;
             errors.hasErrors = true;
         } else if (!/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/.test(input.email)) {
             errors.email = `email must be a valid address`;
@@ -32,16 +34,12 @@ export default function RegisterUser() {
         }
 
         if (!input.password) {
-            errors.password = `password is required`;
+            errors.password = `La contraseña es requerido`;
             errors.hasErrors = true;
-        } else if (!/^[]*$/.test(input.password)) {
-            errors.password = `password must be ??`;
-            errors.hasErrors = true;
-        } else if (input.password.length < 5 || input.password.length > 15) {
-            errors.password = `password length must be between 5 and 15`;
-            errors.hasErrors = true;
+         } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm.test(input.password)) { 
+             errors.password = "La contrseña debe incluir: \t Al menos 8 carateres \t Mayúsculas y minúsculas \n Números";
+             errors.hasErrors = true;
         }
-
 
         return errors;
 
@@ -53,6 +51,50 @@ export default function RegisterUser() {
         }
     }
 
+    let handleChange = e => {
+
+        e.preventDefault();
+        setInput({...input, [e.target.name]: e.target.value})
+        setErrors(validate({...input, [e.target.name]: e.target.value}))
+    }
+
+    let handleSubmit = e => {
+        e.preventDefault()
+        if(!validate(input).hasErrors){
+            dispatch(createClient(input))
+            setInput({
+                name: '',
+                email: '',
+                password: ''
+            })
+        }
+    }
+
+    return (
+        <div>
+            <form onSubmit={handleSubmit}> 
+            <div>
+            <label>Nombre: </label>
+            <input type={'text'} name={'name'} onKeyPress={onlyLetters} value={input.name} onChange={e => handleChange(e)}/>
+            {errors.name && (<p>{errors.name}</p>)}
+            </div>
+            <div>
+            <label>Email: </label>
+            <input type={'text'} name={'email'} value={input.email} onChange={e => handleChange(e)}/>
+            {errors.email && (<p>{errors.email}</p>)}
+            </div>
+            <div>
+            <label>Contraseña: </label>
+            <input type={'password'} name={'password'} value={input.password} onChange={e => handleChange(e)}/>
+            {errors.password && (<p>{errors.password}</p>)}
+            </div>
+            <div>
+            <button type={'submit'} disabled={errors.hasErrors} onSubmit={e => handleSubmit(e)}>Registrate</button>
+            </div>
+            </form>
+        </div>
+
+    )
 
 }
 

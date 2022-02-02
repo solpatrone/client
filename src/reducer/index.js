@@ -1,7 +1,7 @@
-import { GET_RESTOS } from "../actions/types";
+import { GET_RESTOS, CREATE_CLIENT } from "../actions/types";
 
 const initialState = {
-
+    clients: []
 }
 
 export default function rootReducer(state = initialState, action){
@@ -9,6 +9,11 @@ export default function rootReducer(state = initialState, action){
         case GET_RESTOS:
             return{
                 ...state
+            }
+        case CREATE_CLIENT:
+            return{
+                ...state,
+                clients: [...state.clients, action.payload]
             }
         default:
             return {...state}
