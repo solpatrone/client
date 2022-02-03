@@ -6,6 +6,11 @@ import { useHistory } from "react-router-dom";
 export default function RegisterUser() {
     const history = useHistory();
     let dispatch = useDispatch();
+    let clients = useSelector(state => state.clients)
+   
+    
+    let [clientLe, setClientLe] = useState(clients.length)
+    console.log(clientLe)
 
     let [input, setInput] = useState({
         name: '',
@@ -67,7 +72,9 @@ export default function RegisterUser() {
         e.preventDefault()
         if (!validate(input).hasErrors) {
             dispatch(createClient(input))
-            setIsSubmit(true);
+            setIsSubmit(false);
+            setClientLe(clients.length)
+            console.log('nueva', clientLe)
             setInput({
                 name: '',
                 email: '',

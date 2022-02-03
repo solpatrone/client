@@ -281,7 +281,7 @@ let onlyNumbers = (e) => {
             ></textarea>
             <p>{errors.description}</p>
           </div>
-          <div>
+          {/* <div>
             <label >Imágenes</label>
             <input
               type="file"
@@ -289,9 +289,10 @@ let onlyNumbers = (e) => {
               name="images"
               value={owner.images}
               autoComplete="off"
+              multiple
               onChange={(e) => handleChange(e)}
             />
-          </div>
+          </div> */}
         </div>
         <div>
            {/* <button>Registra tu restaurante!</button>  */}
