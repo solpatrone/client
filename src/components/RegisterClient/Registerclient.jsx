@@ -78,7 +78,7 @@ export default function RegisterUser() {
 
     return isSubmit ? (<div>
         <h3>Se ha registrado correctamente</h3>
-        <button onClick={() => history.push("/home")}>Volver a Home</button>
+        <button onClick={() => history.push("/Login")}>Volver a Home</button>
     </div>) : (
         <div>
             <div>
