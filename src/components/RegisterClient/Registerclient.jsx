@@ -5,33 +5,19 @@ import { useHistory } from "react-router-dom";
 
 export default function RegisterUser() {
     const history = useHistory();
-<<<<<<< HEAD
     let dispatch = useDispatch();
 
     let [input, setInput] = useState({
-=======
-
-    let [input, setInput] = React.useState({
->>>>>>> develop
         name: '',
         email: '',
         password: ''
     })
 
-<<<<<<< HEAD
     
     let [errors, setErrors] = useState({ hasErrors: true });
     
     const [isSubmit, setIsSubmit] = useState(false);
 
-=======
-    const [isSubmit, setIsSubmit] = useState(false);
-
-    let [errors, setErrors] = React.useState({ hasErrors: true });
-
-    let dispatch = useDispatch();
-
->>>>>>> develop
     function validate(input) {
         let errors = { hasErrors: false }
         console.log("input", input)
@@ -53,17 +39,10 @@ export default function RegisterUser() {
         }
 
         if (!input.password) {
-<<<<<<< HEAD
             errors.password = `La contraseña es requerida`;
             errors.hasErrors = true;
         } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm.test(input.password)) {
             errors.password = "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
-=======
-            errors.password = `La contraseña es requerido`;
-            errors.hasErrors = true;
-        } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm.test(input.password)) {
-            errors.password = "La contrseña debe incluir: \n Entre 8 carateres y 15 \n Mayúsculas y minúsculas \n Números";
->>>>>>> develop
             errors.hasErrors = true;
         }
 
