@@ -5,8 +5,6 @@ import Registerclient from "./components/RegisterClient/Registerclient";
 import RegisterOwner from "./components/RegisterOwner/Registerowner";
 import Home from "./components/Home/Home";
 
-// import { useLocation } from "react-router-dom";
-
 function App() {
   // const location = useLocation();
   return (
@@ -14,10 +12,6 @@ function App() {
       <Route path={"/home"} render={() => <Home />} />
       <Route path={"/registerclient"} render={() => <Registerclient />} />
       <Route path={"/registerOwner"} render={() => <RegisterOwner />} />
-      {/*   {location.pathname === "/" ? null : <NavBar />}
-  
-    //   <Route exact path={"/"} render={() => <LandingPage />} />
-     */}
     </div>
   );
 }
