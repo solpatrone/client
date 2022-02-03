@@ -2,16 +2,19 @@ import React, {  useState } from "react";
 import  { useHistory } from "react-router-dom"
 import { GoogleLogin } from 'react-google-login';
 import {useDispatch, useSelector} from 'react-redux';
+import Cookies from 'universal-cookie';
 
 export default function Login(){
 
     const history = useHistory()
-    const dispatch= useDispatch()
     const owner = useSelector(state=> state.owners)    
-    const client = useSelector(state=>state.clients)
-    const prueba = useSelector(state=>state.prueba)
+    const client = useSelector(state=>state.clients)    
     const allUsers= owner.concat(client)
+
     console.log(client)
+
+    //const [loginUsername,serLoginUsername]=useState('')
+    //const [loginPassword,serLoginPassword]=useState('')
 
     const [input, setInput]= React.useState({
         user:"",
@@ -37,8 +40,11 @@ export default function Login(){
               alert('mail incorrecto')
           }else {
               if(userMatch.password !== input.password)
-              alert('passwordf inco')
+              alert('password incorrecto')
           }
+          const cookies = new Cookies();
+          cookies.set('user', input.user,{path:'/'})
+          cookies.set('password', input.password ,{path:'/'})
           history.push('/home')
       }
          
