@@ -1,8 +1,10 @@
-import { GET_RESTOS, CREATE_CLIENT, CREATE_OWNER } from "../actions/types";
+import { GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_USERS } from "../actions/types";
 
 const initialState = {
     clients: [],
-    owners: []
+    owners: [],
+    user: {},
+    prueba: 5
 }
 
 export default function rootReducer(state = initialState, action){
@@ -28,6 +30,11 @@ export default function rootReducer(state = initialState, action){
                 return{
                     ...state,
                     owners: [...state.owners, action.payload]
+                }
+            case GET_USERS:
+                return{
+                    ...state,
+                    user: [...state, action.payload]
                 }
         default:
             return {...state}
