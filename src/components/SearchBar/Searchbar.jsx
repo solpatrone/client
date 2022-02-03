@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 function Searchbar() {
-  const resto = ["bilbao", "la dominga", "jhonny b good", "bilbao2"];
+  const resto = ["bilbao", "la dominga", "jhonny b good", "bilbao2", "el cuartito"];
   const dispatch = useDispatch();
   const [restaurantName, setRestaurantName] = useState("");
   const [suggestion, setSuggestion] = useState([]);
@@ -47,8 +47,9 @@ function Searchbar() {
         placeholder="Nombre del Restaurant..."
         onChange={(e) => handleInputChange(e)}
       />
-      {suggestion &&
-        showOptions &&
+      {
+      restaurantName &&
+        suggestion &&
         suggestion.map((el, index) => {
           return (
             <div key={index} onClick={() => selectElementHandler(el)}>

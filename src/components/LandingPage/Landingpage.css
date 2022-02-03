@@ -1,0 +1,24 @@
+.container{
+    height: fit-content;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content:space-evenly;
+    margin-top: 8vh;
+    flex-wrap: wrap;
+    overflow-x: hidden;
+}
+
+.wrapper{
+    display: flex;
+    flex-direction: column;
+    
+}
+.pic{
+    background-image: url("../../assets/table.jpg");
+    background-position: center;
+    background-size: contain;
+    background-repeat: no-repeat;
+    width: 40%;
+    height: 50vh;
+}

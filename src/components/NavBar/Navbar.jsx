@@ -19,12 +19,13 @@ export default function Navbar() {
         <NavLink to="/home">
           <img class="logo" src={logo} alt="img not found" />
         </NavLink>
-        <div class="links">
+        <div class="links" class="user">
           <NavLink to="/login">
             <p>Iniciar sesión</p>
           </NavLink>
           <NavLink to="/registerclient">
             <p>Crear cuenta</p>
+
           </NavLink>
         </div>
       </div>

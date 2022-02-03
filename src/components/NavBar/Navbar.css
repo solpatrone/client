@@ -24,6 +24,12 @@
   justify-content: flex-end;
   margin-right: 2vw;
 }
-.links p {
+.links p, .user p {
   margin-right: 2vw;
+}
+.user{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-right: 4vw;
 }
