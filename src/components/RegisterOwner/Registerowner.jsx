@@ -61,7 +61,6 @@ let onlyNumbers = (e) => {
   }
 }
 
-
   //error objects
   const [errors, setError] = useState({hasErrors: true});
 
