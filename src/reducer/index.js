@@ -12,11 +12,17 @@ export default function rootReducer(state = initialState, action){
                 ...state
             }
         case CREATE_CLIENT:
+            let exists = state.clients.find(u => u.email === action.payload.email)
             console.log(state.clients)
-            return{
+            if(!exists){
+                return{
+                    ...state,
+                    clients: [...state.clients, action.payload]
+                }
+            }  else {return{
                 ...state,
-                clients: [...state.clients, action.payload]
-            }
+                clients: [...state.clients]
+            }}
             case CREATE_OWNER:
                 console.log(state.owners)
                 return{
