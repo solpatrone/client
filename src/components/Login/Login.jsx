@@ -2,11 +2,7 @@ import React, {  useState } from "react";
 import  { useHistory } from "react-router-dom"
 import { GoogleLogin } from 'react-google-login';
 import {useDispatch, useSelector} from 'react-redux';
-<<<<<<< HEAD
-import Cookies from "universal-cookie/es6";
-=======
 import Cookies from 'universal-cookie';
->>>>>>> develop
 
 export default function Login(){
 
