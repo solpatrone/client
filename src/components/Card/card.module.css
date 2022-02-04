@@ -1,0 +1,10 @@
+.container{
+    background-color: gray;
+    width: 300px;
+    padding: 10px;
+    border-radius: 20px;
+}
+.line{
+    display: flex;
+    justify-content: space-evenly;
+}

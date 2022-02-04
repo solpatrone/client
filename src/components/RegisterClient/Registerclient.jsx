@@ -5,18 +5,20 @@ import { useHistory } from "react-router-dom";
 
 export default function RegisterUser() {
     const history = useHistory();
+    let dispatch = useDispatch();
+    let clients = useSelector(state => state.clients)
+   
 
-    let [input, setInput] = React.useState({
+    let [input, setInput] = useState({
         name: '',
         email: '',
         password: ''
     })
 
+    
+    let [errors, setErrors] = useState({ hasErrors: true });
+    
     const [isSubmit, setIsSubmit] = useState(false);
-
-    let [errors, setErrors] = React.useState({ hasErrors: true });
-
-    let dispatch = useDispatch();
 
     function validate(input) {
         let errors = { hasErrors: false }
@@ -39,10 +41,10 @@ export default function RegisterUser() {
         }
 
         if (!input.password) {
-            errors.password = `La contraseña es requerido`;
+            errors.password = `La contraseña es requerida`;
             errors.hasErrors = true;
         } else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm.test(input.password)) {
-            errors.password = "La contrseña debe incluir: \n Entre 8 carateres y 15 \n Mayúsculas y minúsculas \n Números";
+            errors.password = "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
             errors.hasErrors = true;
         }
 
@@ -67,12 +69,13 @@ export default function RegisterUser() {
         e.preventDefault()
         if (!validate(input).hasErrors) {
             dispatch(createClient(input))
-            setIsSubmit(true);
+            setIsSubmit(false);
             setInput({
                 name: '',
                 email: '',
                 password: ''
             })
+            history.push("/Login")
         }
     }
 
@@ -82,7 +85,7 @@ export default function RegisterUser() {
     </div>) : (
         <div>
             <div>
-                <h2>Registrate como Cliente</h2>
+                <h2>Registrate!</h2>
             </div>
             <br/>
             <form onSubmit={handleSubmit}>
