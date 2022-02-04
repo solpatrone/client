@@ -8,9 +8,6 @@ export default function RegisterUser() {
     let dispatch = useDispatch();
     let clients = useSelector(state => state.clients)
    
-    
-    let [clientLe, setClientLe] = useState(clients.length)
-    console.log(clientLe)
 
     let [input, setInput] = useState({
         name: '',
@@ -73,8 +70,6 @@ export default function RegisterUser() {
         if (!validate(input).hasErrors) {
             dispatch(createClient(input))
             setIsSubmit(false);
-            setClientLe(clients.length)
-            console.log('nueva', clientLe)
             setInput({
                 name: '',
                 email: '',
@@ -89,7 +84,7 @@ export default function RegisterUser() {
     </div>) : (
         <div>
             <div>
-                <h2>Registrate como Cliente</h2>
+                <h2>Registrate!</h2>
             </div>
             <br/>
             <form onSubmit={handleSubmit}>

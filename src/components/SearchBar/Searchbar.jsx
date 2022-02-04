@@ -1,23 +1,36 @@
 import React from "react";
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useState,useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import {getRestoByName, getRestos} from '../../actions'
 
 function Searchbar() {
-  const resto = ["bilbao", "la dominga", "jhonny b good", "bilbao2"];
+  const resto = useSelector((state )=> state.allRestaurants);
+  const restoName = resto.map(r => r.name)
+
+
   const dispatch = useDispatch();
+
+//   // useEffect(()=>{
+  //   dispatch(getRestos())
+  // },[])
+
   const [restaurantName, setRestaurantName] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const [error, setError] = useState(false);
 
+
+ 
   function handleInputChange(e) {
     e.preventDefault();
-    setRestaurantName(e.target.value);
+    setRestaurantName(e.target.value)
     searchMatch(e.target.value);
+    if (e.target.value === '') {
+      dispatch(getRestos())
+  }
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(); // action getRestaurant(restaurantName)
-    setRestaurantName("");
+    dispatch(getRestoByName(restaurantName)); // action getRestaurant(restaurantName)
   }
 
   function searchMatch(restaurantName) {
@@ -25,9 +38,9 @@ function Searchbar() {
       setSuggestion([]);
       setError(false)
     } else {
-      let matches = resto.filter(
-        (r) => r.toLowerCase().indexOf(restaurantName.toLocaleLowerCase()) > -1
-      );
+      let matches = restoName.filter(
+        (r) => r.toLowerCase().includes(restaurantName.toLowerCase())      
+        );
       if (matches.length) {
         setSuggestion(matches);
         setError(false);
@@ -67,3 +80,4 @@ function Searchbar() {
 }
 
 export default Searchbar;
+
