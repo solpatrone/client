@@ -2,6 +2,7 @@ import React, {  useState } from "react";
 import  { useHistory } from "react-router-dom"
 import { GoogleLogin } from 'react-google-login';
 import {useDispatch, useSelector} from 'react-redux';
+import Cookies from "universal-cookie/es6";
 
 export default function Login(){
 
@@ -31,15 +32,19 @@ export default function Login(){
       }
 
       function handleSubmit(e){
-          e.preventDefault()
-          let userMatch = allUsers.find(e=>e.email===input.user)
+        e.preventDefault()
+        let userMatch = allUsers.find(e=>e.email===input.user)
           if(!userMatch){
               alert('mail incorrecto')
-          }else {
-              if(userMatch.password !== input.password)
-              alert('passwordf inco')
           }
-          history.push('/home')
+          if(userMatch.password !== input.password){
+            alert('password incorrecto')}
+          else{
+            const cookies= new Cookies();
+            cookies.set('user', input.user,{path:'/'})
+            cookies.set('password', input.password,{path:'/'})
+            history.push('/home')
+          }
       }
          
     return(

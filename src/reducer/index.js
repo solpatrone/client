@@ -13,7 +13,7 @@ export default function rootReducer(state = initialState, action){
         case GET_RESTOS:
             return{
                 ...state,
-                restaurants: [...state.restaurants, action.payload]
+                restaurants: action.payload
             }
         case CREATE_CLIENT:
             let exists = state.clients.find(u => u.email === action.payload.email)

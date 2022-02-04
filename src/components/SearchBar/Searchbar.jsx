@@ -1,9 +1,13 @@
 import React from "react";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 function Searchbar() {
-  const resto = ["bilbao", "la dominga", "jhonny b good", "bilbao2"];
+  const resto = useSelector((state )=> state.restaurants);
+  const restoName = resto.map(r => r.name)
+  console.log(restoName)
+
+  
   const dispatch = useDispatch();
   const [restaurantName, setRestaurantName] = useState("");
   const [suggestion, setSuggestion] = useState([]);
@@ -25,9 +29,8 @@ function Searchbar() {
       setSuggestion([]);
       setError(false)
     } else {
-      let matches = resto.filter(
-        (r) => r.toLowerCase().indexOf(restaurantName.toLocaleLowerCase()) > -1
-      );
+      let matches = restoName.filter(
+        (r) => r.toLowerCase().includes(restaurantName.toLocaleLowerCase())      );
       if (matches.length) {
         setSuggestion(matches);
         setError(false);
@@ -67,3 +70,4 @@ function Searchbar() {
 }
 
 export default Searchbar;
+
