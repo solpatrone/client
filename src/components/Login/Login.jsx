@@ -6,11 +6,12 @@ import Cookies from 'universal-cookie';
 
 export default function Login(){
 
+
     const history = useHistory()
-    const dispatch= useDispatch()
+    
     const owner = useSelector(state=> state.owners)    
     const client = useSelector(state=>state.clients)
-    const prueba = useSelector(state=>state.prueba)
+
     const allUsers= owner.concat(client)
     console.log(client)
 
@@ -38,9 +39,13 @@ export default function Login(){
               alert('mail incorrecto')
           }else {
               if(userMatch.password !== input.password)
-              alert('passwordf inco')
+              alert('password incorrecto')
           }
+          const cookies= new Cookies();
+        cookies.set('user', input.user,{path:'/'})
+          cookies.set('password', input.password,{path:'/'})
           history.push('/home')
+          
       }
          
     return(
