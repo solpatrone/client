@@ -1,27 +1,36 @@
 import React from "react";
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import {getRestoByName, getRestos} from '../../actions'
 
 function Searchbar() {
-  const resto = useSelector((state )=> state.restaurants);
+  const resto = useSelector((state )=> state.allRestaurants);
   const restoName = resto.map(r => r.name)
-  console.log(restoName)
 
-  
+
   const dispatch = useDispatch();
+
+//   // useEffect(()=>{
+  //   dispatch(getRestos())
+  // },[])
+
   const [restaurantName, setRestaurantName] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const [error, setError] = useState(false);
 
+
+ 
   function handleInputChange(e) {
     e.preventDefault();
-    setRestaurantName(e.target.value);
+    setRestaurantName(e.target.value)
     searchMatch(e.target.value);
+    if (e.target.value === '') {
+      dispatch(getRestos())
+  }
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(); // action getRestaurant(restaurantName)
-    setRestaurantName("");
+    dispatch(getRestoByName(restaurantName)); // action getRestaurant(restaurantName)
   }
 
   function searchMatch(restaurantName) {
@@ -30,7 +39,8 @@ function Searchbar() {
       setError(false)
     } else {
       let matches = restoName.filter(
-        (r) => r.toLowerCase().includes(restaurantName.toLocaleLowerCase())      );
+        (r) => r.toLowerCase().includes(restaurantName.toLowerCase())      
+        );
       if (matches.length) {
         setSuggestion(matches);
         setError(false);

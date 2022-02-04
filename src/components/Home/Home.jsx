@@ -19,25 +19,28 @@ export default function Home(){
     const cookies= new Cookies();
     const allRestaurants = useSelector((state)=> state.restaurants)
     
+    
 
     useEffect(()=>{
         dispatch(getRestos())
     
     },
-    [dispatch, allRestaurants])
+    [dispatch])
 
     
 
     return (
         <div>
 
-            <Navbar/>
-            <Landingpage/>
-            <Paginate itemsPerPage={4} restaurants={allRestaurants}/>
+             <Navbar/>
+             <Landingpage/>
+            {/*<Paginate itemsPerPage={4} restaurants={allRestaurants}/> */}
             <Filters/>
             <Cards restaurants={allRestaurants}/>
             <h3>usuario:{cookies.get('user')}</h3>
              <Logout/>
+
+             
 
         </div>
     )
