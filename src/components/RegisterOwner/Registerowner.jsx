@@ -1,65 +1,65 @@
-// import { useDispatch, useSelector } from 'react-redux';
+// import { useDispatch, useSelector } from "react-redux";
 // import React, { useState } from "react";
 // import { useHistory } from "react-router-dom";
-// import Select from 'react-select';
-// import './Registerowner.css'
-// import { createOwner } from '../../actions';
+// import Select from "react-select";
+// import "./Registerowner.css";
+// import { createOwner } from "../../actions";
 
-// export default function RegisterOwner() {
-//   const history = useHistory();
-//   let dispatch = useDispatch();
+// // export default function RegisterOwner() {
+// //   const history = useHistory();
+// //   let dispatch = useDispatch();
 
-//   let neighborhoodOptions = [
-//     {name: 'palermo', label: 'Palermo', value:'palermo'},
-//     {name: 'belgrano', label: 'Belgrano', value:'belgrano'},
-//     {name: 'recoleta', label: 'Recoleta', value:'Recoleta'}
-//   ]
+// //   let neighborhoodOptions = [
+// //     {name: 'palermo', label: 'Palermo', value:'palermo'},
+// //     {name: 'belgrano', label: 'Belgrano', value:'belgrano'},
+// //     {name: 'recoleta', label: 'Recoleta', value:'Recoleta'}
+// //   ]
 
-//   let priceOptions = [
-//     {name: 'one', label: '$', value:'one'},
-//     {name: 'two', label: '$$', value:'two'},
-//     {name: 'three', label: '$$$', value:'three'},
-//     {name: 'four', label: '$$$$', value:'four'},
-//     {name: 'five', label: '$$$$$', value:'five'}
+// //   let priceOptions = [
+// //     {name: 'one', label: '$', value:'one'},
+// //     {name: 'two', label: '$$', value:'two'},
+// //     {name: 'three', label: '$$$', value:'three'},
+// //     {name: 'four', label: '$$$$', value:'four'},
+// //     {name: 'five', label: '$$$$$', value:'five'}
 
-//   ]
+// //   ]
 
-//   let foodTypes = [
-//     {name: "type1", label: "Vegana", value: "type1"},
-//     {name: "type2", label: "Vegetariana", value: "type2"},
-//     {name: "type3", label: "Italiana", value: "type3"}
-//   ]
+// //   let foodTypes = [
+// //     {name: "type1", label: "Vegana", value: "type1"},
+// //     {name: "type2", label: "Vegetariana", value: "type2"},
+// //     {name: "type3", label: "Italiana", value: "type3"}
+// //   ]
 
-//   //owner object
-//   const [owner, setOwner] = useState({
-//     restoName: "",
-//     street: "",
-//     number: 0,
-//     price: "",
-//     neighborhood: "",
-//     types: [],
-//     description: "",
-//     images: [],
-//   });
+// //   //owner object
+// //   const [owner, setOwner] = useState({
+// //     restoName: "",
+// //     street: "",
+// //     number: 0,
+// //     price: "",
+// //     neighborhood: "",
+// //     types: [],
+// //     description: "",
+// //     images: [],
+// //   });
 
-
-//   //ver para inputs de solo letras ej: nombre
-//   let onlyLetters = (e) => {
-//     if (!/[a-zA-Z\s]/.test(e.key)) {
-//         e.preventDefault();
-//     }
-// }
+// //ver para inputs de solo letras ej: nombre
+// let onlyLetters = (e) => {
+//   if (!/[a-zA-Z\s]/.test(e.key)) {
+//     e.preventDefault();
+//   }
+// };
 // // en el input poner: onKeyPress={onlyLetters}
 
 // //ver para numero de direccion
 // let onlyNumbers = (e) => {
 //   if (!/[0-9]/.test(e.key)) {
-//       e.preventDefault();
+//     e.preventDefault();
 //   }
-// }
+// };
+// // en el input poner: onKeyPress={onlyLetters}
 
-//   //error objects
-//   const [errors, setError] = useState({hasErrors: true});
+// //error objects
+// const [errors, setError] = useState({ hasErrors: true });
 
 //   //flag for submit
 //   const [isSubmit, setIsSubmit] = useState(false);
@@ -68,7 +68,7 @@
 //     setOwner((prev) => ({ ...prev, [e.target.name]: e.target.value }));
 //     setError(validate(owner));
 //   }
-  
+
 //   function handleNeighborhood(e) {
 //     setOwner((prev) => ({ ...prev, neighborhood: e  }));
 //   }
@@ -78,7 +78,7 @@
 //   }
 
 //   function handleTypes(e){
-   
+
 //     setOwner((prev)=> ({...prev, types: e}))
 //   }
 
@@ -99,8 +99,6 @@
 //       })
 //   }
 
-
-  
 //   }
 
 //   //validate function for inputs
@@ -111,14 +109,13 @@
 //     const regexPassword =
 //       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm;
 
-    
 //     //   if (!owner.username) {
 //     //     errors.username = `El nombre es requerido`;
 //     //     errors.hasErrors = true;
 //     // } else if (!/^[a-zA-Z\s]{5,20}$/.test(owner.username)) {
 //     //     errors.username = `El nombre debe ser letras entre 5 y 20 caracteres`;
 //     //     errors.hasErrors = true;
-//     // }   
+//     // }
 
 //       //  if (!owner.email) {
 //       //       errors.email = `El email es requerido`;
@@ -126,13 +123,13 @@
 //       //   }else if (!regexEmail.test(owner.email)) {
 //       //     errors.email = `El email debe ser una dirección válida`;
 //       //     errors.hasErrors = true;
-          
+
 //       // } // como esta planteado en client no va a poder registrarse si es mail empresa. Podemos cambiarlo alla
 
 //       // if (!owner.password) {
 //       //   errors.password = "La contraseña es requerida";
 //       //   errors.hasErrors = true;
-      
+
 //       // } else if (!regexPassword.test(owner.password)) {
 //       //   errors.password =
 //       //   "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
@@ -213,16 +210,14 @@
 //           </div>
 //           <div>
 
-
 //             <label className='inputText'>Precio</label>
 //           <Select className='selectOptions' options={priceOptions} value={owner.price} name={'price'} onChange={(e) => handlePrice(e)} />
-          
+
 //           </div>
 //           <div>
 //           <label className='inputText'>Tipo de comida</label>
 //           <Select className='selectOptions' options={foodTypes} isMulti={true} value={owner.types} name={'types'} onChange={(e) => handleTypes(e)} />
 
-      
 //           </div>
 //           <div>
 //             <textarea
@@ -251,7 +246,7 @@
 //         <div>
 //            {/* <button>Registra tu restaurante!</button>  */}
 //            <button type={'submit'} disabled={errors.hasErrors}
-//            onSubmit={e => handleSubmit(e)}>Registra tu restaurante!</button> 
+//            onSubmit={e => handleSubmit(e)}>Registra tu restaurante!</button>
 //         </div>
 //       </form>
 //     </div>
