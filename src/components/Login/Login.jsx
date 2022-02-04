@@ -35,18 +35,19 @@ export default function Login(){
       function handleSubmit(e){
           e.preventDefault()
           let userMatch = allUsers.find(e=>e.email===input.user)
-          if(!userMatch){
-              alert('mail incorrecto')
-          }else {
-              if(userMatch.password !== input.password)
-              alert('password incorrecto')
-          }
-          const cookies= new Cookies();
-        cookies.set('user', input.user,{path:'/'})
-          cookies.set('password', input.password,{path:'/'})
-          history.push('/home')
-          
-      }
+            if(!userMatch){
+                alert('mail incorrecto')
+            }
+            if(userMatch.password !== input.password){
+              alert('password incorrecto')}
+            else{
+              const cookies= new Cookies();
+              cookies.set('user', input.user,{path:'/'})
+              cookies.set('password', input.password,{path:'/'})
+              history.push('/home')
+            }
+        }
+      
          
     return(
         <>            

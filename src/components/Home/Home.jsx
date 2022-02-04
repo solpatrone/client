@@ -7,7 +7,7 @@ import './Home.css'
 import Navbar from '../NavBar/Navbar'
 import Landingpage from '../LandingPage/Landingpage' 
 import Cookies from 'universal-cookie';
-import Logout from '../Logout.jsx/Logout';
+import Logout from '../Logout/Logout';
 
 export default function Home(){
     
