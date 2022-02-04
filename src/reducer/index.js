@@ -1,9 +1,11 @@
-import { GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_USERS } from "../actions/types";
+import { GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_USERS, GET_RESTO_NAME } from "../actions/types";
 
 const initialState = {
     clients: [],
     owners: [],
     user: {},
+    restaurants: [],
+    allRestaurants: []
     
 }
 
@@ -11,7 +13,14 @@ export default function rootReducer(state = initialState, action){
     switch(action.type){
         case GET_RESTOS:
             return{
-                ...state
+                ...state,
+                restaurants: action.payload,
+                allRestaurants: action.payload
+            }
+        case GET_RESTO_NAME:
+            return{
+                ...state,
+                restaurants: action.payload
             }
         case CREATE_CLIENT:
             let exists = state.clients.find(u => u.email === action.payload.email)
@@ -41,6 +50,7 @@ export default function rootReducer(state = initialState, action){
                     ...state,
                     user: [...state, action.payload]
                 }
+           
         default:
             return {...state}
     }
