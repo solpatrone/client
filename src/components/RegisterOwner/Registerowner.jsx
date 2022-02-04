@@ -1,65 +1,65 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
-import Select from "react-select";
-import "./Registerowner.css";
-import { createOwner } from "../../actions";
+// import { useDispatch, useSelector } from "react-redux";
+// import React, { useState } from "react";
+// import { useHistory } from "react-router-dom";
+// import Select from "react-select";
+// import "./Registerowner.css";
+// import { createOwner } from "../../actions";
 
-// export default function RegisterOwner() {
-//   const history = useHistory();
-//   let dispatch = useDispatch();
+// // export default function RegisterOwner() {
+// //   const history = useHistory();
+// //   let dispatch = useDispatch();
 
-//   let neighborhoodOptions = [
-//     {name: 'palermo', label: 'Palermo', value:'palermo'},
-//     {name: 'belgrano', label: 'Belgrano', value:'belgrano'},
-//     {name: 'recoleta', label: 'Recoleta', value:'Recoleta'}
-//   ]
+// //   let neighborhoodOptions = [
+// //     {name: 'palermo', label: 'Palermo', value:'palermo'},
+// //     {name: 'belgrano', label: 'Belgrano', value:'belgrano'},
+// //     {name: 'recoleta', label: 'Recoleta', value:'Recoleta'}
+// //   ]
 
-//   let priceOptions = [
-//     {name: 'one', label: '$', value:'one'},
-//     {name: 'two', label: '$$', value:'two'},
-//     {name: 'three', label: '$$$', value:'three'},
-//     {name: 'four', label: '$$$$', value:'four'},
-//     {name: 'five', label: '$$$$$', value:'five'}
+// //   let priceOptions = [
+// //     {name: 'one', label: '$', value:'one'},
+// //     {name: 'two', label: '$$', value:'two'},
+// //     {name: 'three', label: '$$$', value:'three'},
+// //     {name: 'four', label: '$$$$', value:'four'},
+// //     {name: 'five', label: '$$$$$', value:'five'}
 
-//   ]
+// //   ]
 
-//   let foodTypes = [
-//     {name: "type1", label: "Vegana", value: "type1"},
-//     {name: "type2", label: "Vegetariana", value: "type2"},
-//     {name: "type3", label: "Italiana", value: "type3"}
-//   ]
+// //   let foodTypes = [
+// //     {name: "type1", label: "Vegana", value: "type1"},
+// //     {name: "type2", label: "Vegetariana", value: "type2"},
+// //     {name: "type3", label: "Italiana", value: "type3"}
+// //   ]
 
-//   //owner object
-//   const [owner, setOwner] = useState({
-//     restoName: "",
-//     street: "",
-//     number: 0,
-//     price: "",
-//     neighborhood: "",
-//     types: [],
-//     description: "",
-//     images: [],
-//   });
+// //   //owner object
+// //   const [owner, setOwner] = useState({
+// //     restoName: "",
+// //     street: "",
+// //     number: 0,
+// //     price: "",
+// //     neighborhood: "",
+// //     types: [],
+// //     description: "",
+// //     images: [],
+// //   });
 
-//ver para inputs de solo letras ej: nombre
-let onlyLetters = (e) => {
-  if (!/[a-zA-Z\s]/.test(e.key)) {
-    e.preventDefault();
-  }
-};
-// en el input poner: onKeyPress={onlyLetters}
+// //ver para inputs de solo letras ej: nombre
+// let onlyLetters = (e) => {
+//   if (!/[a-zA-Z\s]/.test(e.key)) {
+//     e.preventDefault();
+//   }
+// };
+// // en el input poner: onKeyPress={onlyLetters}
 
-//ver para numero de direccion
-let onlyNumbers = (e) => {
-  if (!/[0-9]/.test(e.key)) {
-    e.preventDefault();
-  }
-};
-// en el input poner: onKeyPress={onlyLetters}
+// //ver para numero de direccion
+// let onlyNumbers = (e) => {
+//   if (!/[0-9]/.test(e.key)) {
+//     e.preventDefault();
+//   }
+// };
+// // en el input poner: onKeyPress={onlyLetters}
 
-//error objects
-const [errors, setError] = useState({ hasErrors: true });
+// //error objects
+// const [errors, setError] = useState({ hasErrors: true });
 
 //   //flag for submit
 //   const [isSubmit, setIsSubmit] = useState(false);
