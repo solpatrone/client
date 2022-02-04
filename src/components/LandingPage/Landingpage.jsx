@@ -1,17 +1,16 @@
 import React from "react";
 import SearchBar from "../SearchBar/Searchbar";
-import table from "../../assets/table.jpg"
-import "./Landingpage.css"
+import style from  "./Landingpage.module.css"
 
 
 function Landingpage() {
   return (
-    <div class="container">
-    <div class ="wrapper">
+    <div className={style.container}>
+    <div className ={style.wrapper}>
     <h3>Encontrá el mejor Restaurant en CABA y reservá tu mesa</h3>
       <SearchBar />
     </div>
-    <div class="pic">
+    <div className={style.pic}>
     
     </div>
   
