@@ -10,14 +10,23 @@ import Cookies from 'universal-cookie';
 import Logout from '../Logout/Logout';
 
 export default function Home(){
-    
+
     const cookies= new Cookies();
+    console.log(cookies);
+    const restoName= cookies.get('restoName');
+    
     return (
         <div>
 
             <Navbar/>
             <Landingpage/>
-            <h3>usuario:{cookies.get('user')}</h3>
+                      
+           
+                <h3>Usuario: {cookies.get('name')}</h3>
+              {
+                  restoName? <h3>Resto: {cookies.get('restoName')} </h3>: ""
+              }
+                
              <Logout/>
         </div>
     )

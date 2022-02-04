@@ -103,7 +103,7 @@ let onlyNumbers = (e) => {
         description: "",
         images: [],
       })
-  }
+  }history.push('/Login')
 
 
   

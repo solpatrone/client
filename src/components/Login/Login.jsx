@@ -11,9 +11,9 @@ export default function Login(){
     
     const owner = useSelector(state=> state.owners)    
     const client = useSelector(state=>state.clients)
-
     const allUsers= owner.concat(client)
-    console.log(client)
+
+    console.log('hola',client)
 
     const [input, setInput]= React.useState({
         user:"",
@@ -44,6 +44,9 @@ export default function Login(){
               const cookies= new Cookies();
               cookies.set('user', input.user,{path:'/'})
               cookies.set('password', input.password,{path:'/'})
+              cookies.set('name', allUsers[0].name||allUsers[0].username ,{path:'/'})
+              const restoName = allUsers[0].restoName;
+              cookies.set('restoName', restoName ? restoName : '' ,{path:'/'})
               history.push('/home')
             }
         }
