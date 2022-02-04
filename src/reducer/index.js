@@ -4,7 +4,7 @@ const initialState = {
     clients: [],
     owners: [],
     user: {},
-    
+    prueba: 5
 }
 
 export default function rootReducer(state = initialState, action){

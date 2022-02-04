@@ -80,7 +80,7 @@ export default function RegisterUser() {
                 email: '',
                 password: ''
             })
-        }
+        }history.push('/Login')
     }
 
     return isSubmit ? (<div>
