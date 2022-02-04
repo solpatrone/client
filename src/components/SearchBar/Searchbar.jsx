@@ -3,11 +3,11 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 
 function Searchbar() {
-  const resto = ["bilbao", "la dominga", "jhonny b good", "bilbao2", "el cuartito"];
+  const resto = ["bilbao", "la dominga", "jhonny b good", "bilbao2"];
   const dispatch = useDispatch();
   const [restaurantName, setRestaurantName] = useState("");
   const [suggestion, setSuggestion] = useState([]);
-  const [showOptions, setShowOptions] = useState(false);
+  const [error, setError] = useState(false);
 
   function handleInputChange(e) {
     e.preventDefault();
@@ -23,20 +23,21 @@ function Searchbar() {
   function searchMatch(restaurantName) {
     if (!restaurantName) {
       setSuggestion([]);
-      setShowOptions(false);
+      setError(false)
     } else {
       let matches = resto.filter(
         (r) => r.toLowerCase().indexOf(restaurantName.toLocaleLowerCase()) > -1
       );
-      if (matches) {
-        setShowOptions(true);
+      if (matches.length) {
         setSuggestion(matches);
+        setError(false);
+      } else {
+        setError(true);
       }
     }
   }
   const selectElementHandler = (restaurant) => {
     setRestaurantName(restaurant);
-    setShowOptions(false);
   };
 
   return (
@@ -47,17 +48,18 @@ function Searchbar() {
         placeholder="Nombre del Restaurant..."
         onChange={(e) => handleInputChange(e)}
       />
-      {
-      restaurantName &&
-        suggestion &&
+      {!error && suggestion ? (
         suggestion.map((el, index) => {
           return (
             <div key={index} onClick={() => selectElementHandler(el)}>
               {el}
             </div>
           );
-        })}
-      <button type="submit" onClick={(e) => handleSubmit(e)}>
+        })
+      ) : (
+        <div>Restaurant no disponible</div>
+      )}
+      <button type="submit" onClick={(e) => handleSubmit(e)} disabled={error}>
         Buscar
       </button>
     </div>

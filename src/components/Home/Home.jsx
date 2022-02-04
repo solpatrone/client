@@ -14,6 +14,7 @@ export default function Home(){
     const cookies= new Cookies();
     return (
         <div>
+
             <Navbar/>
             <Landingpage/>
             <h3>usuario:{cookies.get('user')}</h3>

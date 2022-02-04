@@ -7,10 +7,11 @@ import Cookies from 'universal-cookie';
 export default function Login(){
 
     const history = useHistory()
+    const dispatch= useDispatch()
     const owner = useSelector(state=> state.owners)    
-    const client = useSelector(state=>state.clients)    
+    const client = useSelector(state=>state.clients)
+    const prueba = useSelector(state=>state.prueba)
     const allUsers= owner.concat(client)
-
     console.log(client)
 
     const [input, setInput]= React.useState({
@@ -35,18 +36,12 @@ export default function Login(){
           let userMatch = allUsers.find(e=>e.email===input.user)
           if(!userMatch){
               alert('mail incorrecto')
+          }else {
+              if(userMatch.password !== input.password)
+              alert('passwordf inco')
           }
-          if(userMatch.password !== input.password){
-                  alert('password incorrecto')
-              }else{
-                  const cookies = new Cookies();
-                  cookies.set('user', input.user,{path:'/'})
-                  cookies.set('password', input.password ,{path:'/'})
-                  history.push('/home')
-
-              }
-          }
-      
+          history.push('/home')
+      }
          
     return(
         <>            
