@@ -12,6 +12,9 @@ import Filters from '../Filters/Filters';
 
 export default function Home(){
 
+let dispatch = useDispatch
+
+
     return (
         <div>
 

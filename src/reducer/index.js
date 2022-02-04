@@ -4,6 +4,7 @@ const initialState = {
     clients: [],
     owners: [],
     user: {},
+    restaurants: []
     
 }
 
@@ -11,7 +12,8 @@ export default function rootReducer(state = initialState, action){
     switch(action.type){
         case GET_RESTOS:
             return{
-                ...state
+                ...state,
+                restaurants: [...state.restaurants, action.payload]
             }
         case CREATE_CLIENT:
             let exists = state.clients.find(u => u.email === action.payload.email)
@@ -41,6 +43,7 @@ export default function rootReducer(state = initialState, action){
                     ...state,
                     user: [...state, action.payload]
                 }
+           
         default:
             return {...state}
     }

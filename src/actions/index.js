@@ -19,3 +19,14 @@ export  function getUseres(){
         })
     }  
 }
+
+export function getRestos(){
+    return async function(dispatch){
+        let json = await axios.get("http://localhost:3001/restaurants")
+        let data = json.data
+        return dispatch({
+            type: GET_RESTOS,
+            payload: data
+        })
+    }
+}
