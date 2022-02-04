@@ -4,8 +4,9 @@ import { GoogleLogin } from 'react-google-login';
 import {useDispatch, useSelector} from 'react-redux';
 import Cookies from 'universal-cookie';
 
-export default function Login(){
 
+export default function Login() {
+  const history = useHistory();
 
     const history = useHistory()
     
@@ -18,8 +19,7 @@ export default function Login(){
     const [input, setInput]= React.useState({
         user:"",
         password:"",
-    })
-    
+    })    
     
     const responseGoogle = (response) => {
         console.log(response);
@@ -51,37 +51,42 @@ export default function Login(){
               history.push('/home')
             }
         }
-               
-    return(
-        <>            
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <div>Usuario: </div>
-                    <input type='text' 
-                    value= {input.user} 
-                    name='user' 
-                    placeholder="Ingrese su usuario" 
-                    onChange={(e)=>handleChange(e)}/> 
-                </div>
-                <div>
-                    <div>Contraseña: </div>
-                    <input type='password' 
-                    value={input.password} 
-                    name='password' 
-                    placeholder="Ingrese su contraseña" 
-                    onChange={(e)=>handleChange(e)}/> 
-                </div>
+                 
 
-               <button type='submit' >Iniciar sesíon</button>
-            </form>
+  return (
+    <>
+      <form onSubmit={handleSubmit}>
+        <div>
+          <div>Usuario: </div>
+          <input
+            type="text"
+            value={input.user}
+            name="user"
+            placeholder="Ingrese su usuario"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
+        <div>
+          <div>Contraseña: </div>
+          <input
+            type="password"
+            value={input.password}
+            name="password"
+            placeholder="Ingrese su contraseña"
+            onChange={(e) => handleChange(e)}
+          />
+        </div>
 
-            <GoogleLogin
-                        clientId="573681437399-riki1t5m65bqd6q5h98o2r0f9qnolp8k.apps.googleusercontent.com"
-                        buttonText="Iniciar sesión"
-                        onSuccess={responseGoogle}
-                        onFailure={responseGoogle}
-                        cookiePolicy={'single_host_origin'}
-                    />
-        </>
-    )
+        <button type="submit">Iniciar sesíon</button>
+      </form>
+
+      <GoogleLogin
+        clientId="573681437399-riki1t5m65bqd6q5h98o2r0f9qnolp8k.apps.googleusercontent.com"
+        buttonText="Iniciar sesión"
+        onSuccess={responseGoogle}
+        onFailure={responseGoogle}
+        cookiePolicy={"single_host_origin"}
+      />
+    </>
+  );
 }
