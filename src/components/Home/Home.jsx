@@ -16,7 +16,7 @@ import Logout from '../Logout/Logout';
 export default function Home(){
     const dispatch = useDispatch()
 
-    const cookies= new Cookies();
+   
     const allRestaurants = useSelector((state)=> state.restaurants)
     
     
@@ -38,11 +38,11 @@ export default function Home(){
 
             <Navbar/>
             <Landingpage/>                                 
-              
+            <Filters/>
             {usuario?   <h3>Usuario: {cookies.get('name')}</h3> : ""}                
             {restoName? <h3>Resto: {cookies.get('restoName')} </h3>: ""}
             {usuario?  <Logout/>:""}
-             
+             <Cards restaurants={allRestaurants}/>
         </div>
     )
 }
