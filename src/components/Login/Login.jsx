@@ -47,8 +47,7 @@ export default function Login(){
               history.push('/home')
             }
         }
-      
-         
+               
     return(
         <>            
             <form onSubmit={handleSubmit}>
