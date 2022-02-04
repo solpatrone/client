@@ -1,12 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/restaurante.png";
-import "./Navbar.css";
+import styles from "./Navbar.module.css";
 
 export default function Navbar() {
   return (
-    <div class="navBar">
-      <div class="links">
+    <div className={styles.navBar}>
+      <div className={styles.links}>
         <NavLink to="/loginrestaurant">
           <p>Mi Restaurant</p>
         </NavLink>
@@ -15,12 +15,12 @@ export default function Navbar() {
         </NavLink>
       </div>
 
-      <div class="mainNavbar">
+      <div className={styles.mainNavbar}>
         <NavLink to="/home">
-          <img class="logo" src={logo} alt="img not found" />
+          <img className={styles.logo} src={logo} alt="img not found" />
         </NavLink>
-        <div class="links" class="user">
-          <NavLink to="/login">
+        <div className={styles.links} className={styles.user}>          
+        <NavLink to="/login">
             <p>Iniciar sesión</p>
           </NavLink>
           <NavLink to="/registerclient">

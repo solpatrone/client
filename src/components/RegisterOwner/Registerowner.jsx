@@ -60,7 +60,6 @@ let onlyNumbers = (e) => {
       e.preventDefault();
   }
 }
-// en el input poner: onKeyPress={onlyLetters}
 
   //error objects
   const [errors, setError] = useState({hasErrors: true});
@@ -74,13 +73,11 @@ let onlyNumbers = (e) => {
   }
   
   function handleNeighborhood(e) {
-    
     setOwner((prev) => ({ ...prev, neighborhood: e  }));
   }
 
   function handlePrice(e) {
-    
-    setOwner((prev) => ({ ...prev, price: e  }));
+     setOwner((prev) => ({ ...prev, price: e  }));
   }
 
   function handleTypes(e){
@@ -90,15 +87,33 @@ let onlyNumbers = (e) => {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //dispatch(createOwner(owner))
-    setIsSubmit(true);
+    if (!validate(owner).hasErrors) {
+      dispatch(createOwner(owner))
+      setIsSubmit(true);
+      setOwner({
+        username: "",
+        password: "",
+        email: "",
+        restoName: "",
+        street: "",
+        number: 0,
+        price: "",
+        neighborhood: "",
+        types: [],
+        description: "",
+        images: [],
+      })
+  }
+
+
+  
   }
 
   //validate function for inputs
-  function validate(values) {
+  function validate(owner) {
     const errors = { hasErrors: false };
+    console.log("input", owner)
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    //regex password minimo ocho char, mayuscula, minuscula y numero
     const regexPassword =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm;
 
@@ -126,7 +141,7 @@ let onlyNumbers = (e) => {
       
       } else if (!regexPassword.test(owner.password)) {
         errors.password =
-          "La contraseña debe incluir al menos 8 caracteres entre mayusculas, minusculas y al menos un número)";
+        "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
           errors.hasErrors = true;
         }
 
@@ -140,7 +155,7 @@ let onlyNumbers = (e) => {
       errors.hasErrors = true;
     }
 
-    if (owner.number < 0) {
+    if (!owner.number) {
       errors.number = "El número debe ser mayor a cero";
       errors.hasErrors = true;
     }
@@ -153,7 +168,7 @@ let onlyNumbers = (e) => {
     return errors;
   }
 
-  return Object.keys(errors).length === 0 && isSubmit ? (
+  return isSubmit ? (
     <div>
       <h3>Se ha registrado correctamente</h3>
       <button onClick={() => history.push("/home")}>Volver a Home</button>
@@ -216,6 +231,7 @@ let onlyNumbers = (e) => {
               autoComplete="off"
               onChange={(e) => handleChange(e)}
             />
+            <p>{errors.restoName}</p>
           </div>
           <div>
             <label>Direccion</label>
@@ -229,7 +245,7 @@ let onlyNumbers = (e) => {
             />
              <p>{errors.street}</p>
             <input
-              type="number"
+              type="text"
               name="number"
               onKeyPress={onlyNumbers}
               value={owner.number}
@@ -240,8 +256,6 @@ let onlyNumbers = (e) => {
             <p>{errors.number}</p>
             <label className='inputText'>Barrio</label>
           <Select className='selectOptions' options={neighborhoodOptions} value={owner.neighborhood} name={'neighborhood'} onChange={(e) => handleNeighborhood(e)} />
-
-            <p>{errors.address}</p>
           </div>
           <div>
 
@@ -267,7 +281,7 @@ let onlyNumbers = (e) => {
             ></textarea>
             <p>{errors.description}</p>
           </div>
-          <div>
+          {/* <div>
             <label >Imágenes</label>
             <input
               type="file"
@@ -275,13 +289,14 @@ let onlyNumbers = (e) => {
               name="images"
               value={owner.images}
               autoComplete="off"
+              multiple
               onChange={(e) => handleChange(e)}
             />
-          </div>
+          </div> */}
         </div>
         <div>
            {/* <button>Registra tu restaurante!</button>  */}
-           <button type={'submit'}  
+           <button type={'submit'} disabled={errors.hasErrors}
            onSubmit={e => handleSubmit(e)}>Registra tu restaurante!</button> 
         </div>
       </form>
