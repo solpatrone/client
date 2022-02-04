@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_RESTO_NAME} from './types'
+import {GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_RESTO_NAME,GET_RESTO_DETAILS} from './types'
 
 export function createClient(info) {
     return {type: CREATE_CLIENT, payload: info}
@@ -36,6 +36,15 @@ export function getRestoByName(name){
         let json = await axios.get(`http://localhost:3001/restaurant?name=${name}`)
         return dispatch({
             type: GET_RESTO_NAME,
+            payload: json.data
+        })
+    }
+}
+export function getRestoDetails(id){
+    return async function(dispatch){
+        let json = await axios.get(`http://localhost:3001/restaurant/${id}`)
+        return dispatch({
+            type: GET_RESTO_DETAILS,
             payload: json.data
         })
     }

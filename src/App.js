@@ -5,6 +5,7 @@ import Registerclient from './components/RegisterClient/Registerclient'
 import RegisterOwner from "./components/RegisterOwner/Registerowner";
 import Home from './components/Home/Home'
 import Login from "./components/Login/Login";
+import Details from "./components/Details/Details";
 
 
 
@@ -18,6 +19,7 @@ function App() {
        <Route path={'/registerclient'} render={() => <Registerclient/>} />
        <Route path={'/registerOwner'} render={() => <RegisterOwner/>} />
        <Route path={'/Login'} render={() => <Login/>} />
+       <Route path ={'/restaurants/:id'} render= {() => <Details/>} />
        
       
     </div>
