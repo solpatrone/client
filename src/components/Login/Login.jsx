@@ -2,15 +2,20 @@ import React, {  useState } from "react";
 import  { useHistory } from "react-router-dom"
 import { GoogleLogin } from 'react-google-login';
 import {useDispatch, useSelector} from 'react-redux';
+<<<<<<< HEAD
 import Cookies from "universal-cookie/es6";
+=======
+import Cookies from 'universal-cookie';
+>>>>>>> develop
 
 export default function Login(){
 
+
     const history = useHistory()
-    const dispatch= useDispatch()
+    
     const owner = useSelector(state=> state.owners)    
     const client = useSelector(state=>state.clients)
-    const prueba = useSelector(state=>state.prueba)
+
     const allUsers= owner.concat(client)
     console.log(client)
 
