@@ -13,9 +13,6 @@ export default function Login(){
 
     console.log(client)
 
-    //const [loginUsername,serLoginUsername]=useState('')
-    //const [loginPassword,serLoginPassword]=useState('')
-
     const [input, setInput]= React.useState({
         user:"",
         password:"",
@@ -38,15 +35,18 @@ export default function Login(){
           let userMatch = allUsers.find(e=>e.email===input.user)
           if(!userMatch){
               alert('mail incorrecto')
-          }else {
-              if(userMatch.password !== input.password)
-              alert('password incorrecto')
           }
-          const cookies = new Cookies();
-          cookies.set('user', input.user,{path:'/'})
-          cookies.set('password', input.password ,{path:'/'})
-          history.push('/home')
-      }
+          if(userMatch.password !== input.password){
+                  alert('password incorrecto')
+              }else{
+                  const cookies = new Cookies();
+                  cookies.set('user', input.user,{path:'/'})
+                  cookies.set('password', input.password ,{path:'/'})
+                  history.push('/home')
+
+              }
+          }
+      
          
     return(
         <>            

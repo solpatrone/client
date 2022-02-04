@@ -7,16 +7,17 @@ import './Home.css'
 import Navbar from '../NavBar/Navbar'
 import Landingpage from '../LandingPage/Landingpage' 
 import Cookies from 'universal-cookie';
+import Logout from '../Logout.jsx/Logout';
 
 export default function Home(){
-
+    
     const cookies= new Cookies();
     return (
         <div>
             <Navbar/>
             <Landingpage/>
-           <h3>usuario:{cookies.get('user')}</h3>
-
+            <h3>usuario:{cookies.get('user')}</h3>
+             <Logout/>
         </div>
     )
 }
