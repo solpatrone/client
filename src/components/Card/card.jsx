@@ -4,21 +4,24 @@ import s from "./card.module.css"
 import defaultImg from '../../assets/table.jpg'
 
 
-function card() {
+function card({name, photo, neighborhood, rating}) {
   return (
     <div className={s.container}>
         <div>
+          
             <div>
-            <img src={defaultImg} alt = "img not found" width = "120px" height= "120px"/>
+            <h2>{name}</h2>
+            </div>
+            <div>
+            <img src={photo? photo :  defaultImg} alt = "img not found" width = "120px" height= "120px"/>
             </div>
             <div className={s.line}>
-                <h4>$$</h4>
-                <h4>4 estrellas</h4> 
+                <h4>{rating}</h4> 
             </div>
         </div>
         <div>
-            <h2>McDonalds</h2>
-            <h4>Palermo</h4>
+       
+            <h4>{neighborhood && neighborhood.map((n,i) => {return n + (i < (neighborhood.length-1) ?  ', ' : '')})}</h4>
         </div>
 
     </div>
