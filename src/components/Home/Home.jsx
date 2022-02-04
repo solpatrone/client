@@ -14,20 +14,17 @@ export default function Home(){
     const cookies= new Cookies();
     console.log(cookies);
     const restoName= cookies.get('restoName');
-    
+    const usuario = cookies.get('name');
     return (
         <div>
 
             <Navbar/>
-            <Landingpage/>
-                      
-           
-                <h3>Usuario: {cookies.get('name')}</h3>
-              {
-                  restoName? <h3>Resto: {cookies.get('restoName')} </h3>: ""
-              }
-                
-             <Logout/>
+            <Landingpage/>                                 
+              
+            {usuario?   <h3>Usuario: {cookies.get('name')}</h3> : ""}                
+            {restoName? <h3>Resto: {cookies.get('restoName')} </h3>: ""}
+            {usuario?  <Logout/>:""}
+             
         </div>
     )
 }
