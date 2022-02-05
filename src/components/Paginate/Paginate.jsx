@@ -58,6 +58,7 @@
 // }
 
 import React from "react";
+import s from "./Paginate.module.css";
 
 export default function Paginate({ restosPerPage, allRestaurants, paginado }) {
   const pageNumbers = [];
