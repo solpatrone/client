@@ -8,7 +8,6 @@ const initialState = {
     allRestaurants: [],
     neighborhoods: [],
     details: [],
-    
 }
 
 export default function rootReducer(state = initialState, action){
@@ -58,6 +57,7 @@ export default function rootReducer(state = initialState, action){
                     neighborhoods: action.payload
                 }
            
+
            case GET_RESTO_DETAILS:
                return{
                    ...state,
