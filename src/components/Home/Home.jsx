@@ -2,7 +2,6 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import "./Home.css";
 import Navbar from "../NavBar/Navbar";
 import Landingpage from "../LandingPage/Landingpage";
 import Cards from "../Cards/Cards";
@@ -10,6 +9,7 @@ import Paginate from "../Paginate/Paginate";
 import { getRestos, getNeighborhoods } from "../../actions/index";
 import Cookies from "universal-cookie/es6";
 import Logout from "../Logout/Logout";
+import s from "./Home.module.css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -122,7 +122,7 @@ export default function Home() {
   }, []);
 
   return (
-    <div>
+    <div className={s.container}>
       <Navbar />
       <Landingpage />
       <Paginate
