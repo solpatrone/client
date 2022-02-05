@@ -45,7 +45,7 @@ function Details() {
             <div className={styles.address_icons}>
               <div className={styles.address}>
               <p>Direccion: {myRestaurant[0].address.split(",", 1) + ", "+ myRestaurant[0].neighborhood[0] }</p>
-              <p>Contacto: {myRestaurant[0].email}</p>
+              {myRestaurant[0].email && <p>Contacto: {myRestaurant[0].email}</p>}
               </div>
               <div className={styles.icons}>
               <h3>{[...Array(Number(myRestaurant[0].rating)).keys()].map(() => <RiStarFill/>)}</h3>
