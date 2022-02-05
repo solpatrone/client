@@ -7,7 +7,9 @@ import { BsCurrencyDollar} from 'react-icons/bs';
 import {RiStarFill} from 'react-icons/ri'
 import styles from "./Details.module.css"
 import {BiCommentDetail} from 'react-icons/bi'
-import Review from "../Reviews/Review";
+import ReviewsComments from "../ReviewsComments/ReviewsComments";
+import Review from "../Reviews/Review"
+
 
 
 function Details() {
@@ -59,12 +61,12 @@ function Details() {
             <div className={styles.reservations}>
             <button className={styles.button}>Reservá tu mesa</button>
             <button className={styles.button} onClick={(e)=>handdleClick(e)}>Dejá tu reseña <BiCommentDetail/> </button>
-            {reviewForm && <reviewForm/>}
+            {review && <Review/>}
             </div>  
         </div>
          { review && 
             <div className={styles.reviews}>
-            <Review/>
+            <ReviewsComments/>
            </div>  
          }
           
