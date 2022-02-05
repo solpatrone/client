@@ -1,4 +1,4 @@
-import { GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_USERS, GET_RESTO_NAME, GET_NEIGHBORHOODS } from "../actions/types";
+import { GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_USERS, GET_RESTO_NAME, GET_NEIGHBORHOODS, GET_RESTO_DETAILS,CLEAR_DETAILS_STATE } from "../actions/types";
 
 const initialState = {
     clients: [],
@@ -6,7 +6,8 @@ const initialState = {
     user: {},
     restaurants: [],
     allRestaurants: [],
-    neighborhoods: []
+    neighborhoods: [],
+    details: [],
     
 }
 
@@ -57,6 +58,17 @@ export default function rootReducer(state = initialState, action){
                     neighborhoods: action.payload
                 }
            
+           case GET_RESTO_DETAILS:
+               return{
+                   ...state,
+                   details: action.payload
+               }
+            case CLEAR_DETAILS_STATE:
+                return{
+                    ...state,
+                    details: []
+                }
+               
         default:
             return {...state}
     }

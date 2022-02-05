@@ -2,14 +2,8 @@ import React, {  useState } from "react";
 import  { useHistory } from "react-router-dom"
 import { GoogleLogin } from 'react-google-login';
 import {useDispatch, useSelector} from 'react-redux';
-<<<<<<< HEAD
-import Cookies from "universal-cookie/es6";
-
-export default function Login(){
-=======
 import Cookies from 'universal-cookie';
 import style from './Login.module.css' 
->>>>>>> develop
 
 
 export default function Login() {
@@ -40,42 +34,6 @@ export default function Login() {
       }
 
       function handleSubmit(e){
-<<<<<<< HEAD
-        e.preventDefault()
-        let userMatch = allUsers.find(e=>e.email===input.user)
-          if(!userMatch){
-              alert('mail incorrecto')
-          }
-          if(userMatch.password !== input.password){
-            alert('password incorrecto')}
-          else{
-            const cookies= new Cookies();
-            cookies.set('user', input.user,{path:'/'})
-            cookies.set('password', input.password,{path:'/'})
-            history.push('/home')
-          }
-      }
-         
-    return(
-        <>            
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <div>Usuario: </div>
-                    <input type='text' 
-                    value= {input.user} 
-                    name='user' 
-                    placeholder="Ingrese su usuario" 
-                    onChange={(e)=>handleChange(e)}/> 
-                </div>
-                <div>
-                    <div>Contraseña: </div>
-                    <input type='password' 
-                    value={input.password} 
-                    name='password' 
-                    placeholder="Ingrese su contraseña" 
-                    onChange={(e)=>handleChange(e)}/> 
-                </div>
-=======
           e.preventDefault()
           let userMatch = allUsers.find(e=>e.email===input.user)
             if(!userMatch){
@@ -95,7 +53,6 @@ export default function Login() {
             }
         }
                  
->>>>>>> develop
 
   return (
     <>

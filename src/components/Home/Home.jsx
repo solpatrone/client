@@ -21,7 +21,7 @@ export default function Home(){
     const allNeighborhoodsRaw = useSelector((state)=> state.neighborhoods)
     const allNeighborhoods = allNeighborhoodsRaw.map(n => {return{name: n.name, label: n.name}})
     const [restosToShow, setRestosToShow] = useState(allRestaurants)
-    console.log(allNeighborhoods)
+    //console.log(allNeighborhoods)
     //const pricedOptions = allRestaurants.map(n => {return{name: n.price.spit('')[0], label: n.price.spit('')[0]}})
     //console.log(priceOptions)
 
@@ -31,7 +31,7 @@ export default function Home(){
     let priceOptions = [
       { name: "all", label: "Precios", value: "all" },
       {name: '$', label: '$', value:'$'},
-      {name: '$$ - $$$', label: '$$ - $$$', value:'$$ - $$$'},
+      {name: '$$', label: '$$', value:'$$'},
       {name: '$$$$', label: '$$$$', value:'$$$$'},
       {name: '$$$$$', label: '$$$$$', value:'$$$$$'}
   
@@ -53,7 +53,7 @@ export default function Home(){
     function displaySelectedRestaurantes(){
         
       let restaurantesByNeighborhood = filteredByNeighborhood.value === 'all' ?  allRestaurants : allRestaurants.filter(restaurante => (restaurante.neighborhood.some(e => e === filteredByNeighborhood.name)))
-      let restaurantesByPrice = filteredByPrice.value === 'all' ? restaurantesByNeighborhood : restaurantesByNeighborhood.filter(r=> r.price === filteredByPrice.name)
+      let restaurantesByPrice = filteredByPrice.value === 'all' ? restaurantesByNeighborhood : restaurantesByNeighborhood.filter(r=> r.price.includes(filteredByPrice.name))
       let restaurantesByFood = foodTypes.value === 'all' ? restaurantesByNeighborhood : restaurantesByNeighborhood.filter( r=> r.foodTypes === filteredByNeighborhood.value)
       setRestosToShow(restaurantesByPrice)
       }
@@ -80,6 +80,7 @@ export default function Home(){
     }
     
     function handlePrice(e){
+      console.log(e)
         setFilteredByPrice(e)
     }
 
