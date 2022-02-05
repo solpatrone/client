@@ -12,7 +12,8 @@ export default function Logout(){
         cookies.set('password', '',{path:'/'})
         cookies.set('name', '',{path:'/'})
         cookies.set('restoName', '',{path:'/'})
-          history.push('/home')
+        history.push('/home')
+        console.log(cookies)
     }
 
     return(

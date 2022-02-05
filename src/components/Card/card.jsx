@@ -1,7 +1,7 @@
-
 import React from 'react';
 import s from "./card.module.css"
 import defaultImg from '../../assets/table.jpg'
+import {RiStarFill} from 'react-icons/ri'
 
 
 function card({name, photo, neighborhood, rating}) {
@@ -16,7 +16,7 @@ function card({name, photo, neighborhood, rating}) {
             <img src={photo? photo :  defaultImg} alt = "img not found" width = "120px" height= "120px"/>
             </div>
             <div className={s.line}>
-                <h4>{rating}</h4> 
+                <h4>{[...Array(Number(rating)).keys()].map(() => <RiStarFill/>)}</h4> 
             </div>
         </div>
         <div>

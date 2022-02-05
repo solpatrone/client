@@ -1,13 +1,24 @@
+// import { useDispatch, useSelector } from 'react-redux';
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import Select from "react-select";
 import "./Registerowner.css";
-import { createOwner } from "../../actions";
+import { createOwner, getNeighborhoods } from "../../actions";
 
 export default function RegisterOwner() {
   const history = useHistory();
   let dispatch = useDispatch();
+
+  const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
+  const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
+    return { name: n.name, label: n.name };
+  });
+  console.log(allNeighborhoodsRaw);
+
+  useEffect(() => {
+    dispatch(getNeighborhoods());
+  }, []);
 
   let neighborhoodOptions = [
     { name: "palermo", label: "Palermo", value: "palermo" },
@@ -35,7 +46,7 @@ export default function RegisterOwner() {
     street: "",
     number: 0,
     price: "",
-    neighborhood: "",
+    neighborhood: [],
     types: [],
     description: "",
     images: [],
@@ -85,9 +96,6 @@ export default function RegisterOwner() {
       dispatch(createOwner(owner));
       setIsSubmit(true);
       setOwner({
-        username: "",
-        password: "",
-        email: "",
         restoName: "",
         street: "",
         number: 0,
@@ -109,30 +117,32 @@ export default function RegisterOwner() {
     const regexPassword =
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm;
 
-    if (!owner.username) {
-      errors.username = `El nombre es requerido`;
-      errors.hasErrors = true;
-    } else if (!/^[a-zA-Z\s]{5,20}$/.test(owner.username)) {
-      errors.username = `El nombre debe ser letras entre 5 y 20 caracteres`;
-      errors.hasErrors = true;
-    }
+    //   if (!owner.username) {
+    //     errors.username = `El nombre es requerido`;
+    //     errors.hasErrors = true;
+    // } else if (!/^[a-zA-Z\s]{5,20}$/.test(owner.username)) {
+    //     errors.username = `El nombre debe ser letras entre 5 y 20 caracteres`;
+    //     errors.hasErrors = true;
+    // }
 
-    if (!owner.email) {
-      errors.email = `El email es requerido`;
-      errors.hasErrors = true;
-    } else if (!regexEmail.test(owner.email)) {
-      errors.email = `El email debe ser una dirección válida`;
-      errors.hasErrors = true;
-    } // como esta planteado en client no va a poder registrarse si es mail empresa. Podemos cambiarlo alla
+    //  if (!owner.email) {
+    //       errors.email = `El email es requerido`;
+    //       errors.hasErrors = true;
+    //   }else if (!regexEmail.test(owner.email)) {
+    //     errors.email = `El email debe ser una dirección válida`;
+    //     errors.hasErrors = true;
 
-    if (!owner.password) {
-      errors.password = "La contraseña es requerida";
-      errors.hasErrors = true;
-    } else if (!regexPassword.test(owner.password)) {
-      errors.password =
-        "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
-      errors.hasErrors = true;
-    }
+    // } // como esta planteado en client no va a poder registrarse si es mail empresa. Podemos cambiarlo alla
+
+    // if (!owner.password) {
+    //   errors.password = "La contraseña es requerida";
+    //   errors.hasErrors = true;
+
+    // } else if (!regexPassword.test(owner.password)) {
+    //   errors.password =
+    //   "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
+    //     errors.hasErrors = true;
+    //   }
 
     if (!owner.restoName) {
       errors.restoName = "Debes ingresar el nombre de tu restaurante";
@@ -206,7 +216,7 @@ export default function RegisterOwner() {
             <label className="inputText">Barrio</label>
             <Select
               className="selectOptions"
-              options={neighborhoodOptions}
+              options={allNeighborhoods}
               value={owner.neighborhood}
               name={"neighborhood"}
               onChange={(e) => handleNeighborhood(e)}
