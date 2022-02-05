@@ -1,7 +1,9 @@
 .slider{
+  
     display: grid;
-    grid-column-gap: 50px;
-  grid-template-columns: 350px 350px 350px;
+    grid-gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
     width: auto ;
+    justify-content: space-around;
 }
 
