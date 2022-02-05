@@ -1,0 +1,10 @@
+.slider{
+    display: grid;
+    align-items: center;
+    grid-gap: 15px;
+    grid-template-columns: repeat(4, 1fr);
+    width: auto ;
+    justify-content: space-around;
+}
+
+ 

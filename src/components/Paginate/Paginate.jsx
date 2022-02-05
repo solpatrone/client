@@ -58,6 +58,7 @@
 // }
 
 import React from "react";
+import s from "./Paginate.module.css"
 
 export default function Paginate({ restosPerPage, allRestaurants, paginado }) {
   const pageNumbers = [];
@@ -67,10 +68,10 @@ export default function Paginate({ restosPerPage, allRestaurants, paginado }) {
 
   return (
     <div>
-      <ul>
+      <ul className={s.ul}>
         {pageNumbers &&
           pageNumbers.map((p) => (
-            <li key={p}>
+            <li className={s.list} key={p}>
               <a onClick={() => paginado(p)} href="#">
                 {p}
               </a>

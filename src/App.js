@@ -8,6 +8,7 @@ import Login from "./components/Login/Login";
 import Details from "./components/Details/Details";
 
 function App() {
+ 
   // const location = useLocation();
   return (
     <div className="App">
