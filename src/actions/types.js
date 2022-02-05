@@ -3,3 +3,4 @@ export const CREATE_CLIENT = 'CREATE_CLIENT';
 export const CREATE_OWNER = 'CREATE_OWNER';
 export const GET_USERS = 'GET_USERS';
 export const GET_RESTO_NAME = 'GET_RESTO_NAME'
+export const GET_NEIGHBORHOODS = 'GET_NEIGHBORHOODS';

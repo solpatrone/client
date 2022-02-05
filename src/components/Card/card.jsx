@@ -4,7 +4,8 @@ import s from "./card.module.css"
 import defaultImg from '../../assets/table.jpg'
 
 
-function card({name, photo, neighborhood, rating}) {
+function card({name, photo, neighborhood, rating, price}) {
+  
   return (
     <div className={s.container}>
         <div>
@@ -17,6 +18,10 @@ function card({name, photo, neighborhood, rating}) {
             </div>
             <div className={s.line}>
                 <h4>{rating}</h4> 
+            </div>
+            <div>
+                <h4>
+                {price}  </h4>
             </div>
         </div>
         <div>

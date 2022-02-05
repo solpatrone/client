@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_RESTO_NAME} from './types'
+import {GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_RESTO_NAME, GET_NEIGHBORHOODS} from './types'
 
 export function createClient(info) {
     return {type: CREATE_CLIENT, payload: info}
@@ -22,11 +22,10 @@ export  function getUseres(){
 
 export function getRestos(){
     return async function(dispatch){
-        let json = await axios.get("http://localhost:3001/restaurant")
-        let data = json.data
+        var json = await axios.get("http://localhost:3001/restaurant")
         return dispatch({
             type: GET_RESTOS,
-            payload: data
+            payload: json.data
         })
     }
 }
@@ -39,4 +38,24 @@ export function getRestoByName(name){
             payload: json.data
         })
     }
+} 
+
+export function getNeighborhoods(){
+    return async function(dispatch){
+        var json = await axios.get("http://localhost:3001/neighborhood")
+        var neighborhoods = json.data.map(function(neighborhood){
+            return {
+                ...neighborhood,
+                value: neighborhood.id,
+                label: neighborhood.name,
+                name: neighborhood.name
+            }
+        })
+        
+        return dispatch({
+            type: GET_NEIGHBORHOODS,
+            payload: neighborhoods
+        })
+    }
+
 }
