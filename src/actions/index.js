@@ -1,5 +1,6 @@
 import axios from 'axios'
-import {GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_RESTO_NAME,GET_RESTO_DETAILS, CLEAR_DETAILS_STATE} from './types'
+
+import {GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_RESTO_NAME,GET_NEIGHBORHOODS, GET_RESTO_DETAILS, CLEAR_DETAILS_STATE} from './types'
 
 export function createClient(info) {
   return { type: CREATE_CLIENT, payload: info };
@@ -52,4 +53,27 @@ export function clearDetailsState() {
   return {
     type:CLEAR_DETAILS_STATE
   };
+}
+
+
+
+
+export function getNeighborhoods(){
+    return async function(dispatch){
+        var json = await axios.get("http://localhost:3001/neighborhood")
+        var neighborhoods = json.data.map(function(neighborhood){
+            return {
+                ...neighborhood,
+                value: neighborhood.id,
+                label: neighborhood.name,
+                name: neighborhood.name
+            }
+        })
+        
+        return dispatch({
+            type: GET_NEIGHBORHOODS,
+            payload: neighborhoods
+        })
+    }
+
 }
