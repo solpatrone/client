@@ -3,6 +3,7 @@ import { NavLink } from "react-router-dom";
 import logo from "../../assets/restaurante.png";
 import styles from "./Navbar.module.css";
 import Cookies from 'universal-cookie';
+import Logout from "../Logout/Logout";
 
 export default function Navbar() {
   const cookies= new Cookies();
@@ -11,12 +12,14 @@ export default function Navbar() {
   return (
     <div className={styles.navBar}>
       <div className={styles.links}>
-                  {restoName? null: <p>Mi Restaurant</p>
+                  {usuario?  <p>Mi Restaurant</p>:null
                   }
         <NavLink to="/loginrestaurant">
         </NavLink>
         <NavLink to="/registerOwner">
-                  {restoName? null:<p>Registrar Restaurant</p>
+                  {usuario? 
+                  <p>Registrar Restaurant</p>:
+                  null
                     }
         </NavLink>
       </div>
@@ -26,15 +29,20 @@ export default function Navbar() {
           <img className={styles.logo} src={logo} alt="img not found" />
         </NavLink>
         <div className={styles.links} className={styles.user}>          
-        <NavLink to="/login">
-                  {usuario? null: <p>Iniciar sesión</p>          
+                  {!usuario?
+                  <NavLink to="/login">
+                    <p>Iniciar sesión</p>          
+                  </NavLink>:
+                  <h3>Bienvenido: {cookies.get('name')}</h3> 
                     }
-          </NavLink>
-          <NavLink to="/registerclient">
-                  {usuario? null: <p>Crear cuenta</p>
+                  {!usuario?
+                  <NavLink to="/registerclient">
+                    <p>Crear cuenta</p>
+                  </NavLink>:
+                  null
                 }
 
-          </NavLink>
+                {usuario? <Logout/> : ""}
         </div>
       </div>
     </div>

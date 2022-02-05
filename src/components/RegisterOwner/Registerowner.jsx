@@ -260,5 +260,4 @@
     </div>
   );
 }
-//rapidrestaurants@gmail.com
-//proyecto22
+

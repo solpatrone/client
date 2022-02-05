@@ -3,12 +3,12 @@ import  { useHistory } from "react-router-dom"
 import { GoogleLogin } from 'react-google-login';
 import {useDispatch, useSelector} from 'react-redux';
 import Cookies from 'universal-cookie';
+import style from './Login.module.css' 
 
 
 export default function Login() {
   const history = useHistory();
 
-    const history = useHistory()
     
     const owner = useSelector(state=> state.owners)    
     const client = useSelector(state=>state.clients)
@@ -55,6 +55,8 @@ export default function Login() {
 
   return (
     <>
+    <div className={style.container}>
+
       <form onSubmit={handleSubmit}>
         <div>
           <div>Usuario: </div>
@@ -79,7 +81,7 @@ export default function Login() {
 
         <button type="submit">Iniciar sesíon</button>
       </form>
-
+       <hr/>
       <GoogleLogin
         clientId="573681437399-riki1t5m65bqd6q5h98o2r0f9qnolp8k.apps.googleusercontent.com"
         buttonText="Iniciar sesión"
@@ -87,6 +89,7 @@ export default function Login() {
         onFailure={responseGoogle}
         cookiePolicy={"single_host_origin"}
       />
+    </div>
     </>
   );
 }
