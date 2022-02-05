@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_RESTO_NAME,GET_RESTO_DETAILS} from './types'
+import {GET_RESTOS, CREATE_CLIENT, CREATE_OWNER, GET_RESTO_NAME,GET_RESTO_DETAILS, CLEAR_DETAILS_STATE} from './types'
 
 export function createClient(info) {
   return { type: CREATE_CLIENT, payload: info };
@@ -47,4 +47,9 @@ export function getRestoDetails(id){
             payload: json.data
         })
     }
+}
+export function clearDetailsState() {
+  return {
+    type:CLEAR_DETAILS_STATE
+  };
 }
