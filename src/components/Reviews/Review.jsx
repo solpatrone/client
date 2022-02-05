@@ -1,11 +1,18 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Select from "react-select";
+import { postReview } from "../../actions";
 
 export default function Review() {
   const [review, setReview] = useState({
     rating: "",
     rev: "",
   });
+
+  const reviews = useSelector((state) => state.reviews);
+  console.log(reviews);
+  const dispatch = useDispatch();
 
   let ratings = [
     { name: "one", label: "1.0", value: "1" },
@@ -19,9 +26,18 @@ export default function Review() {
     setReview((prev) => ({ ...prev, rating: e }));
   }
 
+  function handleRev(e) {
+    setReview((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    dispatch(postReview(review));
+  }
+
   return (
     <div>
-      <form>
+      <form onSubmit={(e) => handleSubmit(e)}>
         <div>
           <Select
             className="selectRatings"
@@ -38,6 +54,7 @@ export default function Review() {
             cols="100"
             rows="10"
             placeholder="Escribe tu reseña"
+            onChange={(e) => handleRev(e)}
           ></textarea>
         </div>
         <div>
