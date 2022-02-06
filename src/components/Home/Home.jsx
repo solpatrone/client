@@ -123,6 +123,7 @@ export default function Home() {
 
   return (
     <div className={s.container}>
+      <h1>Soy home2</h1>
       <Navbar />
       <Landingpage />
       <Paginate

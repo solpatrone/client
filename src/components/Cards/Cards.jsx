@@ -10,7 +10,7 @@ export default function Cards({ restaurants }) {
         {restaurants &&
           restaurants.map((r) => {
             return (
-              <Link to={`/restaurants/${r.id}`}>
+              <Link to={`/restaurants/${r.id}`} className={style.linkCard}>
                 <div className={style.box} key={r.id}>
                   <Card
                     name={r.name}
