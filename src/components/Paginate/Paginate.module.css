@@ -1,14 +1,22 @@
-.list{
-    list-style: none;
-    border: solid black 2px;
-    display: inline-block ;
-    margin :2px;
-    align-items: center;
-    padding: 0px;
-    width: 30px;
-    height: 30px;
-    border-radius: 10px;
+.list {
+  list-style: none;
+  display: inline-block;
+  margin: 2px;
+  width: 30px;
+  height: 30px;
+  line-height: 30px;
+  border-radius: 50%;
+  background-color: var(--medium-color);
 }
-.ul{
-    margin-right: 75px;
+.ul {
+  margin-right: 75px;
+}
+
+a {
+  color: var(--bright-color);
+  text-decoration: none;
+}
+
+a:hover {
+  background-color: var(--dark-color);
 }

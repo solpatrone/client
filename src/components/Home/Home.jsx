@@ -123,14 +123,9 @@ export default function Home() {
 
   return (
     <div className={s.container}>
-      <h1>Soy home2</h1>
       <Navbar />
       <Landingpage />
-      <Paginate
-        restosPerPage={restosPerPage}
-        allRestaurants={allRestaurants}
-        paginado={paginado}
-      />
+
       {/* <Filters/> */}
       <div>
         <Select
@@ -152,9 +147,20 @@ export default function Home() {
           onChange={(e) => handleFoodTypes(e)}
         />
       </div>
-      <Cards restaurants={restosToShow} />
-      <h3>usuario:{cookies.get("user")}</h3>
-      <Logout />
+      <div>
+        <Cards restaurants={restosToShow} />
+      </div>
+      <div className={s.pagContainer}>
+        <Paginate
+          restosPerPage={restosPerPage}
+          allRestaurants={allRestaurants}
+          paginado={paginado}
+        />
+      </div>
+      <div>
+        <h3>usuario:{cookies.get("user")}</h3>
+        <Logout />
+      </div>
     </div>
   );
 }

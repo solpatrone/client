@@ -5,7 +5,8 @@
   border-radius: 20px;
   display: flex;
   flex-direction: column;
-  box-shadow: 1px 1px 5px rgb(138, 168, 153, 0.6);
+  box-shadow: 1px 1px 5px rgb(138, 168, 153, 0.6),
+    -1px -1px 5px rgb(138, 168, 153, 0.6);
 }
 .line {
   justify-content: space-evenly;
