@@ -9,7 +9,7 @@ import styles from "./Details.module.css"
 import {BiCommentDetail} from 'react-icons/bi'
 import ReviewsComments from "../ReviewsComments/ReviewsComments";
 import Review from "../Reviews/Review"
-
+import Cookies from 'universal-cookie';
 
 
 function Details() {
@@ -18,6 +18,8 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [review, setReview] = useState(false)
   const [reviewForm, setReviewForm] = useState(false)
+  const cookies= new Cookies();
+  const usuario = cookies.get('name')
 
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
@@ -59,7 +61,11 @@ function Details() {
         
           </div>  
             <div className={styles.reservations}>
-            <button className={styles.button}>Reservá tu mesa</button>
+            {
+              usuario?
+              <button className={styles.button}>Reservá tu mesa</button>:
+              null
+            }
             <button className={styles.button} onClick={(e)=>handdleClick(e)}>Dejá tu reseña <BiCommentDetail/> </button>
             {review && <Review/>}
             </div>  

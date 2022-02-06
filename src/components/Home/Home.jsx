@@ -10,13 +10,10 @@ import Cards from '../Cards/Cards'
 import Paginate from '../Paginate/Paginate'
 import Filters from '../Filters/Filters';
 import { getRestos, getNeighborhoods } from "../../actions/index"
-import Cookies from 'universal-cookie/es6';
-import Logout from '../Logout/Logout';
-
+;
 export default function Home() {
   const dispatch = useDispatch()
 
-  const cookies = new Cookies();
   const allRestaurants = useSelector((state) => state.restaurants)
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods)
   const allNeighborhoods = allNeighborhoodsRaw.map(n => { return { name: n.name, label: n.name } })
@@ -113,8 +110,7 @@ export default function Home() {
         <Select options={foodTypes} value={filteredByFoodTypes} name={'types'} onChange={e => handleFoodTypes(e)} />
       </div>
       <Cards restaurants={restosToShow} />
-      <h3>usuario:{cookies.get('user')}</h3>
-      <Logout />
+      
 
 
 
