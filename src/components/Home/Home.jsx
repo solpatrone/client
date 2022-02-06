@@ -29,6 +29,7 @@ export default function Home() {
     { name: "all", label: "Precios", value: "all" },
     { name: "$", label: "$", value: "$" },
     { name: "$$", label: "$$", value: "$$" },
+    { name: "$$$", label: "$$$", value: "$$$" },
     { name: "$$$$", label: "$$$$", value: "$$$$" },
     { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
