@@ -1,4 +1,3 @@
-
 import React from 'react';
 import s from "./card.module.css"
 import defaultImg from '../../assets/table.jpg'
