@@ -21,8 +21,10 @@ code {
   --medium-color: #8aa899;
   --bright-color: #f2d349;
   --dark-color: #5c6e58;
+  --error-color: #d34141;
   --grey-color: #3f3e3e;
   --logo-font: "Zen Kurenaido", sans-serif;
   --cursive-font: "Qwigley", cursive;
   --important-font: "Ubuntu", sans-serif;
+  --input-font: "Raleway", sans-serif;
 }

@@ -1,16 +1,16 @@
 import React from "react";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getRestoByName, getRestos} from '../../actions'
+import { getRestoByName, getRestos } from "../../actions";
+import styles from "./Searchbar.module.css";
 
 function Searchbar() {
-  const resto = useSelector((state )=> state.allRestaurants);
-  const restoName = resto.map(r => r.name)
-
+  const resto = useSelector((state) => state.allRestaurants);
+  const restoName = resto.map((r) => r.name);
 
   const dispatch = useDispatch();
 
-//   // useEffect(()=>{
+  //   // useEffect(()=>{
   //   dispatch(getRestos())
   // },[])
 
@@ -18,15 +18,13 @@ function Searchbar() {
   const [suggestion, setSuggestion] = useState([]);
   const [error, setError] = useState(false);
 
-
- 
   function handleInputChange(e) {
     e.preventDefault();
-    setRestaurantName(e.target.value)
+    setRestaurantName(e.target.value);
     searchMatch(e.target.value);
-    if (e.target.value === '') {
-      dispatch(getRestos())
-  }
+    if (e.target.value === "") {
+      dispatch(getRestos());
+    }
   }
   function handleSubmit(e) {
     e.preventDefault();
@@ -36,11 +34,11 @@ function Searchbar() {
   function searchMatch(restaurantName) {
     if (!restaurantName) {
       setSuggestion([]);
-      setError(false)
+      setError(false);
     } else {
-      let matches = restoName.filter(
-        (r) => r.toLowerCase().includes(restaurantName.toLowerCase())      
-        );
+      let matches = restoName.filter((r) =>
+        r.toLowerCase().includes(restaurantName.toLowerCase())
+      );
       if (matches.length) {
         setSuggestion(matches);
         setError(false);
@@ -54,7 +52,7 @@ function Searchbar() {
   };
 
   return (
-    <div>
+    <div className={styles.container}>
       <input
         type="text"
         value={restaurantName}
@@ -70,7 +68,7 @@ function Searchbar() {
           );
         })
       ) : (
-        <div>Restaurant no disponible</div>
+        <p>Restaurant no disponible</p>
       )}
       <button type="submit" onClick={(e) => handleSubmit(e)} disabled={error}>
         Buscar
@@ -80,4 +78,3 @@ function Searchbar() {
 }
 
 export default Searchbar;
-
