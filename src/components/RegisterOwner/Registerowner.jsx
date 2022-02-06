@@ -22,11 +22,12 @@ export default function RegisterOwner() {
 
 
   let priceOptions = [
-    { name: "one", label: "$", value: "one" },
-    { name: "two", label: "$$", value: "two" },
-    { name: "three", label: "$$$", value: "three" },
-    { name: "four", label: "$$$$", value: "four" },
-    { name: "five", label: "$$$$$", value: "five" },
+    { name: "all", label: "Precios", value: "all" },
+    { name: "$", label: "$", value: "$" },
+    { name: "$$", label: "$$", value: "$$" },
+    { name: "$$$", label: "$$", value: "$$$" },
+    { name: "$$$$", label: "$$$$", value: "$$$$" },
+    { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
 
   let foodTypes = [
