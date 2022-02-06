@@ -20,11 +20,6 @@ export default function RegisterOwner() {
     dispatch(getNeighborhoods());
   }, []);
 
-  let neighborhoodOptions = [
-    { name: "palermo", label: "Palermo", value: "palermo" },
-    { name: "belgrano", label: "Belgrano", value: "belgrano" },
-    { name: "recoleta", label: "Recoleta", value: "Recoleta" },
-  ];
 
   let priceOptions = [
     { name: "one", label: "$", value: "one" },
@@ -35,9 +30,10 @@ export default function RegisterOwner() {
   ];
 
   let foodTypes = [
-    { name: "type1", label: "Vegana", value: "type1" },
-    { name: "type2", label: "Vegetariana", value: "type2" },
-    { name: "type3", label: "Italiana", value: "type3" },
+    { name: "all", label: "Tipos de comida", value: "all" },
+    { name: "Argentina", label: "Argentina", value: "Argentina" },
+    { name: "Apto para vegetarianos", label: "Apto para vegetarianos", value: "Apto para vegetarianos" },
+    { name: "Mariscos", label: "Mariscos", value: "Mariscos" },
   ];
 
   //owner object
@@ -190,7 +186,7 @@ export default function RegisterOwner() {
               autoComplete="off"
               onChange={(e) => handleChange(e)}
             />
-            <p>{errors.restoName}</p>
+            <p className='errors'>{errors.restoName}</p>
           </div>
           <div>
             <label>Direccion</label>
@@ -202,7 +198,7 @@ export default function RegisterOwner() {
               autoComplete="off"
               onChange={(e) => handleChange(e)}
             />
-            <p>{errors.street}</p>
+            <p className='errors'>{errors.street}</p>
             <input
               type="text"
               name="number"
@@ -212,7 +208,7 @@ export default function RegisterOwner() {
               autoComplete="off"
               onChange={(e) => handleChange(e)}
             />
-            <p>{errors.number}</p>
+            <p className='errors'>{errors.number}</p>
             <label className="inputText">Barrio</label>
             <Select
               className="selectOptions"
@@ -252,7 +248,7 @@ export default function RegisterOwner() {
               placeholder="Ingrese una breve descripción"
               onChange={(e) => handleChange(e)}
             ></textarea>
-            <p>{errors.description}</p>
+            <p className='errors'>{errors.description}</p>
           </div>
           {/* <div>
             <label >Imágenes</label>
