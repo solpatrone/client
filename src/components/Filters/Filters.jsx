@@ -1,29 +1,31 @@
-import React, {useState, useEffect} from "react";
+import React from 'react';
+import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import Select from 'react-select';
+import {getRestos, getNeighborhoods} from "../../actions/index"
 
- export default function Filters(){
 
-    const allRestaurantes = [
-        {name: 'Sol', neighborhood: 'Palermo', price:'two', foodTypes:'type1'}
+export default function Filters(){
+    const dispatch = useDispatch()
+
+    const allRestaurants = useSelector((state)=> state.restaurants)
+    const allNeighborhoodsRaw = useSelector((state)=> state.neighborhoods)
+    const allNeighborhoods = allNeighborhoodsRaw.map(n => {return{name: n.name, label: n.name}})
+    const [restosToShow, setRestosToShow] = useState(allRestaurants)
+    
+    
+    
+    let defaultNeighborhood =  { name: "all", label: "Barrios", value: "all" }
+    
+    let priceOptions = [
+      { name: "all", label: "Precios", value: "all" },
+      {name: '$', label: '$', value:'$'},
+      {name: '$$', label: '$$', value:'$$'},
+      {name: '$$$', label: '$$$', value:'$$$'},
+      {name: '$$$$', label: '$$$$', value:'$$$$'},
+      {name: '$$$$$', label: '$$$$$', value:'$$$$$'}
+  
     ]
-
-
-    let neighborhoodOptions = [
-        { name: "all", label: "Barrios", value: "all" },
-        {name: 'palermo', label: 'Palermo', value:'palermo'},
-        {name: 'belgrano', label: 'Belgrano', value:'belgrano'},
-        {name: 'recoleta', label: 'Recoleta', value:'Recoleta'}
-      ]
-    
-      let priceOptions = [
-        { name: "all", label: "Precios", value: "all" },
-        {name: 'one', label: '$', value:'one'},
-        {name: 'two', label: '$$', value:'two'},
-        {name: 'three', label: '$$$', value:'three'},
-        {name: 'four', label: '$$$$', value:'four'},
-        {name: 'five', label: '$$$$$', value:'five'}
-    
-      ]
     
       let foodTypes = [
         { name: "all", label: "Tipos de comida", value: "all" },
@@ -32,20 +34,36 @@ import Select from 'react-select';
         {name: "type3", label: "Italiana", value: "type3"}
       ]
 
-      const [filteredByNeighborhood, setFilteredByNeighborhood] = useState(neighborhoodOptions[0]);
+      const [filteredByNeighborhood, setFilteredByNeighborhood] = useState(defaultNeighborhood);
       const [filteredByPrice, setFilteredByPrice] = useState(priceOptions[0]);
       const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(foodTypes[0]);
 
 
-      useEffect(() => {
-        displaySelectedRestaurantes();
-    }, [allRestaurantes,  filteredByNeighborhood, filteredByPrice, filteredByFoodTypes])
-
-      function displaySelectedRestaurantes(){
-          let restaurantesByNeighborhood = filteredByNeighborhood.value === 'all' ?  allRestaurantes : allRestaurantes.filter(restaurante => (restaurante.neighborhood === filteredByNeighborhood.value))
-          let restaurantesByFood = restaurantesByNeighborhood.value === 'all' ? allRestaurantes : allRestaurantes.filter( r=> r.foodTypes === filteredByNeighborhood.value)
-         let restaurantesByPrice = restaurantesByFood.value === 'all' ? allRestaurantes : allRestaurantes.filter(r=> r.price === filteredByFoodTypes.value)
+      
+    function displaySelectedRestaurantes(){
+        
+        let restaurantesByNeighborhood = filteredByNeighborhood.value === 'all' ?  allRestaurants : allRestaurants.filter(restaurante => (restaurante.neighborhood.some(e => e === filteredByNeighborhood.name)))
+        
+        let restaurantesByFood = foodTypes.value === 'all' ? restaurantesByNeighborhood : restaurantesByNeighborhood.filter( r=> r.foodTypes === filteredByNeighborhood.value)
+        let restaurantesByPrice = priceOptions.value === 'all' ? restaurantesByFood : restaurantesByFood.filter(r=> r.price === filteredByFoodTypes.value)
+        setRestosToShow(restaurantesByNeighborhood)
       }
+
+      useEffect(() => {
+        if (allNeighborhoods && allNeighborhoods.length > 0) {
+            allNeighborhoods.unshift(defaultNeighborhood)
+        }
+      }, [allNeighborhoods])
+        
+
+        useEffect(() => {
+          displaySelectedRestaurantes();
+      }, [allRestaurants,  filteredByNeighborhood, filteredByPrice, filteredByFoodTypes])
+      // function resetFilters() {
+      //   setFilteredByFoodTypes(foodTypes[0]),
+      //   setFilteredByNeighborhood(neighborhoodOptions[0]),
+      //   setFilteredByPrice(priceOptions[0])
+      // }
 
       function handleNeighborhood(e) {
         // setCurrentPage(1);
@@ -60,14 +78,17 @@ import Select from 'react-select';
         setFilteredByFoodTypes(e)
     }
 
-
-      return (
-          <div>
-              <Select options={neighborhoodOptions} value={filteredByNeighborhood} name={'neighborhood'} onChange={(e) => handleNeighborhood(e)} />
+    useEffect(()=>{
+        dispatch(getRestos());
+        dispatch(getNeighborhoods());
+    },[])
+    
+    return (
+            <div>
+              <Select options={allNeighborhoods} value={filteredByNeighborhood} name={'neighborhood'} onChange={(e) => handleNeighborhood(e)} />
             <Select options={priceOptions} value={filteredByPrice} name={'price'} onChange={e=> handlePrice(e)}/>
               <Select options={foodTypes} value={filteredByFoodTypes} name={'types'} onChange={e=> handleFoodTypes(e)}/>
           </div>
-      )
-    
-    }
-    
+     
+    )
+}

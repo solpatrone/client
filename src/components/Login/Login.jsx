@@ -49,6 +49,7 @@ export default function Login() {
               const restoName = allUsers[0].restoName;
               cookies.set('restoName', restoName ? restoName : '' ,{path:'/'})
               history.push('/home')
+              console.log(cookies)
             }
         }
                  

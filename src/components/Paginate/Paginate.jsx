@@ -68,7 +68,7 @@ export default function Paginate({ restosPerPage, allRestaurants, paginado }) {
 
   return (
     <div>
-      <ul>
+      <ul className={s.ul}>
         {pageNumbers &&
           pageNumbers.map((p) => (
             <li className={s.list} key={p}>
