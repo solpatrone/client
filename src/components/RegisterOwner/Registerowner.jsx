@@ -2,42 +2,43 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Select from 'react-select';
-import './Registerowner.css'
-import { createOwner, getNeighborhoods } from '../../actions';
+import Select from "react-select";
+import "./Registerowner.css";
+import { createOwner, getNeighborhoods } from "../../actions";
 
- export default function RegisterOwner() {
-   const history = useHistory();
-   let dispatch = useDispatch();
+export default function RegisterOwner() {
+  const history = useHistory();
+  let dispatch = useDispatch();
 
-  const allNeighborhoodsRaw = useSelector((state)=> state.neighborhoods)
-    const allNeighborhoods = allNeighborhoodsRaw.map(n => {return{name: n.name, label: n.name}})
-    console.log(allNeighborhoodsRaw)
+  const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
+  const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
+    return { name: n.name, label: n.name };
+  });
+  console.log(allNeighborhoodsRaw);
 
-    useEffect(() => {
-        dispatch(getNeighborhoods())
-    }, [])
+  useEffect(() => {
+    dispatch(getNeighborhoods());
+  }, []);
 
   let neighborhoodOptions = [
-    {name: 'palermo', label: 'Palermo', value:'palermo'},
-    {name: 'belgrano', label: 'Belgrano', value:'belgrano'},
-    {name: 'recoleta', label: 'Recoleta', value:'Recoleta'}
-  ]
+    { name: "palermo", label: "Palermo", value: "palermo" },
+    { name: "belgrano", label: "Belgrano", value: "belgrano" },
+    { name: "recoleta", label: "Recoleta", value: "Recoleta" },
+  ];
 
-   let priceOptions = [
-     {name: 'one', label: '$', value:'one'},
-     {name: 'two', label: '$$', value:'two'},
-     {name: 'three', label: '$$$', value:'three'},
-     {name: 'four', label: '$$$$', value:'four'},
-     {name: 'five', label: '$$$$$', value:'five'}
+  let priceOptions = [
+    { name: "one", label: "$", value: "one" },
+    { name: "two", label: "$$", value: "two" },
+    { name: "three", label: "$$$", value: "three" },
+    { name: "four", label: "$$$$", value: "four" },
+    { name: "five", label: "$$$$$", value: "five" },
+  ];
 
-   ]
-
-   let foodTypes = [
-     {name: "type1", label: "Vegana", value: "type1"},
-     {name: "type2", label: "Vegetariana", value: "type2"},
-     {name: "type3", label: "Italiana", value: "type3"}
-   ]
+  let foodTypes = [
+    { name: "type1", label: "Vegana", value: "type1" },
+    { name: "type2", label: "Vegetariana", value: "type2" },
+    { name: "type3", label: "Italiana", value: "type3" },
+  ];
 
   //owner object
   const [owner, setOwner] = useState({
@@ -51,50 +52,48 @@ import { createOwner, getNeighborhoods } from '../../actions';
     images: [],
   });
 
+  //ver para inputs de solo letras ej: nombre
+  let onlyLetters = (e) => {
+    if (!/[a-zA-Z\s]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
+  // en el input poner: onKeyPress={onlyLetters}
 
-   //ver para inputs de solo letras ej: nombre
-   let onlyLetters = (e) => {
-     if (!/[a-zA-Z\s]/.test(e.key)) {
-         e.preventDefault();
-     }
- }
- // en el input poner: onKeyPress={onlyLetters}
+  //ver para numero de direccion
+  let onlyNumbers = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
 
- //ver para numero de direccion
- let onlyNumbers = (e) => {
-   if (!/[0-9]/.test(e.key)) {
-       e.preventDefault();
-   }
- }
+  //error objects
+  const [errors, setError] = useState({ hasErrors: true });
 
-   //error objects
-   const [errors, setError] = useState({hasErrors: true});
+  //flag for submit
+  const [isSubmit, setIsSubmit] = useState(false);
 
-   //flag for submit
-   const [isSubmit, setIsSubmit] = useState(false);
+  function handleChange(e) {
+    setOwner((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setError(validate(owner));
+  }
 
-   function handleChange(e) {
-     setOwner((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-     setError(validate(owner));
-   }
-  
-   function handleNeighborhood(e) {
-     setOwner((prev) => ({ ...prev, neighborhood: e  }));
-   }
+  function handleNeighborhood(e) {
+    setOwner((prev) => ({ ...prev, neighborhood: e }));
+  }
 
-   function handlePrice(e) {
-      setOwner((prev) => ({ ...prev, price: e  }));
-   }
+  function handlePrice(e) {
+    setOwner((prev) => ({ ...prev, price: e }));
+  }
 
-   function handleTypes(e){
-   
-     setOwner((prev)=> ({...prev, types: e}))
-   }
+  function handleTypes(e) {
+    setOwner((prev) => ({ ...prev, types: e }));
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!validate(owner).hasErrors) {
-      dispatch(createOwner(owner))
+      dispatch(createOwner(owner));
       setIsSubmit(true);
       setOwner({
         restoName: "",
@@ -105,71 +104,68 @@ import { createOwner, getNeighborhoods } from '../../actions';
         types: [],
         description: "",
         images: [],
-      })
-  }history.push('/Login')
+      });
+    }
+    history.push("/Login");
+  }
 
+  //validate function for inputs
+  function validate(owner) {
+    const errors = { hasErrors: false };
+    console.log("input", owner);
+    const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    const regexPassword =
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm;
 
-  
-   }
-
-   //validate function for inputs
-   function validate(owner) {
-     const errors = { hasErrors: false };
-     console.log("input", owner)
-     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-     const regexPassword =
-       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm;
-
-    
     //   if (!owner.username) {
     //     errors.username = `El nombre es requerido`;
     //     errors.hasErrors = true;
     // } else if (!/^[a-zA-Z\s]{5,20}$/.test(owner.username)) {
     //     errors.username = `El nombre debe ser letras entre 5 y 20 caracteres`;
     //     errors.hasErrors = true;
-    // }   
+    // }
 
-      //  if (!owner.email) {
-      //       errors.email = `El email es requerido`;
-      //       errors.hasErrors = true;
-      //   }else if (!regexEmail.test(owner.email)) {
-      //     errors.email = `El email debe ser una dirección válida`;
-      //     errors.hasErrors = true;
-          
-      // } // como esta planteado en client no va a poder registrarse si es mail empresa. Podemos cambiarlo alla
+    //  if (!owner.email) {
+    //       errors.email = `El email es requerido`;
+    //       errors.hasErrors = true;
+    //   }else if (!regexEmail.test(owner.email)) {
+    //     errors.email = `El email debe ser una dirección válida`;
+    //     errors.hasErrors = true;
 
-      // if (!owner.password) {
-      //   errors.password = "La contraseña es requerida";
-      //   errors.hasErrors = true;
-      
-      // } else if (!regexPassword.test(owner.password)) {
-      //   errors.password =
-      //   "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
-      //     errors.hasErrors = true;
-      //   }
+    // } // como esta planteado en client no va a poder registrarse si es mail empresa. Podemos cambiarlo alla
 
-     if (!owner.restoName) {
-       errors.restoName = "Debes ingresar el nombre de tu restaurante";
-       errors.hasErrors = true;
-     }
+    // if (!owner.password) {
+    //   errors.password = "La contraseña es requerida";
+    //   errors.hasErrors = true;
 
-     if (!owner.street) {
-       errors.street = "Ingrese una calle";
-       errors.hasErrors = true;
-     }
+    // } else if (!regexPassword.test(owner.password)) {
+    //   errors.password =
+    //   "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
+    //     errors.hasErrors = true;
+    //   }
 
-     if (!owner.number) {
-       errors.number = "El número debe ser mayor a cero";
-       errors.hasErrors = true;
-     }
+    if (!owner.restoName) {
+      errors.restoName = "Debes ingresar el nombre de tu restaurante";
+      errors.hasErrors = true;
+    }
 
-     if (owner.description.length < 0 || owner.description.length > 200) {
-       errors.description = "La descripción debe tener menos de 200 caracteres";
-       errors.hasErrors = true;
-     }
+    if (!owner.street) {
+      errors.street = "Ingrese una calle";
+      errors.hasErrors = true;
+    }
 
-     return errors;
-   }
+    if (!owner.number) {
+      errors.number = "El número debe ser mayor a cero";
+      errors.hasErrors = true;
+    }
+
+    if (owner.description.length < 0 || owner.description.length > 200) {
+      errors.description = "La descripción debe tener menos de 200 caracteres";
+      errors.hasErrors = true;
+    }
+
+    return errors;
+  }
 
   return isSubmit ? (
     <div>
@@ -206,7 +202,7 @@ import { createOwner, getNeighborhoods } from '../../actions';
               autoComplete="off"
               onChange={(e) => handleChange(e)}
             />
-             <p>{errors.street}</p>
+            <p>{errors.street}</p>
             <input
               type="text"
               name="number"
@@ -217,21 +213,35 @@ import { createOwner, getNeighborhoods } from '../../actions';
               onChange={(e) => handleChange(e)}
             />
             <p>{errors.number}</p>
-            <label className='inputText'>Barrio</label>
-          <Select className='selectOptions' options={allNeighborhoods} value={owner.neighborhood} name={'neighborhood'} onChange={(e) => handleNeighborhood(e)} />
+            <label className="inputText">Barrio</label>
+            <Select
+              className="selectOptions"
+              options={allNeighborhoods}
+              value={owner.neighborhood}
+              name={"neighborhood"}
+              onChange={(e) => handleNeighborhood(e)}
+            />
           </div>
           <div>
-
-
-             <label className='inputText'>Precio</label>
-           <Select className='selectOptions' options={priceOptions} value={owner.price} name={'price'} onChange={(e) => handlePrice(e)} />
-          
-           </div>
-           <div>
-           <label className='inputText'>Tipo de comida</label>
-           <Select className='selectOptions' options={foodTypes} isMulti={true} value={owner.types} name={'types'} onChange={(e) => handleTypes(e)} />
-
-      
+            <label className="inputText">Precio</label>
+            <Select
+              className="selectOptions"
+              options={priceOptions}
+              value={owner.price}
+              name={"price"}
+              onChange={(e) => handlePrice(e)}
+            />
+          </div>
+          <div>
+            <label className="inputText">Tipo de comida</label>
+            <Select
+              className="selectOptions"
+              options={foodTypes}
+              isMulti={true}
+              value={owner.types}
+              name={"types"}
+              onChange={(e) => handleTypes(e)}
+            />
           </div>
           <div>
             <textarea
@@ -258,9 +268,14 @@ import { createOwner, getNeighborhoods } from '../../actions';
           </div> */}
         </div>
         <div>
-           {/* <button>Registra tu restaurante!</button>  */}
-           <button type={'submit'} disabled={errors.hasErrors}
-           onSubmit={e => handleSubmit(e)}>Registra tu restaurante!</button> 
+          {/* <button>Registra tu restaurante!</button>  */}
+          <button
+            type={"submit"}
+            disabled={errors.hasErrors}
+            onSubmit={(e) => handleSubmit(e)}
+          >
+            Registra tu restaurante!
+          </button>
         </div>
       </form>
     </div>
