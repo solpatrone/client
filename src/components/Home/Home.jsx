@@ -9,7 +9,6 @@ import Paginate from "../Paginate/Paginate";
 import { getRestos, getNeighborhoods } from "../../actions/index";
 import Cookies from "universal-cookie/es6";
 import Logout from "../Logout/Logout";
-import s from "./Home.module.css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -21,6 +20,7 @@ export default function Home() {
     return { name: n.name, label: n.name };
   });
   const [restosToShow, setRestosToShow] = useState([]);
+  const [toFilter, setToFilter] = useState([]);
 
   let defaultNeighborhood = { name: "all", label: "Barrios", value: "all" };
 
@@ -28,15 +28,20 @@ export default function Home() {
     { name: "all", label: "Precios", value: "all" },
     { name: "$", label: "$", value: "$" },
     { name: "$$", label: "$$", value: "$$" },
+    { name: "$$$", label: "$$$", value: "$$$" },
     { name: "$$$$", label: "$$$$", value: "$$$$" },
     { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
 
   let foodTypes = [
     { name: "all", label: "Tipos de comida", value: "all" },
-    { name: "type1", label: "Vegana", value: "type1" },
-    { name: "type2", label: "Vegetariana", value: "type2" },
-    { name: "type3", label: "Italiana", value: "type3" },
+    { name: "Argentina", label: "Argentina", value: "Argentina" },
+    {
+      name: "Apto para vegetarianos",
+      label: "Apto para vegetarianos",
+      value: "Apto para vegetarianos",
+    },
+    { name: "Mariscos", label: "Mariscos", value: "Mariscos" },
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -66,20 +71,21 @@ export default function Home() {
             r.price.includes(filteredByPrice.name)
           );
     let restaurantesByFood =
-      foodTypes.value === "all"
-        ? restaurantesByNeighborhood
-        : restaurantesByNeighborhood.filter(
-            (r) => r.foodTypes === filteredByNeighborhood.value
+      filteredByFoodTypes.value === "all"
+        ? restaurantesByPrice
+        : restaurantesByPrice.filter((restaurante) =>
+            restaurante.cuisine.some((e) => e === filteredByFoodTypes.name)
           );
 
     const indexOfLastPost = currentPage * restosPerPage;
     const indexOfFirstPost = indexOfLastPost - restosPerPage;
-    const currentRestos = restaurantesByPrice.slice(
+    const currentRestos = restaurantesByFood.slice(
       indexOfFirstPost,
       indexOfLastPost
     );
 
     setRestosToShow(currentRestos);
+    setToFilter(restaurantesByFood);
   }
 
   useEffect(() => {
@@ -98,11 +104,11 @@ export default function Home() {
     currentPage,
   ]);
 
-  // function resetFilters() {
-  //   setFilteredByFoodTypes(foodTypes[0]),
-  //   setFilteredByNeighborhood(neighborhoodOptions[0]),
-  //   setFilteredByPrice(priceOptions[0])
-  // }
+  function resetFilters() {
+    setFilteredByFoodTypes(foodTypes[0]);
+    setFilteredByNeighborhood(allNeighborhoods[0]);
+    setFilteredByPrice(priceOptions[0]);
+  }
 
   function handleNeighborhood(e) {
     setFilteredByNeighborhood(e);
@@ -121,46 +127,58 @@ export default function Home() {
     dispatch(getNeighborhoods());
   }, []);
 
+  function handleReload(e) {
+    dispatch(getRestos());
+    resetFilters();
+  }
+
   return (
     <div className={s.container}>
       <Navbar />
       <Landingpage />
-
+      <Paginate
+        restosPerPage={restosPerPage}
+        allRestaurants={toFilter}
+        paginado={paginado}
+      />
       {/* <Filters/> */}
       <div>
+        <div className={"removeButton"}>
+          {" "}
+          {(filteredByNeighborhood.value !== "all" ||
+            filteredByPrice.value !== "all" ||
+            filteredByFoodTypes.value !== "all") && (
+            <button onClick={(e) => handleReload(e)}>
+              {" "}
+              Mostrar todos los Restos
+            </button>
+          )}{" "}
+        </div>
         <Select
+          className={"options"}
           options={allNeighborhoods}
           value={filteredByNeighborhood}
           name={"neighborhood"}
           onChange={(e) => handleNeighborhood(e)}
         />
         <Select
+          className={"options"}
           options={priceOptions}
           value={filteredByPrice}
           name={"price"}
           onChange={(e) => handlePrice(e)}
         />
         <Select
+          className={"options"}
           options={foodTypes}
           value={filteredByFoodTypes}
           name={"types"}
           onChange={(e) => handleFoodTypes(e)}
         />
       </div>
-      <div>
-        <Cards restaurants={restosToShow} />
-      </div>
-      <div className={s.pagContainer}>
-        <Paginate
-          restosPerPage={restosPerPage}
-          allRestaurants={allRestaurants}
-          paginado={paginado}
-        />
-      </div>
-      <div>
-        <h3>usuario:{cookies.get("user")}</h3>
-        <Logout />
-      </div>
+      <Cards restaurants={restosToShow} />
+      <h3>usuario:{cookies.get("user")}</h3>
+      <Logout />
     </div>
   );
 }

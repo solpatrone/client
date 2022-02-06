@@ -64,6 +64,13 @@ export function clearDetailsState() {
   };
 }
 
+export function postReview(payload) {
+  return {
+    type: POST_REVIEW,
+    payload,
+  };
+}
+
 export function getNeighborhoods() {
   return async function (dispatch) {
     var json = await axios.get("http://localhost:3001/neighborhood");
@@ -80,12 +87,5 @@ export function getNeighborhoods() {
       type: GET_NEIGHBORHOODS,
       payload: neighborhoods,
     });
-  };
-}
-
-export function postReview(payload) {
-  return {
-    type: POST_REVIEW,
-    payload,
   };
 }

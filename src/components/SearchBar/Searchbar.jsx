@@ -37,7 +37,16 @@ function Searchbar() {
       setError(false);
     } else {
       let matches = restoName.filter((r) =>
-        r.toLowerCase().includes(restaurantName.toLowerCase())
+        r
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .includes(
+            restaurantName
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .toLowerCase()
+          )
       );
       if (matches.length) {
         setSuggestion(matches);
@@ -49,6 +58,7 @@ function Searchbar() {
   }
   const selectElementHandler = (restaurant) => {
     setRestaurantName(restaurant);
+    setSuggestion([]);
   };
 
   return (
@@ -58,15 +68,22 @@ function Searchbar() {
         value={restaurantName}
         placeholder="Nombre del Restaurant..."
         onChange={(e) => handleInputChange(e)}
+        onKeyPress={(e) => e.key === "Enter" && handleSubmit(e)}
       />
       {!error && suggestion ? (
-        suggestion.map((el, index) => {
-          return (
-            <div key={index} onClick={() => selectElementHandler(el)}>
-              {el}
-            </div>
-          );
-        })
+        <div className={styles.autocomplete}>
+          {suggestion.map((el, index) => {
+            return (
+              <div
+                className={styles.autocompleteItems}
+                key={index}
+                onClick={() => selectElementHandler(el)}
+              >
+                {el}
+              </div>
+            );
+          })}
+        </div>
       ) : (
         <p>Restaurant no disponible</p>
       )}
