@@ -64,24 +64,7 @@ export function clearDetailsState() {
   };
 }
 
-export function getNeighborhoods() {
-  return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/neighborhood");
-    var neighborhoods = json.data.map(function (neighborhood) {
-      return {
-        ...neighborhood,
-        value: neighborhood.id,
-        label: neighborhood.name,
-        name: neighborhood.name,
-      };
-    });
 
-    return dispatch({
-      type: GET_NEIGHBORHOODS,
-      payload: neighborhoods,
-    });
-  };
-}
 
 export function postReview(payload) {
   return {

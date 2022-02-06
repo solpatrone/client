@@ -99,7 +99,7 @@ export default function RegisterUser() {
                         autoComplete="off"
                         placeholder="Ingrese su nombre de usuario"
                         onChange={e => handleChange(e)} />
-                    {errors.name && (<p>{errors.name}</p>)}
+                    {errors.name && (<p className={'errors'}>{errors.name}</p>)}
                 </div>
                 <div>
                 <br/>
@@ -111,7 +111,7 @@ export default function RegisterUser() {
                         value={input.email}
                         autoComplete="off"
                         onChange={e => handleChange(e)} />
-                    {errors.email && (<p>{errors.email}</p>)}
+                    {errors.email && (<p className={'errors'}>{errors.email}</p>)}
                 </div>
                 <div>
                 <br/>
@@ -122,7 +122,7 @@ export default function RegisterUser() {
                         value={input.password}
                         placeholder="Ingrese su contraseña"
                         onChange={e => handleChange(e)} />
-                    {errors.password && (<p>{errors.password}</p>)}
+                    {errors.password && (<p className={'errors'}>{errors.password}</p>)}
                 </div>
                 <br/>
                 <div>
