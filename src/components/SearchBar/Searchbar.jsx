@@ -28,6 +28,7 @@ function Searchbar() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getRestoByName(restaurantName));
+    
   }
 
   function searchMatch(restaurantName) {
@@ -36,7 +37,7 @@ function Searchbar() {
       setError(false)
     } else {
       let matches = restoName.filter(
-        (r) => r.toLowerCase().includes(restaurantName.toLowerCase())      
+        (r) => r.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(restaurantName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase())      
         );
       if (matches.length) {
         setSuggestion(matches);
@@ -60,6 +61,7 @@ function Searchbar() {
         value={restaurantName}
         placeholder="Nombre del Restaurant..."
         onChange={(e) => handleInputChange(e)}
+        onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
       />
       <button type="submit" onClick={(e) => handleSubmit(e)} disabled={error} className={styles.search_button}>
         Buscar
