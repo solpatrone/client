@@ -12,8 +12,31 @@
 .options{
   display: inline-block; 
   width: 200px;
+<<<<<<< HEAD
+  margin: 15px;
+}
+.removeButton{
+  display: inline-block;
+}
+
+.button {
+  border: none;
+  background-color: var(--medium-color);
+  color: var(--bright-color);
+  width: fit-content;
+  padding: 8px 5px;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  margin: 10px;
+}
+
+.button:hover {
+  background-color: var(--dark-color);
+  border: none;
+=======
   margin-right: 10px;
 }
 .removeButton{
   display: inline-block;
+>>>>>>> develop
 }
