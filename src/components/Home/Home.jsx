@@ -24,6 +24,7 @@ export default function Home() {
   const [toFilter, setToFilter] = useState([]);
 
   let defaultNeighborhood = { name: "all", label: "Barrios", value: "all" };
+  const loading = useSelector((state) => state.loading);
 
   let priceOptions = [
     { name: "all", label: "Precios", value: "all" },
@@ -173,13 +174,17 @@ export default function Home() {
           onChange={(e) => handleFoodTypes(e)}
         />
       </div>
-      <div>
-        <Cards restaurants={restosToShow} />
-      </div>
+      {loading ? (
+        <h1>Cargando</h1>
+      ) : (
+        <div>
+          <Cards restaurants={restosToShow} />
+        </div>
+      )}
       <div className={s.pagContainer}>
         <Paginate
           restosPerPage={restosPerPage}
-          allRestaurants={allRestaurants}
+          allRestaurants={toFilter}
           paginado={paginado}
         />
       </div>

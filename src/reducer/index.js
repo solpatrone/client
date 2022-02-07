@@ -8,6 +8,7 @@ import {
   GET_RESTO_DETAILS,
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
+  LOADING,
 } from "../actions/types";
 
 const initialState = {
@@ -18,7 +19,7 @@ const initialState = {
   allRestaurants: [],
   neighborhoods: [],
   details: [],
-  reviews: []
+  reviews: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -28,6 +29,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         restaurants: action.payload,
         allRestaurants: action.payload,
+        loading: false,
       };
     case GET_RESTO_NAME:
       return {
@@ -87,6 +89,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         reviews: [...state.reviews, action.payload],
+      };
+    case LOADING:
+      return {
+        ...state,
+        loading: true,
       };
     default:
       return { ...state };

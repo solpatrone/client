@@ -10,3 +10,9 @@
   text-decoration: none;
   color: black;
 }
+
+.box {
+  width: 240px;
+  min-height: 380px;
+  max-height: 380px;
+}

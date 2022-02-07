@@ -9,6 +9,7 @@ import {
   GET_RESTO_DETAILS,
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
+  LOADING,
 } from "./types";
 
 export function createClient(info) {
@@ -31,6 +32,9 @@ export function getUseres() {
 
 export function getRestos() {
   return async function (dispatch) {
+    dispatch({
+      type: LOADING,
+    });
     let json = await axios.get("http://localhost:3001/restaurant");
     let data = json.data;
     return dispatch({
