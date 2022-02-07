@@ -36,10 +36,10 @@
   transition: all 0.5s;
 }
 
-/* .container button:hover {
+.container button:hover {
   background-color: var(--dark-color);
   border: none;
-} */
+}
 
 .container p {
   color: var(--error-color);

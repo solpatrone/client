@@ -9,7 +9,8 @@ import {
   GET_RESTO_DETAILS,
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
-  GET_CUISINES
+  GET_CUISINES,
+  LOADING
 } from "./types";
 
 export function createClient(info) {
@@ -52,6 +53,9 @@ export function getCuisines() {
 
 export function getRestos() {
   return async function (dispatch) {
+    dispatch({
+      type: LOADING
+  })
     let json = await axios.get("http://localhost:3001/restaurant");
     let data = json.data;
     return dispatch({
@@ -63,6 +67,9 @@ export function getRestos() {
 
 export function getRestoByName(name) {
   return async function (dispatch) {
+    dispatch({
+      type: LOADING
+  })
     let json = await axios.get(`http://localhost:3001/restaurant?name=${name}`);
     return dispatch({
       type: GET_RESTO_NAME,
@@ -72,6 +79,9 @@ export function getRestoByName(name) {
 }
 export function getRestoDetails(id) {
   return async function (dispatch) {
+    dispatch({
+      type: LOADING
+  })
     let json = await axios.get(`http://localhost:3001/restaurant/${id}`);
     return dispatch({
       type: GET_RESTO_DETAILS,

@@ -8,3 +8,5 @@ export const GET_RESTO_DETAILS = "GET_RESTO_DETAILS";
 export const CLEAR_DETAILS_STATE = "CLEAR_DETAILS_STATE";
 export const POST_REVIEW = "POST_REVIEW";
 export const GET_CUISINES = "GET_CUISINES";
+export const LOADING = "LOADING";
+

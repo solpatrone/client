@@ -10,9 +10,14 @@ import { getRestos, getNeighborhoods, getCuisines } from "../../actions/index";
 import Cookies from "universal-cookie/es6";
 import Logout from "../Logout/Logout";
 import s from "./Home.module.css";
+import Loading from "../Loading/Loading"
+
 
 export default function Home() {
   const dispatch = useDispatch()
+
+  const loading = useSelector (state => state.loading)
+  console.log(loading)
 
   const cookies = new Cookies();
   const allRestaurants = useSelector((state) => state.restaurants);
@@ -43,16 +48,7 @@ export default function Home() {
     { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
 
-  let foodTypes = [
-    { name: "all", label: "Tipos de comida", value: "all" },
-    { name: "Argentina", label: "Argentina", value: "Argentina" },
-    {
-      name: "Apto para vegetarianos",
-      label: "Apto para vegetarianos",
-      value: "Apto para vegetarianos",
-    },
-    { name: "Mariscos", label: "Mariscos", value: "Mariscos" },
-  ];
+ 
 
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredByNeighborhood, setFilteredByNeighborhood] =
@@ -117,7 +113,7 @@ export default function Home() {
   ]);
 
   function resetFilters() {
-    setFilteredByFoodTypes(foodTypes[0]);
+    setFilteredByFoodTypes(defaultCuisine);
     setFilteredByNeighborhood(allNeighborhoods[0]);
     setFilteredByPrice(priceOptions[0]);
   }
@@ -147,17 +143,16 @@ export default function Home() {
 
   return (
     <div className={s.container}>
+      <Loading/>
       <Navbar />
       <Landingpage />
-
-      {/* <Filters/> */}
       <div>
         <div className={"removeButton"}>
           {" "}
           {(filteredByNeighborhood.value !== "all" ||
             filteredByPrice.value !== "all" ||
             filteredByFoodTypes.value !== "all") && (
-            <button onClick={(e) => handleReload(e)}>
+            <button  className={s.button} onClick={(e) => handleReload(e)}>
               {" "}
               Mostrar todos los Restos
             </button>
@@ -185,9 +180,10 @@ export default function Home() {
           onChange={(e) => handleFoodTypes(e)}
         />
       </div>
+      {loading ? <div>cargando</div>:
       <div>
         <Cards restaurants={restosToShow} />
-      </div>
+      </div>}
       <div className={s.pagContainer}>
         <Paginate
           restosPerPage={restosPerPage}
