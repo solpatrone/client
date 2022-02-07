@@ -191,7 +191,7 @@ export default function Home() {
       <div className={s.pagContainer}>
         <Paginate
           restosPerPage={restosPerPage}
-          allRestaurants={allRestaurants}
+          allRestaurants={toFilter}
           paginado={paginado}
         />
       </div>
