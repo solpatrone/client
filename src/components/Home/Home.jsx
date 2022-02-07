@@ -9,6 +9,7 @@ import Paginate from "../Paginate/Paginate";
 import { getRestos, getNeighborhoods } from "../../actions/index";
 import Cookies from "universal-cookie/es6";
 import Logout from "../Logout/Logout";
+import s from "./Home.module.css";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -136,11 +137,7 @@ export default function Home() {
     <div className={s.container}>
       <Navbar />
       <Landingpage />
-      <Paginate
-        restosPerPage={restosPerPage}
-        allRestaurants={toFilter}
-        paginado={paginado}
-      />
+
       {/* <Filters/> */}
       <div>
         <div className={"removeButton"}>
@@ -176,9 +173,20 @@ export default function Home() {
           onChange={(e) => handleFoodTypes(e)}
         />
       </div>
-      <Cards restaurants={restosToShow} />
-      <h3>usuario:{cookies.get("user")}</h3>
-      <Logout />
+      <div>
+        <Cards restaurants={restosToShow} />
+      </div>
+      <div className={s.pagContainer}>
+        <Paginate
+          restosPerPage={restosPerPage}
+          allRestaurants={allRestaurants}
+          paginado={paginado}
+        />
+      </div>
+      <div>
+        <h3>usuario:{cookies.get("user")}</h3>
+        <Logout />
+      </div>
     </div>
   );
 }
