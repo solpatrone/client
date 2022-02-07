@@ -78,7 +78,8 @@
     justify-content: flex-start;
     align-items: flex-start;
 }
-.pic{
-    width: 550px;
+
+.restauranteImage{
+    width: 600px;
     height: auto;
 }
