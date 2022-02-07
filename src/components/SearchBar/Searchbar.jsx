@@ -53,39 +53,37 @@ function Searchbar() {
   };
 
   return (
-    <div className={styles.search}>
-      <div className={styles.search_bar}>
-
-      <input className={styles.search_input}
+    <div className={styles.container}>
+      <input
         type="text"
         value={restaurantName}
         placeholder="Nombre del Restaurant..."
         onChange={(e) => handleInputChange(e)}
-        onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
+        onKeyPress={(e) => e.key === "Enter" && handleSubmit(e)}
       />
-      <button type="submit" onClick={(e) => handleSubmit(e)} disabled={error} className={styles.search_button}>
-        Buscar
-      </button>
-      </div>
-     
       {!error && suggestion ? (
         <div className={styles.autocomplete}>
-        { suggestion.map((el, index) => {
-          return (
-            <div key={index} onClick={() => selectElementHandler(el)}>
-             <div  className={styles.autocompleteItems}> {el}</div>
-            </div>
-          );
-        })}
-
+          {suggestion.map((el, index) => {
+            return (
+              <div
+                className={styles.autocompleteItems}
+                key={index}
+                onClick={() => selectElementHandler(el)}
+              >
+                {el}
+              </div>
+            );
+          })}
         </div>
-        
       ) : (
-        <div className= {styles.error}>Restaurant no disponible</div>
+        <p>Restaurant no disponible</p>
       )}
-      
+      <button type="submit" onClick={(e) => handleSubmit(e)} disabled={error}>
+        Buscar
+      </button>
     </div>
   );
+   
 }
 
 export default Searchbar;
