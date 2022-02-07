@@ -20,7 +20,6 @@ export default function RegisterOwner() {
     dispatch(getNeighborhoods());
   }, []);
 
-
   let priceOptions = [
     { name: "all", label: "Precios", value: "all" },
     { name: "$", label: "$", value: "$" },
@@ -33,7 +32,11 @@ export default function RegisterOwner() {
   let foodTypes = [
     { name: "all", label: "Tipos de comida", value: "all" },
     { name: "Argentina", label: "Argentina", value: "Argentina" },
-    { name: "Apto para vegetarianos", label: "Apto para vegetarianos", value: "Apto para vegetarianos" },
+    {
+      name: "Apto para vegetarianos",
+      label: "Apto para vegetarianos",
+      value: "Apto para vegetarianos",
+    },
     { name: "Mariscos", label: "Mariscos", value: "Mariscos" },
   ];
 
@@ -187,7 +190,7 @@ export default function RegisterOwner() {
               autoComplete="off"
               onChange={(e) => handleChange(e)}
             />
-            <p className='errors'>{errors.restoName}</p>
+            <p className="errors">{errors.restoName}</p>
           </div>
           <div>
             <label>Direccion</label>
@@ -199,7 +202,7 @@ export default function RegisterOwner() {
               autoComplete="off"
               onChange={(e) => handleChange(e)}
             />
-            <p className='errors'>{errors.street}</p>
+            <p className="errors">{errors.street}</p>
             <input
               type="text"
               name="number"
@@ -209,7 +212,7 @@ export default function RegisterOwner() {
               autoComplete="off"
               onChange={(e) => handleChange(e)}
             />
-            <p className='errors'>{errors.number}</p>
+            <p className="errors">{errors.number}</p>
             <label className="inputText">Barrio</label>
             <Select
               className="selectOptions"
@@ -249,7 +252,7 @@ export default function RegisterOwner() {
               placeholder="Ingrese una breve descripción"
               onChange={(e) => handleChange(e)}
             ></textarea>
-            <p className='errors'>{errors.description}</p>
+            <p className="errors">{errors.description}</p>
           </div>
           {/* <div>
             <label >Imágenes</label>

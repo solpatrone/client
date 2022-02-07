@@ -1,15 +1,32 @@
-.container{
-    background-color: rgb(255, 255, 255);
-    width: 300px;
-    padding: 10px;
-    border-radius: 20px;
-    border: solid black 2px;
-    margin: 5px;
-    display: inline-block;
-   height: 350px;
-   
+.container {
+  width: 240px;
+  min-height: 380px;
+  max-height: 380px;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 1px 1px 5px rgb(138, 168, 153, 0.6),
+    -1px -1px 5px rgb(138, 168, 153, 0.6);
 }
-.line{
-   
-    justify-content: space-evenly;
+.line {
+  justify-content: space-evenly;
+}
+
+img {
+  height: 160px;
+  object-fit: cover;
+  border-radius: 3px;
+}
+
+.tittle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--dark-color);
+  font-family: var(--input-font);
+  font-weight: bold;
+  font-size: 18px;
+  height: 48px;
+  line-height: 18px;
+  align-items: center;
 }
