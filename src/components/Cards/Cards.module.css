@@ -2,11 +2,33 @@
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   max-width: 100vw;
-  margin-left: 68px;
+  margin-left: 150px;
   gap: 15px;
 }
 
 .linkCard {
   text-decoration: none;
   color: black;
+}
+
+.box {
+  width: 240px;
+  min-height: 380px;
+  max-height: 380px;
+}
+
+.errors {
+  color: red;
+  font-size: 20px;
+  font-style: italic;
+  text-align: center;
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.container {
+  display: flex;
+  justify-content: center;
 }

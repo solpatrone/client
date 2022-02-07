@@ -49,6 +49,16 @@ export default function RegisterUser() {
             errors.hasErrors = true;
         }
 
+       if (!input.password2) {
+         errors.password2 = "Confirme su contraseña";
+        errors.hasErrors = true;
+        } else if (input.password !== input.password2) {
+         errors.password2 = "Las contraseñas no coinciden";
+        errors.hasErrors = true;
+     }
+
+
+
         return errors;
 
     }
@@ -135,6 +145,7 @@ export default function RegisterUser() {
                         value={input.password2}
                         placeholder="Ingrese su contraseña"
                         onChange={e => handleChange(e)} />
+                        {errors.password2 && <p className={"errors"}>{errors.password2}</p>}
                 
                 </div>
                 <br/>
