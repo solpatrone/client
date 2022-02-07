@@ -6,13 +6,17 @@ import Navbar from "../NavBar/Navbar";
 import Landingpage from "../LandingPage/Landingpage";
 import Cards from "../Cards/Cards";
 import Paginate from "../Paginate/Paginate";
-import { getRestos, getNeighborhoods } from "../../actions/index";
+import { getRestos, getNeighborhoods, getCuisines } from "../../actions/index";
 import Cookies from "universal-cookie/es6";
 import Logout from "../Logout/Logout";
 import s from "./Home.module.css";
+import Loading from "../Loading/Loading";
 
 export default function Home() {
   const dispatch = useDispatch();
+
+  const loading = useSelector((state) => state.loading);
+  console.log(loading);
 
   const cookies = new Cookies();
   const allRestaurants = useSelector((state) => state.restaurants);
@@ -20,11 +24,21 @@ export default function Home() {
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
     return { name: n.name, label: n.name };
   });
+
+  const allCuisinesRaw = useSelector((state) => state.cuisines);
+  const allCuisines = allCuisinesRaw.map((n) => {
+    return { name: n.name, label: n.name };
+  });
+
   const [restosToShow, setRestosToShow] = useState([]);
   const [toFilter, setToFilter] = useState([]);
 
   let defaultNeighborhood = { name: "all", label: "Barrios", value: "all" };
-  const loading = useSelector((state) => state.loading);
+  let defaultCuisine = {
+    name: "all",
+    label: "Categoria de comida",
+    value: "all",
+  };
 
   let priceOptions = [
     { name: "all", label: "Precios", value: "all" },
@@ -35,22 +49,12 @@ export default function Home() {
     { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
 
-  let foodTypes = [
-    { name: "all", label: "Tipos de comida", value: "all" },
-    { name: "Argentina", label: "Argentina", value: "Argentina" },
-    {
-      name: "Apto para vegetarianos",
-      label: "Apto para vegetarianos",
-      value: "Apto para vegetarianos",
-    },
-    { name: "Mariscos", label: "Mariscos", value: "Mariscos" },
-  ];
-
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredByNeighborhood, setFilteredByNeighborhood] =
     useState(defaultNeighborhood);
   const [filteredByPrice, setFilteredByPrice] = useState(priceOptions[0]);
-  const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(foodTypes[0]);
+  const [filteredByFoodTypes, setFilteredByFoodTypes] =
+    useState(defaultCuisine);
   const [restosPerPage] = useState(12);
 
   function paginado(pageNumber) {
@@ -107,7 +111,7 @@ export default function Home() {
   ]);
 
   function resetFilters() {
-    setFilteredByFoodTypes(foodTypes[0]);
+    setFilteredByFoodTypes(defaultCuisine);
     setFilteredByNeighborhood(allNeighborhoods[0]);
     setFilteredByPrice(priceOptions[0]);
   }
@@ -127,6 +131,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(getRestos());
     dispatch(getNeighborhoods());
+    dispatch(getCuisines());
   }, []);
 
   function handleReload(e) {
@@ -136,17 +141,16 @@ export default function Home() {
 
   return (
     <div className={s.container}>
+      <Loading />
       <Navbar />
       <Landingpage />
-
-      {/* <Filters/> */}
       <div>
         <div className={"removeButton"}>
           {" "}
           {(filteredByNeighborhood.value !== "all" ||
             filteredByPrice.value !== "all" ||
             filteredByFoodTypes.value !== "all") && (
-            <button onClick={(e) => handleReload(e)}>
+            <button className={s.button} onClick={(e) => handleReload(e)}>
               {" "}
               Mostrar todos los Restos
             </button>
@@ -168,14 +172,14 @@ export default function Home() {
         />
         <Select
           className={s.options}
-          options={foodTypes}
+          options={allCuisines}
           value={filteredByFoodTypes}
           name={"types"}
           onChange={(e) => handleFoodTypes(e)}
         />
       </div>
       {loading ? (
-        <h1>Cargando</h1>
+        <div>cargando</div>
       ) : (
         <div>
           <Cards restaurants={restosToShow} />

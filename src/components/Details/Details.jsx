@@ -9,6 +9,7 @@ import styles from "./Details.module.css";
 import { BiCommentDetail } from "react-icons/bi";
 import ReviewsComments from "../ReviewsComments/ReviewsComments";
 import Review from "../Reviews/Review";
+import Loading from "../Loading/Loading";
 
 function Details() {
   const dispatch = useDispatch();
@@ -33,7 +34,7 @@ function Details() {
     <div>
       <Navbar />
       {myRestaurant.length === 0 ? (
-        <h3>Loading</h3>
+        <Loading/>
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.container}>

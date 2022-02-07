@@ -9,11 +9,23 @@ import {
   GET_RESTO_DETAILS,
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
+  GET_CUISINES,
   LOADING,
 } from "./types";
 
 export function createClient(info) {
-  return { type: CREATE_CLIENT, payload: info };
+  return async () => {
+    try {
+      var newClient = await axios.post(
+        "http://localhost:3001/user/create",
+        info
+      );
+      console.log(newClient);
+      return newClient;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }
 
 export function createOwner(info) {
@@ -26,6 +38,17 @@ export function getUseres() {
     return dispatch({
       type: "GET_RECIPES",
       payload: json.data,
+    });
+  };
+}
+
+export function getCuisines() {
+  return async function (dispatch) {
+    var json = await axios("http://localhost:3001/cuisines");
+    let data = json.data;
+    return dispatch({
+      type: GET_CUISINES,
+      payload: data,
     });
   };
 }
@@ -46,6 +69,9 @@ export function getRestos() {
 
 export function getRestoByName(name) {
   return async function (dispatch) {
+    dispatch({
+      type: LOADING,
+    });
     let json = await axios.get(`http://localhost:3001/restaurant?name=${name}`);
     return dispatch({
       type: GET_RESTO_NAME,
@@ -55,6 +81,9 @@ export function getRestoByName(name) {
 }
 export function getRestoDetails(id) {
   return async function (dispatch) {
+    dispatch({
+      type: LOADING,
+    });
     let json = await axios.get(`http://localhost:3001/restaurant/${id}`);
     return dispatch({
       type: GET_RESTO_DETAILS,

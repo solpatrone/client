@@ -8,6 +8,7 @@ import {
   GET_RESTO_DETAILS,
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
+  GET_CUISINES,
   LOADING,
 } from "../actions/types";
 
@@ -20,6 +21,8 @@ const initialState = {
   neighborhoods: [],
   details: [],
   reviews: [],
+  cuisines: [],
+  loading: false,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -35,6 +38,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         restaurants: action.payload,
+        loading: false,
       };
     case CREATE_CLIENT:
       let exists = state.clients.find((u) => u.email === action.payload.email);
@@ -68,17 +72,24 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
         user: [...state, action.payload],
+        loading: false,
       };
     case GET_NEIGHBORHOODS:
       return {
         ...state,
         neighborhoods: action.payload,
       };
+    case GET_CUISINES:
+      return {
+        ...state,
+        cuisines: action.payload,
+      };
 
     case GET_RESTO_DETAILS:
       return {
         ...state,
         details: action.payload,
+        loading: false,
       };
     case CLEAR_DETAILS_STATE:
       return {
