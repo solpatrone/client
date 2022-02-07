@@ -54,7 +54,6 @@
   flex-direction: column;
   text-align: justify;
   border-radius: 5px;
-  border: 1px solid #bfbfbf;
   max-height: 32vh;
   overflow-y: scroll;
   overflow-x: hidden;
@@ -66,7 +65,7 @@
   padding-left: 2px;
 }
 .autocompleteItems:hover {
-  background-color: #bfc0c0;
+  background-color: var(--medium-color);
 }
 
 .error {
