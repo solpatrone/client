@@ -12,6 +12,7 @@
 .options{
   display: inline-block; 
   width: 200px;
+<<<<<<< HEAD
   margin: 15px;
 }
 .removeButton{
@@ -32,4 +33,10 @@
 .button:hover {
   background-color: var(--dark-color);
   border: none;
+=======
+  margin-right: 10px;
+}
+.removeButton{
+  display: inline-block;
+>>>>>>> develop
 }
