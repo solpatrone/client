@@ -8,6 +8,7 @@ import {
   GET_RESTO_DETAILS,
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
+  GET_CUISINES
 } from "../actions/types";
 
 const initialState = {
@@ -18,7 +19,8 @@ const initialState = {
   allRestaurants: [],
   neighborhoods: [],
   details: [],
-  reviews: []
+  reviews: [],
+  cuisines: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -72,6 +74,11 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         neighborhoods: action.payload,
       };
+      case GET_CUISINES:
+        return {
+          ...state,
+          cuisines: action.payload,
+        };
 
     case GET_RESTO_DETAILS:
       return {

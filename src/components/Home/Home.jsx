@@ -6,7 +6,7 @@ import Navbar from "../NavBar/Navbar";
 import Landingpage from "../LandingPage/Landingpage";
 import Cards from "../Cards/Cards";
 import Paginate from "../Paginate/Paginate";
-import { getRestos, getNeighborhoods } from "../../actions/index";
+import { getRestos, getNeighborhoods, getCuisines } from "../../actions/index";
 import Cookies from "universal-cookie/es6";
 import Logout from "../Logout/Logout";
 import s from "./Home.module.css";
@@ -20,10 +20,19 @@ export default function Home() {
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
     return { name: n.name, label: n.name };
   });
+
+  const allCuisinesRaw = useSelector((state) => state.cuisines);
+  const allCuisines = allCuisinesRaw.map((n) => {
+    return { name: n.name, label: n.name };
+  });
+  
+
+
   const [restosToShow, setRestosToShow] = useState([]);
   const [toFilter, setToFilter] = useState([]);
 
   let defaultNeighborhood = { name: "all", label: "Barrios", value: "all" };
+  let defaultCuisine = { name: "all", label: "Categoria de comida", value: "all" }
 
   let priceOptions = [
     { name: "all", label: "Precios", value: "all" },
@@ -49,7 +58,7 @@ export default function Home() {
   const [filteredByNeighborhood, setFilteredByNeighborhood] =
     useState(defaultNeighborhood);
   const [filteredByPrice, setFilteredByPrice] = useState(priceOptions[0]);
-  const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(foodTypes[0]);
+  const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(defaultCuisine);
   const [restosPerPage] = useState(12);
 
   function paginado(pageNumber) {
@@ -75,8 +84,10 @@ export default function Home() {
       filteredByFoodTypes.value === "all"
         ? restaurantesByPrice
         : restaurantesByPrice.filter((restaurante) =>
-            restaurante.cuisine.some((e) => e === filteredByFoodTypes.name)
+            restaurante.cuisine.some(
+              (e) => e === filteredByFoodTypes.name)
           );
+          
 
     const indexOfLastPost = currentPage * restosPerPage;
     const indexOfFirstPost = indexOfLastPost - restosPerPage;
@@ -126,6 +137,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(getRestos());
     dispatch(getNeighborhoods());
+    dispatch(getCuisines())
   }, []);
 
   function handleReload(e) {
@@ -167,7 +179,7 @@ export default function Home() {
         />
         <Select
           className={s.options}
-          options={foodTypes}
+          options={allCuisines}
           value={filteredByFoodTypes}
           name={"types"}
           onChange={(e) => handleFoodTypes(e)}
