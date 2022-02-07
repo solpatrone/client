@@ -1,7 +1,8 @@
 import React from "react";
 import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getRestoByName, getRestos} from '../../actions'
+import {getRestoByName, getRestos} from '../../actions';
+import styles from './Searchbar.module.css'
 
 function Searchbar() {
   const resto = useSelector((state )=> state.allRestaurants);
@@ -39,7 +40,7 @@ function Searchbar() {
       setError(false)
     } else {
       let matches = restoName.filter(
-        (r) => r.toLowerCase().includes(restaurantName.toLowerCase())      
+        (r) => r.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(restaurantName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase())      
         );
       if (matches.length) {
         setSuggestion(matches);
@@ -51,31 +52,35 @@ function Searchbar() {
   }
   const selectElementHandler = (restaurant) => {
     setRestaurantName(restaurant);
+    setSuggestion([])
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={restaurantName}
-        placeholder="Nombre del Restaurant..."
-        onChange={(e) => handleInputChange(e)}
-      />
-      {!error && suggestion ? (
-        suggestion.map((el, index) => {
-          return (
-            <div key={index} onClick={() => selectElementHandler(el)}>
-              {el}
-            </div>
-          );
-        })
-      ) : (
-        <div>Restaurant no disponible</div>
-      )}
-      <button type="submit" onClick={(e) => handleSubmit(e)} disabled={error}>
-        Buscar
-      </button>
-    </div>
+    <div className={styles.container}>
+    <input
+      type="text"
+      value={restaurantName}
+      placeholder="Nombre del Restaurant..."
+      onChange={(e) => handleInputChange(e)}
+      onKeyPress={(e) => e.key === 'Enter' && handleSubmit(e)}
+    />
+    {!error && suggestion ? (
+      <div className={styles.autocomplete}>
+      {suggestion.map((el, index) => {
+        return (
+          <div  className={styles.autocompleteItems} key={index} onClick={() => selectElementHandler(el)}>
+            {el}
+          </div>
+        );
+      })}
+      </div>
+    ) : (
+      <p>Restaurant no disponible</p>
+    )}
+    <button type="submit" onClick={(e) => handleSubmit(e)} disabled={error}>
+      Buscar
+    </button>
+  </div>
   );
 }
 
