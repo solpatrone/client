@@ -10,9 +10,10 @@ export default function RegisterUser() {
    
 
     let [input, setInput] = useState({
-        name: '',
+        username: '',
         email: '',
-        password: ''
+        password: '',
+        password2: ''
     })
 
     
@@ -24,11 +25,11 @@ export default function RegisterUser() {
         let errors = { hasErrors: false }
         console.log("input", input)
 
-        if (!input.name) {
-            errors.name = `El nombre es requerido`;
+        if (!input.username) {
+            errors.username = `El nombre es requerido`;
             errors.hasErrors = true;
-        } else if (!/^[a-zA-Z\s]{5,20}$/.test(input.name)) {
-            errors.name = `El nombre debe ser letras entre 5 y 20 caracteres`;
+        } else if (!/^[a-zA-Z\s]{5,20}$/.test(input.username)) {
+            errors.username = `El nombre debe ser letras entre 5 y 20 caracteres`;
             errors.hasErrors = true;
         }
 
@@ -71,9 +72,10 @@ export default function RegisterUser() {
             dispatch(createClient(input))
             setIsSubmit(false);
             setInput({
-                name: '',
+                username: '',
                 email: '',
-                password: ''
+                password: '',
+                password2: ''
             })
             history.push("/Login")
         }
@@ -93,13 +95,13 @@ export default function RegisterUser() {
                     <label>Nombre de usuario </label>
                     <input
                         type={'text'}
-                        name={'name'}
+                        name={'username'}
                         onKeyPress={onlyLetters}
-                        value={input.name}
+                        value={input.username}
                         autoComplete="off"
                         placeholder="Ingrese su nombre de usuario"
                         onChange={e => handleChange(e)} />
-                    {errors.name && (<p className={'errors'}>{errors.name}</p>)}
+                    {errors.username && (<p className={'errors'}>{errors.username}</p>)}
                 </div>
                 <div>
                 <br/>
@@ -123,6 +125,17 @@ export default function RegisterUser() {
                         placeholder="Ingrese su contraseña"
                         onChange={e => handleChange(e)} />
                     {errors.password && (<p className={'errors'}>{errors.password}</p>)}
+                </div>
+                <div>
+                <br/>
+                    <label>Confirma tu Contraseña </label>
+                    <input
+                        type={'password'}
+                        name={'password2'}
+                        value={input.password2}
+                        placeholder="Ingrese su contraseña"
+                        onChange={e => handleChange(e)} />
+                
                 </div>
                 <br/>
                 <div>

@@ -152,21 +152,21 @@ export default function Home() {
           )}{" "}
         </div>
         <Select
-          className={"options"}
+          className={s.options}
           options={allNeighborhoods}
           value={filteredByNeighborhood}
           name={"neighborhood"}
           onChange={(e) => handleNeighborhood(e)}
         />
         <Select
-          className={"options"}
+          className={s.options}
           options={priceOptions}
           value={filteredByPrice}
           name={"price"}
           onChange={(e) => handlePrice(e)}
         />
         <Select
-          className={"options"}
+          className={s.options}
           options={foodTypes}
           value={filteredByFoodTypes}
           name={"types"}
@@ -182,10 +182,6 @@ export default function Home() {
           allRestaurants={allRestaurants}
           paginado={paginado}
         />
-      </div>
-      <div>
-        <h3>usuario:{cookies.get("user")}</h3>
-        <Logout />
       </div>
     </div>
   );
