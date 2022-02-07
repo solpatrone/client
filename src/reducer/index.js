@@ -18,7 +18,7 @@ const initialState = {
   allRestaurants: [],
   neighborhoods: [],
   details: [],
-  reviews: [],
+  reviews: []
 };
 
 export default function rootReducer(state = initialState, action) {

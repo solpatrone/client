@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRestoByName, getRestos } from "../../actions";
 import styles from "./Searchbar.module.css";
 
-function Searchbar() {
+export default function Searchbar() {
   const resto = useSelector((state) => state.allRestaurants);
   const restoName = resto.map((r) => r.name);
 
@@ -93,5 +93,3 @@ function Searchbar() {
     </div>
   );
 }
-
-export default Searchbar;

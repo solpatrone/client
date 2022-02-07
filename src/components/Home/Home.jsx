@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
@@ -12,7 +12,7 @@ import Logout from "../Logout/Logout";
 import s from "./Home.module.css";
 
 export default function Home() {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch()
 
   const cookies = new Cookies();
   const allRestaurants = useSelector((state) => state.restaurants);
@@ -152,21 +152,21 @@ export default function Home() {
           )}{" "}
         </div>
         <Select
-          className={"options"}
+          className={s.options}
           options={allNeighborhoods}
           value={filteredByNeighborhood}
           name={"neighborhood"}
           onChange={(e) => handleNeighborhood(e)}
         />
         <Select
-          className={"options"}
+          className={s.options}
           options={priceOptions}
           value={filteredByPrice}
           name={"price"}
           onChange={(e) => handlePrice(e)}
         />
         <Select
-          className={"options"}
+          className={s.options}
           options={foodTypes}
           value={filteredByFoodTypes}
           name={"types"}
@@ -182,10 +182,6 @@ export default function Home() {
           allRestaurants={allRestaurants}
           paginado={paginado}
         />
-      </div>
-      <div>
-        <h3>usuario:{cookies.get("user")}</h3>
-        <Logout />
       </div>
     </div>
   );
