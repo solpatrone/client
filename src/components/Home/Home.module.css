@@ -1,0 +1,10 @@
+.container {
+  max-width: 100vw;
+}
+
+.pagContainer {
+  display: flex;
+  margin: 5px;
+
+  justify-content: center;
+}
