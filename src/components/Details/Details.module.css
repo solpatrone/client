@@ -78,3 +78,8 @@ button{
     justify-content: flex-start;
     align-items: flex-start;
 }
+
+.restauranteImage{
+    width: 600px;
+    height: auto;
+}
