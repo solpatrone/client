@@ -103,6 +103,12 @@ export default function Home() {
   }, [allNeighborhoods]);
 
   useEffect(() => {
+    if (allCuisines && allCuisines.length > 0) {
+      allCuisines.unshift(defaultCuisine);
+    }
+  }, [allNeighborhoods]);
+
+  useEffect(() => {
     displaySelectedRestaurantes();
   }, [
     allRestaurants,

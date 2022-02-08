@@ -9,6 +9,7 @@
 .linkCard {
   text-decoration: none;
   color: black;
+  max-width: 240px;
 }
 
 .box {
