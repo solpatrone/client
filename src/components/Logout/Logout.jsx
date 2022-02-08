@@ -9,10 +9,10 @@ export default function Logout(){
 
     function handleSubmit(e){
         const cookies= new Cookies();
-        cookies.set('username', '',{path:'/'})
-        cookies.set('password', '',{path:'/'})
-        cookies.set('name', '',{path:'/'})
-        cookies.set('restoName', '',{path:'/'})
+        cookies.remove('username', '',{path:'/'})
+        cookies.remove('password', '',{path:'/'})
+        cookies.remove('name', '',{path:'/'})
+        cookies.remove('restoName', '',{path:'/'})
         history.push('/home')
         console.log(cookies)
     }
