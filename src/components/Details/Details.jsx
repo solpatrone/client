@@ -75,7 +75,7 @@ function Details() {
               <img
                 src={myRestaurant[0].photo}
                 alt="img not found"
-                width="600px"
+                className = {styles.restauranteImage}
                 height="auto"
               />
               <p>

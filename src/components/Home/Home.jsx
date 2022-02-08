@@ -116,18 +116,22 @@ export default function Home() {
     setFilteredByFoodTypes(defaultCuisine);
     setFilteredByNeighborhood(allNeighborhoods[0]);
     setFilteredByPrice(priceOptions[0]);
+    setCurrentPage(1)
   }
 
   function handleNeighborhood(e) {
     setFilteredByNeighborhood(e);
+    setCurrentPage(1)
   }
 
   function handlePrice(e) {
     setFilteredByPrice(e);
+    setCurrentPage(1)
   }
 
   function handleFoodTypes(e) {
     setFilteredByFoodTypes(e);
+    setCurrentPage(1)
   }
 
   useEffect(() => {
