@@ -65,3 +65,7 @@
   font-family: var(--logo-font);
   font-size: 25px;
 }
+.user{
+  margin-top: auto;
+  margin-bottom: auto;
+}
