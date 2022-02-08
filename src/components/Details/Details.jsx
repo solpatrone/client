@@ -29,7 +29,7 @@ function Details() {
 
   function handdleClick(e) {
     e.preventDefault();
-    setNewReview(true);
+    setNewReview(!newReview);
   }
 
   return (
@@ -51,18 +51,15 @@ function Details() {
                       ", " +
                       myRestaurant[0].neighborhood[0]}
                   </p>
-                  <p>
-                    Contacto:
-                    {myRestaurant[0].email
-                      ? myRestaurant[0].email
-                      : " No disponible"}
-                  </p>
+                   {myRestaurant[0].email && <p>Contacto:
+                    {" " + myRestaurant[0].email}</p> }
+                    
                 </div>
                 <div className={styles.icons}>
                   <h3>
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
                       () => (
-                        <RiStarFill size={25} style={{ fill: '#f2d349' }} />
+                        <RiStarFill style={{ fill: '#f2d349' }} />
                       )
                     )}
                   </h3>

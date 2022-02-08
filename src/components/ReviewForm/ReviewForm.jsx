@@ -11,37 +11,44 @@ export default function Review({setNewReview}) {
     rating: "",
     rev: "",
   });
+  const [error,setError] = useState(false)
 
   const reviews = useSelector((state) => state.reviews);
  
   const dispatch = useDispatch();
 
   let ratings = [
-    { name: "one", label: "1.0", value: "1" },
-    { name: "two", label: "2.0", value: "2" },
-    { name: "three", label: "3.0", value: "3" },
-    { name: "four", label: "4.0", value: "4" },
-    { name: "five", label: "5.0", value: "5" },
+    { name: "one", label: <RiStarFill size={20} style={{ fill: '#f2d349' }} />, value: "1" },
+    { name: "two", label: [...Array(2).keys()].map((index) => <RiStarFill size={20} style={{ fill: '#f2d349' }} key={index}/>), value: "2" },
+    { name: "three", label:[...Array(3).keys()].map((index) => <RiStarFill size={20} style={{ fill: '#f2d349' }} key={index}/>), value: "3" },
+    { name: "four", label:  [...Array(4).keys()].map((index) => <RiStarFill size={20} style={{ fill: '#f2d349' }} key={index}/>), value: "4" },
+    { name: "five", label:  [...Array(5).keys()].map((index) => <RiStarFill size={20} style={{ fill: '#f2d349' }} key={index}/>), value: "5" },
   ];
 
   function handleRatings(e) {
     setReview((prev) => ({ ...prev, rating: e }));
+    e === "" ? setError(true) : setError(false)
   }
 
   function handleRev(e) {
     setReview((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    e.target.value === "" ? setError(true) : setError(false)
   }
+  
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(review));
     setNewReview(false)
-    
+  }
+  function handleClose(e){
+    e.preventDefault();
+    setNewReview(false)
   }
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)}>
+      <form onSubmit={(e) => handleSubmit(e)} disabled={error}>
         <div>
           <Select
             className="selectRatings"
@@ -54,6 +61,7 @@ export default function Review({setNewReview}) {
         </div>
         <div>
           <textarea
+            required
             name="rev"
             cols="100"
             rows="10"
@@ -62,7 +70,8 @@ export default function Review({setNewReview}) {
           ></textarea>
         </div>
         <div>
-          <button>Enviar Reseña!</button>
+          <button  disabled={error} >Enviar Reseña</button>
+          <button onClick={e => handleClose(e)}>Cerrar</button>
         </div>
       </form>
     </div>
