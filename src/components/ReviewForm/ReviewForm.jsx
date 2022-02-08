@@ -3,15 +3,17 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
 import { postReview } from "../../actions";
+import styles from "./ReviewForm.module.css"
+import { RiStarFill } from "react-icons/ri";
 
-export default function Review() {
+export default function Review({setNewReview}) {
   const [review, setReview] = useState({
     rating: "",
     rev: "",
   });
 
   const reviews = useSelector((state) => state.reviews);
-  console.log(reviews);
+ 
   const dispatch = useDispatch();
 
   let ratings = [
@@ -33,6 +35,8 @@ export default function Review() {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(review));
+    setNewReview(false)
+    
   }
 
   return (

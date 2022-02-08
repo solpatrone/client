@@ -1,7 +1,7 @@
 import React from 'react';
 import {useSelector} from 'react-redux'
 import {RiStarFill }from 'react-icons/ri'
-import s from './ReviewsComments.module.css'
+import s from './Review.module.css'
 
 export default function ReviewsComments(){
 

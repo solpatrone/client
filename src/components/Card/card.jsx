@@ -18,7 +18,7 @@ function card({ name, photo, neighborhood, rating }) {
         <div className={s.line}>
           <h4>
             {[...Array(Number(rating)).keys()].map(() => (
-              <RiStarFill />
+              <RiStarFill size={25} style={{ fill: '#f2d349' }} />
             ))}
           </h4>
         </div>

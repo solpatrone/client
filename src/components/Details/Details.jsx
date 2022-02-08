@@ -7,16 +7,18 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
 import styles from "./Details.module.css";
 import { BiCommentDetail } from "react-icons/bi";
-import ReviewsComments from "../ReviewsComments/ReviewsComments";
-import Review from "../Reviews/Review";
+import Review from "../Review/Review";
+import ReviewForm from "../ReviewForm/ReviewForm";
 import Loading from "../Loading/Loading";
 
 function Details() {
   const dispatch = useDispatch();
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
-  const [review, setReview] = useState(false);
-  const [reviewForm, setReviewForm] = useState(false);
+  const [newReview, setNewReview] = useState(false);
+  const hasReviews = useSelector(state => state.reviews)
+  
+  
 
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
@@ -27,7 +29,7 @@ function Details() {
 
   function handdleClick(e) {
     e.preventDefault();
-    setReview(true);
+    setNewReview(true);
   }
 
   return (
@@ -60,7 +62,7 @@ function Details() {
                   <h3>
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
                       () => (
-                        <RiStarFill />
+                        <RiStarFill size={25} style={{ fill: '#f2d349' }} />
                       )
                     )}
                   </h3>
@@ -97,12 +99,12 @@ function Details() {
               >
                 Dejá tu reseña <BiCommentDetail />{" "}
               </button>
-              {review && <Review />}
+              {newReview && <ReviewForm setNewReview={setNewReview}/>}
             </div>
           </div>
-          {review && (
+          {hasReviews && (
             <div className={styles.reviews}>
-              <ReviewsComments />
+              <Review />
             </div>
           )}
         </div>
