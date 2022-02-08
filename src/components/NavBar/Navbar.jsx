@@ -7,7 +7,7 @@ import Logout from "../Logout/Logout";
 
 export default function Navbar() {
   const cookies = new Cookies();
-  const usuario = cookies.get("name");
+  const usuario = cookies.get("username");
   const restoName = cookies.get("restoName");
   return (
     <div className={styles.navBar}>
@@ -32,7 +32,7 @@ export default function Navbar() {
               <p>Iniciar sesión</p>
             </NavLink>
           ) : (
-            <h3>Bienvenido: {cookies.get("name")}</h3>
+            <h3 className={styles.user}>Bienvenido, {cookies.get("username")}</h3>
           )}
           {!usuario ? (
             <NavLink to="/registerclient" className={styles.navlinks}>

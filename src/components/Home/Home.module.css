@@ -33,4 +33,5 @@
 .button:hover {
   background-color: var(--dark-color);
   border: none;
+  margin-right: 10px;
 }
