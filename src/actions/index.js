@@ -25,6 +25,17 @@ export function createClient(info) {
   }
 }
 
+export function postImages(info){
+  return async () => {
+    try{
+      var newImages = await axios.post('http://localhost:3001/images/create', info);
+      return newImages
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
 export function createOwner(info) {
   return async () => {
     try {
