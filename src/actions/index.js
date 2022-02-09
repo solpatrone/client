@@ -11,6 +11,7 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
+  RESERVATION
 } from "./types";
 
 export function createClient(info) {
@@ -124,18 +125,7 @@ export function getNeighborhoods() {
 }
 
 
-// export function postReservation(payload){
-//   return async function(){
-
-//       try {
-//         var newReservation = await axios.post(
-//           "http://localhost:3001/reservation",
-//           info
-//         );
-//         return newReservation;
-//       } catch (e) {
-//         console.log(e);
-//       }
-//     };
-//   }
+export function reserve(payload){
+  return { type: RESERVATION, payload };
+}
 

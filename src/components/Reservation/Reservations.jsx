@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Select from "react-select";
+import {useDispatch, useSelector} from "react-redux"
 import Calendar from "react-calendar";
 import "./reactCalendar.css";
 import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { GrGroup } from "react-icons/gr";
+import { reserve } from "../../actions";
 
 export default function Reservations() {
   const [reservations, setReservations] = useState({
@@ -13,9 +15,12 @@ export default function Reservations() {
     pax: null,
   });
 
-  const [next, setNext] = useState(false)
+  const reserves= useSelector(state=> state.reservation)  
 
 console.log(reservations)
+
+console.log(reserves)
+const dispatch = useDispatch()
   //parsear fecha a dd/mm/yyyy
   // let day = reservations.date.getDate().toString();
   // let month = reservations.date.getMonth() + 1;
@@ -68,8 +73,10 @@ console.log(reservations)
   function handleSubmit(e){
     e.preventDefault()
    //agregar accion para postear reseña 
+    dispatch(reserve(reservations))
+  
   }
-  return (
+  return ( 
     <div>
       <div>
         <h3>Realiza una reserva</h3>
@@ -134,12 +141,10 @@ console.log(reservations)
         </form>
       </div>
       <div>
-        <h4>Fecha: {date}</h4>
-        <h4>Horario: {reservations.time}</h4>
-        <h4>Cantidad de personas: {reservations.pax}</h4>
+      <p>Confirme su reserva para el {date}, a las {reservations.time} hs para {reservations.pax} personas</p>
         
         {/* //cambiar boton por el siguiente paso -->Mercado Pago */}
-        {!reservations.date || !reservations.time || !reservations.pax ? null : <button>Confirmar Reserva</button>}
+        {!reservations.date || !reservations.time || !reservations.pax ? null : <button onClick={e=>handleSubmit(e)}>Confirmar Reserva</button>}
         
       </div>
     </div>

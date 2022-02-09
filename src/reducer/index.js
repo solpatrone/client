@@ -10,6 +10,7 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
+  RESERVATION
 } from "../actions/types";
 
 const initialState = {
@@ -23,6 +24,7 @@ const initialState = {
   reviews: [],
   cuisines: [],
   loading: false,
+  reservation: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -106,6 +108,12 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         loading: true,
       };
+      case RESERVATION:
+      
+        return{
+          ...state,
+          reservation: [...state.reservation, action.payload]
+        }
     default:
       return { ...state };
   }
