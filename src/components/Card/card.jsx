@@ -15,10 +15,10 @@ function card({ name, photo, neighborhood, rating }) {
             width="240px"
           />
         </div>
-        <div className={s.line}>
+        <div className={s.line}>  
           <h4>
-            {[...Array(Number(rating)).keys()].map(() => (
-              <RiStarFill />
+            {[...Array(Number(rating)).keys()].map((key) => (
+              <RiStarFill key={key} />
             ))}
           </h4>
         </div>

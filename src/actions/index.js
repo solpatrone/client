@@ -2,8 +2,6 @@ import axios from "axios";
 
 import {
   GET_RESTOS,
-  CREATE_CLIENT,
-  CREATE_OWNER,
   GET_RESTO_NAME,
   GET_NEIGHBORHOODS,
   GET_RESTO_DETAILS,
@@ -11,7 +9,7 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
-  RESERVATION
+  RESERVATION,
 } from "./types";
 
 export function createClient(info) {
@@ -30,16 +28,17 @@ export function createClient(info) {
 }
 
 export function createOwner(info) {
-  return { type: CREATE_OWNER, payload: info };
-}
-
-export function getUseres() {
-  return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/usuario", {});
-    return dispatch({
-      type: "GET_RECIPES",
-      payload: json.data,
-    });
+  return async () => {
+    try {
+      var newOwner = await axios.post(
+        "http://localhost:3001/restaurant/create",
+        info
+      );
+      console.log(newOwner);
+      return newOwner;
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
 
@@ -124,8 +123,6 @@ export function getNeighborhoods() {
   };
 }
 
-
-export function reserve(payload){
+export function reserve(payload) {
   return { type: RESERVATION, payload };
 }
-

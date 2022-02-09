@@ -55,21 +55,24 @@ export default function rootReducer(state = initialState, action) {
           ...state,
         };
       }
-    case CREATE_OWNER:
-      let existsOwn = state.owners.find(
-        (u) => u.email === action.payload.email
-      );
-      console.log(state.owners);
-      if (!existsOwn) {
-        return {
-          ...state,
-          owners: [...state.owners, action.payload],
-        };
-      } else {
-        return {
-          ...state,
-        };
-      }
+      case CREATE_OWNER:
+            return{...state,
+            }
+        //case CREATE_OWNER:
+        //  let existsOwn = state.owners.find(
+        //    (u) => u.email === action.payload.email
+        //  );
+        //  console.log(state.owners);
+        //  if (!existsOwn) {
+        //    return {
+        //      ...state,
+        //      owners: [...state.owners, action.payload],
+        //    };
+        //  } else {
+        //    return {
+        //      ...state,
+        //    };
+        //  }
     case GET_USERS:
       return {
         ...state,
