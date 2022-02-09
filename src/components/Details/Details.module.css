@@ -83,3 +83,7 @@ button{
     width: 600px;
     height: auto;
 }
+.btn{
+    margin: auto;
+    color: black;
+}
