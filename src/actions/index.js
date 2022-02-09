@@ -9,7 +9,7 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
-  RESERVATION,
+  POST_RESERVATION,
 } from "./types";
 
 export function createClient(info) {
@@ -123,6 +123,17 @@ export function getNeighborhoods() {
   };
 }
 
-export function reserve(payload) {
-  return { type: RESERVATION, payload };
+export function postReservation(payload) {
+  return async function () {
+    try {
+      var newRes = await axios.post(
+        "http://localhost:3001/reserve/create",
+        payload
+      );
+      alert("Tu reserva a sido realizada");
+      return newRes;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 }

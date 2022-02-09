@@ -21,8 +21,7 @@ function Details() {
   // const [reviewForm, setReviewForm] = useState(false);
   const cookies = new Cookies();
   const usuario = cookies.get("username");
-  console.log(myRestaurant[0]);
-  console.log(cookies.cookies.email);
+  console.log(myRestaurant);
 
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
@@ -50,10 +49,10 @@ function Details() {
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
-                    Direccion:{" "}
+                    Direccion:
                     {myRestaurant[0].address.split(",", 1) +
                       ", " +
-                      myRestaurant[0].neighborhood[0]}
+                      myRestaurant[0].neighborhood_info[0]}
                   </p>
                   <p>
                     Contacto:
@@ -98,7 +97,7 @@ function Details() {
             <div className={styles.reservations}>
               {usuario ? (
                 <Reservations
-                  restoId={myRestaurant[0]}
+                  restoId={myRestaurant}
                   userId={cookies.cookies.email}
                 />
               ) : (

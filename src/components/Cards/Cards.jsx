@@ -18,7 +18,7 @@ export default function Cards({ restaurants }) {
                   <Card
                     name={r.name}
                     photo={r.photo}
-                    neighborhood={r.neighborhood}
+                    neighborhood={r.neighborhood_info}
                     rating={r.rating}
                   />
                 </div>

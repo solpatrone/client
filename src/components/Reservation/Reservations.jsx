@@ -6,17 +6,18 @@ import "./reactCalendar.css";
 import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { GrGroup } from "react-icons/gr";
-import { reserve } from "../../actions";
+import { postReservation } from "../../actions";
 
 export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
     date: new Date(),
     time: "",
     pax: null,
-    userId,
-    restoId: restoId.id,
+    email: userId,
+    id: restoId[0].id,
   });
 
+  console.log(restoId);
   //guardado en estado local hasta poder hacer la conexion con el back
   const reserves = useSelector((state) => state.reservation);
   console.log(reservations);
@@ -58,7 +59,7 @@ export default function Reservations({ userId, restoId }) {
   }
 
   let pax = []; //cambiar por restaurants.personas_max
-  for (let i = 1; i <= restoId.personas_max; i++) {
+  for (let i = 1; i <= restoId[0].personas_max; i++) {
     pax.push({ name: i, label: i, value: i });
   }
 
@@ -73,16 +74,16 @@ export default function Reservations({ userId, restoId }) {
   function handleSubmit(e) {
     e.preventDefault();
     //agregar accion para postear reseña
-    dispatch(reserve(reservations));
+    dispatch(postReservation(reservations));
   }
 
   let date = reservations.date.toString().split("00")[0].split(" ");
   date = date[2].concat(" " + date[1] + " ").concat(date[3]);
   return (
-    <div>
+    <div className={s.container}>
       <div className={s.headContainer}>
-        <h3>Realiza una reserva</h3>
-        <div>
+        <h3>hace tu reserva</h3>
+        <div className={s.iconContainer}>
           <div>
             <FaRegCalendarAlt />
           </div>
@@ -90,13 +91,13 @@ export default function Reservations({ userId, restoId }) {
             <FaClock />
           </div>
           <div>
-            <GrGroup />
+            <GrGroup style={{ color: "var(--bright-color)" }} />
           </div>
         </div>
       </div>
-      <div>
+      <div className={s.form}>
         <form onSubmit={(e) => handleSubmit(e)}>
-          <div>
+          <div className={s.calendar}>
             <div>
               <Calendar
                 value={reservations.date}
@@ -107,30 +108,37 @@ export default function Reservations({ userId, restoId }) {
               />
             </div>
           </div>
-          <div>
-            <div>
+
+          <hr></hr>
+          <div className={s.colContainer}>
+            {!reservations.time && <p>Selecciona un horario</p>}
+            <div className={s.column}>
               <label>Almuerzo</label>
               <Select
                 options={lunchTimes}
                 isMulti={false}
                 value={reservations.time}
-                name={reservations.time}
+                name={"time"}
                 onChange={(e) => handleLunchChange(e)}
               />
             </div>
-            <div>
+            <div className={s.column}>
               <label>Cena</label>
               <Select
                 options={dinnerTimes}
                 isMulti={false}
                 value={reservations.time}
-                name={reservations.time}
+                name={"time"}
                 onChange={(e) => handleDinnerChange(e)}
               />
             </div>
           </div>
 
-          <div>
+          <hr></hr>
+
+          <div className={s.column}>
+            {!reservations.pax && <p>Selecciona cantidad de personas</p>}
+            <label>Cantidad de personas</label>
             <Select
               options={pax}
               isMulti={false}
@@ -142,16 +150,19 @@ export default function Reservations({ userId, restoId }) {
         </form>
       </div>
       <div>
-        <p>
-          Confirme su reserva para el {date}, a las {reservations.time} hs para{" "}
-          {reservations.pax} personas
+        <p className={s.text}>
+          Confirme su reserva para el {date ? date : "--"}, a las{" "}
+          {reservations.time ? reservations.time : "--"} hs para{" "}
+          {reservations.pax ? reservations.pax : "--"} personas
         </p>
 
         {/* //cambiar boton por el siguiente paso -->Mercado Pago */}
         {!reservations.date ||
         !reservations.time ||
         !reservations.pax ? null : (
-          <button onClick={(e) => handleSubmit(e)}>Confirmar Reserva</button>
+          <button onClick={(e) => handleSubmit(e)} className={s.btn}>
+            Confirmar Reserva
+          </button>
         )}
       </div>
     </div>
