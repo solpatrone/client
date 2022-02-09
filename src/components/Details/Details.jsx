@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getRestoDetails, clearDetailsState } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -17,6 +17,7 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [review, setReview] = useState(false);
   const [reviewForm, setReviewForm] = useState(false);
+  const history = useHistory();
 
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
@@ -30,11 +31,16 @@ function Details() {
     setReview(true);
   }
 
+  function handleRedirectReservation(e) {
+    e.preventDefault();
+    history.push("/reservations");
+  }
+
   return (
     <div>
       <Navbar />
       {myRestaurant.length === 0 ? (
-        <Loading/>
+        <Loading />
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.container}>
@@ -75,7 +81,7 @@ function Details() {
               <img
                 src={myRestaurant[0].photo}
                 alt="img not found"
-                className = {styles.restauranteImage}
+                className={styles.restauranteImage}
                 height="auto"
               />
               <p>
@@ -90,7 +96,12 @@ function Details() {
               )}
             </div>
             <div className={styles.reservations}>
-              <button className={styles.button}>Reservá tu mesa</button>
+              <button
+                className={styles.button}
+                onClick={(e) => handleRedirectReservation(e)}
+              >
+                Reservá tu mesa
+              </button>
               <button
                 className={styles.button}
                 onClick={(e) => handdleClick(e)}

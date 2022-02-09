@@ -122,3 +122,20 @@ export function getNeighborhoods() {
     });
   };
 }
+
+
+// export function postReservation(payload){
+//   return async function(){
+
+//       try {
+//         var newReservation = await axios.post(
+//           "http://localhost:3001/reservation",
+//           info
+//         );
+//         return newReservation;
+//       } catch (e) {
+//         console.log(e);
+//       }
+//     };
+//   }
+
