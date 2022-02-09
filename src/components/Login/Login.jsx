@@ -22,7 +22,8 @@ export default function Login() {
         if (userData) {
           cookies.set("id", userData.id, { path: "/" });
           cookies.set("username", userData.username, { path: "/" });
-          cookies.set("email", userData.email, { path: "/" });
+          cookies.set("email", userData.email, { path: "/" });        
+          cookies.set("restoName", '' , { path: "/" });
           console.log('hola soy cookies', cookies);
         }
         history.push("/home");
@@ -59,6 +60,7 @@ export default function Login() {
       cookies.set("id", user.id, { path: "/" });
       cookies.set("username", user.username, { path: "/" });
       cookies.set("email", user.email, { path: "/" });
+      cookies.set("restoName", '' , { path: "/" });
       console.log('hola soy cookies', cookies);
       history.push("/home");
     }

@@ -26,17 +26,15 @@ export function createClient(info) {
 }
 
 export function createOwner(info) {
-  return { type: CREATE_OWNER, payload: info };
-}
-
-export function getUseres() {
-  return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/usuario", {});
-    return dispatch({
-      type: "GET_RECIPES",
-      payload: json.data,
-    });
-  };
+  return async () => {
+    try {
+      var newOwner = await axios.post('http://localhost:3001/restaurant/create', info);
+      console.log(newOwner);
+      return newOwner;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }
 
 

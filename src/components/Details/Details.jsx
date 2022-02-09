@@ -62,8 +62,8 @@ function Details() {
                 <div className={styles.icons}>
                   <h3>
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
-                      () => (
-                        <RiStarFill />
+                      (key) => (
+                        <RiStarFill key={key} />
                       )
                     )}
                   </h3>
@@ -104,17 +104,17 @@ function Details() {
                 }
                 {
                   usuario?
-              <button
-                className={styles.button}
-                onClick={(e) => handdleClick(e)}
-              >
-                Dejá tu reseña <BiCommentDetail />{" "}
-              </button>:
-              <button >
-                <NavLink to="/login" >
-                  <p className={styles.btn}>Reservá tu mesa</p>
-                </NavLink>
-             </button>
+                  <button
+                    className={styles.button}
+                    onClick={(e) => handdleClick(e)}
+                    >
+                    Dejá tu reseña <BiCommentDetail />{" "}
+                  </button>:
+                  <button >
+                    <NavLink to="/login" >
+                    <p className={styles.btn}>Dejá te reseña</p>
+                    </NavLink>
+                  </button>
                 }
 
               {review && <Review />}
