@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import {useDispatch, useSelector} from "react-redux"
+import { useDispatch, useSelector } from "react-redux";
 import Calendar from "react-calendar";
 import "./reactCalendar.css";
 import s from "./Reservations.module.css";
@@ -8,19 +8,21 @@ import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { GrGroup } from "react-icons/gr";
 import { reserve } from "../../actions";
 
-export default function Reservations() {
+export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
     date: new Date(),
     time: "",
     pax: null,
+    userId,
+    restoId: restoId.id,
   });
 
-  const reserves= useSelector(state=> state.reservation)  
+  //guardado en estado local hasta poder hacer la conexion con el back
+  const reserves = useSelector((state) => state.reservation);
+  console.log(reservations);
+  console.log(reserves);
 
-console.log(reservations)
-
-console.log(reserves)
-const dispatch = useDispatch()
+  const dispatch = useDispatch();
   //parsear fecha a dd/mm/yyyy
   // let day = reservations.date.getDate().toString();
   // let month = reservations.date.getMonth() + 1;
@@ -28,6 +30,7 @@ const dispatch = useDispatch()
   // let fullDate = day.concat("/" + month + "/").concat(year);
   // console.log(fullDate);
 
+  //lunch and dinner times
   let lunchTimes = [
     { name: "12:00", label: "12 PM", value: "12:00" },
     { name: "12:30", label: "12:30 PM", value: "12:30" },
@@ -35,10 +38,6 @@ const dispatch = useDispatch()
     { name: "13:30", label: "13:30 PM", value: "13:30" },
     { name: "14:00", label: "14 PM", value: "14:30" },
   ];
-
-  function handleLunchChange(e) {
-    setReservations((prev) => ({ ...prev, time: e.value }));
-  }
 
   let dinnerTimes = [
     { name: "20:00", label: "20 PM", value: "20:00" },
@@ -49,12 +48,17 @@ const dispatch = useDispatch()
     { name: "22:30", label: "22:30 PM", value: "22:30" },
   ];
 
+  //han
+  function handleLunchChange(e) {
+    setReservations((prev) => ({ ...prev, time: e.value }));
+  }
+
   function handleDinnerChange(e) {
     setReservations((prev) => ({ ...prev, time: e.value }));
   }
 
   let pax = []; //cambiar por restaurants.personas_max
-  for (let i = 1; i <= 20; i++) {
+  for (let i = 1; i <= restoId.personas_max; i++) {
     pax.push({ name: i, label: i, value: i });
   }
 
@@ -64,29 +68,35 @@ const dispatch = useDispatch()
 
   function handleDateChange(e) {
     setReservations((prev) => ({ ...prev, date: e }));
-    
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    //agregar accion para postear reseña
+    dispatch(reserve(reservations));
   }
 
   let date = reservations.date.toString().split("00")[0].split(" ");
   date = date[2].concat(" " + date[1] + " ").concat(date[3]);
-  
-  function handleSubmit(e){
-    e.preventDefault()
-   //agregar accion para postear reseña 
-    dispatch(reserve(reservations))
-  
-  }
-  return ( 
+  return (
     <div>
-      <div>
+      <div className={s.headContainer}>
         <h3>Realiza una reserva</h3>
+        <div>
+          <div>
+            <FaRegCalendarAlt />
+          </div>
+          <div>
+            <FaClock />
+          </div>
+          <div>
+            <GrGroup />
+          </div>
+        </div>
       </div>
       <div>
-        <form onSubmit={e=> handleSubmit(e)}>
+        <form onSubmit={(e) => handleSubmit(e)}>
           <div>
-            <div>
-              <FaRegCalendarAlt />
-            </div>
             <div>
               <Calendar
                 value={reservations.date}
@@ -98,10 +108,6 @@ const dispatch = useDispatch()
             </div>
           </div>
           <div>
-            <div>
-              <FaClock />
-            </div>
-
             <div>
               <label>Almuerzo</label>
               <Select
@@ -125,10 +131,6 @@ const dispatch = useDispatch()
           </div>
 
           <div>
-            <div>
-              <GrGroup />
-            </div>
-
             <Select
               options={pax}
               isMulti={false}
@@ -137,15 +139,20 @@ const dispatch = useDispatch()
               onChange={(e) => handlePaxChange(e)}
             />
           </div>
-          
         </form>
       </div>
       <div>
-      <p>Confirme su reserva para el {date}, a las {reservations.time} hs para {reservations.pax} personas</p>
-        
+        <p>
+          Confirme su reserva para el {date}, a las {reservations.time} hs para{" "}
+          {reservations.pax} personas
+        </p>
+
         {/* //cambiar boton por el siguiente paso -->Mercado Pago */}
-        {!reservations.date || !reservations.time || !reservations.pax ? null : <button onClick={e=>handleSubmit(e)}>Confirmar Reserva</button>}
-        
+        {!reservations.date ||
+        !reservations.time ||
+        !reservations.pax ? null : (
+          <button onClick={(e) => handleSubmit(e)}>Confirmar Reserva</button>
+        )}
       </div>
     </div>
   );

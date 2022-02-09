@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getRestoDetails, clearDetailsState } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams, useHistory, NavLink } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -11,16 +11,18 @@ import ReviewsComments from "../ReviewsComments/ReviewsComments";
 import Review from "../Reviews/Review";
 import Loading from "../Loading/Loading";
 import Cookies from "universal-cookie";
+import Reservations from "../Reservation/Reservations";
 
 function Details() {
   const dispatch = useDispatch();
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const [review, setReview] = useState(false);
-  const [reviewForm, setReviewForm] = useState(false);
-  const history = useHistory();
+  // const [reviewForm, setReviewForm] = useState(false);
   const cookies = new Cookies();
   const usuario = cookies.get("username");
+  console.log(myRestaurant[0]);
+  console.log(cookies.cookies.email);
 
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
@@ -32,11 +34,6 @@ function Details() {
   function handdleClick(e) {
     e.preventDefault();
     setReview(true);
-  }
-
-  function handleRedirectReservation(e) {
-    e.preventDefault();
-    history.push("/reservations");
   }
 
   return (
@@ -100,7 +97,10 @@ function Details() {
             </div>
             <div className={styles.reservations}>
               {usuario ? (
-                <button className={styles.button}>Reservá tu mesa</button>
+                <Reservations
+                  restoId={myRestaurant[0]}
+                  userId={cookies.cookies.email}
+                />
               ) : (
                 <button>
                   <NavLink to="/login">
@@ -113,7 +113,7 @@ function Details() {
                   className={styles.button}
                   onClick={(e) => handdleClick(e)}
                 >
-                  Dejá tu reseña <BiCommentDetail />{" "}
+                  Dejá tu reseña <BiCommentDetail />
                 </button>
               ) : (
                 <button>
