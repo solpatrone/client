@@ -96,10 +96,16 @@ export function clearDetailsState() {
 }
 
 export function postReview(payload) {
-  return {
-    type: POST_REVIEW,
-    payload,
-  };
+  return async ()=>{
+    try{
+      let newReview= await axios.post("http://localhost:3001/review/create", payload)
+      console.log(newReview)
+      return newReview
+
+    }catch(e){
+      console.log(e)
+    }
+  }
 }
 
 export function getNeighborhoods() {

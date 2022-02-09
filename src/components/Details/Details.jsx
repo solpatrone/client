@@ -17,6 +17,7 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector(state => state.reviews)
+  console.log(hasReviews)
   
   
 
@@ -99,15 +100,17 @@ function Details() {
               {newReview && <ReviewForm setNewReview={setNewReview}/>}
             </div>
           </div>
-          {hasReviews && (
+          <div>
+          {hasReviews.length > 0 && (
             <div className={styles.reviews}>
+              <h3>Reseñas</h3>                    
               <Review />
             </div>
           )}
+          </div>
         </div>
       )}
     </div>
   );
 }
-
 export default Details;

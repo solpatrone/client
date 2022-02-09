@@ -6,7 +6,7 @@ import { postReview } from "../../actions";
 import styles from "./ReviewForm.module.css"
 import { RiStarFill } from "react-icons/ri";
 
-export default function Review({setNewReview}) {
+export default function ReviewForm({setNewReview}) {
   const [review, setReview] = useState({
     rating: "",
     rev: "",
@@ -63,7 +63,7 @@ export default function Review({setNewReview}) {
           <textarea
             required
             name="rev"
-            cols="100"
+            cols="50"
             rows="10"
             placeholder="Escribe tu reseña"
             onChange={(e) => handleRev(e)}
