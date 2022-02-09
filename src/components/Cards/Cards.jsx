@@ -16,13 +16,14 @@ export default function Cards({ restaurants }) {
 
           {restaurants.map((r) => {
             return (
-              <Link to={`/restaurants/${r.id}`} className={style.linkCard}>
+              <Link to={`/restaurants/${r.id}`} className={style.linkCard} key={r.id}>
                 <div className={style.box} key={r.id}>
                   <Card
                     name={r.name}
                     photo={r.photo}
                     neighborhood={r.neighborhood}
                     rating={r.rating}
+                    
                   />
                 </div>
               </Link>

@@ -1,55 +1,74 @@
 import React, { useState } from "react";
 import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
-import { useDispatch, useSelector } from "react-redux";
 import Cookies from "universal-cookie";
 import style from "./Login.module.css";
+import axios from "axios";
 
 export default function Login() {
   const history = useHistory();
-
-  const owner = useSelector((state) => state.owners);
-  const client = useSelector((state) => state.clients);
-  const allUsers = owner.concat(client);
-
-  console.log("hola", client);
-
-  const [input, setInput] = React.useState({
-    user: "",
+  const [input, setInput] = useState({
+    email: "",
     password: "",
   });
 
-  const responseGoogle = (response) => {
-    console.log(response);
-  };
+  const responseGoogle = async (response) => {
+    if (response.profileObj) {
+      var info = {email: response.profileObj.email, id: response.profileObj.googleId}
+      try {
+        var user = await axios.post('http://localhost:3001/login/google', info);
+        var userData = user.data;
+        const cookies = new Cookies();
+        if (userData) {
+          cookies.set("id", userData.id, { path: "/" });
+          cookies.set("username", userData.username, { path: "/" });
+
+          cookies.set("email", userData.email, { path: "/" });        
+          cookies.set("restoName", '' , { path: "/" });
+
+          cookies.set("email", userData.email, { path: "/" });
+
+          console.log('hola soy cookies', cookies);
+        }
+        history.push("/home");
+        return userData;
+      } catch (e) {
+        alert('Por favor, antes de acceder con Google registrate en nuestro sistema')
+        history.push('/registerclient');
+      }
+    }
+  }
+
+  async function logger(info) {
+    try {
+      var user = await axios.post("http://localhost:3001/login", info);
+      var userData = user.data;
+      return userData;
+    } catch (e) {
+      console.log(e);
+    }
+  }
 
   function handleChange(e) {
     setInput({
       ...input,
       [e.target.name]: e.target.value,
     });
-    console.log(input);
   }
 
-  function handleSubmit(e) {
+  async function handleSubmit(e) {
     e.preventDefault();
-    let userMatch = allUsers.find((e) => e.email === input.user);
-    if (!userMatch) {
-      alert("mail incorrecto");
-    }
-    if (userMatch.password !== input.password) {
-      alert("password incorrecto");
-    } else {
-      const cookies = new Cookies();
-      cookies.set("user", input.user, { path: "/" });
-      cookies.set("password", input.password, { path: "/" });
-      cookies.set("name", allUsers[0].name || allUsers[0].username, {
-        path: "/",
-      });
-      const restoName = allUsers[0].restoName;
-      cookies.set("restoName", restoName ? restoName : "", { path: "/" });
+    var user = await logger(input);
+    const cookies = new Cookies();
+    if (user) {
+      cookies.set("id", user.id, { path: "/" });
+      cookies.set("username", user.username, { path: "/" });
+      cookies.set("email", user.email, { path: "/" });
+
+      cookies.set("restoName", '' , { path: "/" });
+
+      console.log('hola soy cookies', cookies);
       history.push("/home");
-      console.log(cookies);
     }
   }
 
@@ -58,11 +77,11 @@ export default function Login() {
       <div className={style.container}>
         <form onSubmit={handleSubmit}>
           <div>
-            <div>Usuario: </div>
+            <div>Email: </div>
             <input
-              type="text"
-              value={input.user}
-              name="user"
+              type="email"
+              value={input.email}
+              name="email"
               placeholder="Ingrese su usuario"
               onChange={(e) => handleChange(e)}
             />
