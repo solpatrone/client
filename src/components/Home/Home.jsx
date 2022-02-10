@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
@@ -10,14 +10,13 @@ import { getRestos, getNeighborhoods, getCuisines } from "../../actions/index";
 import Cookies from "universal-cookie/es6";
 import Logout from "../Logout/Logout";
 import s from "./Home.module.css";
-import Loading from "../Loading/Loading"
-
+import Loading from "../Loading/Loading";
 
 export default function Home() {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
-  const loading = useSelector (state => state.loading)
-  console.log(loading)
+  const loading = useSelector((state) => state.loading);
+  console.log(loading);
 
   const cookies = new Cookies();
   const allRestaurants = useSelector((state) => state.restaurants);
@@ -30,14 +29,16 @@ export default function Home() {
   const allCuisines = allCuisinesRaw.map((n) => {
     return { name: n.name, label: n.name };
   });
-  
-
 
   const [restosToShow, setRestosToShow] = useState([]);
   const [toFilter, setToFilter] = useState([]);
 
   let defaultNeighborhood = { name: "all", label: "Barrios", value: "all" };
-  let defaultCuisine = { name: "all", label: "Categoria de comida", value: "all" }
+  let defaultCuisine = {
+    name: "all",
+    label: "Categoria de comida",
+    value: "all",
+  };
 
   let priceOptions = [
     { name: "all", label: "Precios", value: "all" },
@@ -48,13 +49,12 @@ export default function Home() {
     { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
 
- 
-
   const [currentPage, setCurrentPage] = useState(1);
   const [filteredByNeighborhood, setFilteredByNeighborhood] =
     useState(defaultNeighborhood);
   const [filteredByPrice, setFilteredByPrice] = useState(priceOptions[0]);
-  const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(defaultCuisine);
+  const [filteredByFoodTypes, setFilteredByFoodTypes] =
+    useState(defaultCuisine);
   const [restosPerPage] = useState(12);
 
   function paginado(pageNumber) {
@@ -66,7 +66,7 @@ export default function Home() {
       filteredByNeighborhood.value === "all"
         ? allRestaurants
         : allRestaurants.filter((restaurante) =>
-            restaurante.neighborhood.some(
+            restaurante.neighborhood_info.some(
               (e) => e === filteredByNeighborhood.name
             )
           );
@@ -80,10 +80,8 @@ export default function Home() {
       filteredByFoodTypes.value === "all"
         ? restaurantesByPrice
         : restaurantesByPrice.filter((restaurante) =>
-            restaurante.cuisine.some(
-              (e) => e === filteredByFoodTypes.name)
+            restaurante.cuisine.some((e) => e === filteredByFoodTypes.name)
           );
-          
 
     const indexOfLastPost = currentPage * restosPerPage;
     const indexOfFirstPost = indexOfLastPost - restosPerPage;
@@ -122,28 +120,28 @@ export default function Home() {
     setFilteredByFoodTypes(defaultCuisine);
     setFilteredByNeighborhood(allNeighborhoods[0]);
     setFilteredByPrice(priceOptions[0]);
-    setCurrentPage(1)
+    setCurrentPage(1);
   }
 
   function handleNeighborhood(e) {
     setFilteredByNeighborhood(e);
-    setCurrentPage(1)
+    setCurrentPage(1);
   }
 
   function handlePrice(e) {
     setFilteredByPrice(e);
-    setCurrentPage(1)
+    setCurrentPage(1);
   }
 
   function handleFoodTypes(e) {
     setFilteredByFoodTypes(e);
-    setCurrentPage(1)
+    setCurrentPage(1);
   }
 
   useEffect(() => {
     dispatch(getRestos());
     dispatch(getNeighborhoods());
-    dispatch(getCuisines())
+    dispatch(getCuisines());
   }, []);
 
   function handleReload(e) {
@@ -153,7 +151,7 @@ export default function Home() {
 
   return (
     <div className={s.container}>
-      <Loading/>
+      <Loading />
       <Navbar />
       <Landingpage />
       <div>
@@ -162,7 +160,7 @@ export default function Home() {
           {(filteredByNeighborhood.value !== "all" ||
             filteredByPrice.value !== "all" ||
             filteredByFoodTypes.value !== "all") && (
-            <button  className={s.button} onClick={(e) => handleReload(e)}>
+            <button className={s.button} onClick={(e) => handleReload(e)}>
               {" "}
               Mostrar todos los Restos
             </button>
@@ -190,10 +188,13 @@ export default function Home() {
           onChange={(e) => handleFoodTypes(e)}
         />
       </div>
-      {loading ? <div>cargando</div>:
-      <div>
-        <Cards restaurants={restosToShow} />
-      </div>}
+      {loading ? (
+        <div>cargando</div>
+      ) : (
+        <div>
+          <Cards restaurants={restosToShow} />
+        </div>
+      )}
       <div className={s.pagContainer}>
         <Paginate
           restosPerPage={restosPerPage}

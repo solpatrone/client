@@ -8,14 +8,15 @@ import Login from "./components/Login/Login";
 import Review from "./components/Reviews/Review";
 import Details from "./components/Details/Details";
 import LoadImage from "./components/LoadImage/LoadImage";
+import Reservations from "./components/Reservation/Reservations";
 
 function App() {
   // const location = useLocation();
   return (
     <div className="App">
-     <Route exact path="/">
-   <Redirect to="/home" />  
-</Route>
+      <Route exact path="/">
+        <Redirect to="/home" />
+      </Route>
       <Route path={"/home"} render={() => <Home />} />
       <Route path={"/registerclient"} render={() => <Registerclient />} />
       <Route path={"/registerOwner"} render={() => <RegisterOwner />} />
@@ -23,6 +24,7 @@ function App() {
       <Route path={"/restaurants/:id"} render={() => <Details />} />
       <Route path={"/Login"} render={() => <Login />} />
       <Route path={"/images"} render={() => <LoadImage/>} />
+      <Route path={"/reservations"} render={() => <Reservations />} />
     </div>
   );
 }

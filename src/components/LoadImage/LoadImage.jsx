@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import { Widget } from "@uploadcare/react-widget";
+import { addImagesToRestos } from '../../actions';
 
 
 
@@ -7,16 +8,20 @@ export default function LoadImage() {
  
 
     let [input, setInput] = useState ({
-        images: []
+        newPhoto: ''
+        //images: []
     })
 
     function handleChange(e){
-        for (let index = 0; index < e.count ; index++) {
-            setInput({images: input.images.push(('https://ucarecdn.com/' + e.uuid + '/nth/' + index + '/').toString())})          
-        }
-        console.log(e.uuid)
-        console.log(input)
-        
+        setInput({newPhoto: 'https://ucarecdn.com/' + e.uuid + '/nth/' + 0 + '/'})
+      //  for (let index = 0; index < e.count ; index++) {
+           // setInput({images: input.images.push(('https://ucarecdn.com/' + e.uuid + '/nth/' + index + '/').toString())})          
+     //   }
+    }
+
+    function handleClick(e){
+        e.preventDefault()
+        addImagesToRestos(input)
     }
 
 //     cdnUrl: "https://ucarecdn.com/4db5c95e-31f9-4008-9c28-f18e5afffa3a~1/"
@@ -32,7 +37,11 @@ export default function LoadImage() {
     <div>
 
         <Widget publicKey='0a91ec69631fd28d2d4a' multiple='true' imagesOnly='true' locale='es' onChange={handleChange}/>
-       
+       <div>
+           <button onClick={e => handleClick(e)}>
+                Subir imagenes
+           </button>
+       </div>
     </div>
   )
 }

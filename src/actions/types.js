@@ -11,3 +11,4 @@ export const GET_CUISINES = "GET_CUISINES";
 export const LOADING = "LOADING";
 export const ADD_IMAGES = "ADD_IMAGES";
 
+export const POST_RESERVATION = "POST_RESERVATION";
