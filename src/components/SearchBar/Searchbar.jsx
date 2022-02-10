@@ -8,6 +8,8 @@ function Searchbar() {
   const resto = useSelector((state )=> state.allRestaurants);
   const restoName = resto.map(r => r.name)
 
+  const searchedResto = useSelector((state) => state.restaurants )
+
 
   const dispatch = useDispatch();
 
@@ -21,7 +23,7 @@ function Searchbar() {
     e.preventDefault();
     setRestaurantName(e.target.value)
     searchMatch(e.target.value);
-    if (e.target.value === '') {
+    if (searchedResto.length <=1 && e.target.value === '') {
       dispatch(getRestos())
   }
   }

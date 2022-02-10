@@ -14,6 +14,10 @@ export default function RegisterOwner() {
   const cookies = new Cookies();
     
 
+    const cookies = new Cookies();
+  console.log("este es la prueba",cookies)
+
+
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
     return { name: n.name, label: n.name, value: n.name };
