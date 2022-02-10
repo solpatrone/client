@@ -73,8 +73,8 @@ export default function Home() {
     let restaurantesByPrice =
       filteredByPrice.value === "all"
         ? restaurantesByNeighborhood
-        : restaurantesByNeighborhood.filter((r) =>
-            r.price.includes(filteredByPrice.name)
+        : restaurantesByNeighborhood.filter(
+            (r) => r.price === filteredByPrice.name
           );
     let restaurantesByFood =
       filteredByFoodTypes.value === "all"
