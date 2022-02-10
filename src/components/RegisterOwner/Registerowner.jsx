@@ -10,8 +10,10 @@ import Cookies from "universal-cookie";
 export default function RegisterOwner() {
   const history = useHistory();
   let dispatch = useDispatch();
+  
+  const cookies = new Cookies();
+    
 
-    const cookies = new Cookies();
   console.log("este es la prueba",cookies)
 
 
@@ -49,7 +51,8 @@ export default function RegisterOwner() {
     { name: 20, label: 20, value: 20 },
   ];
 
-
+ const own= cookies.get('email');
+console.log('holaaaaaa',own)
   //owner object
   const [owner, setOwner] = useState({
     name: "",
@@ -66,7 +69,7 @@ export default function RegisterOwner() {
       label:0,
       value:0
     },
-    owner:"",
+    owner:own,
     description: "",
     price: {
       name:"",
@@ -119,9 +122,11 @@ export default function RegisterOwner() {
     e.preventDefault();
     if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
-      
+      const own= cookies.get('email');
+      console.log(own)
       setIsSubmit(true);
       setOwner({
+
         name: "",
         address: "",
         neighborhood_info: "",
@@ -129,10 +134,11 @@ export default function RegisterOwner() {
         photo: "",
         email:"",
         personas_max:"",
-        owner: cookies.get('email'),
+        owner: own,
         description: "",
         price: "",
       });
+      
     }
     history.push("/home");
   }
@@ -285,7 +291,7 @@ export default function RegisterOwner() {
        
         </div>
       </form>
- 
+         
     </div>
   );
 }
