@@ -14,30 +14,35 @@ export default function Login() {
 
   const responseGoogle = async (response) => {
     if (response.profileObj) {
-      var info = {email: response.profileObj.email, id: response.profileObj.googleId}
+      var info = {
+        email: response.profileObj.email,
+        id: response.profileObj.googleId,
+      };
       try {
-        var user = await axios.post('http://localhost:3001/login/google', info);
+        var user = await axios.post("http://localhost:3001/login/google", info);
         var userData = user.data;
         const cookies = new Cookies();
         if (userData) {
           cookies.set("id", userData.id, { path: "/" });
           cookies.set("username", userData.username, { path: "/" });
 
-          cookies.set("email", userData.email, { path: "/" });        
-          cookies.set("restoName", '' , { path: "/" });
+          cookies.set("email", userData.email, { path: "/" });
+          cookies.set("restoName", "", { path: "/" });
 
           cookies.set("email", userData.email, { path: "/" });
 
-          console.log('hola soy cookies', cookies);
+          console.log("hola soy cookies", cookies);
         }
         history.push("/home");
         return userData;
       } catch (e) {
-        alert('Por favor, antes de acceder con Google registrate en nuestro sistema')
-        history.push('/registerclient');
+        alert(
+          "Por favor, antes de acceder con Google registrate en nuestro sistema"
+        );
+        history.push("/registerclient");
       }
     }
-  }
+  };
 
   async function logger(info) {
     try {
@@ -67,7 +72,6 @@ export default function Login() {
       cookies.set("owner",user.email, { path: "/" });
       cookies.set("restoName", '' , { path: "/" });
 
-      console.log('hola soy cookies', cookies);
       history.push("/home");
     }
   }

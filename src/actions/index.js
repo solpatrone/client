@@ -2,27 +2,29 @@ import axios from "axios";
 
 import {
   GET_RESTOS,
-  CREATE_CLIENT,
-  CREATE_OWNER,
   GET_RESTO_NAME,
   GET_NEIGHBORHOODS,
   GET_RESTO_DETAILS,
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
   GET_CUISINES,
-  LOADING
+  LOADING,
+  POST_RESERVATION,
 } from "./types";
 
 export function createClient(info) {
   return async () => {
     try {
-      var newClient = await axios.post('http://localhost:3001/user/create', info);
+      var newClient = await axios.post(
+        "http://localhost:3001/user/create",
+        info
+      );
       console.log(newClient);
       return newClient;
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 }
 
 export function createOwner(info) {
@@ -49,26 +51,25 @@ export function createOwner(info) {
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 }
 
-
 export function getCuisines() {
-  return async function(dispatch) {
-    var json = await axios("http://localhost:3001/cuisines")
+  return async function (dispatch) {
+    var json = await axios("http://localhost:3001/cuisines");
     let data = json.data;
     return dispatch({
       type: GET_CUISINES,
       payload: data,
     });
-  }
+  };
 }
 
 export function getRestos() {
   return async function (dispatch) {
     dispatch({
-      type: LOADING
-  })
+      type: LOADING,
+    });
     let json = await axios.get("http://localhost:3001/restaurant");
     let data = json.data;
     return dispatch({
@@ -81,8 +82,8 @@ export function getRestos() {
 export function getRestoByName(name) {
   return async function (dispatch) {
     dispatch({
-      type: LOADING
-  })
+      type: LOADING,
+    });
     let json = await axios.get(`http://localhost:3001/restaurant?name=${name}`);
     return dispatch({
       type: GET_RESTO_NAME,
@@ -93,8 +94,8 @@ export function getRestoByName(name) {
 export function getRestoDetails(id) {
   return async function (dispatch) {
     dispatch({
-      type: LOADING
-  })
+      type: LOADING,
+    });
     let json = await axios.get(`http://localhost:3001/restaurant/${id}`);
     return dispatch({
       type: GET_RESTO_DETAILS,
@@ -131,5 +132,20 @@ export function getNeighborhoods() {
       type: GET_NEIGHBORHOODS,
       payload: neighborhoods,
     });
+  };
+}
+
+export function postReservation(payload) {
+  return async function () {
+    try {
+      var newRes = await axios.post(
+        "http://localhost:3001/reserve/create",
+        payload
+      );
+      alert("Tu reserva a sido realizada");
+      return newRes;
+    } catch (e) {
+      console.log(e);
+    }
   };
 }
