@@ -10,5 +10,6 @@ export const POST_REVIEW = "POST_REVIEW";
 export const GET_CUISINES = "GET_CUISINES";
 export const LOADING = "LOADING";
 export const ADD_IMAGES = "ADD_IMAGES";
+export const GET_RESTO_REVIEWS = "GET_RESTO_REVIEWS"
 
 export const POST_RESERVATION = "POST_RESERVATION";

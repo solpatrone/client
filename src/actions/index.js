@@ -11,6 +11,7 @@ import {
   GET_CUISINES,
   LOADING,
   ADD_IMAGES,
+  GET_RESTO_REVIEWS,
   POST_RESERVATION,
 } from "./types";
 
@@ -115,10 +116,41 @@ export function clearDetailsState() {
 }
 
 export function postReview(payload) {
-  return {
-    type: POST_REVIEW,
-    payload,
-  };
+  const revToBack = ({rating, description, email, id}) =>{
+    return{
+      rating: rating.value,
+      description,
+      email,
+      id
+    }
+  }
+  let revFormated = revToBack(payload)
+  return async (dispatch)=>{
+    try{
+      let newReview= await axios.post("http://localhost:3001/review/create", revFormated)
+      return dispatch({
+        type: POST_REVIEW,
+        payload: newReview,
+      });
+      
+
+    }catch(e){
+      console.log(e)
+    }
+  }
+}
+export function getRestaurantReviews(id){
+  return async function(dispatch){
+    try{
+      let json = await axios.post("http://localhost:3001/review/restaurant", {id})
+      return dispatch({
+        type: GET_RESTO_REVIEWS,
+        payload: json.data,
+      });
+    }catch(e){
+        console.log(e)
+    }
+  }
 }
 
 export function getNeighborhoods() {
