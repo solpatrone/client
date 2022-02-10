@@ -76,7 +76,6 @@
     width: 600px;
     height: auto;
 }
-<<<<<<< HEAD
 .reviews{
     margin-bottom: 5vh;
     margin-left: 4vw;
@@ -85,10 +84,9 @@
     margin-top: 5vh;
     align-items: center;
     width: fit-content;
+}
 
-=======
 .btn{
     margin: auto;
     color: black;
->>>>>>> develop
 }

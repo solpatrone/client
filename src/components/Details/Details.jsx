@@ -117,7 +117,7 @@ function Details() {
                   </button>
                 }
 
-              {review && <Review />}
+              {newReview && <ReviewForm setNewReview={setNewReview} />}
             </div>
           </div>
           <div>
