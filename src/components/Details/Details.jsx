@@ -39,6 +39,11 @@ function Details() {
     setNewReview(!newReview);
   }
 
+//   function handlePreviousImage(e) {
+//     e.preventDefault();
+//     setCurrentImage(--currentImage)
+// }
+
   return (
     <div>
       <Navbar />
@@ -86,6 +91,14 @@ function Details() {
                   )}
                 </div>
               </div>
+              
+              {/* <div>
+                    {currentPhoto > 1 && <button onClick={e => handlePreviousImage(e)}> Previous </button>}
+                    <span > aca iria la photo actual </span>
+                    {currentPhoto < maxPhoto && <button onClick={e => handleNextPhoto(e)}>  Next</button>}
+
+                </div> */}
+
 
               <img
                 src={myRestaurant[0].photo}
@@ -93,11 +106,11 @@ function Details() {
                 className={styles.restauranteImage}
                 height="auto"
               />
-              <p>
-                {myRestaurant[0].cuisine.map((el) => (
-                  <div className={styles.tag}>{el}</div>
+              <span>
+                {myRestaurant[0].cuisine.map((el, index) => (
+                  <div key={index} className={styles.tag}>{el}</div>
                 ))}
-              </p>
+              </span>
               {myRestaurant[0].description && (
                 <p className={styles.description}>
                   {myRestaurant[0].description}
