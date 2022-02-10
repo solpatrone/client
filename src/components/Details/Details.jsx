@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getRestoDetails, clearDetailsState, getRestaurantReviews } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams,NavLink } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -10,6 +10,7 @@ import { BiCommentDetail } from "react-icons/bi";
 import Review from "../Review/Review";
 import ReviewForm from "../ReviewForm/ReviewForm";
 import Loading from "../Loading/Loading";
+import Cookies from "universal-cookie";
 
 function Details() {
   const dispatch = useDispatch();
@@ -17,6 +18,8 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector(state => state.reviews)
+  const cookies= new Cookies()
+  const usuario = cookies.get("username")
 
   useEffect(() => {
     dispatch(getRestoDetails(params.id))
@@ -57,8 +60,8 @@ function Details() {
                 <div className={styles.icons}>
                   <p>
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
-                      () => (
-                        <RiStarFill size={20} style={{ fill: '#f2d349' }} />
+                      (key) => (
+                        <RiStarFill size={20} style={{ fill: '#f2d349' }} key={key} />
                       )
                     )}
                   </p>
@@ -90,14 +93,31 @@ function Details() {
               )}
             </div>
             <div className={styles.reservations}>
-              <button className={styles.button}>Reservá tu mesa</button>
-              <button
-                className={styles.button}
-                onClick={(e) => handdleClick(e)}
-              >
-                Dejá tu reseña <BiCommentDetail />{" "}
-              </button>
-              {newReview && <ReviewForm setNewReview={setNewReview} />}
+                {
+                  usuario?
+                  <button className={styles.button}>Reservá tu mesa</button>:
+                  <button >
+                   <NavLink to="/login" >
+                  <p className={styles.btn}>Reservá tu mesa</p>
+                  </NavLink>
+                  </button>
+                }
+                {
+                  usuario?
+                  <button
+                    className={styles.button}
+                    onClick={(e) => handdleClick(e)}
+                    >
+                    Dejá tu reseña <BiCommentDetail />{" "}
+                  </button>:
+                  <button >
+                    <NavLink to="/login" >
+                    <p className={styles.btn}>Dejá te reseña</p>
+                    </NavLink>
+                  </button>
+                }
+
+              {review && <Review />}
             </div>
           </div>
           <div>
