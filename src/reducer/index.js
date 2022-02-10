@@ -10,6 +10,7 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
+  GET_RESTO_REVIEWS,
   POST_RESERVATION,
 } from "../actions/types";
 
@@ -102,7 +103,11 @@ export default function rootReducer(state = initialState, action) {
     case POST_REVIEW:
       return {
         ...state,
-        reviews: [...state.reviews, action.payload],
+      };
+    case GET_RESTO_REVIEWS:
+      return {
+        ...state,
+        reviews: action.payload,
       };
     case LOADING:
       return {

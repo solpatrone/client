@@ -4,15 +4,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRestoByName, getRestos } from "../../actions";
 import styles from "./Searchbar.module.css";
 
-export default function Searchbar() {
+function Searchbar() {
   const resto = useSelector((state) => state.allRestaurants);
   const restoName = resto.map((r) => r.name);
 
   const dispatch = useDispatch();
-
-  //   // useEffect(()=>{
-  //   dispatch(getRestos())
-  // },[])
 
   const [restaurantName, setRestaurantName] = useState("");
   const [suggestion, setSuggestion] = useState([]);
@@ -28,7 +24,7 @@ export default function Searchbar() {
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(getRestoByName(restaurantName)); // action getRestaurant(restaurantName)
+    dispatch(getRestoByName(restaurantName));
   }
 
   function searchMatch(restaurantName) {
@@ -93,3 +89,5 @@ export default function Searchbar() {
     </div>
   );
 }
+
+export default Searchbar;
