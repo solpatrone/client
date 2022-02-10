@@ -30,9 +30,13 @@ export function createOwner(info) {
     try {
       const neighborhood = info.neighborhood_info.name;
       info.neighborhood_info = [neighborhood]
-      console.log(info.neighborhood_info)
+
+      const price = info.price.name;
+      info.price = price
+
       const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine))//stringfyle== pasa un objeto a un string en format JSON
       info.cuisine = cuisineCopy.map( e => e.name )
+
 
       //const person_max=info.personas_max.name;
       //info.personas_max=person_max

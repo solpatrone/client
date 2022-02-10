@@ -66,8 +66,12 @@ export default function RegisterOwner() {
       label:0,
       value:0
     },
-    //description: "",
-    //price: "",
+    owner:"",
+    description: "",
+    price: {
+      name:"",
+      value:""
+    },
   });
 
   //ver para inputs de solo letras ej: nombre
@@ -124,14 +128,11 @@ export default function RegisterOwner() {
         cuisine: [],
         photo: "",
         email:"",
-        personas_max:""
-        //description: "",
-        //price: "",
+        personas_max:"",
+        owner: cookies.get('email'),
+        description: "",
+        price: "",
       });
-      cookies.get("restoName",owner.name,{ path: "/" })
-      
-      console.log(cookies)
-      console.log("aca estoy yo",owner)
     }
     history.push("/home");
   }
@@ -281,8 +282,13 @@ export default function RegisterOwner() {
             >
             Registra tu restaurante!
           </button>
+       
         </div>
       </form>
+      <h3>{cookies.get('id')}</h3>
+     <h3>{cookies.get('username')}</h3>
+     <h3>{cookies.get('email')}</h3>
+     <h3>{cookies.get('restoName')}</h3>
     </div>
   );
 }
