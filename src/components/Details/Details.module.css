@@ -51,15 +51,15 @@ h3 {
   padding: 5px 10px 5px 10px;
 }
 
-button {
-  height: fit-content;
-  align-self: center;
-  font-size: 1.2rem;
-  padding: 5px 10px 5px 10px;
-  background-color: #bfc0c0;
-  border-radius: 5px;
-  text-decoration: none;
-  margin-top: 20px;
+.button{
+    height: fit-content;
+    align-self: center;
+    font-size: 1.2rem;
+    padding: 5px 10px 5px 10px;
+    background-color: #bfc0c0;
+    border-radius: 5px;
+    text-decoration: none;
+    margin-top: 20px;
 }
 .description {
   margin-top: 10px;
@@ -71,13 +71,6 @@ button {
   display: flex;
   flex-direction: column;
 }
-.reviews {
-  margin-top: 8vh;
-  margin-left: 12vw;
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-}
 
 .restauranteImage {
   width: 600px;
@@ -86,4 +79,18 @@ button {
 .btn {
   margin: auto;
   color: black;
+}
+.reviews{
+    margin-bottom: 5vh;
+    margin-left: 4vw;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5vh;
+    align-items: center;
+    width: fit-content;
+}
+
+.btn{
+    margin: auto;
+    color: black;
 }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRestoDetails, clearDetailsState } from "../../actions";
+import { getRestoDetails, clearDetailsState, getRestaurantReviews } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
@@ -7,8 +7,8 @@ import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
 import styles from "./Details.module.css";
 import { BiCommentDetail } from "react-icons/bi";
-import ReviewsComments from "../ReviewsComments/ReviewsComments";
-import Review from "../Reviews/Review";
+import Review from "../Review/Review";
+import ReviewForm from "../ReviewForm/ReviewForm";
 import Loading from "../Loading/Loading";
 import Cookies from "universal-cookie";
 import Reservations from "../Reservation/Reservations";
@@ -17,14 +17,14 @@ function Details() {
   const dispatch = useDispatch();
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
-  const [review, setReview] = useState(false);
-  // const [reviewForm, setReviewForm] = useState(false);
-  const cookies = new Cookies();
-  const usuario = cookies.get("username");
-  console.log(myRestaurant);
+  const [newReview, setNewReview] = useState(false);
+  const hasReviews = useSelector(state => state.reviews)
+  const cookies= new Cookies()
+  const usuario = cookies.get("username")
 
   useEffect(() => {
-    dispatch(getRestoDetails(params.id));
+    dispatch(getRestoDetails(params.id))
+    dispatch(getRestaurantReviews(params.id))
     return () => {
       dispatch(clearDetailsState());
     };
@@ -32,7 +32,7 @@ function Details() {
 
   function handdleClick(e) {
     e.preventDefault();
-    setReview(true);
+    setNewReview(!newReview);
   }
 
   return (
@@ -54,26 +54,25 @@ function Details() {
                       ", " +
                       myRestaurant[0].neighborhood_info[0]}
                   </p>
-                  <p>
-                    Contacto:
-                    {myRestaurant[0].email
-                      ? myRestaurant[0].email
-                      : " No disponible"}
-                  </p>
+                   {myRestaurant[0].email !== " - " && <p>Contacto:
+                    {" " + myRestaurant[0].email}</p> }
+                    
                 </div>
                 <div className={styles.icons}>
-                  <h3>
+                  <p>
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
                       (key) => (
-                        <RiStarFill key={key} />
+                        <RiStarFill size={20} style={{ fill: '#f2d349' }} key={key} />
                       )
                     )}
-                  </h3>
-                  <h3>
-                    {[...myRestaurant[0].price[0].split("")].map(() => (
-                      <BsCurrencyDollar />
-                    ))}
-                  </h3>
+                  </p>
+                  {myRestaurant[0].price &&
+                  <p>
+                  {[...myRestaurant[0].price[0].split("")].map(() => (
+                    <BsCurrencyDollar size={20} />
+                  ))}
+                </p> }
+                  
                 </div>
               </div>
 
@@ -122,18 +121,20 @@ function Details() {
                 </button>
               )}
 
-              {review && <Review />}
+              {newReview && <ReviewForm setNewReview={setNewReview} />}
             </div>
           </div>
-          {review && (
+          <div>
+          {hasReviews.length > 0 && (
             <div className={styles.reviews}>
-              <ReviewsComments />
+              <h3>Opiniones</h3>                    
+              <Review reviews={hasReviews} />
             </div>
           )}
+          </div>
         </div>
       )}
     </div>
   );
 }
-
 export default Details;

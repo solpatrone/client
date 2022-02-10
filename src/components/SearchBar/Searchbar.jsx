@@ -1,53 +1,44 @@
 import React from "react";
-import { useState, useEffect } from "react";
+import { useState,useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getRestoByName, getRestos } from "../../actions";
-import styles from "./Searchbar.module.css";
+import {getRestoByName, getRestos} from '../../actions'
+import styles from "./Searchbar.module.css"
 
-export default function Searchbar() {
-  const resto = useSelector((state) => state.allRestaurants);
-  const restoName = resto.map((r) => r.name);
+function Searchbar() {
+  const resto = useSelector((state )=> state.allRestaurants);
+  const restoName = resto.map(r => r.name)
+
 
   const dispatch = useDispatch();
-
-  //   // useEffect(()=>{
-  //   dispatch(getRestos())
-  // },[])
 
   const [restaurantName, setRestaurantName] = useState("");
   const [suggestion, setSuggestion] = useState([]);
   const [error, setError] = useState(false);
 
+
+ 
   function handleInputChange(e) {
     e.preventDefault();
-    setRestaurantName(e.target.value);
+    setRestaurantName(e.target.value)
     searchMatch(e.target.value);
-    if (e.target.value === "") {
-      dispatch(getRestos());
-    }
+    if (e.target.value === '') {
+      dispatch(getRestos())
+  }
   }
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(getRestoByName(restaurantName)); // action getRestaurant(restaurantName)
+    dispatch(getRestoByName(restaurantName));
+    
   }
 
   function searchMatch(restaurantName) {
     if (!restaurantName) {
       setSuggestion([]);
-      setError(false);
+      setError(false)
     } else {
-      let matches = restoName.filter((r) =>
-        r
-          .normalize("NFD")
-          .replace(/[\u0300-\u036f]/g, "")
-          .toLowerCase()
-          .includes(
-            restaurantName
-              .normalize("NFD")
-              .replace(/[\u0300-\u036f]/g, "")
-              .toLowerCase()
-          )
-      );
+      let matches = restoName.filter(
+        (r) => r.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(restaurantName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase())      
+        );
       if (matches.length) {
         setSuggestion(matches);
         setError(false);
@@ -58,7 +49,7 @@ export default function Searchbar() {
   }
   const selectElementHandler = (restaurant) => {
     setRestaurantName(restaurant);
-    setSuggestion([]);
+    setSuggestion([])
   };
 
   return (
@@ -92,4 +83,8 @@ export default function Searchbar() {
       </button>
     </div>
   );
+   
 }
+
+export default Searchbar;
+
