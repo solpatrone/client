@@ -7,7 +7,9 @@ import { RiStarFill } from "react-icons/ri";
 import Cookies from "universal-cookie";
 import {useParams } from "react-router-dom";
 
-export default function ReviewForm({setNewReview, setReviewForm}) {
+
+
+export default function ReviewForm({setNewReview}) {
   const cookies = new Cookies();
   const params = useParams();
   const [review, setReview] = useState({
@@ -17,7 +19,24 @@ export default function ReviewForm({setNewReview, setReviewForm}) {
     id: params.id,
   });
 
-  const [error, setError] = useState(true);
+  let [err, setErr] = useState({hasErr : true});
+
+  function validate(review) {
+    let err = {hasErr : false}
+    if (review.description === "") {
+      err.description = `Debes completar este campo`;
+      err.hasErr = true;
+   }
+   if(review.rating === ""){
+     err.rating = `Debes completar este campo`;
+     err.hasErr = true;
+   }
+   console.log(err)
+  return err;
+  
+  }
+  
+ 
 
   const dispatch = useDispatch();
 
@@ -30,11 +49,13 @@ export default function ReviewForm({setNewReview, setReviewForm}) {
   ];
 
   function handleRatings(e) {
-    setReview((prev) => ({ ...prev, rating: e }));
+    setReview({ ...review, rating: e });
+    setErr(validate({ ...review, rating: e }));
   }
 
   function handleRev(e) {
-    setReview((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    setReview({ ...review, [e.target.name]: e.target.value });
+    setErr(validate({ ...review, [e.target.name]: e.target.value }));
   }
 
   function handleSubmit(e) {
@@ -51,17 +72,18 @@ export default function ReviewForm({setNewReview, setReviewForm}) {
   }
 
   return (
-    <div>
+    <div className ={styles.container}>
       <form onSubmit={(e) => handleSubmit(e)} >
         <div>
           <Select
-            className="selectRatings"
+            className={styles.selectRatings}
             options={ratings}
             isMulti={false}
             value={review.rating}
             name={"rating"}
             onChange={(e) => handleRatings(e)}
           />
+          {err.rating && <p>{err.rating}</p>}
         </div>
         <div>
           <textarea
@@ -72,10 +94,11 @@ export default function ReviewForm({setNewReview, setReviewForm}) {
             placeholder="Escribe tu reseña"
             onChange={(e) => handleRev(e)}
           ></textarea>
+          {err && <p>{err.description}</p>}
         </div>
         <div>
-          <button >Enviar Reseña</button>
-          <button onClick={e => handleClose(e)}>Cerrar</button>
+          <button disabled={err.hasErr} >Enviar Reseña</button>
+          <button onClick={e => handleClose(e)} >Cerrar</button>
         </div>
       </form>
     </div>
