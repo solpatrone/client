@@ -71,7 +71,7 @@ export default function RegisterOwner() {
     price: {
       name:"",
       value:""
-    },
+    }, 
   });
 
   //ver para inputs de solo letras ej: nombre
