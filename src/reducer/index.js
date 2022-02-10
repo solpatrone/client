@@ -10,6 +10,7 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
+  ADD_IMAGES,
   GET_RESTO_REVIEWS,
   POST_RESERVATION,
 } from "../actions/types";
@@ -25,6 +26,7 @@ const initialState = {
   reviews: [],
   cuisines: [],
   loading: false,
+  // images: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -55,23 +57,27 @@ export default function rootReducer(state = initialState, action) {
           ...state,
         };
       }
-    case CREATE_OWNER:
-      return { ...state };
-    //case CREATE_OWNER:
-    //  let existsOwn = state.owners.find(
-    //    (u) => u.email === action.payload.email
-    //  );
-    //  console.log(state.owners);
-    //  if (!existsOwn) {
-    //    return {
-    //      ...state,
-    //      owners: [...state.owners, action.payload],
-    //    };
-    //  } else {
-    //    return {
-    //      ...state,
-    //    };
-    //  }
+      case ADD_IMAGES:
+            return{...state}
+
+      case CREATE_OWNER:
+            return{...state,
+            }
+        //case CREATE_OWNER:
+        //  let existsOwn = state.owners.find(
+        //    (u) => u.email === action.payload.email
+        //  );
+        //  console.log(state.owners);
+        //  if (!existsOwn) {
+        //    return {
+        //      ...state,
+        //      owners: [...state.owners, action.payload],
+        //    };
+        //  } else {
+        //    return {
+        //      ...state,
+        //    };
+        //  }
     case GET_USERS:
       return {
         ...state,
