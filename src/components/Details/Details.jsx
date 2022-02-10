@@ -50,7 +50,7 @@ function Details() {
                     Direccion:{" "}
                     {myRestaurant[0].address.split(",", 1) +
                       ", " +
-                      myRestaurant[0].neighborhood[0]}
+                      myRestaurant[0].neighborhood_info[0]}
                   </p>
                   <p>
                     Contacto:
@@ -62,14 +62,14 @@ function Details() {
                 <div className={styles.icons}>
                   <h3>
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
-                      (key) => (
-                        <RiStarFill key={key} />
+                      (key, index) => (
+                        <RiStarFill key={index} />
                       )
                     )}
                   </h3>
                   <h3>
-                    {[...myRestaurant[0].price[0].split("")].map(() => (
-                      <BsCurrencyDollar />
+                    {[...myRestaurant[0].price[0].split("")].map((key, index) => (
+                      <BsCurrencyDollar key={index}/>
                     ))}
                   </h3>
                 </div>
@@ -81,11 +81,11 @@ function Details() {
                 className = {styles.restauranteImage}
                 height="auto"
               />
-              <p>
-                {myRestaurant[0].cuisine.map((el) => (
-                  <div className={styles.tag}>{el}</div>
+              <span>
+                {myRestaurant[0].cuisine.map((el, index) => (
+                  <div key={index} className={styles.tag}>{el}</div>
                 ))}
-              </p>
+              </span>
               {myRestaurant[0].description && (
                 <p className={styles.description}>
                   {myRestaurant[0].description}
