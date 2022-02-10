@@ -9,7 +9,8 @@ import {
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
   GET_CUISINES,
-  LOADING
+  LOADING,
+  ADD_IMAGES
 } from "../actions/types";
 
 const initialState = {
@@ -22,7 +23,8 @@ const initialState = {
   details: [],
   reviews: [],
   cuisines: [],
-  loading: false
+  loading: false,
+  images: []
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -53,6 +55,11 @@ export default function rootReducer(state = initialState, action) {
           ...state,
         };
       }
+      case ADD_IMAGES:
+            return{...state,
+            images: [...state.images, action.payload]
+            }
+
       case CREATE_OWNER:
             return{...state,
             }

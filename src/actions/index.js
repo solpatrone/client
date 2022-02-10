@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BiImages } from "react-icons/bi";
 
 import {
   GET_RESTOS,
@@ -10,7 +11,8 @@ import {
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
   GET_CUISINES,
-  LOADING
+  LOADING,
+  ADD_IMAGES
 } from "./types";
 
 export function createClient(info) {
@@ -25,11 +27,15 @@ export function createClient(info) {
   }
 }
 
-export function postImages(info){
+export function addImagesToRestos(info){
   return async () => {
+    const request = {photo: info}
     try{
-      var newImages = await axios.post('http://localhost:3001/images/create', info);
-      return newImages
+      var newImages = await axios.put('http://localhost:3001/restaurant', request);
+      return {
+        type: ADD_IMAGES,
+        payload:newImages
+      }
     } catch (e) {
       console.log(e);
     }
