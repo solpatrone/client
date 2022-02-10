@@ -1,12 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import React, { useState } from "react";
 import { createClient } from "../../actions";
 import { useHistory } from "react-router-dom";
 
 export default function RegisterUser() {
   const history = useHistory();
   let dispatch = useDispatch();
-  let clients = useSelector((state) => state.clients);
 
   let [input, setInput] = useState({
     username: "",
@@ -35,7 +34,7 @@ export default function RegisterUser() {
       errors.email = `El email es requerido`;
       errors.hasErrors = true;
     } else if (
-      !/(\W|^)[\w.\-]{0,30}@(yahoo|hotmail|gmail)\.com(\W|$)/.test(input.email)
+      !/(\W|^)[\w.]{0,30}@(yahoo|hotmail|gmail)\.com(\W|$)/.test(input.email)
     ) {
       errors.email = `El email debe ser una dirección válida`;
       errors.hasErrors = true;

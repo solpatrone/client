@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import { Route, Switch, Redirect } from "react-router-dom";
+import { Route, Redirect } from "react-router-dom";
 import Registerclient from "./components/RegisterClient/Registerclient";
 import RegisterOwner from "./components/RegisterOwner/Registerowner";
 import Home from "./components/Home/Home";

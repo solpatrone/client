@@ -7,8 +7,6 @@ import Landingpage from "../LandingPage/Landingpage";
 import Cards from "../Cards/Cards";
 import Paginate from "../Paginate/Paginate";
 import { getRestos, getNeighborhoods, getCuisines } from "../../actions/index";
-import Cookies from "universal-cookie/es6";
-import Logout from "../Logout/Logout";
 import s from "./Home.module.css";
 import Loading from "../Loading/Loading";
 
@@ -18,7 +16,6 @@ export default function Home() {
   const loading = useSelector((state) => state.loading);
   console.log(loading);
 
-  const cookies = new Cookies();
   const allRestaurants = useSelector((state) => state.restaurants);
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
@@ -50,11 +47,9 @@ export default function Home() {
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredByNeighborhood, setFilteredByNeighborhood] =
-    useState(defaultNeighborhood);
+  const [filteredByNeighborhood, setFilteredByNeighborhood] = useState(defaultNeighborhood);
   const [filteredByPrice, setFilteredByPrice] = useState(priceOptions[0]);
-  const [filteredByFoodTypes, setFilteredByFoodTypes] =
-    useState(defaultCuisine);
+  const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(defaultCuisine);
   const [restosPerPage] = useState(12);
 
   function paginado(pageNumber) {
@@ -97,17 +92,17 @@ export default function Home() {
   useEffect(() => {
     if (allNeighborhoods && allNeighborhoods.length > 0) {
       allNeighborhoods.unshift(defaultNeighborhood);
-    }
-  }, [allNeighborhoods]);
+    }// eslint-disable-next-line
+  }, [allNeighborhoods]); 
 
   useEffect(() => {
     if (allCuisines && allCuisines.length > 0) {
       allCuisines.unshift(defaultCuisine);
-    }
+    }// eslint-disable-next-line
   }, [allNeighborhoods]);
 
   useEffect(() => {
-    displaySelectedRestaurantes();
+    displaySelectedRestaurantes(); // eslint-disable-next-line
   }, [
     allRestaurants,
     filteredByNeighborhood,
@@ -141,7 +136,7 @@ export default function Home() {
   useEffect(() => {
     dispatch(getRestos());
     dispatch(getNeighborhoods());
-    dispatch(getCuisines());
+    dispatch(getCuisines()); // eslint-disable-next-line
   }, []);
 
   function handleReload(e) {
