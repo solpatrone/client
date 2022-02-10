@@ -1,12 +1,11 @@
 import React from 'react';
-import {useSelector} from 'react-redux'
 import {RiStarFill }from 'react-icons/ri'
 import {FaUserCircle} from 'react-icons/fa'
 import s from './Review.module.css'
 import Cookies from "universal-cookie";
 
 export default function Review({reviews}) {
-  const cookies = new Cookies
+  const cookies = new Cookies()
     
   return (
     reviews &&

@@ -58,14 +58,14 @@ function Details() {
                   <p>
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
                       () => (
-                        <RiStarFill style={{ fill: '#f2d349' }} />
+                        <RiStarFill size={20} style={{ fill: '#f2d349' }} />
                       )
                     )}
                   </p>
                   {myRestaurant[0].price &&
                   <p>
                   {[...myRestaurant[0].price[0].split("")].map(() => (
-                    <BsCurrencyDollar />
+                    <BsCurrencyDollar size={20} />
                   ))}
                 </p> }
                   
