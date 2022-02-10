@@ -50,7 +50,7 @@ export default function RegisterOwner() {
     { name: 15, label: 15, value: 15},
     { name: 20, label: 20, value: 20 },
   ];
- 
+
  const own= cookies.get('email');
 console.log('holaaaaaa',own)
   //owner object
