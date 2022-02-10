@@ -3,7 +3,7 @@ import s from "./card.module.css";
 import defaultImg from "../../assets/table.jpg";
 import { RiStarFill } from "react-icons/ri";
 
-function card({ name, photo, neighborhood, rating }) {
+function card({ name, photo, neighborhood_info, rating }) {
   return (
     <div className={s.container}>
       <div>
@@ -25,9 +25,9 @@ function card({ name, photo, neighborhood, rating }) {
       </div>
       <div>
         <h4>
-          {neighborhood &&
-            neighborhood.map((n, i) => {
-              return n + (i < neighborhood.length - 1 ? ", " : "");
+          {neighborhood_info &&
+            neighborhood_info.map((n, i) => {
+              return n + (i < neighborhood_info.length - 1 ? ", " : "");
             })}
         </h4>
       </div>

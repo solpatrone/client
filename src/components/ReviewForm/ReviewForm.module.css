@@ -1,0 +1,12 @@
+.container{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+}
+.selectRatings{
+    width: 100%;
+    margin-bottom: 15px;
+}
