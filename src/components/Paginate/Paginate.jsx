@@ -13,9 +13,9 @@ export default function Paginate({ restosPerPage, allRestaurants, paginado }) {
         {pageNumbers &&
           pageNumbers.map((p) => (
             <li key={p} className={s.list}>
-              <a onClick={() => paginado(p)} href="#">
+              <span onClick={() => paginado(p)}>
                 {p}
-              </a>
+              </span>
             </li>
           ))}
       </ul>

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { BiImages } from "react-icons/bi";
 
 import {
   GET_RESTOS,
@@ -12,7 +11,6 @@ import {
   LOADING,
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
-  POST_RESERVATION,
 } from "./types";
 
 
