@@ -1,20 +1,24 @@
-import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import Select from "react-select";
-import { postReview } from "../../actions";
+import { getRestaurantReviews, postReview } from "../../actions";
 import styles from "./ReviewForm.module.css"
 import { RiStarFill } from "react-icons/ri";
+import Cookies from "universal-cookie";
+import {useParams } from "react-router-dom";
 
-export default function ReviewForm({setNewReview}) {
+export default function ReviewForm({setNewReview, setReviewForm}) {
+  const cookies = new Cookies();
+  const params = useParams();
   const [review, setReview] = useState({
     rating: "",
-    rev: "",
+    description: "",
+    email: cookies.get("email"),
+    id: params.id,
   });
-  const [error,setError] = useState(false)
 
-  const reviews = useSelector((state) => state.reviews);
- 
+  const [error, setError] = useState(true);
+
   const dispatch = useDispatch();
 
   let ratings = [
@@ -27,28 +31,28 @@ export default function ReviewForm({setNewReview}) {
 
   function handleRatings(e) {
     setReview((prev) => ({ ...prev, rating: e }));
-    e === "" ? setError(true) : setError(false)
   }
 
   function handleRev(e) {
     setReview((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    e.target.value === "" ? setError(true) : setError(false)
   }
-  
 
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(review));
-    setNewReview(false)
+    setTimeout(() => {
+      dispatch(getRestaurantReviews(params.id));
+    }, 1000);
+    setNewReview(false);
   }
-  function handleClose(e){
+  function handleClose(e) {
     e.preventDefault();
-    setNewReview(false)
+    setNewReview(false);
   }
 
   return (
     <div>
-      <form onSubmit={(e) => handleSubmit(e)} disabled={error}>
+      <form onSubmit={(e) => handleSubmit(e)} >
         <div>
           <Select
             className="selectRatings"
@@ -62,15 +66,15 @@ export default function ReviewForm({setNewReview}) {
         <div>
           <textarea
             required
-            name="rev"
+            name="description"
             cols="50"
-            rows="10"
+            rows="15"
             placeholder="Escribe tu reseña"
             onChange={(e) => handleRev(e)}
           ></textarea>
         </div>
         <div>
-          <button  disabled={error} >Enviar Reseña</button>
+          <button >Enviar Reseña</button>
           <button onClick={e => handleClose(e)}>Cerrar</button>
         </div>
       </form>

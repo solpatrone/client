@@ -9,7 +9,8 @@ import {
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
   GET_CUISINES,
-  LOADING
+  LOADING,
+  GET_RESTO_REVIEWS
 } from "../actions/types";
 
 const initialState = {
@@ -97,9 +98,13 @@ export default function rootReducer(state = initialState, action) {
         details: [],
       };
     case POST_REVIEW:
+      return{
+        ...state
+      }
+    case GET_RESTO_REVIEWS:
       return {
         ...state,
-        reviews: [...state.reviews, action.payload],
+        reviews: action.payload,
       };
       case LOADING:
             return {

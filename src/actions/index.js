@@ -10,7 +10,8 @@ import {
   CLEAR_DETAILS_STATE,
   POST_REVIEW,
   GET_CUISINES,
-  LOADING
+  LOADING,
+  GET_RESTO_REVIEWS
 } from "./types";
 
 export function createClient(info) {
@@ -96,14 +97,41 @@ export function clearDetailsState() {
 }
 
 export function postReview(payload) {
-  return async ()=>{
+  const revToBack = ({rating, description, email, id}) =>{
+    return{
+      rating: rating.value,
+      description,
+      email,
+      id
+    }
+  }
+  let revFormated = revToBack(payload)
+  return async (dispatch)=>{
     try{
-      let newReview= await axios.post("http://localhost:3001/review/create", payload)
-      console.log(newReview)
-      return newReview
+      let newReview= await axios.post("http://localhost:3001/review/create", revFormated)
+      return dispatch({
+        type: POST_REVIEW,
+        payload: newReview,
+      });
+      
 
     }catch(e){
       console.log(e)
+    }
+  }
+}
+export function getRestaurantReviews(id){
+  console.log('soy el id que paso por body ' + id)
+  return async function(dispatch){
+    try{
+      let json = await axios.post("http://localhost:3001/review/restaurant", {id})
+      console.log(`soy json ${json.data}`)
+      return dispatch({
+        type: GET_RESTO_REVIEWS,
+        payload: json.data,
+      });
+    }catch(e){
+        console.log(e)
     }
   }
 }
@@ -126,3 +154,5 @@ export function getNeighborhoods() {
     });
   };
 }
+
+

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { getRestoDetails, clearDetailsState } from "../../actions";
+import { getRestoDetails, clearDetailsState, getRestaurantReviews } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useParams } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
@@ -17,12 +17,10 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector(state => state.reviews)
-  console.log(hasReviews)
-  
-  
 
   useEffect(() => {
-    dispatch(getRestoDetails(params.id));
+    dispatch(getRestoDetails(params.id))
+    dispatch(getRestaurantReviews(params.id))
     return () => {
       dispatch(clearDetailsState());
     };
@@ -50,25 +48,27 @@ function Details() {
                     Direccion:{" "}
                     {myRestaurant[0].address.split(",", 1) +
                       ", " +
-                      myRestaurant[0].neighborhood[0]}
+                      myRestaurant[0].neighborhood_info[0]}
                   </p>
-                   {myRestaurant[0].email && <p>Contacto:
+                   {myRestaurant[0].email !== " - " && <p>Contacto:
                     {" " + myRestaurant[0].email}</p> }
                     
                 </div>
                 <div className={styles.icons}>
-                  <h3>
+                  <p>
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
                       () => (
                         <RiStarFill style={{ fill: '#f2d349' }} />
                       )
                     )}
-                  </h3>
-                  <h3>
-                    {[...myRestaurant[0].price[0].split("")].map(() => (
-                      <BsCurrencyDollar />
-                    ))}
-                  </h3>
+                  </p>
+                  {myRestaurant[0].price &&
+                  <p>
+                  {[...myRestaurant[0].price[0].split("")].map(() => (
+                    <BsCurrencyDollar />
+                  ))}
+                </p> }
+                  
                 </div>
               </div>
 
@@ -97,14 +97,14 @@ function Details() {
               >
                 Dejá tu reseña <BiCommentDetail />{" "}
               </button>
-              {newReview && <ReviewForm setNewReview={setNewReview}/>}
+              {newReview && <ReviewForm setNewReview={setNewReview} />}
             </div>
           </div>
           <div>
           {hasReviews.length > 0 && (
             <div className={styles.reviews}>
-              <h3>Reseñas</h3>                    
-              <Review />
+              <h3>Opiniones</h3>                    
+              <Review reviews={hasReviews} />
             </div>
           )}
           </div>
