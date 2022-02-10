@@ -285,10 +285,7 @@ export default function RegisterOwner() {
        
         </div>
       </form>
-      <h3>{cookies.get('id')}</h3>
-     <h3>{cookies.get('username')}</h3>
-     <h3>{cookies.get('email')}</h3>
-     <h3>{cookies.get('restoName')}</h3>
+ 
     </div>
   );
 }
