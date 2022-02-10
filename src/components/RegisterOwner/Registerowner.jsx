@@ -14,7 +14,6 @@ export default function RegisterOwner() {
   const cookies = new Cookies();
     
 
-    const cookies = new Cookies();
   console.log("este es la prueba",cookies)
 
 
@@ -70,7 +69,7 @@ console.log('holaaaaaa',own)
       label:0,
       value:0
     },
-    owner:"",
+    owner:own,
     description: "",
     price: {
       name:"",
@@ -124,6 +123,7 @@ console.log('holaaaaaa',own)
     if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
       const own= cookies.get('email');
+      console.log(own)
       setIsSubmit(true);
       setOwner({
 
