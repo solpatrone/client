@@ -72,7 +72,7 @@ export default function Login() {
       cookies.set("owner",user.email, { path: "/" });
       cookies.set("restoName", '' , { path: "/" });
 
-      history.goBack();
+      history.push("/home");
     }
   }
 
