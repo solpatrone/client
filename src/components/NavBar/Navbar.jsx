@@ -19,7 +19,7 @@ export default function Navbar() {
         <NavLink to="/home">
           <img className={styles.logo} src={logo} alt="img not found" />
         </NavLink>
-        <div className={styles.links} className={styles.user}>          
+        <div className={styles.user}>          
         <NavLink to="/login">
             <p>Iniciar sesión</p>
           </NavLink>
