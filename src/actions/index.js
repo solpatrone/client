@@ -28,6 +28,17 @@ export function createClient(info) {
 export function createOwner(info) {
   return async () => {
     try {
+      const neighborhood = info.neighborhood_info.name;
+      info.neighborhood_info = [neighborhood]
+      console.log(info.neighborhood_info)
+      const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine))//stringfyle== pasa un objeto a un string en format JSON
+      info.cuisine = cuisineCopy.map( e => e.name )
+
+      //const person_max=info.personas_max.name;
+      //info.personas_max=person_max
+      info.personas_max=info.personas_max.name
+      
+
       var newOwner = await axios.post('http://localhost:3001/restaurant/create', info);
       console.log(newOwner);
       return newOwner;

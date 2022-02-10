@@ -4,17 +4,28 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Select from "react-select";
 import "./Registerowner.css";
-import { createOwner, getNeighborhoods } from "../../actions";
+import { createOwner, getNeighborhoods, getCuisines } from "../../actions";
 import Cookies from "universal-cookie";
 
 export default function RegisterOwner() {
   const history = useHistory();
   let dispatch = useDispatch();
 
+    const cookies = new Cookies();
+  console.log("este es la prueba",cookies)
+
+
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
-    return { name: n.name, label: n.name };
+    return { name: n.name, label: n.name, value: n.name };
   });
+  const allCuisinesRaw = useSelector((state)=>state.cuisines)
+  const allCuisines = allCuisinesRaw.map((n)=>{
+    return{name: n.name , label: n.name, value: n.name}
+  })
+  useEffect(() => {
+    dispatch(getCuisines());
+  }, [dispatch]);
 
   useEffect(() => {
     dispatch(getNeighborhoods());
@@ -24,30 +35,37 @@ export default function RegisterOwner() {
     { name: "all", label: "Precios", value: "all" },
     { name: "$", label: "$", value: "$" },
     { name: "$$", label: "$$", value: "$$" },
-    { name: "$$$", label: "$$", value: "$$$" },
+    { name: "$$$", label: "$$$", value: "$$$" },
     { name: "$$$$", label: "$$$$", value: "$$$$" },
     { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
 
-  let foodTypes = [
-    { name: "all", label: "Tipos de comida", value: "all" },
-    { name: "Argentina", label: "Argentina", value: "Argentina" },
-    { name: "Apto para vegetarianos",
-      label: "Apto para vegetarianos",
-      value: "Apto para vegetarianos",
-    },
-    { name: "Mariscos", label: "Mariscos", value: "Mariscos" },
+
+  let personas_max = [
+    { name: "reservation", label: "reservation", value: "reservation" },
+    { name: 5, label: 5, value: 5  },
+    { name: 10, label: 10, value: 10 },
+    { name: 15, label: 15, value: 15},
+    { name: 20, label: 20, value: 20 },
   ];
+
 
   //owner object
   const [owner, setOwner] = useState({
     name: "",
     address: "",
-    neighborhood_info: [],
+    neighborhood_info: {
+      name:"",
+      value:""
+    },
     cuisine: [],
     photo: "",
     email:"",
-    personas_max:"",
+    personas_max:{
+      name:0,
+      label:0,
+      value:0
+    },
     //description: "",
     //price: "",
   });
@@ -79,7 +97,7 @@ export default function RegisterOwner() {
   }
 
   function handleNeighborhood(e) {    
-    setOwner((prev) => ({ ...prev, neighborhood_info: e.name}));    
+    setOwner((prev) => ({ ...prev, neighborhood_info: e}));    
   }
 
   function handlePrice(e) {
@@ -89,17 +107,20 @@ export default function RegisterOwner() {
   function handleTypes(e) {
     setOwner((prev) => ({ ...prev, cuisine: e}));
   }
+  function handleReserv(e){
+    setOwner((prev)=> ({...prev, personas_max: e}))
+  }
 
   function handleSubmit(e) {
     e.preventDefault();
     if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
-      const cookies = new Cookies();
+      
       setIsSubmit(true);
       setOwner({
         name: "",
         address: "",
-        neighborhood_info: [],
+        neighborhood_info: "",
         cuisine: [],
         photo: "",
         email:"",
@@ -107,7 +128,8 @@ export default function RegisterOwner() {
         //description: "",
         //price: "",
       });
-      cookies.set("restoName",owner.name,{ path: "/" })
+      cookies.get("restoName",owner.name,{ path: "/" })
+      
       console.log(cookies)
       console.log("aca estoy yo",owner)
     }
@@ -119,36 +141,7 @@ export default function RegisterOwner() {
     const errors = { hasErrors: false };
     console.log("input", owner);
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    //const regexPassword =
-    //  /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm;
-
-    //   if (!owner.username) {
-    //     errors.username = `El nombre es requerido`;
-    //     errors.hasErrors = true;
-    // } else if (!/^[a-zA-Z\s]{5,20}$/.test(owner.username)) {
-    //     errors.username = `El nombre debe ser letras entre 5 y 20 caracteres`;
-    //     errors.hasErrors = true;
-    // }
-
-    //  if (!owner.email) {
-    //       errors.email = `El email es requerido`;
-    //       errors.hasErrors = true;
-    //   }else if (!regexEmail.test(owner.email)) {
-    //     errors.email = `El email debe ser una dirección válida`;
-    //     errors.hasErrors = true;
-
-    // } // como esta planteado en client no va a poder registrarse si es mail empresa. Podemos cambiarlo alla
-
-    // if (!owner.password) {
-    //   errors.password = "La contraseña es requerida";
-    //   errors.hasErrors = true;
-
-    // } else if (!regexPassword.test(owner.password)) {
-    //   errors.password =
-    //   "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
-    //     errors.hasErrors = true;
-    //   }
-
+    
     if (!owner.name) {
       errors.name = "Debes ingresar el nombre de tu restaurante";
       errors.hasErrors = true;
@@ -163,12 +156,7 @@ export default function RegisterOwner() {
            errors.hasErrors = true;
        }else if (!regexEmail.test(owner.email)) {
          errors.email = `El email debe ser una dirección válida`;
-         errors.hasErrors = true;}
-
-      //if (!owner.number) {
-      //  errors.number = "El número debe ser mayor a cero";
-      //  errors.hasErrors = true;
-      //}
+         errors.hasErrors = true;}    
 
     //if (owner.description.length < 0 || owner.description.length > 200) {
     //  errors.description = "La descripción debe tener menos de 200 caracteres";
@@ -200,7 +188,7 @@ export default function RegisterOwner() {
               placeholder="Ingrese el nombre del restaurante"
               autoComplete="off"
               onChange={(e) => handleChange(e)}
-            />
+              />
             <p className="errors">{errors.name}</p>
           </div>
 
@@ -227,32 +215,21 @@ export default function RegisterOwner() {
               placeholder="Ingrese la calle"
               autoComplete="off"
               onChange={(e) => handleChange(e)}
-            />
+              />
             <p className="errors">{errors.address}</p>
-            <label>Cantidad de reservas maxima</label>
-            <input
-            type="text"
-            name="personas_max"
-            onKeyPress={onlyNumbers}
-            value={owner.personas_max}
-            placeholder="Ingrese el número de reservas"
-            autoComplete="off"
-            onChange={(e) => handleChange(e)}
-            />
-                  <p className="errors">{errors.number}</p>     
-    {
 
-      //<input
-      //type="text"
-      //name="number"
-      //onKeyPress={onlyNumbers}
-      //value={owner.number}
-      //placeholder="Ingrese el número"
-      //autoComplete="off"
-      //onChange={(e) => handleChange(e)}
-      ///>
-      //      <p className="errors">{errors.number}</p>
-    } 
+            <label >Reserva maxima</label>
+            <Select
+              className="selectOptions"
+              options={personas_max}
+              value={owner.personas_max}
+              name={"personas_max"}
+              onChange={(e) => handleReserv(e)}
+              />
+                               
+               
+            <p className="errors">{errors.number}</p>     
+
             <label className="inputText">Barrio</label>
             <Select
               className="selectOptions"
@@ -276,7 +253,7 @@ export default function RegisterOwner() {
             <label className="inputText">Tipo de comida</label>
             <Select
               className="selectOptions"
-              options={foodTypes}
+              options={allCuisines}
               isMulti={true}
               value={owner.cuisine}
               name={"cuisine"}
@@ -291,29 +268,17 @@ export default function RegisterOwner() {
               rows="10"
               placeholder="Ingrese una breve descripción"
               onChange={(e) => handleChange(e)}
-            ></textarea>
+              ></textarea>
             <p className="errors">{errors.description}</p>
           </div>
-          {/* <div>
-            <label >Imágenes</label>
-            <input
-              type="file"
-              placeholder="Cargue su imagen"
-              name="images"
-              value={owner.images}
-              autoComplete="off"
-              multiple
-              onChange={(e) => handleChange(e)}
-            />
-          </div> */}
+         
         </div>
-        <div>
-          {/* <button>Registra tu restaurante!</button>  */}
+         <div>
           <button
             type={"submit"}
             disabled={errors.hasErrors}
             onSubmit={(e) => handleSubmit(e)}
-          >
+            >
             Registra tu restaurante!
           </button>
         </div>
@@ -321,3 +286,4 @@ export default function RegisterOwner() {
     </div>
   );
 }
+
