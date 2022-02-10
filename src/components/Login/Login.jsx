@@ -6,10 +6,8 @@ import style from "./Login.module.css";
 import axios from "axios";
 
 export default function Login() {
-
-  const url = 'http://localhost:3001'
-  const loginModif = url + '/login'
-
+  const url = "http://localhost:3001";
+  const loginModif = url + "/login";
 
   const history = useHistory();
   const [input, setInput] = useState({
@@ -74,10 +72,10 @@ export default function Login() {
       cookies.set("id", user.id, { path: "/" });
       cookies.set("username", user.username, { path: "/" });
       cookies.set("email", user.email, { path: "/" });
-      cookies.set("owner",user.email, { path: "/" });
-      cookies.set("restoName", '' , { path: "/" });
+      cookies.set("owner", user.email, { path: "/" });
+      cookies.set("restoName", "", { path: "/" });
 
-      history.push("/home");
+      history.goBack();
     }
   }
 
