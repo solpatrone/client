@@ -1,4 +1,5 @@
 import axios from "axios";
+import { BiImages } from "react-icons/bi";
 
 import {
   GET_RESTOS,
@@ -9,6 +10,7 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
+  ADD_IMAGES,
   GET_RESTO_REVIEWS,
   POST_RESERVATION,
 } from "./types";
@@ -28,13 +30,40 @@ export function createClient(info) {
   };
 }
 
+export function addImagesToRestos(info){
+  return async () => {
+   // const request = {photo: info}
+    try{
+      var newImages = await axios.put('http://localhost:3001/restaurant/:id', info);
+      return {
+        type: ADD_IMAGES,
+        payload:newImages
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
 export function createOwner(info) {
   return async () => {
     try {
-      var newOwner = await axios.post(
-        "http://localhost:3001/restaurant/create",
-        info
-      );
+      const neighborhood = info.neighborhood_info.name;
+      info.neighborhood_info = [neighborhood]
+
+      const price = info.price.name;
+      info.price = price
+
+      const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine))//stringfyle== pasa un objeto a un string en format JSON
+      info.cuisine = cuisineCopy.map( e => e.name )
+
+
+      //const person_max=info.personas_max.name;
+      //info.personas_max=person_max
+      info.personas_max=info.personas_max.name
+      
+
+      var newOwner = await axios.post('http://localhost:3001/restaurant/create', info);
       console.log(newOwner);
       return newOwner;
     } catch (e) {

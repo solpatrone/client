@@ -69,8 +69,8 @@ export default function Login() {
       cookies.set("id", user.id, { path: "/" });
       cookies.set("username", user.username, { path: "/" });
       cookies.set("email", user.email, { path: "/" });
-
-      cookies.set("restoName", "", { path: "/" });
+      cookies.set("owner",user.email, { path: "/" });
+      cookies.set("restoName", '' , { path: "/" });
 
       history.goBack();
     }
