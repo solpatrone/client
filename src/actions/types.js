@@ -11,3 +11,4 @@ export const GET_CUISINES = "GET_CUISINES";
 export const LOADING = "LOADING";
 export const GET_RESTO_REVIEWS = "GET_RESTO_REVIEWS"
 
+export const POST_RESERVATION = "POST_RESERVATION";

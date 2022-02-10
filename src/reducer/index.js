@@ -10,7 +10,8 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
-  GET_RESTO_REVIEWS
+  GET_RESTO_REVIEWS,
+  POST_RESERVATION,
 } from "../actions/types";
 
 const initialState = {
@@ -23,7 +24,7 @@ const initialState = {
   details: [],
   reviews: [],
   cuisines: [],
-  loading: false
+  loading: false,
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -33,13 +34,13 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         restaurants: action.payload,
         allRestaurants: action.payload,
-        loading: false
+        loading: false,
       };
     case GET_RESTO_NAME:
       return {
         ...state,
         restaurants: action.payload,
-        loading: false
+        loading: false,
       };
     case CREATE_CLIENT:
       let exists = state.clients.find((u) => u.email === action.payload.email);
@@ -54,46 +55,45 @@ export default function rootReducer(state = initialState, action) {
           ...state,
         };
       }
-      case CREATE_OWNER:
-            return{...state,
-            }
-        //case CREATE_OWNER:
-        //  let existsOwn = state.owners.find(
-        //    (u) => u.email === action.payload.email
-        //  );
-        //  console.log(state.owners);
-        //  if (!existsOwn) {
-        //    return {
-        //      ...state,
-        //      owners: [...state.owners, action.payload],
-        //    };
-        //  } else {
-        //    return {
-        //      ...state,
-        //    };
-        //  }
+    case CREATE_OWNER:
+      return { ...state };
+    //case CREATE_OWNER:
+    //  let existsOwn = state.owners.find(
+    //    (u) => u.email === action.payload.email
+    //  );
+    //  console.log(state.owners);
+    //  if (!existsOwn) {
+    //    return {
+    //      ...state,
+    //      owners: [...state.owners, action.payload],
+    //    };
+    //  } else {
+    //    return {
+    //      ...state,
+    //    };
+    //  }
     case GET_USERS:
       return {
         ...state,
         user: [...state, action.payload],
-        loading: false
+        loading: false,
       };
     case GET_NEIGHBORHOODS:
       return {
         ...state,
         neighborhoods: action.payload,
       };
-      case GET_CUISINES:
-        return {
-          ...state,
-          cuisines: action.payload,
-        };
+    case GET_CUISINES:
+      return {
+        ...state,
+        cuisines: action.payload,
+      };
 
     case GET_RESTO_DETAILS:
       return {
         ...state,
         details: action.payload,
-        loading: false
+        loading: false,
       };
     case CLEAR_DETAILS_STATE:
       return {
@@ -109,11 +109,15 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         reviews: action.payload,
       };
-      case LOADING:
-            return {
-                ...state,
-               loading: true 
-            }
+    case LOADING:
+      return {
+        ...state,
+        loading: true,
+      };
+    case POST_RESERVATION:
+      return {
+        ...state,
+      };
     default:
       return { ...state };
   }

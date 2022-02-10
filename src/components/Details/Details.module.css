@@ -1,54 +1,54 @@
-.wrapper{
-    display: flex;
-    flex-direction: column;
+.wrapper {
+  display: flex;
+  flex-direction: column;
 }
-.container{
-    padding-top: 30px;
-    display: flex;
-    justify-content:space-around;
-    align-items: center; 
-    margin-left: 4vw;
+.container {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }
-.restaurantInfo{
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    align-items:center;
-    flex-wrap: wrap;
-   
+.restaurantInfo {
+  margin-left: 5vw;
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  align-items: center;
+  flex-wrap: wrap;
 }
-.address_icons{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
+.address_icons {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
 }
-.address_icons p, h3{
-    margin-top: 0;
-    margin-bottom: 10px;
-    margin-right: 20px;
+.address_icons p,
+h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-right: 20px;
 }
 
-.address{
-    margin-right: 3vw;
-    padding:10px;
-    text-align: justify;
+.address {
+  margin-right: 3vw;
+  padding: 10px;
+  text-align: justify;
 }
-.icons{
-    text-align: center;
+.icons {
+  text-align: center;
 }
-.container3{
-    display: flex;
-    flex-direction: column;
-    padding: 15px
+.container3 {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
 }
-.tag{
-    display: inline-block;
-    margin:8px;
-    background-color: #bfc0c0;
-    width: fit-content;
-    border-radius: 5px;
-    padding: 5px 10px 5px 10px;
+.tag {
+  display: inline-block;
+  margin: 8px;
+  background-color: #bfc0c0;
+  width: fit-content;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
 }
 
 .button{
@@ -61,20 +61,24 @@
     text-decoration: none;
     margin-top: 20px;
 }
-.description{
-    margin-top: 10px;
-    width: 70%;
-    text-align: justify;
+.description {
+  margin-top: 10px;
+  width: 70%;
+  text-align: justify;
 }
-.reservations{
-    width: 50%;
-    display: flex;
-    flex-direction: column;
+.reservations {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
 }
 
-.restauranteImage{
-    width: 600px;
-    height: auto;
+.restauranteImage {
+  width: 600px;
+  height: auto;
+}
+.btn {
+  margin: auto;
+  color: black;
 }
 .reviews{
     margin-bottom: 5vh;

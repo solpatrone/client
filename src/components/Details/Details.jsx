@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { getRestoDetails, clearDetailsState, getRestaurantReviews } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams,NavLink } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -11,6 +11,7 @@ import Review from "../Review/Review";
 import ReviewForm from "../ReviewForm/ReviewForm";
 import Loading from "../Loading/Loading";
 import Cookies from "universal-cookie";
+import Reservations from "../Reservation/Reservations";
 
 function Details() {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function Details() {
     <div>
       <Navbar />
       {myRestaurant.length === 0 ? (
-        <Loading/>
+        <Loading />
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.container}>
@@ -48,7 +49,7 @@ function Details() {
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
-                    Direccion:{" "}
+                    Direccion:
                     {myRestaurant[0].address.split(",", 1) +
                       ", " +
                       myRestaurant[0].neighborhood_info[0]}
@@ -78,7 +79,7 @@ function Details() {
               <img
                 src={myRestaurant[0].photo}
                 alt="img not found"
-                className = {styles.restauranteImage}
+                className={styles.restauranteImage}
                 height="auto"
               />
               <p>
@@ -93,29 +94,32 @@ function Details() {
               )}
             </div>
             <div className={styles.reservations}>
-                {
-                  usuario?
-                  <button className={styles.button}>Reservá tu mesa</button>:
-                  <button >
-                   <NavLink to="/login" >
-                  <p className={styles.btn}>Reservá tu mesa</p>
+              {usuario ? (
+                <Reservations
+                  restoId={myRestaurant}
+                  userId={cookies.cookies.email}
+                />
+              ) : (
+                <button>
+                  <NavLink to="/login">
+                    <p className={styles.btn}>Reservá tu mesa</p>
                   </NavLink>
-                  </button>
-                }
-                {
-                  usuario?
-                  <button
-                    className={styles.button}
-                    onClick={(e) => handdleClick(e)}
-                    >
-                    Dejá tu reseña <BiCommentDetail />{" "}
-                  </button>:
-                  <button >
-                    <NavLink to="/login" >
+                </button>
+              )}
+              {usuario ? (
+                <button
+                  className={styles.button}
+                  onClick={(e) => handdleClick(e)}
+                >
+                  Dejá tu reseña <BiCommentDetail />
+                </button>
+              ) : (
+                <button>
+                  <NavLink to="/login">
                     <p className={styles.btn}>Dejá te reseña</p>
-                    </NavLink>
-                  </button>
-                }
+                  </NavLink>
+                </button>
+              )}
 
               {newReview && <ReviewForm setNewReview={setNewReview} />}
             </div>
