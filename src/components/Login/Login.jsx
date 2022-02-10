@@ -6,6 +6,11 @@ import style from "./Login.module.css";
 import axios from "axios";
 
 export default function Login() {
+
+  const url = 'http://localhost:3001'
+  const loginModif = url + '/login'
+
+
   const history = useHistory();
   const [input, setInput] = useState({
     email: "",
@@ -19,7 +24,7 @@ export default function Login() {
         id: response.profileObj.googleId,
       };
       try {
-        var user = await axios.post("http://localhost:3001/login/google", info);
+        var user = await axios.post(`${loginModif}/google`, info);
         var userData = user.data;
         const cookies = new Cookies();
         if (userData) {
@@ -46,7 +51,7 @@ export default function Login() {
 
   async function logger(info) {
     try {
-      var user = await axios.post("http://localhost:3001/login", info);
+      var user = await axios.post(loginModif, info);
       var userData = user.data;
       return userData;
     } catch (e) {

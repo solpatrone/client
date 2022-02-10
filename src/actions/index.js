@@ -15,11 +15,20 @@ import {
   POST_RESERVATION,
 } from "./types";
 
+
+const url = 'http://localhost:3001'
+const createUser = url + '/user'
+const reviewModif = url + '/review'
+const restoModif = url + '/restaurant'
+const reservationModif = url + '/reserve'
+const neighModif = url + "/neighborhood"
+const cuisineModif = url + "/cuisines"
+
 export function createClient(info) {
   return async () => {
     try {
       var newClient = await axios.post(
-        "http://localhost:3001/user/create",
+        createUser,
         info
       );
       console.log(newClient);
@@ -30,11 +39,11 @@ export function createClient(info) {
   };
 }
 
-export function addImagesToRestos(info){
+export function addImagesToRestos(info, id){
   return async () => {
    // const request = {photo: info}
     try{
-      var newImages = await axios.put('http://localhost:3001/restaurant/:id', info);
+      var newImages = await axios.put(`${restoModif}/${id}`, info);
       return {
         type: ADD_IMAGES,
         payload:newImages
@@ -63,7 +72,7 @@ export function createOwner(info) {
       info.personas_max=info.personas_max.name
       
 
-      var newOwner = await axios.post('http://localhost:3001/restaurant/create', info);
+      var newOwner = await axios.post( restoModif , info);
       console.log(newOwner);
       return newOwner;
     } catch (e) {
@@ -74,7 +83,7 @@ export function createOwner(info) {
 
 export function getCuisines() {
   return async function (dispatch) {
-    var json = await axios("http://localhost:3001/cuisines");
+    var json = await axios(cuisineModif);
     let data = json.data;
     return dispatch({
       type: GET_CUISINES,
@@ -88,7 +97,7 @@ export function getRestos() {
     dispatch({
       type: LOADING,
     });
-    let json = await axios.get("http://localhost:3001/restaurant");
+    let json = await axios.get(restoModif);
     let data = json.data;
     return dispatch({
       type: GET_RESTOS,
@@ -102,7 +111,7 @@ export function getRestoByName(name) {
     dispatch({
       type: LOADING,
     });
-    let json = await axios.get(`http://localhost:3001/restaurant?name=${name}`);
+    let json = await axios.get(`${restoModif}?name=${name}`);
     return dispatch({
       type: GET_RESTO_NAME,
       payload: json.data,
@@ -114,7 +123,7 @@ export function getRestoDetails(id) {
     dispatch({
       type: LOADING,
     });
-    let json = await axios.get(`http://localhost:3001/restaurant/${id}`);
+    let json = await axios.get(`${restoModif}/${id}`);
     return dispatch({
       type: GET_RESTO_DETAILS,
       payload: json.data,
@@ -132,14 +141,16 @@ export function postReview(payload) {
     return{
       rating: rating.value,
       description,
-      email,
+      author: email,
       id
+
+      
     }
   }
   let revFormated = revToBack(payload)
   return async (dispatch)=>{
     try{
-      let newReview= await axios.post("http://localhost:3001/review/create", revFormated)
+      let newReview= await axios.post( reviewModif, revFormated)
       return dispatch({
         type: POST_REVIEW,
         payload: newReview,
@@ -154,7 +165,7 @@ export function postReview(payload) {
 export function getRestaurantReviews(id){
   return async function(dispatch){
     try{
-      let json = await axios.post("http://localhost:3001/review/restaurant", {id})
+      let json = await axios.get(`${reviewModif}/${id}`)
       return dispatch({
         type: GET_RESTO_REVIEWS,
         payload: json.data,
@@ -167,7 +178,7 @@ export function getRestaurantReviews(id){
 
 export function getNeighborhoods() {
   return async function (dispatch) {
-    var json = await axios.get("http://localhost:3001/neighborhood");
+    var json = await axios.get(neighModif);
     var neighborhoods = json.data.map(function (neighborhood) {
       return {
         ...neighborhood,
@@ -188,7 +199,7 @@ export function postReservation(payload) {
   return async function () {
     try {
       var newRes = await axios.post(
-        "http://localhost:3001/reserve/create",
+        reservationModif,
         payload
       );
       alert("Tu reserva a sido realizada");
