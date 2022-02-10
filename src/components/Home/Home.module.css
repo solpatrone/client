@@ -9,12 +9,13 @@
   justify-content: center;
 }
 
-.options{
-  display: inline-block; 
+.options {
+  display: inline-block;
   width: 200px;
   margin: 15px;
 }
-.removeButton{
+
+.removeButton {
   display: inline-block;
 }
 
