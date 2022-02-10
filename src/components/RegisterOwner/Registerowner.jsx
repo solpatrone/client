@@ -75,7 +75,7 @@ console.log('holaaaaaa',own)
       name:"",
       value:""
     }, 
-  });
+  }); 
 
   //ver para inputs de solo letras ej: nombre
   //let onlyLetters = (e) => {
