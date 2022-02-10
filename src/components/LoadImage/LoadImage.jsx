@@ -1,4 +1,5 @@
 import React, {useState} from 'react';
+import { useParams } from 'react-router-dom';
 import { Widget } from "@uploadcare/react-widget";
 import { addImagesToRestos } from '../../actions';
 
@@ -6,9 +7,11 @@ import { addImagesToRestos } from '../../actions';
 
 export default function LoadImage() {
  
+    const params = useParams();
 
     let [input, setInput] = useState ({
-        newPhoto: ''
+        newPhoto: '',
+        idRestaurant: params.id
         //images: []
     })
 
