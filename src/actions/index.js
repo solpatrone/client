@@ -11,6 +11,7 @@ import {
   LOADING,
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
+  PUT_RATING,
 } from "./types";
 
 
@@ -216,4 +217,18 @@ export function postReservation(payload) {
       console.log(e);
     }
   };
+}
+
+export function putRating(id, info){
+  return async () => {
+    try{
+      var newRating = await axios.put(`${restoModif}/${id}`, info);
+      return {
+        type: PUT_RATING,
+        payload:newRating
+      }
+    } catch (e) {
+      console.log(e);
+    }
+  }
 }

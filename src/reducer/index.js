@@ -13,6 +13,7 @@ import {
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
   POST_RESERVATION,
+  PUT_RATING
 } from "../actions/types";
 
 const initialState = {
@@ -124,6 +125,10 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+    case PUT_RATING:
+      return{
+        ...state
+      }
     default:
       return { ...state };
   }

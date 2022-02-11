@@ -19,6 +19,7 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector(state => state.reviews)
+
   const cookies= new Cookies()
   const usuario = cookies.get("username")
 
@@ -40,12 +41,14 @@ function Details() {
 //     setCurrentImage(--currentImage)
 // }
 
+
   return (
     <div>
       <Navbar />
       {myRestaurant.length === 0 ? (
         <Loading />
       ) : (
+
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
@@ -54,21 +57,23 @@ function Details() {
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
-                    Direccion: {" "} 
+                    Direccion: {" "}
                     {myRestaurant[0].address.split(",", 1) +
                       ", " +
                       myRestaurant[0].neighborhood_info[0]}
                   </p>
                    {myRestaurant[0].email !== " - " && <p>Contacto:
                     {" " + myRestaurant[0].email}</p> }
-                    
+
                 </div>
                 <div className={styles.icons}>
                   <p>
+                    {/* {hasReviews.length > 0 ? [...Array(prom).keys()].map((key) => (<RiStarFill/>)) : */}
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
                       (key) => (
                         <RiStarFill size={20} style={{ fill: '#f2d349' }} key={key} />
                       )
+
                     )}
                   </p>
                   {myRestaurant[0].price &&
@@ -77,10 +82,10 @@ function Details() {
                     <BsCurrencyDollar size={20} />
                   ))}
                 </p> }
-                  
+
                 </div>
               </div>
-              
+
               {/* <div>
                     {currentPhoto > 1 && <button onClick={e => handlePreviousImage(e)}> Previous </button>}
                     <span > aca iria la photo actual </span>
@@ -140,7 +145,7 @@ function Details() {
           <div>
           {hasReviews.length > 0 && (
             <div className={styles.reviews}>
-              <h3>Opiniones</h3>                    
+              <h3>Opiniones</h3>
               <Review reviews={hasReviews} />
             </div>
           )}
