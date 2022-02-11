@@ -59,10 +59,7 @@ export function createOwner(info) {
 
       const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine)); //stringfyle== pasa un objeto a un string en format JSON
       info.cuisine = cuisineCopy.map((e) => e.name);
-
-      //const person_max=info.personas_max.name;
-      //info.personas_max=person_max
-      info.personas_max = info.personas_max.name;
+      info.personas_max = Number(info.personas_max);
 
       var newOwner = await axios.post(restoModif, info);
       console.log(newOwner);

@@ -59,6 +59,7 @@ export default function Home() {
   }
 
   function displaySelectedRestaurantes() {
+    
     let restaurantesByNeighborhood =
       filteredByNeighborhood.value === "all"
         ? allRestaurants
