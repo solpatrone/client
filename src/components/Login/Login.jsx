@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useHistory, useLocation } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import Cookies from "universal-cookie";
 import style from "./Login.module.css";
@@ -10,8 +10,6 @@ export default function Login() {
   const loginModif = url + "/login";
 
   const history = useHistory();
-  const location = useLocation();
-  console.log(location);
 
   const [input, setInput] = useState({
     email: "",
@@ -77,8 +75,6 @@ export default function Login() {
       cookies.set("email", user.email, { path: "/" });
       cookies.set("owner", user.email, { path: "/" });
       cookies.set("restoName", "", { path: "/" });
-
-      history.push("/home");
     }
   }
 

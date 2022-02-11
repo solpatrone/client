@@ -143,7 +143,7 @@ function Details() {
               ) : (
                 <button>
                   <NavLink to="/login">
-                    <p className={styles.btn}>Dejá te reseña</p>
+                    <p className={styles.btn}>Dejá tu reseña</p>
                   </NavLink>
                 </button>
               )}
