@@ -68,11 +68,11 @@ export default function RegisterOwner() {
   // en el input poner: onKeyPress={onlyLetters}
 
   //ver para numero de direccion
-    //let onlyNumbers = (e) => {
-    //  if (!/[0-9]/.test(e.key)) {
-    //    e.preventDefault();
-    //  }
-    //};
+    let onlyNumbers = (e) => {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    };
 
   //error objects
   const [errors, setError] = useState({ hasErrors: true });
@@ -99,7 +99,6 @@ export default function RegisterOwner() {
  
 
   function handleSubmit(e) {
-    e.preventDefault();
     if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
       
@@ -214,6 +213,7 @@ export default function RegisterOwner() {
               value={owner.personas_max}
               name={"personas_max"}
               onChange={(e) => handleChange(e)}
+              onKeyPress={onlyNumbers}
               />
           </div> 
           <div>
