@@ -12,10 +12,6 @@ export default function RegisterOwner() {
   let dispatch = useDispatch();
   
   const cookies = new Cookies();
-    
-
-  console.log("este es la prueba",cookies)
-
 
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
@@ -33,8 +29,7 @@ export default function RegisterOwner() {
     dispatch(getNeighborhoods());
   }, [dispatch]);
 
-  let priceOptions = [    
-    { name: "all", label: "Precios", value: "all" },
+  let priceOptions = [
     { name: "$", label: "$", value: "$" },
     { name: "$$", label: "$$", value: "$$" },
     { name: "$$$", label: "$$$", value: "$$$" },
@@ -42,17 +37,8 @@ export default function RegisterOwner() {
     { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
 
-
-  let personas_max = [
-    { name: "reservation", label: "reservation", value: "reservation" },
-    { name: 5, label: 5, value: 5  },
-    { name: 10, label: 10, value: 10 },
-    { name: 15, label: 15, value: 15},
-    { name: 20, label: 20, value: 20 },
-  ];
-
+ 
  const own= cookies.get('email');
-console.log('holaaaaaa',own)
   //owner object
   const [owner, setOwner] = useState({
     name: "",
@@ -64,11 +50,7 @@ console.log('holaaaaaa',own)
     cuisine: [],
     photo: "",
     email:"",
-    personas_max:{
-      name:0,
-      label:0,
-      value:0
-    },
+    personas_max:"",
     owner:own,
     description: "",
     price: {
@@ -86,6 +68,11 @@ console.log('holaaaaaa',own)
   // en el input poner: onKeyPress={onlyLetters}
 
   //ver para numero de direccion
+    let onlyNumbers = (e) => {
+      if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+      }
+    };
 
   //error objects
   const [errors, setError] = useState({ hasErrors: true });
@@ -109,16 +96,12 @@ console.log('holaaaaaa',own)
   function handleTypes(e) {
     setOwner((prev) => ({ ...prev, cuisine: e}));
   }
-  function handleReserv(e){
-    setOwner((prev)=> ({...prev, personas_max: e}))
-  }
+ 
 
   function handleSubmit(e) {
-    e.preventDefault();
     if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
-      const own= cookies.get('email');
-      console.log(own)
+      
       setIsSubmit(true);
       setOwner({
 
@@ -143,7 +126,8 @@ console.log('holaaaaaa',own)
     const errors = { hasErrors: false };
     console.log("input", owner);
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    
+    const onlyNumbers = /[0-9]/;
+
     if (!owner.name) {
       errors.name = "Debes ingresar el nombre de tu restaurante";
       errors.hasErrors = true;
@@ -160,6 +144,7 @@ console.log('holaaaaaa',own)
          errors.email = `El email debe ser una dirección válida`;
          errors.hasErrors = true;}    
 
+    
     //if (owner.description.length < 0 || owner.description.length > 200) {
     //  errors.description = "La descripción debe tener menos de 200 caracteres";
     //  errors.hasErrors = true;
@@ -219,19 +204,19 @@ console.log('holaaaaaa',own)
               onChange={(e) => handleChange(e)}
               />
             <p className="errors">{errors.address}</p>
-
+          </div>
+          <div>
             <label >Reserva maxima</label>
-            <Select
-              className="selectOptions"
-              options={personas_max}
+            <input
+              className="text"
+              placeholder="ingresa cantidad de reservas maximas"
               value={owner.personas_max}
               name={"personas_max"}
-              onChange={(e) => handleReserv(e)}
+              onChange={(e) => handleChange(e)}
+              onKeyPress={onlyNumbers}
               />
-                               
-               
-            <p className="errors">{errors.number}</p>     
-
+          </div> 
+          <div>
             <label className="inputText">Barrio</label>
             <Select
               className="selectOptions"
