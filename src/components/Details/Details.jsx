@@ -27,7 +27,7 @@ function Details() {
     dispatch(getRestaurantReviews(params.id))
     return () => {
       dispatch(clearDetailsState());
-    };
+    }; // eslint-disable-next-line
   }, [params.id]);
 
   function handdleClick(e) {
