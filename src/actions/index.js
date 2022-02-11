@@ -188,7 +188,7 @@ export function postReservation(payload) {
     return {
       date,
       time: time.value,
-      pax: Number(pax.value),
+      pax: Number(pax),
       email,
       id,
     };
