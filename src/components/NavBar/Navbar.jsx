@@ -8,7 +8,7 @@ import Logout from "../Logout/Logout";
 export default function Navbar() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
-  const restoName = cookies.get("restoName");
+
   return (
     <div className={styles.navBar}>
       <div className={styles.links}>
@@ -26,7 +26,7 @@ export default function Navbar() {
             rapi<strong>Resto</strong>
           </p>
         </NavLink>
-        <div className={styles.links} className={styles.user}>
+        <div className={styles.links}>
           {!usuario ? (
             <NavLink to="/login" className={styles.navlinks}>
               <p>Iniciar sesión</p>
