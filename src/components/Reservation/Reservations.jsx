@@ -12,7 +12,7 @@ export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
     date: new Date(),
     time: "",
-    pax: null,
+    pax: 0,
     email: userId,
     id: restoId[0].id,
   });
@@ -51,11 +51,11 @@ export default function Reservations({ userId, restoId }) {
 
   //han
   function handleLunchChange(e) {
-    setReservations((prev) => ({ ...prev, time: e.value }));
+    setReservations((prev) => ({ ...prev, time: e }));
   }
 
   function handleDinnerChange(e) {
-    setReservations((prev) => ({ ...prev, time: e.value }));
+    setReservations((prev) => ({ ...prev, time: e }));
   }
 
   let pax = []; //cambiar por restaurants.personas_max
@@ -64,7 +64,7 @@ export default function Reservations({ userId, restoId }) {
   }
 
   function handlePaxChange(e) {
-    setReservations((prev) => ({ ...prev, pax: e.value }));
+    setReservations((prev) => ({ ...prev, pax: e }));
   }
 
   function handleDateChange(e) {
@@ -73,8 +73,8 @@ export default function Reservations({ userId, restoId }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //agregar accion para postear reseña
     dispatch(postReservation(reservations));
+    setReservations({ date: new Date(), time: "", pax: 0 });
   }
 
   let date = reservations.date.toString().split("00")[0].split(" ");
@@ -111,7 +111,9 @@ export default function Reservations({ userId, restoId }) {
 
           <hr></hr>
           <div className={s.colContainer}>
-            {!reservations.time && <p>Selecciona un horario</p>}
+            {!reservations.time && (
+              <strong className={s.error}>Selecciona un horario</strong>
+            )}
             <div className={s.column}>
               <label>Almuerzo</label>
               <Select
@@ -137,13 +139,17 @@ export default function Reservations({ userId, restoId }) {
           <hr></hr>
 
           <div className={s.column}>
-            {!reservations.pax && <p>Selecciona cantidad de personas</p>}
+            {!reservations.pax && (
+              <strong className={s.error}>
+                Selecciona cantidad de personas
+              </strong>
+            )}
             <label>Cantidad de personas</label>
             <Select
               options={pax}
               isMulti={false}
               value={reservations.pax}
-              name={reservations.pax}
+              name={"pax"}
               onChange={(e) => handlePaxChange(e)}
             />
           </div>
@@ -152,8 +158,8 @@ export default function Reservations({ userId, restoId }) {
       <div>
         <p className={s.text}>
           Confirme su reserva para el {date ? date : "--"}, a las{" "}
-          {reservations.time ? reservations.time : "--"} hs para{" "}
-          {reservations.pax ? reservations.pax : "--"} personas
+          {reservations.time.label ? reservations.time.label : "--"} hs para{" "}
+          {reservations.pax.label ? reservations.pax.label : "--"} personas
         </p>
 
         {/* //cambiar boton por el siguiente paso -->Mercado Pago */}

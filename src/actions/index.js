@@ -184,10 +184,23 @@ export function getNeighborhoods() {
 }
 
 export function postReservation(payload) {
+  const revToBack = ({ date, time, pax, email, id }) => {
+    return {
+      date,
+      time: time.value,
+      pax: pax.value,
+      email,
+      id,
+    };
+  };
+  let revFormated = revToBack(payload);
   return async function () {
     try {
-      var newRes = await axios.post(reservationModif, payload);
-      alert("Tu reserva a sido realizada");
+      console.log("payload", payload);
+      var newRes = await axios.post(reservationModif, revFormated);
+      alert(
+        `Tu reserva para ${payload.pax.value} personas a las ${payload.time.value}hs ha sido realizada`
+      );
       return newRes;
     } catch (e) {
       console.log(e);

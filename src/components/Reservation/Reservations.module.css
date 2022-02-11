@@ -87,3 +87,9 @@ hr {
   background-color: var(--dark-color);
   border: none;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+}
