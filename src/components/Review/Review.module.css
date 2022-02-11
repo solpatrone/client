@@ -1,27 +1,47 @@
 .review{
     display:flex;
+    flex-direction: column;
     width: 45vw;
     border-radius: 5px;
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
     margin-top: 10px;
     height: fit-content;
 }
+.info{
+    display: flex;
+    justify-content: space-between;
+}
 .user{
     padding: 10px;
+    display: flex;
+    align-items: center;
+    margin-right: 1vw;
+    /* width: 100%; */
+}
+.name_date{
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-right: 1vw;
-    width: fit-content;
+}
+.name{
+    margin-bottom: 0 ;
+    margin-top: 1vh;
+    margin-left: 2vw;
+    font-weight: bold;
+}
+.date{
+    margin-top: 2px;
+    margin-left: 2vw ;
 }
 .text{
     display: flex;
     flex-direction: column;
     text-align: justify;
     justify-content:center;
-    padding-right: 10px;
+    margin-left: 1vw;
+    padding-right: 1vw;
 }
 .rating{
-    margin-bottom: 2px;
+   margin-right: 1vw;
 }
