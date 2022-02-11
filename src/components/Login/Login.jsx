@@ -55,7 +55,12 @@ export default function Login() {
       var userData = user.data;
       return userData;
     } catch (e) {
-      alert(e.response.data.message)
+      if(e.response.data.message === "El usuario no existe"){
+        alert(e.response.data.message)
+        history.push("/registerclient")
+      }else{
+        alert(e.response.data.message)
+      }
     }
   }
 
