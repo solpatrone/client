@@ -54,7 +54,7 @@ function Details() {
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
-                    Direccion:
+                    Direccion: {" "} 
                     {myRestaurant[0].address.split(",", 1) +
                       ", " +
                       myRestaurant[0].neighborhood_info[0]}

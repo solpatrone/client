@@ -55,7 +55,7 @@ export default function Login() {
       var userData = user.data;
       return userData;
     } catch (e) {
-      console.log(e);
+      alert(e.response.data.message)
     }
   }
 
