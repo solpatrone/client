@@ -38,7 +38,7 @@ export default function Login() {
 
           console.log("hola soy cookies", cookies);
         }
-        history.goBack();
+        history.push("/home");
         return userData;
       } catch (e) {
         alert(
@@ -82,7 +82,7 @@ export default function Login() {
       cookies.set("owner",user.email, { path: "/" });
       cookies.set("restoName", '' , { path: "/" });
 
-      history.goBack();
+      history.push("home");
     }
   }
 
