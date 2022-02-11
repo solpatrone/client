@@ -8,7 +8,6 @@ import Cards from "../Cards/Cards";
 import Paginate from "../Paginate/Paginate";
 import { getRestos, getNeighborhoods, getCuisines } from "../../actions/index";
 import Cookies from "universal-cookie/es6";
-import Logout from "../Logout/Logout";
 import s from "./Home.module.css";
 import Loading from "../Loading/Loading";
 

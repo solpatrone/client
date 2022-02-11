@@ -188,7 +188,7 @@ export function postReservation(payload) {
     return {
       date,
       time: time.value,
-      pax: pax.value,
+      pax: Number(pax.value),
       email,
       id,
     };
@@ -196,7 +196,7 @@ export function postReservation(payload) {
   let revFormated = revToBack(payload);
   return async function () {
     try {
-      console.log("payload", payload);
+      console.log("payload", revFormated);
       var newRes = await axios.post(reservationModif, revFormated);
       alert(
         `Tu reserva para ${payload.pax.value} personas a las ${payload.time.value}hs ha sido realizada`
