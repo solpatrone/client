@@ -37,7 +37,6 @@ export default function Login() {
 
           console.log("hola soy cookies", cookies);
         }
-        history.goBack();
         return userData;
       } catch (e) {
         alert(
@@ -76,6 +75,7 @@ export default function Login() {
       cookies.set("owner", user.email, { path: "/" });
       cookies.set("restoName", "", { path: "/" });
     }
+    history.push("/home");
   }
 
   return (

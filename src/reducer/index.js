@@ -13,6 +13,8 @@ import {
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
   POST_RESERVATION,
+  GET_MY_RESTOS,
+  GET_RESTO_RESERVATIONS,
 } from "../actions/types";
 
 const initialState = {
@@ -27,6 +29,8 @@ const initialState = {
   cuisines: [],
   loading: false,
   // images: []
+  myRestaurants: [],
+  restoReservations: [],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -57,27 +61,26 @@ export default function rootReducer(state = initialState, action) {
           ...state,
         };
       }
-      case ADD_IMAGES:
-            return{...state}
+    case ADD_IMAGES:
+      return { ...state };
 
-      case CREATE_OWNER:
-            return{...state,
-            }
-        //case CREATE_OWNER:
-        //  let existsOwn = state.owners.find(
-        //    (u) => u.email === action.payload.email
-        //  );
-        //  console.log(state.owners);
-        //  if (!existsOwn) {
-        //    return {
-        //      ...state,
-        //      owners: [...state.owners, action.payload],
-        //    };
-        //  } else {
-        //    return {
-        //      ...state,
-        //    };
-        //  }
+    case CREATE_OWNER:
+      return { ...state };
+    //case CREATE_OWNER:
+    //  let existsOwn = state.owners.find(
+    //    (u) => u.email === action.payload.email
+    //  );
+    //  console.log(state.owners);
+    //  if (!existsOwn) {
+    //    return {
+    //      ...state,
+    //      owners: [...state.owners, action.payload],
+    //    };
+    //  } else {
+    //    return {
+    //      ...state,
+    //    };
+    //  }
     case GET_USERS:
       return {
         ...state,
@@ -124,6 +127,18 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+
+    case GET_MY_RESTOS:
+      return {
+        ...state,
+        myRestaurants: action.payload,
+      };
+    case GET_RESTO_RESERVATIONS: {
+      return {
+        ...state,
+        restoReservations: action.payload,
+      };
+    }
     default:
       return { ...state };
   }

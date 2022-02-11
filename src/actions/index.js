@@ -11,6 +11,8 @@ import {
   LOADING,
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
+  GET_MY_RESTOS,
+  GET_RESTO_RESERVATIONS,
 } from "./types";
 
 const url = "http://localhost:3001";
@@ -199,6 +201,35 @@ export function postReservation(payload) {
         `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`
       );
       return newRes;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function getMyRestos(id) {
+  return async function (dispatch) {
+    dispatch({
+      type: LOADING,
+    });
+    let json = await axios.get(`${createUser}/${id}`);
+    let data = json.data;
+    return dispatch({
+      type: GET_MY_RESTOS,
+      payload: data,
+    });
+  };
+}
+
+export function getRestoReservations(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`${reservationModif}/restaurant/${id}`);
+      let data = json.data;
+      return dispatch({
+        type: GET_RESTO_RESERVATIONS,
+        payload: data,
+      });
     } catch (e) {
       console.log(e);
     }
