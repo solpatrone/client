@@ -45,12 +45,13 @@ export default function Reservations({ userId, restoId }) {
   // }
 
   //validate pax
-  function validatePaxMax(reservation) {
+  function validatePaxMax(paxInput) {
     const error = {};
     console.log("validate,", restoId[0].personas_max);
-    if (reservation > restoId[0].personas_max) {
+    if (paxInput > restoId[0].personas_max) {
       error.pax = `El número de comesales debe ser menos a ${restoId[0].personas_max}`;
     }
+
     return error;
   }
 
@@ -88,6 +89,9 @@ export default function Reservations({ userId, restoId }) {
         </div>
       </div>
       <div className={s.form}>
+        {restoId[0].personas_max === 0 ? (
+          <p className={s.error}>Ya no hay lugares disponibles</p>
+        ) : null}
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className={s.calendar}>
             <div>

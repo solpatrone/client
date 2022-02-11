@@ -199,7 +199,7 @@ export function postReservation(payload) {
       console.log("payload", revFormated);
       var newRes = await axios.post(reservationModif, revFormated);
       alert(
-        `Tu reserva para ${payload.pax.value} personas a las ${payload.time.value}hs ha sido realizada`
+        `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`
       );
       return newRes;
     } catch (e) {

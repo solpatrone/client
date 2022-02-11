@@ -119,7 +119,9 @@ function Details() {
               )}
             </div>
             <div className={styles.reservations}>
-              {usuario ? (
+              {myRestaurant[0].owner === "API" ? (
+                <p>No puedes realizar reservas en este restaurant</p>
+              ) : usuario ? (
                 <Reservations
                   restoId={myRestaurant}
                   userId={cookies.cookies.email}
