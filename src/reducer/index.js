@@ -13,6 +13,7 @@ import {
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
   POST_RESERVATION,
+  GET_USER_REVIEWS,
 } from "../actions/types";
 
 const initialState = {
@@ -26,6 +27,7 @@ const initialState = {
   reviews: [],
   cuisines: [],
   loading: false,
+  userReviews: [],
   // images: []
 };
 
@@ -59,6 +61,7 @@ export default function rootReducer(state = initialState, action) {
       }
       case ADD_IMAGES:
             return{...state}
+      
 
       case CREATE_OWNER:
             return{...state,
@@ -124,6 +127,12 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+
+      case GET_USER_REVIEWS:
+        return{...state,
+          userReviews: action.payload
+        };
+
     default:
       return { ...state };
   }
