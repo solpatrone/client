@@ -9,8 +9,9 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
-  ADD_IMAGES,
   GET_RESTO_REVIEWS,
+  GET_MY_RESTOS,
+  PUT_RATING,
   GET_USER_REVIEWS,
 } from "./types";
 
@@ -39,14 +40,27 @@ export function createClient(info) {
   };
 }
 
-export function addImagesToRestos(info, id){
-  return async () => {
-   // const request = {photo: info}
+export function addImagesToRestos(request, id){
+  return async (dispatch) => {
     try{
-      var newImages = await axios.put(`${restoModif}/${id}`, info);
+      var response = await axios.put(`${restoModif}/${id}`, request);
+      return dispatch({
+        type: GET_RESTO_DETAILS,
+        payload: [response.data],
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  }
+}
+
+export function putRating(id, info){
+  return async () => {
+    try{
+      var newRating = await axios.put(`${restoModif}/${id}`, info);
       return {
-        type: ADD_IMAGES,
-        payload:newImages
+        type: PUT_RATING,
+        payload:newRating
       }
     } catch (e) {
       console.log(e);
@@ -101,6 +115,23 @@ export function getRestos() {
     });
   };
 }
+
+export function getMyRestos(id) {
+  return async function (dispatch) {
+    dispatch({
+      type: LOADING,
+    });
+    let json = await axios.get(`${createUser}/${id}`);
+    let data = json.data;
+    return dispatch({
+      type: GET_MY_RESTOS,
+      payload: data,
+    });
+  };
+}
+
+
+
 
 export function getRestoByName(name) {
   return async function (dispatch) {

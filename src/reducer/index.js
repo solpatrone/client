@@ -13,6 +13,8 @@ import {
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
   POST_RESERVATION,
+  GET_MY_RESTOS,
+  PUT_RATING,
   GET_USER_REVIEWS,
 } from "../actions/types";
 
@@ -21,6 +23,7 @@ const initialState = {
   owners: [],
   user: {},
   restaurants: [],
+  myRestaurants: [],
   allRestaurants: [],
   neighborhoods: [],
   details: [],
@@ -87,6 +90,11 @@ export default function rootReducer(state = initialState, action) {
         user: [...state, action.payload],
         loading: false,
       };
+    case GET_MY_RESTOS:
+      return {
+        ...state,
+        myRestaurants: action.payload
+      }
     case GET_NEIGHBORHOODS:
       return {
         ...state,
@@ -127,12 +135,14 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
-
-      case GET_USER_REVIEWS:
-        return{...state,
-          userReviews: action.payload
-        };
-
+    case PUT_RATING:
+      return{
+        ...state,
+      };
+    case GET_USER_REVIEWS:
+      return{...state,
+        userReviews: action.payload
+      };
     default:
       return { ...state };
   }
