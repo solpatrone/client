@@ -126,7 +126,7 @@ export default function RegisterOwner() {
     const errors = { hasErrors: false };
     console.log("input", owner);
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
-    const onlyNumbers = /[0-9]/;
+    
 
     if (!owner.name) {
       errors.name = "Debes ingresar el nombre de tu restaurante";
