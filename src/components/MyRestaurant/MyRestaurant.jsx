@@ -114,6 +114,23 @@ export default function Restaurant() {
                 className={styles.restauranteImage}
                 height="auto"
               />
+              <div className="mt-3">
+                <Widget
+                  ref={widgetApi}
+                  publicKey="0a91ec69631fd28d2d4a"
+                  multiple="true"
+                  imagesOnly="true"
+                  locale="es"
+                  onChange={handleChange}
+                />
+                <div>
+                  {photo && (
+                    <button onClick={(e) => handleClick(e)}>
+                      Guardar Cambios
+                    </button>
+                  )}
+                </div>
+              </div>
               <span>
                 {myRestaurant[0].cuisine.map((el, index) => (
                   <div key={index} className={styles.tag}>

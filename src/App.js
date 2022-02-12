@@ -22,7 +22,7 @@ function App() {
       <Route path={"/home"} render={() => <Home />} />
       <Route path={"/registerclient"} render={() => <Registerclient />} />
       <Route path={"/registerOwner"} render={() => <RegisterOwner />} />
-      
+
       <Route path={"/myprofile"} render={() => <MyProfile />} />
       {/* <Route path={"/review"} render={() => <Review />} /> */}
       <Route path={"/myrestaurant/:id"} render={() => <MyRestaurant />} />

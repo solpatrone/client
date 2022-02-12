@@ -22,6 +22,17 @@ export default function Navbar() {
     }
   }, [dispatch, id]);
 
+  const dispatch = useDispatch();
+  const id = cookies.get("id");
+
+  const myRestaurants = useSelector((state) => state.myRestaurants);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getMyRestos(id));
+    } // eslint-disable-next-line
+  }, []);
+
   return (
     <div>
       <div>
