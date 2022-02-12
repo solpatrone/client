@@ -236,20 +236,6 @@ export function postReservation(payload) {
   };
 }
 
-export function getMyRestos(id) {
-  return async function (dispatch) {
-    dispatch({
-      type: LOADING,
-    });
-    let json = await axios.get(`${createUser}/${id}`);
-    let data = json.data;
-    return dispatch({
-      type: GET_MY_RESTOS,
-      payload: data,
-    });
-  };
-}
-
 export function getRestoReservations(id) {
   return async function (dispatch) {
     try {
