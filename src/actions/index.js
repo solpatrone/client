@@ -11,6 +11,7 @@ import {
   LOADING,
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
+  GET_MY_RESTOS
 } from "./types";
 
 
@@ -37,17 +38,16 @@ export function createClient(info) {
   };
 }
 
-export function addImagesToRestos(info, id){
-  return async () => {
-   // const request = {photo: info}
+export function addImagesToRestos(request, id){
+  return async (dispatch) => {
     try{
-      var newImages = await axios.put(`${restoModif}/${id}`, info);
-      return {
-        type: ADD_IMAGES,
-        payload:newImages
-      }
+      var response = await axios.put(`${restoModif}/${id}`, request);
+      return dispatch({
+        type: GET_RESTO_DETAILS,
+        payload: [response.data],
+      });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   }
 }
@@ -99,6 +99,23 @@ export function getRestos() {
     });
   };
 }
+
+export function getMyRestos(id) {
+  return async function (dispatch) {
+    dispatch({
+      type: LOADING,
+    });
+    let json = await axios.get(`${createUser}/${id}`);
+    let data = json.data;
+    return dispatch({
+      type: GET_MY_RESTOS,
+      payload: data,
+    });
+  };
+}
+
+
+
 
 export function getRestoByName(name) {
   return async function (dispatch) {

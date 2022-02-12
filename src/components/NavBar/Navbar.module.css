@@ -54,9 +54,8 @@
   font-family: var(--logo-font);
 }
 
-.nlhome p {
+.nlhome .title {
   font-size: 25px;
-  line-height: 0;
 }
 
 .nlhome strong {
@@ -68,4 +67,15 @@
 .user{
   margin-top: auto;
   margin-bottom: auto;
+}
+
+.button {
+  border: none;
+  background-color: var(--medium-color);
+  color: var(--bright-color);
+  width: fit-content;
+  padding: 8px 5px;
+  text-transform: uppercase;
+  transition: all 0.5s;
+  margin: 10px;
 }
