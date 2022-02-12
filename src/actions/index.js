@@ -11,7 +11,8 @@ import {
   LOADING,
   ADD_IMAGES,
   GET_RESTO_REVIEWS,
-  GET_MY_RESTOS
+  GET_MY_RESTOS,
+  PUT_RATING
 } from "./types";
 
 
@@ -48,6 +49,20 @@ export function addImagesToRestos(request, id){
       });
     } catch (e) {
       console.error(e);
+    }
+  }
+}
+
+export function putRating(id, info){
+  return async () => {
+    try{
+      var newRating = await axios.put(`${restoModif}/${id}`, info);
+      return {
+        type: PUT_RATING,
+        payload:newRating
+      }
+    } catch (e) {
+      console.log(e);
     }
   }
 }
