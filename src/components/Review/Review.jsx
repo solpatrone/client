@@ -9,9 +9,9 @@ export default function Review({reviews}) {
     
   return (
     reviews &&
-    reviews.map((r) => {
+    reviews.map((r,index) => {
       return (
-        <div className={s.review}>
+        <div key={index} className={s.review}>
             <div className={s.user}>
                 <FaUserCircle size={40}  style={{ fill: '#8aa899' }}/>
                 <p>{cookies.get("username")}</p>
