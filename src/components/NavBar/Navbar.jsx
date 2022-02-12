@@ -1,5 +1,5 @@
 import React, {useEffect}  from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import logo from "../../assets/rapiresto.png";
 import styles from "./Navbar.module.css";
 import Cookies from "universal-cookie";
@@ -9,7 +9,6 @@ import {getMyRestos} from '../../actions'
 
 export default function Navbar() {
   const cookies = new Cookies();
-  const params = useParams();
   const usuario = cookies.get("username");
 
   const dispatch = useDispatch()
@@ -20,7 +19,7 @@ export default function Navbar() {
   useEffect ( () => {
     if (id){
       dispatch(getMyRestos(id))
-    }
+    } // eslint-disable-next-line
   } , [] )
 
 

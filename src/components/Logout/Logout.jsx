@@ -13,6 +13,7 @@ export default function Logout(){
         cookies.set('password', '',{path:'/'})
         cookies.set('name', '',{path:'/'})
         cookies.set('restoName', '',{path:'/'})
+        cookies.set("id", '', { path: "/" });
         history.push('/home')
         console.log(cookies)
     }

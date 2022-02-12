@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useRef } from "react";
 import { getRestoDetails, clearDetailsState, getRestaurantReviews } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -17,7 +17,6 @@ export default function Restaurant() {
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const widgetApi = useRef();
-  const history = useHistory();
 
   const hasReviews = useSelector(state => state.reviews)
 
