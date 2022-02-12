@@ -14,14 +14,15 @@ import s from "./MyRestaurant.module.css";
 import { RiStarFill } from "react-icons/ri";
 import { BsCurrencyDollar } from "react-icons/bs";
 import Review from "../Review/Review";
+import RestoReservations from "../RestoReservations/RestoReservations";
 
 export default function Restaurant() {
   const dispatch = useDispatch();
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   console.log(myRestaurant);
-  const myReviews = useSelector((state) => state.restoReservations);
-  console.log(myReviews);
+  const myReservations = useSelector((state) => state.restoReservations);
+  console.log(myReservations);
 
   const hasReviews = useSelector((state) => state.reviews);
   useEffect(() => {
@@ -104,6 +105,21 @@ export default function Restaurant() {
                   <Review reviews={hasReviews} />
                 </div>
               )}
+            </div>
+            <div>
+              <h3>Reservas</h3>
+
+              {myReservations.length > 0
+                ? myReservations.map((r) => (
+                    <RestoReservations
+                      id={r.id}
+                      key={r.id}
+                      pax={r.pax}
+                      date={r.date}
+                      time={r.time}
+                    />
+                  ))
+                : "Aun no hay reservas"}
             </div>
           </div>
         </div>
