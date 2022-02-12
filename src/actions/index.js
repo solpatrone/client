@@ -13,6 +13,7 @@ import {
   GET_RESTO_REVIEWS,
   GET_MY_RESTOS,
   GET_RESTO_RESERVATIONS,
+  GET_USER_REVIEWS,
 } from "./types";
 
 const url = "http://localhost:3001";
@@ -22,6 +23,7 @@ const restoModif = url + "/restaurant";
 const reservationModif = url + "/reserve";
 const neighModif = url + "/neighborhood";
 const cuisineModif = url + "/cuisines";
+const userReviewModif = url + "/review/user";
 
 export function createClient(info) {
   return async () => {
@@ -229,6 +231,23 @@ export function getRestoReservations(id) {
       return dispatch({
         type: GET_RESTO_RESERVATIONS,
         payload: data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+export function getUserReviews(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`${userReviewModif}/${id}`);
+      console.log("hola", `${userReviewModif}/${id}`);
+      console.log("reviews");
+      console.log(json);
+      const reviews = json && json.data ? json.data : [];
+      return dispatch({
+        type: GET_USER_REVIEWS,
+        payload: reviews,
       });
     } catch (e) {
       console.log(e);
