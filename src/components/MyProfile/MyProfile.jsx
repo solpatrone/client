@@ -4,7 +4,8 @@ import Cookies from 'universal-cookie';
 import { getUserReviews } from '../../actions';
 import s from './MyProfile.module.css'
 import UserReview from '../UserReview/UserReview';
-
+import { NavLink } from "react-router-dom";
+import Navbar from '../NavBar/Navbar';
 export default function MyProfile() {
 
     const dispatch = useDispatch();
@@ -13,15 +14,15 @@ export default function MyProfile() {
     const reviews = useSelector((state)=>state.userReviews)
    
     console.log(reviews)
-    useEffect(() => {
-        dispatch(getUserReviews(id))
-      }, [dispatch]);
+    useEffect(() => {      
+        dispatch(getUserReviews(id))// eslint-disable-next-line
+      }, [id]);
 
     return (
       
     <div>
-      <h1>Mi perfil {cookies.get('username')}</h1>
-    
+      <Navbar />
+      <h1>Mi perfil </h1>
       <div className={s.res}>
         <h1 className={s.reviews}>Mis reseñas</h1>
         {
@@ -43,6 +44,11 @@ export default function MyProfile() {
         <h1 className={s.favorites}>Resto favoritos</h1>
       </div>
 
+      <button className={s.btn}>
+          <NavLink to="/home">
+            <p>Volver</p>
+          </NavLink>
+      </button>
     </div>)
 }
 
