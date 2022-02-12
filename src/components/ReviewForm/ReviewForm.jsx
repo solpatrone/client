@@ -19,21 +19,6 @@ export default function ReviewForm({setNewReview}) {
     id: params.id,
   });
  
- 
-
-  function changeRating (){
-    if(reviews.length >0){
-      let ratingRev = reviews.map(el => Number(el.rating))
-      let sum = ratingRev.reduce((acc,curr) => acc + curr, 0)
-      let prom = Math.round(sum/ratingRev.length)
-      let newRating = String(prom)
-      return newRating
-    }
-  }
-
-  // console.log('Rating promedio ' + JSON.stringify(changeRating()))
-
-
   let [err, setErr] = useState({hasErr : true});
 
 
@@ -95,10 +80,6 @@ export default function ReviewForm({setNewReview}) {
       dispatch(getRestaurantReviews(params.id))
      ;
     }, 1000);
-    setTimeout(() => {
-      console.log(changeRating())
-      // dispatch(putRating(params.id, changeRating()))
-    }, 3000)
     setNewReview(false);
     setTimeout(() => { 
       dispatch(putRating(params.id,changeRating()))

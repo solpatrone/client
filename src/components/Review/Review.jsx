@@ -2,10 +2,10 @@ import React from "react";
 import { RiStarFill } from "react-icons/ri";
 import { FaUserCircle } from "react-icons/fa";
 import s from "./Review.module.css";
-import Cookies from "universal-cookie";
+
 
 export default function Review({ reviews }) {
-  const cookies = new Cookies();
+
   console.log(reviews);
 
   return (
