@@ -23,6 +23,7 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector((state) => state.reviews);
+
   const cookies = new Cookies();
   const usuario = cookies.get("username");
 
@@ -58,7 +59,7 @@ function Details() {
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
-                    Direccion:
+                    Direccion:{" "}
                     {myRestaurant[0].address.split(",", 1) +
                       ", " +
                       myRestaurant[0].neighborhood_info[0]}
@@ -72,6 +73,7 @@ function Details() {
                 </div>
                 <div className={styles.icons}>
                   <p>
+                    {/* {hasReviews.length > 0 ? [...Array(prom).keys()].map((key) => (<RiStarFill/>)) : */}
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
                       (key) => (
                         <RiStarFill

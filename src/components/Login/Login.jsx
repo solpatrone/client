@@ -36,7 +36,7 @@ export default function Login() {
 
           console.log("hola soy cookies", cookies);
         }
-        history.goBack();
+        history.push("/home");
         return userData;
       } catch (e) {
         alert(
@@ -53,7 +53,12 @@ export default function Login() {
       var userData = user.data;
       return userData;
     } catch (e) {
-      console.log(e);
+      if(e.response.data.message === "El usuario no existe"){
+        alert(e.response.data.message)
+        history.push("/registerclient")
+      }else{
+        alert(e.response.data.message)
+      }
     }
   }
 
@@ -75,7 +80,7 @@ export default function Login() {
       cookies.set("owner", user.email, { path: "/" });
       cookies.set("restoName", "", { path: "/" });
 
-      history.push("/home");
+      history.push("home");
     }
   }
 
