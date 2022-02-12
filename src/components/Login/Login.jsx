@@ -10,7 +10,6 @@ export default function Login() {
   const loginModif = url + "/login";
 
   const history = useHistory();
-
   const [input, setInput] = useState({
     email: "",
     password: "",
@@ -37,6 +36,7 @@ export default function Login() {
 
           console.log("hola soy cookies", cookies);
         }
+        history.goBack();
         return userData;
       } catch (e) {
         alert(
@@ -74,8 +74,9 @@ export default function Login() {
       cookies.set("email", user.email, { path: "/" });
       cookies.set("owner", user.email, { path: "/" });
       cookies.set("restoName", "", { path: "/" });
+
+      history.push("/home");
     }
-    history.push("/home");
   }
 
   return (

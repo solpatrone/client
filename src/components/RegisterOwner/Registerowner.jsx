@@ -4,7 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import Select from "react-select";
 import "./Registerowner.css";
-import { createOwner, getNeighborhoods, getCuisines } from "../../actions";
+import {
+  createOwner,
+  getNeighborhoods,
+  getCuisines,
+  getRestos,
+} from "../../actions";
 import Cookies from "universal-cookie";
 
 export default function RegisterOwner() {
@@ -99,6 +104,7 @@ export default function RegisterOwner() {
   function handleSubmit(e) {
     if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
+      dispatch(getRestos());
 
       setIsSubmit(true);
       setOwner({
