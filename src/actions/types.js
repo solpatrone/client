@@ -11,6 +11,7 @@ export const GET_CUISINES = "GET_CUISINES";
 export const LOADING = "LOADING";
 export const ADD_IMAGES = "ADD_IMAGES";
 export const GET_RESTO_REVIEWS = "GET_RESTO_REVIEWS"
-
+export const GET_USER_REVIEWS= "GET_USER_REVIEWS"
 export const POST_RESERVATION = "POST_RESERVATION";
-export const PUT_RATING = "PUT_RATING"
+export const GET_MY_RESTOS = "GET_MY_RESTOS";
+export const PUT_RATING = "PUT_RATING";

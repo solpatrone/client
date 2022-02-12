@@ -18,7 +18,7 @@ export default function ReviewForm({setNewReview}) {
     email: cookies.get("email"),
     id: params.id,
   });
-  const reviews = useSelector((state) => state.reviews)
+ 
  
 
   function changeRating (){
@@ -35,6 +35,21 @@ export default function ReviewForm({setNewReview}) {
 
 
   let [err, setErr] = useState({hasErr : true});
+
+
+  const reviews = useSelector((state) => state.reviews)
+  const details = useSelector((state) => state.details)
+
+  function changeRating (){
+    if(reviews.length >0){
+      let ratingRev = reviews.map(el => Number(el.rating))
+      let sum = ratingRev.reduce((acc,curr) => acc + curr, 0)
+      let prom = Math.round(sum/ratingRev.length)
+      let newRating = {rating:String(prom), owner: details[0].owner}
+      console.log(newRating)
+      return newRating
+    }
+  }
 
   function validate(review) {
     let err = {hasErr : false}
@@ -85,6 +100,10 @@ export default function ReviewForm({setNewReview}) {
       // dispatch(putRating(params.id, changeRating()))
     }, 3000)
     setNewReview(false);
+    setTimeout(() => { 
+      dispatch(putRating(params.id,changeRating()))
+    }, 2000);
+    
   }
   function handleClose(e) {
     e.preventDefault();
