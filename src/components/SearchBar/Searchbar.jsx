@@ -1,15 +1,14 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {getRestoByName, getRestos} from '../../actions'
-import styles from "./Searchbar.module.css"
+import { getRestoByName, getRestos } from "../../actions";
+import styles from "./Searchbar.module.css";
 
 function Searchbar() {
-  const resto = useSelector((state )=> state.allRestaurants);
-  const restoName = resto.map(r => r.name)
+  const resto = useSelector((state) => state.allRestaurants);
+  const restoName = resto.map((r) => r.name);
 
-  const searchedResto = useSelector((state) => state.restaurants )
-
+  const searchedResto = useSelector((state) => state.restaurants);
 
   const dispatch = useDispatch();
 
@@ -17,30 +16,36 @@ function Searchbar() {
   const [suggestion, setSuggestion] = useState([]);
   const [error, setError] = useState(false);
 
-
- 
   function handleInputChange(e) {
     e.preventDefault();
-    setRestaurantName(e.target.value)
+    setRestaurantName(e.target.value);
     searchMatch(e.target.value);
-    if (searchedResto.length <=1 && e.target.value === '') {
-      dispatch(getRestos())
-  }
+    if (searchedResto.length <= 1 && e.target.value === "") {
+      dispatch(getRestos());
+    }
   }
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(getRestoByName(restaurantName));
-    
   }
 
   function searchMatch(restaurantName) {
     if (!restaurantName) {
       setSuggestion([]);
-      setError(false)
+      setError(false);
     } else {
-      let matches = restoName.filter(
-        (r) => r.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase().includes(restaurantName.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase())      
-        );
+      let matches = restoName.filter((r) =>
+        r
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "")
+          .toLowerCase()
+          .includes(
+            restaurantName
+              .normalize("NFD")
+              .replace(/[\u0300-\u036f]/g, "")
+              .toLowerCase()
+          )
+      );
       if (matches.length) {
         setSuggestion(matches);
         setError(false);
@@ -51,7 +56,7 @@ function Searchbar() {
   }
   const selectElementHandler = (restaurant) => {
     setRestaurantName(restaurant);
-    setSuggestion([])
+    setSuggestion([]);
   };
 
   return (
@@ -85,8 +90,6 @@ function Searchbar() {
       </button>
     </div>
   );
-   
 }
 
 export default Searchbar;
-

@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getRestoDetails, clearDetailsState, getRestaurantReviews } from "../../actions";
+import {
+  getRestoDetails,
+  clearDetailsState,
+  getRestaurantReviews,
+} from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
@@ -18,14 +22,14 @@ function Details() {
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
-  const hasReviews = useSelector(state => state.reviews)
+  const hasReviews = useSelector((state) => state.reviews);
 
-  const cookies= new Cookies()
-  const usuario = cookies.get("username")
+  const cookies = new Cookies();
+  const usuario = cookies.get("username");
 
   useEffect(() => {
-    dispatch(getRestoDetails(params.id))
-    dispatch(getRestaurantReviews(params.id))
+    dispatch(getRestoDetails(params.id));
+    dispatch(getRestaurantReviews(params.id));
     return () => {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
@@ -36,11 +40,10 @@ function Details() {
     setNewReview(!newReview);
   }
 
-//   function handlePreviousImage(e) {
-//     e.preventDefault();
-//     setCurrentImage(--currentImage)
-// }
-
+  //   function handlePreviousImage(e) {
+  //     e.preventDefault();
+  //     setCurrentImage(--currentImage)
+  // }
 
   return (
     <div>
@@ -48,7 +51,6 @@ function Details() {
       {myRestaurant.length === 0 ? (
         <Loading />
       ) : (
-
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
@@ -57,32 +59,38 @@ function Details() {
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
-                    Direccion: {" "}
+                    Direccion:{" "}
                     {myRestaurant[0].address.split(",", 1) +
                       ", " +
                       myRestaurant[0].neighborhood_info[0]}
                   </p>
-                   {myRestaurant[0].email !== " - " && <p>Contacto:
-                    {" " + myRestaurant[0].email}</p> }
-
+                  {myRestaurant[0].email !== " - " && (
+                    <p>
+                      Contacto:
+                      {" " + myRestaurant[0].email}
+                    </p>
+                  )}
                 </div>
                 <div className={styles.icons}>
                   <p>
                     {/* {hasReviews.length > 0 ? [...Array(prom).keys()].map((key) => (<RiStarFill/>)) : */}
                     {[...Array(Number(myRestaurant[0].rating)).keys()].map(
                       (key) => (
-                        <RiStarFill size={20} style={{ fill: '#f2d349' }} key={key} />
+                        <RiStarFill
+                          size={20}
+                          style={{ fill: "#f2d349" }}
+                          key={key}
+                        />
                       )
-
                     )}
                   </p>
-                  {myRestaurant[0].price &&
-                  <p>
-                  {[...myRestaurant[0].price[0].split("")].map((key) => (
-                    <BsCurrencyDollar size={20} key={key} />
-                  ))}
-                </p> }
-
+                  {myRestaurant[0].price && (
+                    <p>
+                      {[...myRestaurant[0].price[0].split("")].map((key) => (
+                        <BsCurrencyDollar size={20} key={key} />
+                      ))}
+                    </p>
+                  )}
                 </div>
               </div>
 
@@ -93,7 +101,6 @@ function Details() {
 
                 </div> */}
 
-
               <img
                 src={myRestaurant[0].photo}
                 alt="img not found"
@@ -102,7 +109,9 @@ function Details() {
               />
               <span>
                 {myRestaurant[0].cuisine.map((el, index) => (
-                  <div key={index} className={styles.tag}>{el}</div>
+                  <div key={index} className={styles.tag}>
+                    {el}
+                  </div>
                 ))}
               </span>
               {myRestaurant[0].description && (
@@ -112,7 +121,9 @@ function Details() {
               )}
             </div>
             <div className={styles.reservations}>
-              {usuario ? (
+              {myRestaurant[0].owner === "API" ? (
+                <p>No puedes realizar reservas en este restaurant</p>
+              ) : usuario ? (
                 <Reservations
                   restoId={myRestaurant}
                   userId={cookies.cookies.email}
@@ -134,7 +145,7 @@ function Details() {
               ) : (
                 <button>
                   <NavLink to="/login">
-                    <p className={styles.btn}>Dejá te reseña</p>
+                    <p className={styles.btn}>Dejá tu reseña</p>
                   </NavLink>
                 </button>
               )}
@@ -143,12 +154,12 @@ function Details() {
             </div>
           </div>
           <div>
-          {hasReviews.length > 0 && (
-            <div className={styles.reviews}>
-              <h3>Opiniones</h3>
-              <Review reviews={hasReviews} />
-            </div>
-          )}
+            {hasReviews.length > 0 && (
+              <div className={styles.reviews}>
+                <h3>Opiniones</h3>
+                <Review reviews={hasReviews} />
+              </div>
+            )}
           </div>
         </div>
       )}

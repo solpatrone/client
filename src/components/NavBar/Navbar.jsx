@@ -1,53 +1,47 @@
-import React, {useEffect}  from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/rapiresto.png";
 import styles from "./Navbar.module.css";
 import Cookies from "universal-cookie";
 import Logout from "../Logout/Logout";
 import { useSelector, useDispatch } from "react-redux";
-import {getMyRestos} from '../../actions'
+import { getMyRestos } from "../../actions";
 
 export default function Navbar() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
-
-  const dispatch = useDispatch()
+  console.log(cookies);
+  const dispatch = useDispatch();
   const id = cookies.get("id");
 
-  const myRestaurants = useSelector(state => state.myRestaurants)
+  const myRestaurants = useSelector((state) => state.myRestaurants);
 
-  useEffect ( () => {
-    if (id){
-      dispatch(getMyRestos(id))
-    } // eslint-disable-next-line
-  } , [] )
-
+  useEffect(() => {
+    if (id) {
+      dispatch(getMyRestos(id));
+    }
+  }, [dispatch, id]);
 
   return (
-    <div >
+    <div>
       <div>
-      {myRestaurants ? (
-        <div>
-          {myRestaurants.map((el, index) => {
-            return (
-              <div
-                key={index}>
-                <NavLink to={`/myrestaurant/${el.id}`}> {el.name}</NavLink> 
-              
-              </div>
-            );
-          })}
-        </div>
-      ) : (
-        <p>Restaurant no disponible</p>
-      )}
-
+        {myRestaurants ? (
+          <div>
+            {myRestaurants.map((el, index) => {
+              return (
+                <div key={index}>
+                  <NavLink to={`/myrestaurant/${el.id}`}> {el.name}</NavLink>
+                </div>
+              );
+            })}
+          </div>
+        ) : (
+          <p>Restaurant no disponible</p>
+        )}
       </div>
       <NavLink className={styles.navBar} to="/registerOwner">
         {usuario ? <p>Registrar Restaurant</p> : null}
       </NavLink>
-
-
 
       {/* <div className={styles.links}>
         {usuario ? <p>Mis Restaurantes</p> : null}
@@ -66,7 +60,9 @@ export default function Navbar() {
               <p>Iniciar sesión</p>
             </NavLink>
           ) : (
-            <h3 className={styles.user}>Bienvenido, {cookies.get("username")}</h3>
+            <h3 className={styles.user}>
+              Bienvenido, {cookies.get("username")}
+            </h3>
           )}
           {!usuario ? (
             <NavLink to="/registerclient" className={styles.navlinks}>

@@ -11,27 +11,24 @@ import {
   LOADING,
   GET_RESTO_REVIEWS,
   GET_MY_RESTOS,
+  GET_RESTO_RESERVATIONS,
   PUT_RATING,
   GET_USER_REVIEWS,
 } from "./types";
 
-
-const url = 'http://localhost:3001'
-const createUser = url + '/user'
-const reviewModif = url + '/review'
-const restoModif = url + '/restaurant'
-const reservationModif = url + '/reserve'
-const neighModif = url + "/neighborhood"
-const cuisineModif = url + "/cuisines"
-const userReviewModif = url + '/review/user'
+const url = "http://localhost:3001";
+const createUser = url + "/user";
+const reviewModif = url + "/review";
+const restoModif = url + "/restaurant";
+const reservationModif = url + "/reserve";
+const neighModif = url + "/neighborhood";
+const cuisineModif = url + "/cuisines";
+const userReviewModif = url + "/review/user";
 
 export function createClient(info) {
   return async () => {
     try {
-      var newClient = await axios.post(
-        createUser,
-        info
-      );
+      var newClient = await axios.post(createUser, info);
       console.log(newClient);
       return newClient;
     } catch (e) {
@@ -40,9 +37,9 @@ export function createClient(info) {
   };
 }
 
-export function addImagesToRestos(request, id){
+export function addImagesToRestos(request, id) {
   return async (dispatch) => {
-    try{
+    try {
       var response = await axios.put(`${restoModif}/${id}`, request);
       return dispatch({
         type: GET_RESTO_DETAILS,
@@ -51,38 +48,37 @@ export function addImagesToRestos(request, id){
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 }
 
-export function putRating(id, info){
+export function putRating(id, info) {
   return async () => {
-    try{
+    try {
       var newRating = await axios.put(`${restoModif}/${id}`, info);
       return {
         type: PUT_RATING,
-        payload:newRating
-      }
+        payload: newRating,
+      };
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 }
 
 export function createOwner(info) {
   return async () => {
     try {
       const neighborhood = info.neighborhood_info.name;
-      info.neighborhood_info = [neighborhood]
+      info.neighborhood_info = [neighborhood];
 
       const price = info.price.name;
-      info.price = price
+      info.price = price;
 
-      const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine))//stringfyle== pasa un objeto a un string en format JSON
-      info.cuisine = cuisineCopy.map( e => e.name )
-      info.personas_max=Number(info.personas_max)
- 
+      const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine)); //stringfyle== pasa un objeto a un string en format JSON
+      info.cuisine = cuisineCopy.map((e) => e.name);
+      info.personas_max = Number(info.personas_max);
 
-      var newOwner = await axios.post( restoModif , info);
+      var newOwner = await axios.post(restoModif, info);
       console.log(newOwner);
       return newOwner;
     } catch (e) {
@@ -130,9 +126,6 @@ export function getMyRestos(id) {
   };
 }
 
-
-
-
 export function getRestoByName(name) {
   return async function (dispatch) {
     dispatch({
@@ -164,43 +157,39 @@ export function clearDetailsState() {
 }
 
 export function postReview(payload) {
-  const revToBack = ({rating, description, email, id}) =>{
-    return{
+  const revToBack = ({ rating, description, email, id }) => {
+    return {
       rating: rating.value,
       description,
       author: email,
-      id
-
-      
-    }
-  }
-  let revFormated = revToBack(payload)
-  return async (dispatch)=>{
-    try{
-      let newReview= await axios.post( reviewModif, revFormated)
+      id,
+    };
+  };
+  let revFormated = revToBack(payload);
+  return async (dispatch) => {
+    try {
+      let newReview = await axios.post(reviewModif, revFormated);
       return dispatch({
         type: POST_REVIEW,
         payload: newReview,
       });
-      
-
-    }catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 }
-export function getRestaurantReviews(id){
-  return async function(dispatch){
-    try{
-      let json = await axios.get(`${reviewModif}/${id}`)
+export function getRestaurantReviews(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`${reviewModif}/${id}`);
       return dispatch({
         type: GET_RESTO_REVIEWS,
         payload: json.data,
       });
-    }catch(e){
-        console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 }
 
 export function getNeighborhoods() {
@@ -227,7 +216,7 @@ export function postReservation(payload) {
     return {
       date,
       time: time.value,
-      pax: Number(pax.value),
+      pax: Number(pax),
       email,
       id,
     };
@@ -235,10 +224,10 @@ export function postReservation(payload) {
   let revFormated = revToBack(payload);
   return async function () {
     try {
-      console.log("payload", payload);
+      console.log("payload", revFormated);
       var newRes = await axios.post(reservationModif, revFormated);
       alert(
-        `Tu reserva para ${payload.pax.value} personas a las ${payload.time.value}hs ha sido realizada`
+        `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`
       );
       return newRes;
     } catch (e) {
@@ -246,21 +235,35 @@ export function postReservation(payload) {
     }
   };
 }
-export function getUserReviews(id){
-  return async function(dispatch){
-    
-    try{
-      let json = await axios.get(`${userReviewModif}/${id}`)
-      console.log("hola",`${userReviewModif}/${id}`)
-      console.log("reviews")
-      console.log(json)
-      const reviews = json && json.data ? json.data : []
+
+export function getRestoReservations(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`${reservationModif}/restaurant/${id}`);
+      let data = json.data;
+      return dispatch({
+        type: GET_RESTO_RESERVATIONS,
+        payload: data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+export function getUserReviews(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`${userReviewModif}/${id}`);
+      console.log("hola", `${userReviewModif}/${id}`);
+      console.log("reviews");
+      console.log(json);
+      const reviews = json && json.data ? json.data : [];
       return dispatch({
         type: GET_USER_REVIEWS,
-        payload: reviews
+        payload: reviews,
       });
-    }catch(e){
-        console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 }
