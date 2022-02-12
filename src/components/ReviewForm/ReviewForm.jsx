@@ -18,7 +18,7 @@ export default function ReviewForm({setNewReview}) {
     email: cookies.get("email"),
     id: params.id,
   });
-
+ 
   let [err, setErr] = useState({hasErr : true});
 
 
@@ -77,7 +77,8 @@ export default function ReviewForm({setNewReview}) {
     e.preventDefault();
     dispatch(postReview(review));
     setTimeout(() => {
-      dispatch(getRestaurantReviews(params.id));
+      dispatch(getRestaurantReviews(params.id))
+     ;
     }, 1000);
     setNewReview(false);
     setTimeout(() => { 
