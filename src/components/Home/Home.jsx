@@ -47,9 +47,11 @@ export default function Home() {
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredByNeighborhood, setFilteredByNeighborhood] = useState(defaultNeighborhood);
+  const [filteredByNeighborhood, setFilteredByNeighborhood] =
+    useState(defaultNeighborhood);
   const [filteredByPrice, setFilteredByPrice] = useState(priceOptions[0]);
-  const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(defaultCuisine);
+  const [filteredByFoodTypes, setFilteredByFoodTypes] =
+    useState(defaultCuisine);
   const [restosPerPage] = useState(12);
 
   function paginado(pageNumber) {
@@ -69,8 +71,8 @@ export default function Home() {
     let restaurantesByPrice =
       filteredByPrice.value === "all"
         ? restaurantesByNeighborhood
-        : restaurantesByNeighborhood.filter((r) =>
-            r.price.includes(filteredByPrice.name)
+        : restaurantesByNeighborhood.filter(
+            (r) => r.price === filteredByPrice.name
           );
     let restaurantesByFood =
       filteredByFoodTypes.value === "all"
@@ -93,13 +95,13 @@ export default function Home() {
   useEffect(() => {
     if (allNeighborhoods && allNeighborhoods.length > 0) {
       allNeighborhoods.unshift(defaultNeighborhood);
-    }// eslint-disable-next-line
-  }, [allNeighborhoods]); 
+    } // eslint-disable-next-line
+  }, [allNeighborhoods]);
 
   useEffect(() => {
     if (allCuisines && allCuisines.length > 0) {
       allCuisines.unshift(defaultCuisine);
-    }// eslint-disable-next-line
+    } // eslint-disable-next-line
   }, [allNeighborhoods]);
 
   useEffect(() => {

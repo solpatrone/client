@@ -1,15 +1,26 @@
-import React, {useEffect}  from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
 import logo from "../../assets/rapiresto.png";
 import styles from "./Navbar.module.css";
 import Cookies from "universal-cookie";
 import Logout from "../Logout/Logout";
 import { useSelector, useDispatch } from "react-redux";
-import {getMyRestos} from '../../actions'
+import { getMyRestos } from "../../actions";
 
 export default function Navbar() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
+  console.log(cookies);
+  const dispatch = useDispatch();
+  const id = cookies.get("id");
+
+  const myRestaurants = useSelector((state) => state.myRestaurants);
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getMyRestos(id));
+    }
+  }, [dispatch, id]);
 
   const dispatch = useDispatch()
   const id = cookies.get("id");
@@ -47,8 +58,6 @@ export default function Navbar() {
         {usuario ? <p>Registrar Restaurant</p> : null}
       </NavLink>
 
-
-
       {/* <div className={styles.links}>
         {usuario ? <p>Mis Restaurantes</p> : null}
       </div> */}
@@ -66,7 +75,9 @@ export default function Navbar() {
               <p>Iniciar sesión</p>
             </NavLink>
           ) : (
-            <h3 className={styles.user}>Bienvenido, {cookies.get("username")}</h3>
+            <h3 className={styles.user}>
+              Bienvenido, {cookies.get("username")}
+            </h3>
           )}
           {!usuario ? (
             <NavLink to="/registerclient" className={styles.navlinks}>
