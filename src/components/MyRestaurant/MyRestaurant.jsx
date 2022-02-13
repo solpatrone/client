@@ -54,7 +54,11 @@ export default function Restaurant() {
       photo: photo
     }
     dispatch(addImagesToRestos(request, myRestaurant.id))
-    window.location.reload(false);
+    dispatch(getRestoDetails(params.id))
+
+   
+    //window.location.reload(false);
+   
   }
 
   return (
