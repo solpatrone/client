@@ -10,7 +10,9 @@ import {
   getCuisines,
   getRestos,
 } from "../../actions";
+
 import Cookies from "universal-cookie";
+import Navbar from "../NavBar/Navbar";
 
 export default function RegisterOwner() {
   const history = useHistory();
@@ -159,8 +161,10 @@ export default function RegisterOwner() {
       <h3>Se ha registrado correctamente</h3>
       <button onClick={() => history.push("/home")}>Volver a Home</button>
     </div>
-  ) : (
-    <div>
+  ) : (<div>
+
+      <Navbar/>
+    <div className="box">
       <div>
         <h2>Registra tu restaurante</h2>
       </div>
@@ -176,7 +180,7 @@ export default function RegisterOwner() {
               placeholder="Ingrese el nombre del restaurante"
               autoComplete="off"
               onChange={(e) => handleChange(e)}
-            />
+              />
             <p className="errors">{errors.name}</p>
           </div>
 
@@ -202,7 +206,7 @@ export default function RegisterOwner() {
               placeholder="Ingrese la calle"
               autoComplete="off"
               onChange={(e) => handleChange(e)}
-            />
+              />
             <p className="errors">{errors.address}</p>
           </div>
           <div>
@@ -224,7 +228,7 @@ export default function RegisterOwner() {
               value={owner.neighborhood_info}
               name={"neighborhood_info"}
               onChange={(e) => handleNeighborhood(e)}
-            />
+              />
           </div>
           <div>
             <label className="inputText">Precio</label>
@@ -245,7 +249,7 @@ export default function RegisterOwner() {
               value={owner.cuisine}
               name={"cuisine"}
               onChange={(e) => handleTypes(e)}
-            />
+              />
           </div>
           <div>
             <textarea
@@ -255,7 +259,7 @@ export default function RegisterOwner() {
               rows="10"
               placeholder="Ingrese una breve descripción"
               onChange={(e) => handleChange(e)}
-            ></textarea>
+              ></textarea>
             <p className="errors">{errors.description}</p>
           </div>
         </div>
@@ -270,5 +274,6 @@ export default function RegisterOwner() {
         </div>
       </form>
     </div>
+            </div>
   );
 }

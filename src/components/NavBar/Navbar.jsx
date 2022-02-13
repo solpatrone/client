@@ -6,6 +6,8 @@ import Cookies from "universal-cookie";
 import Logout from "../Logout/Logout";
 import { useSelector, useDispatch } from "react-redux";
 import { getMyRestos } from "../../actions";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import  { DropdownButton, ButtonGroup, Dropdown}  from "react-bootstrap";
 
 export default function Navbar() {
   const cookies = new Cookies();
@@ -24,24 +26,8 @@ export default function Navbar() {
 
   return (
     <div>
-      <div>
-        {myRestaurants ? (
-          <div>
-            {myRestaurants.map((el, index) => {
-              return (
-                <div key={index}>
-                  <NavLink to={`/myrestaurant/${el.id}`}> {el.name}</NavLink>
-                </div>
-              );
-            })}
-          </div>
-        ) : (
-          <p>Restaurant no disponible</p>
-        )}
-      </div>
-      <NavLink className={styles.navBar} to="/registerOwner">
-        {usuario ? <p>Registrar Restaurant</p> : null}
-      </NavLink>
+     
+          
 
       {/* <div className={styles.links}>
         {usuario ? <p>Mis Restaurantes</p> : null}
@@ -70,7 +56,46 @@ export default function Navbar() {
             </NavLink>
           ) : null}
 
-          {usuario ? <Logout /> : ""}
+        
+          {!usuario?null:
+                    <ButtonGroup>
+                        <DropdownButton as={ButtonGroup} title="Menu" id="bg-nested-dropdown">
+                          <Dropdown.Item eventKey="1" > 
+                            <NavLink to="/home" className={styles.navlinks}>    
+                              Home
+                            </NavLink>
+
+                          </Dropdown.Item>
+                            <Dropdown.Item eventKey="2" > 
+                              <NavLink className={styles.navlinks} to="/myProfile">
+                                Mi perfil
+                              </NavLink></Dropdown.Item>
+
+                            <Dropdown.Item eventKey="3" >
+                              <NavLink className={styles.navlinks} to="/registerOwner">
+                                Registrar restaurant
+                              </NavLink>
+                            </Dropdown.Item>
+
+                            <DropdownButton as={ButtonGroup} title="Mis restaurant" id="bg-nested-dropdown">
+                              <Dropdown.Item eventKey="4">
+                              <NavLink className={styles.navlinks} to="/MyRestaurant">
+                                {myRestaurants.map((el, index) => {
+                                      return (
+                                        <div key={index}>
+                                          <NavLink className={styles.navlinks} to={`/myrestaurant/${el.id}`}> {el.name}</NavLink>
+                                        </div>
+                                      );
+                                    })}
+                              </NavLink>                            
+                                </Dropdown.Item>
+                            </DropdownButton>
+
+                            <Dropdown.Item eventKey="5"> <Logout /> </Dropdown.Item>
+                        </DropdownButton>
+                    </ButtonGroup>
+          }
+
         </div>
       </div>
     </div>
