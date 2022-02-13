@@ -1,12 +1,59 @@
 .container{
-    margin-top: 20px;
+    margin-top: 15px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
 
+    height: fit-content;
+
 }
 .selectRatings{
     width: 100%;
     margin-bottom: 15px;
+    outline: 1.6px solid var(--medium-color);
+    border-radius: 6px;
+
 }
+.button{
+  border-radius: 5px;
+  border: 1px solid transparent;
+  margin-left: 10px;
+  background-color: var(--medium-color);
+  color: var(--bright-color);
+  width: fit-content;
+  padding: 5px 10px;
+  text-transform: uppercase;
+  transition: all 0.5s;
+}
+ .button:hover {
+    background-color: var(--dark-color);
+    border: 1px solid transparent;
+  }
+  .button:disabled{
+    background-color: grey;
+    pointer-events:none;
+    cursor:none
+    
+  }
+  .input {
+    border: none;
+    outline: 1.6px solid var(--medium-color);
+    border-radius: 6px;
+    padding: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    font-style: italic;
+    letter-spacing: 1px;
+    font-family: var(--input-font);
+  }
+  
+  .input:focus {
+    font-style: normal;
+    font-weight: 300;
+  }
+  .error {
+    color: red;
+    font-size: 1.2rem;
+    margin-top: 10px;
+  }
