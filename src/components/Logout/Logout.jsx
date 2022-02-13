@@ -21,8 +21,8 @@ export default function Logout() {
   }
 
   return (
-    <button className={style.btn} onClick={handleSubmit}>
-      Cerrar sessión
-    </button>
+    <div className={style.btn} onClick={handleSubmit}>
+      Cerrar sesión
+    </div>
   );
 }
