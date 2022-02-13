@@ -52,6 +52,7 @@ export function addImagesToRestos(request, id) {
 }
 
 export function putRating(id, info) {
+  console.log("infooo" + JSON.stringify(info))
   return async () => {
     try {
       var newRating = await axios.put(`${restoModif}/${id}`, info);
