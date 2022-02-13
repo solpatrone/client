@@ -6,7 +6,7 @@
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
     margin-top: 10px;
     height: fit-content;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 .user{
     padding: 10px;
@@ -33,6 +33,7 @@
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
     margin-top: 100px;
     height: fit-content;
+    margin-left: 20px;
 }
 .favorites{
     display:block;
@@ -41,15 +42,16 @@
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
     margin-top: 100px;
     height: fit-content;
+    margin-left: 20px;
 }
-    .reviews{
-        display:block;
-        width: 45vw;
-        border-radius: 5px;
-        box-shadow: 1px 1px 13px rgb(197, 196, 196);
-        margin-top: 50px;
-        height: fit-content;
-        margin-left: 20px;
+.reviews{
+    display:block;
+    width: 45vw;
+    border-radius: 5px;
+    box-shadow: 1px 1px 13px rgb(197, 196, 196);
+    margin-top: 50px;
+    height: fit-content;
+    margin-left: 20px;
     }
 .res{
     width: 50%;
@@ -59,3 +61,4 @@
     margin: auto;
     color: black;
   }
+  

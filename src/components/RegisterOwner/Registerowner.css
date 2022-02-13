@@ -22,4 +22,10 @@
   .inputTextarea{
     margin-top: 10px;
   }
-  
+  .box{
+    margin-top: 50px;
+    border: solid black 4px;
+    width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }

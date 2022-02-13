@@ -14,7 +14,7 @@ export default function Reservations({ userId, restoId }) {
     time: "",
     pax: 0,
     email: userId,
-    id: restoId[0].id,
+    id: restoId.id,
   });
   const [error, setError] = useState({});
 
@@ -40,16 +40,16 @@ export default function Reservations({ userId, restoId }) {
   }
 
   // let pax = []; //cambiar por restaurants.personas_max
-  // for (let i = 1; i <= restoId[0].personas_max; i++) {
+  // for (let i = 1; i <= restoId.personas_max; i++) {
   //   pax.push({ name: i, label: i, value: i });
   // }
 
   //validate pax
   function validatePaxMax(paxInput) {
     const error = {};
-    console.log("validate,", restoId[0].personas_max);
-    if (paxInput > restoId[0].personas_max) {
-      error.pax = `El número de comesales debe ser menos a ${restoId[0].personas_max}`;
+    console.log("validate,", restoId.personas_max);
+    if (paxInput > restoId.personas_max) {
+      error.pax = `El número de comesales debe ser menos a ${restoId.personas_max}`;
     }
 
     return error;
@@ -67,7 +67,8 @@ export default function Reservations({ userId, restoId }) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReservation(reservations));
-    setReservations({ date: new Date(), time: "", pax: 0 });
+    console.log(reservations)
+    setReservations({ date: new Date(), time: "", pax: 0, email: userId, id: restoId.id, });
   }
 
   let date = reservations.date.toString().split("00")[0].split(" ");
@@ -89,7 +90,7 @@ export default function Reservations({ userId, restoId }) {
         </div>
       </div>
       <div className={s.form}>
-        {restoId[0].personas_max === 0 ? (
+        {restoId.personas_max === 0 ? (
           <p className={s.error}>Ya no hay lugares disponibles</p>
         ) : null}
         <form onSubmit={(e) => handleSubmit(e)}>

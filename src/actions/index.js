@@ -16,7 +16,7 @@ import {
   GET_USER_REVIEWS,
 } from "./types";
 
-const url = "http://localhost:8080";
+const url = "https://rapiresto.herokuapp.com";
 const createUser = url + "/user";
 const reviewModif = url + "/review";
 const restoModif = url + "/restaurant";
@@ -48,18 +48,17 @@ export function addImagesToRestos(request, id) {
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 }
 
-export function putRating(id, info) {
-  console.log("infooo" + JSON.stringify(info))
+export function putRating(id, info){
   return async () => {
-    try {
+    try{
       var newRating = await axios.put(`${restoModif}/${id}`, info);
       return {
         type: PUT_RATING,
-        payload: newRating,
-      };
+        payload:newRating
+      }
     } catch (e) {
       console.log(e);
     }
@@ -118,7 +117,7 @@ export function getMyRestos(id) {
     dispatch({
       type: LOADING,
     });
-    let json = await axios.get(`${createUser}/${id}`);
+    let json = await axios.get(`${createUser}/${id}/restaurants`);
     let data = json.data;
     return dispatch({
       type: GET_MY_RESTOS,
@@ -182,7 +181,7 @@ export function postReview(payload) {
 export function getRestaurantReviews(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`${reviewModif}/${id}`);
+      let json = await axios.get(`${reviewModif}/restaurant/${id}/all`);
       return dispatch({
         type: GET_RESTO_REVIEWS,
         payload: json.data,
@@ -240,7 +239,7 @@ export function postReservation(payload) {
 export function getRestoReservations(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`${reservationModif}/restaurant/${id}`);
+      let json = await axios.get(`${reservationModif}/restaurant/${id}/all`);
       let data = json.data;
       return dispatch({
         type: GET_RESTO_RESERVATIONS,
@@ -254,9 +253,7 @@ export function getRestoReservations(id) {
 export function getUserReviews(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`${userReviewModif}/${id}`);
-      console.log("hola", `${userReviewModif}/${id}`);
-      console.log("reviews");
+      let json = await axios.get(`${userReviewModif}/${id}/all`);
       console.log(json);
       const reviews = json && json.data ? json.data : [];
       return dispatch({
