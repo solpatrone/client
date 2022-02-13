@@ -16,7 +16,7 @@ import {
   GET_USER_REVIEWS,
 } from "./types";
 
-const url = "http://localhost:3001";
+const url = "http://localhost:8080";
 const createUser = url + "/user";
 const reviewModif = url + "/review";
 const restoModif = url + "/restaurant";

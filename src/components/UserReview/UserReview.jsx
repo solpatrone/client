@@ -7,7 +7,7 @@ export default function UserReview(props) {
     return (
         <div className={s.review}>
             <div className={s.topRow} >
-                <div >{elem.id}</div>
+                <h4 >{elem.restaurant}</h4>
                     
                 <div className={elem.rating} > 
 
