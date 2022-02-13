@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import Select from "react-select";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import Calendar from "react-calendar";
 import "./reactCalendar.css";
 import s from "./Reservations.module.css";
@@ -12,35 +12,20 @@ export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
     date: new Date(),
     time: "",
-    pax: null,
+    pax: 0,
     email: userId,
     id: restoId[0].id,
   });
-
-  console.log(restoId);
-  //guardado en estado local hasta poder hacer la conexion con el back
-  const reserves = useSelector((state) => state.reservation);
-  console.log(reservations);
-  console.log(reserves);
+  const [error, setError] = useState({});
 
   const dispatch = useDispatch();
-  //parsear fecha a dd/mm/yyyy
-  // let day = reservations.date.getDate().toString();
-  // let month = reservations.date.getMonth() + 1;
-  // let year = reservations.date.getFullYear();
-  // let fullDate = day.concat("/" + month + "/").concat(year);
-  // console.log(fullDate);
 
-  //lunch and dinner times
-  let lunchTimes = [
+  let times = [
     { name: "12:00", label: "12 PM", value: "12:00" },
     { name: "12:30", label: "12:30 PM", value: "12:30" },
     { name: "13:00", label: "13 PM", value: "13:00" },
     { name: "13:30", label: "13:30 PM", value: "13:30" },
     { name: "14:00", label: "14 PM", value: "14:30" },
-  ];
-
-  let dinnerTimes = [
     { name: "20:00", label: "20 PM", value: "20:00" },
     { name: "20:30", label: "20:30 PM", value: "20:30" },
     { name: "21:00", label: "21 PM", value: "21:00" },
@@ -49,22 +34,30 @@ export default function Reservations({ userId, restoId }) {
     { name: "22:30", label: "22:30 PM", value: "22:30" },
   ];
 
-  //han
-  function handleLunchChange(e) {
-    setReservations((prev) => ({ ...prev, time: e.value }));
+  //handle times change
+  function handleTimesChange(e) {
+    setReservations((prev) => ({ ...prev, time: e }));
   }
 
-  function handleDinnerChange(e) {
-    setReservations((prev) => ({ ...prev, time: e.value }));
-  }
+  // let pax = []; //cambiar por restaurants.personas_max
+  // for (let i = 1; i <= restoId[0].personas_max; i++) {
+  //   pax.push({ name: i, label: i, value: i });
+  // }
 
-  let pax = []; //cambiar por restaurants.personas_max
-  for (let i = 1; i <= restoId[0].personas_max; i++) {
-    pax.push({ name: i, label: i, value: i });
+  //validate pax
+  function validatePaxMax(paxInput) {
+    const error = {};
+    console.log("validate,", restoId[0].personas_max);
+    if (paxInput > restoId[0].personas_max) {
+      error.pax = `El número de comesales debe ser menos a ${restoId[0].personas_max}`;
+    }
+
+    return error;
   }
 
   function handlePaxChange(e) {
-    setReservations((prev) => ({ ...prev, pax: e.value }));
+    setReservations((prev) => ({ ...prev, pax: Number(e.target.value) }));
+    setError(validatePaxMax(e.target.value));
   }
 
   function handleDateChange(e) {
@@ -73,8 +66,8 @@ export default function Reservations({ userId, restoId }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    //agregar accion para postear reseña
     dispatch(postReservation(reservations));
+    setReservations({ date: new Date(), time: "", pax: 0 });
   }
 
   let date = reservations.date.toString().split("00")[0].split(" ");
@@ -96,6 +89,9 @@ export default function Reservations({ userId, restoId }) {
         </div>
       </div>
       <div className={s.form}>
+        {restoId[0].personas_max === 0 ? (
+          <p className={s.error}>Ya no hay lugares disponibles</p>
+        ) : null}
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className={s.calendar}>
             <div>
@@ -111,25 +107,17 @@ export default function Reservations({ userId, restoId }) {
 
           <hr></hr>
           <div className={s.colContainer}>
-            {!reservations.time && <p>Selecciona un horario</p>}
+            {!reservations.time && (
+              <strong className={s.error}>Selecciona un horario</strong>
+            )}
             <div className={s.column}>
-              <label>Almuerzo</label>
+              <label>Horarios</label>
               <Select
-                options={lunchTimes}
+                options={times}
                 isMulti={false}
                 value={reservations.time}
                 name={"time"}
-                onChange={(e) => handleLunchChange(e)}
-              />
-            </div>
-            <div className={s.column}>
-              <label>Cena</label>
-              <Select
-                options={dinnerTimes}
-                isMulti={false}
-                value={reservations.time}
-                name={"time"}
-                onChange={(e) => handleDinnerChange(e)}
+                onChange={(e) => handleTimesChange(e)}
               />
             </div>
           </div>
@@ -137,22 +125,25 @@ export default function Reservations({ userId, restoId }) {
           <hr></hr>
 
           <div className={s.column}>
-            {!reservations.pax && <p>Selecciona cantidad de personas</p>}
+            {!reservations.pax && (
+              <strong className={s.error}>
+                Selecciona cantidad de personas
+              </strong>
+            )}
             <label>Cantidad de personas</label>
-            <Select
-              options={pax}
-              isMulti={false}
-              value={reservations.pax}
-              name={reservations.pax}
+            <input
+              type="number"
+              placeholder="Seleccione cantidad de comensales"
               onChange={(e) => handlePaxChange(e)}
             />
           </div>
+          {error.pax ? <p className={s.error}>{error.pax}</p> : null}
         </form>
       </div>
       <div>
         <p className={s.text}>
           Confirme su reserva para el {date ? date : "--"}, a las{" "}
-          {reservations.time ? reservations.time : "--"} hs para{" "}
+          {reservations.time.label ? reservations.time.label : "--"} hs para{" "}
           {reservations.pax ? reservations.pax : "--"} personas
         </p>
 

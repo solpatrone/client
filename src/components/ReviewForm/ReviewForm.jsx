@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { getRestaurantReviews, postReview } from "../../actions";
+import { getRestaurantReviews, postReview, putRating } from "../../actions";
 import styles from "./ReviewForm.module.css"
 import { RiStarFill } from "react-icons/ri";
 import Cookies from "universal-cookie";
@@ -18,8 +18,23 @@ export default function ReviewForm({setNewReview}) {
     email: cookies.get("email"),
     id: params.id,
   });
-
+ 
   let [err, setErr] = useState({hasErr : true});
+
+
+  const reviews = useSelector((state) => state.reviews)
+  const details = useSelector((state) => state.details)
+
+  function changeRating (){
+    if(reviews.length >0){
+      let ratingRev = reviews.map(el => Number(el.rating))
+      let sum = ratingRev.reduce((acc,curr) => acc + curr, 0)
+      let prom = Math.round(sum/ratingRev.length)
+      let newRating = {rating:String(prom), owner: details[0].owner}
+      console.log(newRating)
+      return newRating
+    }
+  }
 
   function validate(review) {
     let err = {hasErr : false}
@@ -62,9 +77,14 @@ export default function ReviewForm({setNewReview}) {
     e.preventDefault();
     dispatch(postReview(review));
     setTimeout(() => {
-      dispatch(getRestaurantReviews(params.id));
+      dispatch(getRestaurantReviews(params.id))
+     ;
     }, 1000);
     setNewReview(false);
+    setTimeout(() => { 
+      dispatch(putRating(params.id,changeRating()))
+    }, 2000);
+    
   }
   function handleClose(e) {
     e.preventDefault();
