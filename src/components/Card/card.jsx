@@ -10,7 +10,7 @@ function card({ name, photo, neighborhood, rating }) {
         <div className={s.tittle}>{name}</div>
         <div>
           <img
-            src={photo ? photo : defaultImg}
+            src={photo ? photo[0] : defaultImg}
             alt="img not found"
             width="240px"
           />

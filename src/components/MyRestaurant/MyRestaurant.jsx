@@ -13,8 +13,10 @@ import Review from "../Review/Review";
 import Loading from "../Loading/Loading";
 import styles from "./MyRestaurant.module.css";
 import { Widget } from "@uploadcare/react-widget";
+import Carousel from 'react-bootstrap/Carousel'
 import { addImagesToRestos, getRestoReservations } from "../../actions";
 import RestoReservations from "../RestoReservations/RestoReservations";
+
 
 export default function Restaurant() {
   const dispatch = useDispatch();
@@ -38,20 +40,21 @@ export default function Restaurant() {
   }, []);
 
   function handleChange(e) {
-    var photo = "https://ucarecdn.com/" + e.uuid + "/nth/" + 0 + "/";
-    setPhoto(photo);
-
-    //  for (let index = 0; index < e.count ; index++) {
-    // setInput({images: input.images.push(('https://ucarecdn.com/' + e.uuid + '/nth/' + index + '/').toString())})
+    var photo = []
+    
+    for (let index = 0; index < e.count ; index++) {
+     photo.push(('https://ucarecdn.com/' + e.uuid + '/nth/' + index + '/').toString())          
+     setPhoto(photo)
+    }
   }
 
   function handleClick(e) {
-    e.preventDefault();
+    e.preventDefault()
     const request = {
       owner: myRestaurant[0].owner,
-      photo: photo,
-    };
-    dispatch(addImagesToRestos(request, myRestaurant[0].id));
+      photo: photo
+    }
+    dispatch(addImagesToRestos(request, myRestaurant[0].id))
     window.location.reload(false);
   }
 
@@ -98,44 +101,40 @@ export default function Restaurant() {
                       {[...myRestaurant[0].price[0].split("")].map(() => (
                         <BsCurrencyDollar size={20} />
                       ))}
-                    </p>
-                  )}
+                    </p>)}
+
                 </div>
               </div>
 
-              {/* <div>
-                    {currentPhoto > 1 && <button onClick={e => handlePreviousImage(e)}> Previous </button>}
-                    <span > aca iria la photo actual </span>
-                    {currentPhoto < maxPhoto && <button onClick={e => handleNextPhoto(e)}>  Next</button>}
-                </div> */}
-              <img
-                src={photo ? photo : myRestaurant[0].photo}
-                alt="img not found"
-                className={styles.restauranteImage}
-                height="auto"
-              />
+
+            
+                <Carousel className={styles.restauranteImage}>
+ {myRestaurant && myRestaurant[0].photo.map((el, index) => {return ( 
+ <Carousel.Item key={index}>
+    <img
+      className="d-block w-100"
+      src={el}
+      alt="First slide"
+    />
+  </Carousel.Item>)})}
+ 
+</Carousel>
+
+
+
+
               <div className="mt-3">
-                <Widget
-                  ref={widgetApi}
-                  publicKey="0a91ec69631fd28d2d4a"
-                  multiple="true"
-                  imagesOnly="true"
-                  locale="es"
-                  onChange={handleChange}
-                />
-                <div>
-                  {photo && (
-                    <button onClick={(e) => handleClick(e)}>
-                      Guardar Cambios
-                    </button>
-                  )}
-                </div>
-              </div>
+                <Widget ref={widgetApi} publicKey='0a91ec69631fd28d2d4a' multiple='true' imagesOnly='true' locale='es' onChange={handleChange} />
+                <div>{photo &&
+                  <button onClick={e => handleClick(e)}>
+                    Guardar Cambios
+                  </button>
+                }
+             </div>
+      </div>
               <span>
                 {myRestaurant[0].cuisine.map((el, index) => (
-                  <div key={index} className={styles.tag}>
-                    {el}
-                  </div>
+                  <div key={index} className={styles.tag}>{el}</div>
                 ))}
               </span>
               {myRestaurant[0].description && (
@@ -172,21 +171,8 @@ export default function Restaurant() {
         </div>
       )}
 
-      <div>
-        <Widget
-          ref={widgetApi}
-          publicKey="0a91ec69631fd28d2d4a"
-          multiple="true"
-          imagesOnly="true"
-          locale="es"
-          onChange={handleChange}
-        />
-        <div>
-          {photo && (
-            <button onClick={(e) => handleClick(e)}>Guardar Cambios</button>
-          )}
-        </div>
-      </div>
+      
     </div>
   );
 }
+

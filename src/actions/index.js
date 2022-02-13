@@ -48,18 +48,17 @@ export function addImagesToRestos(request, id) {
     } catch (e) {
       console.error(e);
     }
-  };
+  }
 }
 
-export function putRating(id, info) {
-  console.log("infooo" + JSON.stringify(info))
+export function putRating(id, info){
   return async () => {
-    try {
+    try{
       var newRating = await axios.put(`${restoModif}/${id}`, info);
       return {
         type: PUT_RATING,
-        payload: newRating,
-      };
+        payload:newRating
+      }
     } catch (e) {
       console.log(e);
     }
