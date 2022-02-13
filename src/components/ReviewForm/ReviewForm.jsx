@@ -28,25 +28,25 @@ export default function ReviewForm({setNewReview}) {
 
   function changeRating (){
     let newRating = {};
-   if(details[0].owner === "API" && !reviews.length){    // Toma el rating de la api + el input
-    let sum = Number(details[0].rating) + Number(review.rating.value)
+   if(details.owner === "API" && !reviews.length){    // Toma el rating de la api + el input
+    let sum = Number(details.rating) + Number(review.rating.value)
     let prom = Math.round(sum /2)
-     newRating = {rating:String(prom), owner: details[0].owner }
+     newRating = {rating:String(prom), owner: details.owner }
    
-   }else if (details[0].owner === "API" && reviews.length > 0){     // Toma el rating de la api + lo que haya en reviews + el input
-    let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value), Number(details[0].rating) )
+   }else if (details.owner === "API" && reviews.length > 0){     // Toma el rating de la api + lo que haya en reviews + el input
+    let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value), Number(details.rating) )
     let sum =  ratingRev.reduce((acc,curr) => acc + curr, 0)
     let prom = Math.round(sum /ratingRev.length)
-     newRating = {rating:String(prom), owner: details[0].owner }
+     newRating = {rating:String(prom), owner: details.owner }
     
-   }else if(details[0].owner !== "API" && reviews.length >0){          // toma cada valor de reviews + el input
+   }else if(details.owner !== "API" && reviews.length >0){          // toma cada valor de reviews + el input
       let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value))
       let sum = ratingRev.reduce((acc,curr) => acc + curr, 0)
       let prom = Math.round(sum/ratingRev.length)
-       newRating = {rating:String(prom), owner: details[0].owner}
+       newRating = {rating:String(prom), owner: details.owner}
      
     }else{                                                  // si es un resto creado y no tiene review, toma el valor del input
-      newRating = {rating : review.rating.value, owner:details[0].owner}
+      newRating = {rating : review.rating.value, owner:details.owner}
     }
     return newRating
   }

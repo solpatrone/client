@@ -33,11 +33,10 @@ export default function Restaurant() {
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
     dispatch(getRestoReservations(params.id));
-
     return () => {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
-  }, []);
+  }, [params.id]);
 
   function handleChange(e) {
     var photo = []
@@ -51,42 +50,42 @@ export default function Restaurant() {
   function handleClick(e) {
     e.preventDefault()
     const request = {
-      owner: myRestaurant[0].owner,
+      owner: myRestaurant.owner,
       photo: photo
     }
-    dispatch(addImagesToRestos(request, myRestaurant[0].id))
+    dispatch(addImagesToRestos(request, myRestaurant.id))
     window.location.reload(false);
   }
 
   return (
     <div>
       <Navbar />
-      {myRestaurant.length === 0 ? (
+      {!myRestaurant.id? (
         <Loading />
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
-              <h2>{myRestaurant[0].name}</h2>
+              <h2>{myRestaurant.name}</h2>
 
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
                     Direccion:
-                    {myRestaurant[0].address.split(",", 1) +
+                    {myRestaurant.address.split(",", 1) +
                       ", " +
-                      myRestaurant[0].neighborhood_info[0]}
+                      myRestaurant.neighborhood_info[0]}
                   </p>
-                  {myRestaurant[0].email !== " - " && (
+                  {myRestaurant.email !== " - " && (
                     <p>
                       Contacto:
-                      {" " + myRestaurant[0].email}
+                      {" " + myRestaurant.email}
                     </p>
                   )}
                 </div>
                 <div className={styles.icons}>
                   <p>
-                    {[...Array(Number(myRestaurant[0].rating)).keys()].map(
+                    {[...Array(Number(myRestaurant.rating)).keys()].map(
                       (key) => (
                         <RiStarFill
                           size={20}
@@ -96,9 +95,9 @@ export default function Restaurant() {
                       )
                     )}
                   </p>
-                  {myRestaurant[0].price && (
+                  {myRestaurant.price && (
                     <p>
-                      {[...myRestaurant[0].price[0].split("")].map(() => (
+                      {[...myRestaurant.price.split("")].map(() => (
                         <BsCurrencyDollar size={20} />
                       ))}
                     </p>)}
@@ -109,7 +108,7 @@ export default function Restaurant() {
 
             
                 <Carousel className={styles.restauranteImage}>
- {myRestaurant && myRestaurant[0].photo.map((el, index) => {return ( 
+ {myRestaurant && myRestaurant.photo.map((el, index) => {return ( 
  <Carousel.Item key={index}>
     <img
       className="d-block w-100"
@@ -133,13 +132,13 @@ export default function Restaurant() {
              </div>
       </div>
               <span>
-                {myRestaurant[0].cuisine.map((el, index) => (
+                {myRestaurant.cuisine.map((el, index) => (
                   <div key={index} className={styles.tag}>{el}</div>
                 ))}
               </span>
-              {myRestaurant[0].description && (
+              {myRestaurant.description && (
                 <p className={styles.description}>
-                  {myRestaurant[0].description}
+                  {myRestaurant.description}
                 </p>
               )}
             </div>
@@ -164,6 +163,7 @@ export default function Restaurant() {
                     pax={r.pax}
                     date={r.date}
                     time={r.time}
+                    username={r.author}
                   />
                 ))
               : "Aun no hay reservas"}
