@@ -101,7 +101,7 @@ export default function Restaurant() {
                       {[...myRestaurant[0].price[0].split("")].map(() => (
                         <BsCurrencyDollar size={20} />
                       ))}
-                    </p>}
+                    </p>)}
 
                 </div>
               </div>
@@ -171,21 +171,8 @@ export default function Restaurant() {
         </div>
       )}
 
-      <div>
-        <Widget
-          ref={widgetApi}
-          publicKey="0a91ec69631fd28d2d4a"
-          multiple="true"
-          imagesOnly="true"
-          locale="es"
-          onChange={handleChange}
-        />
-        <div>
-          {photo && (
-            <button onClick={(e) => handleClick(e)}>Guardar Cambios</button>
-          )}
-        </div>
-      </div>
+      
     </div>
   );
 }
+
