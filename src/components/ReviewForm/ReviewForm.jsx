@@ -93,9 +93,9 @@ export default function ReviewForm({setNewReview}) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(review));
+    dispatch(putRating(params.id,changeRating()))
     setTimeout(() => {
       dispatch(getRestaurantReviews(params.id))
-      dispatch(putRating(params.id,changeRating()))
       dispatch(getRestoDetails(params.id));
     }, 1000);
     setNewReview(false);
@@ -118,10 +118,11 @@ export default function ReviewForm({setNewReview}) {
             name={"rating"}
             onChange={(e) => handleRatings(e)}
           />
-          {err.rating && <p>{err.rating}</p>}
+          {err.rating && <p className={styles.error}>{err.rating}</p>}
         </div>
         <div>
           <textarea
+            className={styles.input}
             required
             name="description"
             cols="50"
@@ -129,11 +130,11 @@ export default function ReviewForm({setNewReview}) {
             placeholder="Escribe tu reseña"
             onChange={(e) => handleRev(e)}
           ></textarea>
-          {err && <p>{err.description}</p>}
+          {err && <p className={styles.error}>{err.description}</p>}
         </div>
         <div>
-          <button disabled={err.hasErr} >Enviar Reseña</button>
-          <button onClick={e => handleClose(e)} >Cerrar</button>
+          <button disabled={err.hasErr} className={styles.button} >Enviar Reseña</button>
+          <button onClick={e => handleClose(e)} className={styles.button} >Cerrar</button>
         </div>
       </form>
     </div>
