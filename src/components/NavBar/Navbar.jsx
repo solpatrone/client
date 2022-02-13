@@ -62,7 +62,7 @@ export default function Navbar() {
         
           {!usuario?null:
                     <ButtonGroup>
-                        <DropdownButton as={ButtonGroup} title="Menu" id="bg-nested-dropdown">
+                        <DropdownButton   as={ButtonGroup} title="Menu" id="bg-nested-dropdown">
                           <Dropdown.Item eventKey="1" > 
                             <NavLink to="/home" className={styles.navlinks}>    
                               Home
@@ -80,7 +80,7 @@ export default function Navbar() {
                               </NavLink>
                             </Dropdown.Item>
 
-                            <DropdownButton as={ButtonGroup} title="Mis restaurant" id="bg-nested-dropdown">
+                            <DropdownButton drop={'start'} as={ButtonGroup} title="Mis restaurant" id="bg-nested-dropdown">
                               <Dropdown.Item eventKey="4">
                               <NavLink className={styles.navlinks} to="/MyRestaurant">
                                 {myRestaurants.map((el, index) => {
