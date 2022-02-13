@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { getRestaurantReviews, postReview, putRating } from "../../actions";
+import { getRestaurantReviews, getRestoDetails, postReview, putRating } from "../../actions";
 import styles from "./ReviewForm.module.css"
 import { RiStarFill } from "react-icons/ri";
 import Cookies from "universal-cookie";
 import {useParams } from "react-router-dom";
+import { useEffect } from "react";
 
 
 
@@ -25,13 +26,21 @@ export default function ReviewForm({setNewReview}) {
   const reviews = useSelector((state) => state.reviews)
   const details = useSelector((state) => state.details)
 
+
   function changeRating (){
     if(reviews.length >0){
-      let ratingRev = reviews.map(el => Number(el.rating))
+      let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value))
       let sum = ratingRev.reduce((acc,curr) => acc + curr, 0)
       let prom = Math.round(sum/ratingRev.length)
       let newRating = {rating:String(prom), owner: details[0].owner}
-      console.log(newRating)
+      return newRating
+    }else if(details[0].owner === "API" && !reviews.length){
+      let sum = Number(details[0].rating) + Number(review.rating.value)
+      let prom = Math.round(sum /2)
+      let newRating = {rating:String(prom), owner: details[0].owner }
+      return newRating
+    }else{
+      let newRating = {rating : review.rating.value, owner:details[0].owner}
       return newRating
     }
   }
@@ -78,14 +87,12 @@ export default function ReviewForm({setNewReview}) {
     dispatch(postReview(review));
     setTimeout(() => {
       dispatch(getRestaurantReviews(params.id))
-     ;
+      dispatch(putRating(params.id,changeRating()))
+      dispatch(getRestoDetails(params.id));
     }, 1000);
     setNewReview(false);
-    setTimeout(() => { 
-      dispatch(putRating(params.id,changeRating()))
-    }, 2000);
-    
   }
+
   function handleClose(e) {
     e.preventDefault();
     setNewReview(false);

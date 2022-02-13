@@ -16,7 +16,7 @@ import {
   GET_USER_REVIEWS,
 } from "./types";
 
-const url = "http://localhost:3001";
+const url = "http://localhost:8080";
 const createUser = url + "/user";
 const reviewModif = url + "/review";
 const restoModif = url + "/restaurant";
@@ -52,6 +52,7 @@ export function addImagesToRestos(request, id) {
 }
 
 export function putRating(id, info) {
+  console.log("infooo" + JSON.stringify(info))
   return async () => {
     try {
       var newRating = await axios.put(`${restoModif}/${id}`, info);
