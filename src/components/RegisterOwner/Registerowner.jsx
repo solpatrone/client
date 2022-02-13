@@ -48,7 +48,7 @@ export default function RegisterOwner() {
       value:""
     },
     cuisine: [],
-    photo: "",
+    photo: [],
     email:"",
     personas_max:"",
     owner:own,
@@ -109,7 +109,7 @@ export default function RegisterOwner() {
         address: "",
         neighborhood_info: "",
         cuisine: [],
-        photo: "",
+        photo: [],
         email:"",
         personas_max:"",
         owner: own,

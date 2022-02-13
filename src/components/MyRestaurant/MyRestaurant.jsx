@@ -10,14 +10,15 @@ import Loading from "../Loading/Loading";
 import styles from "./MyRestaurant.module.css";
 import { Widget } from "@uploadcare/react-widget";
 import { addImagesToRestos } from '../../actions';
-
+import Carousel from 'react-bootstrap/Carousel'
 
 export default function Restaurant() {
   const dispatch = useDispatch();
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const widgetApi = useRef();
-
+  
+  
   const hasReviews = useSelector(state => state.reviews)
 
   let [photo, setPhoto] = useState();
@@ -31,11 +32,12 @@ export default function Restaurant() {
   }, []);
 
   function handleChange(e) {
-    var photo = 'https://ucarecdn.com/' + e.uuid + '/nth/' + 0 + '/';
-    setPhoto(photo)
-
-    //  for (let index = 0; index < e.count ; index++) {
-    // setInput({images: input.images.push(('https://ucarecdn.com/' + e.uuid + '/nth/' + index + '/').toString())})          
+    var photo = []
+    
+    for (let index = 0; index < e.count ; index++) {
+     photo.push(('https://ucarecdn.com/' + e.uuid + '/nth/' + index + '/').toString())          
+     setPhoto(photo)
+    }
   }
 
   function handleClick(e) {
@@ -89,18 +91,23 @@ export default function Restaurant() {
                 </div>
               </div>
 
-              {/* <div>
-                    {currentPhoto > 1 && <button onClick={e => handlePreviousImage(e)}> Previous </button>}
-                    <span > aca iria la photo actual </span>
-                    {currentPhoto < maxPhoto && <button onClick={e => handleNextPhoto(e)}>  Next</button>}
 
-                </div> */}
-              <img
-                src={photo ? photo : myRestaurant[0].photo}
-                alt="img not found"
-                className={styles.restauranteImage}
-                height="auto"
-              />
+            
+                <Carousel className={styles.restauranteImage}>
+ {myRestaurant && myRestaurant[0].photo.map((el, index) => {return ( 
+ <Carousel.Item key={index}>
+    <img
+      className="d-block w-100"
+      src={el}
+      alt="First slide"
+    />
+  </Carousel.Item>)})}
+ 
+</Carousel>
+
+
+
+
               <div className="mt-3">
                 <Widget ref={widgetApi} publicKey='0a91ec69631fd28d2d4a' multiple='true' imagesOnly='true' locale='es' onChange={handleChange} />
                 <div>{photo &&
