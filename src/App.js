@@ -5,7 +5,7 @@ import Registerclient from "./components/RegisterClient/Registerclient";
 import RegisterOwner from "./components/RegisterOwner/Registerowner";
 import Home from "./components/Home/Home";
 import Login from "./components/Login/Login";
-import MyRestaurant from "./components/MyRestaurant/MyRestaurant";
+import MyRestaurant from "./components/MyRestaurant/MyRestaurant"
 // import Review from "./components/Reviews/Review";
 import Details from "./components/Details/Details";
 import LoadImage from "./components/LoadImage/LoadImage";

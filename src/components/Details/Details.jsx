@@ -16,6 +16,7 @@ import ReviewForm from "../ReviewForm/ReviewForm";
 import Loading from "../Loading/Loading";
 import Cookies from "universal-cookie";
 import Reservations from "../Reservation/Reservations";
+import Carousel from 'react-bootstrap/Carousel'
 
 function Details() {
   const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function Details() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
 
+  console.log(params.id)
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
@@ -48,33 +50,32 @@ function Details() {
   return (
     <div>
       <Navbar />
-      {myRestaurant.length === 0 ? (
+      { !myRestaurant.id ? (
         <Loading />
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
-              <h2>{myRestaurant[0].name}</h2>
+              <h2>{myRestaurant.name}</h2>
 
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
                     Direccion:{" "}
-                    {myRestaurant[0].address.split(",", 1) +
+                    {myRestaurant.address && myRestaurant.address.split(",", 1) +
                       ", " +
-                      myRestaurant[0].neighborhood_info[0]}
+                      myRestaurant.neighborhood_info[0]}
                   </p>
-                  {myRestaurant[0].email !== " - " && (
+                  {myRestaurant.email !== " - " && (
                     <p>
                       Contacto:
-                      {" " + myRestaurant[0].email}
+                      {" " + myRestaurant.email}
                     </p>
                   )}
                 </div>
                 <div className={styles.icons}>
                   <p>
-                    {/* {hasReviews.length > 0 ? [...Array(prom).keys()].map((key) => (<RiStarFill/>)) : */}
-                    {[...Array(Number(myRestaurant[0].rating)).keys()].map(
+                    {[...Array(Number(myRestaurant.rating)).keys()].map(
                       (key) => (
                         <RiStarFill
                           size={20}
@@ -84,9 +85,9 @@ function Details() {
                       )
                     )}
                   </p>
-                  {myRestaurant[0].price && (
+                  {myRestaurant.price && (
                     <p>
-                      {[...myRestaurant[0].price[0].split("")].map((key) => (
+                      {[...myRestaurant.price.split("")].map((key) => (
                         <BsCurrencyDollar size={20} key={key} />
                       ))}
                     </p>
@@ -94,34 +95,40 @@ function Details() {
                 </div>
               </div>
 
-              {/* <div>
-                    {currentPhoto > 1 && <button onClick={e => handlePreviousImage(e)}> Previous </button>}
-                    <span > aca iria la photo actual </span>
-                    {currentPhoto < maxPhoto && <button onClick={e => handleNextPhoto(e)}>  Next</button>}
+              <Carousel  >
+ {myRestaurant && myRestaurant.photo.map((el, index) => {return ( 
+ <Carousel.Item key={index}>
+    <img
+     className= {["d-block w-100", styles.restauranteImage]}
+      
+      src={el}
+      alt="First slide"
+    />
+  </Carousel.Item>)})}
+ 
+</Carousel>
 
-                </div> */}
-
-              <img
-                src={myRestaurant[0].photo}
+              {/* <img
+                src={myRestaurant.photo}
                 alt="img not found"
                 className={styles.restauranteImage}
                 height="auto"
-              />
+              /> */}
               <span>
-                {myRestaurant[0].cuisine.map((el, index) => (
+                {myRestaurant.cuisine.map((el, index) => (
                   <div key={index} className={styles.tag}>
                     {el}
                   </div>
                 ))}
               </span>
-              {myRestaurant[0].description && (
+              {myRestaurant.description && (
                 <p className={styles.description}>
-                  {myRestaurant[0].description}
+                  {myRestaurant.description}
                 </p>
               )}
             </div>
             <div className={styles.reservations}>
-              {myRestaurant[0].owner === "API" ? (
+              {myRestaurant.owner === "API" ? (
                 <p>No puedes realizar reservas en este restaurant</p>
               ) : usuario ? (
                 <Reservations

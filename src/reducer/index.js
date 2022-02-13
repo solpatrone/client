@@ -27,7 +27,7 @@ const initialState = {
   myRestaurants: [],
   allRestaurants: [],
   neighborhoods: [],
-  details: [],
+  details: {},
   reviews: [],
   cuisines: [],
   loading: false,
@@ -115,7 +115,7 @@ export default function rootReducer(state = initialState, action) {
     case CLEAR_DETAILS_STATE:
       return {
         ...state,
-        details: [],
+        details: {},
       };
     case POST_REVIEW:
       return {
