@@ -26,24 +26,32 @@ export default function ReviewForm({setNewReview}) {
   const reviews = useSelector((state) => state.reviews)
   const details = useSelector((state) => state.details)
 
-
   function changeRating (){
-    if(reviews.length >0){
+    let newRating = {};
+   if(details[0].owner === "API" && !reviews.length){    // Toma el rating de la api + el input
+    let sum = Number(details[0].rating) + Number(review.rating.value)
+    let prom = Math.round(sum /2)
+     newRating = {rating:String(prom), owner: details[0].owner }
+   
+   }else if (details[0].owner === "API" && reviews.length > 0){     // Toma el rating de la api + lo que haya en reviews + el input
+    let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value), Number(details[0].rating) )
+    let sum =  ratingRev.reduce((acc,curr) => acc + curr, 0)
+    let prom = Math.round(sum /ratingRev.length)
+     newRating = {rating:String(prom), owner: details[0].owner }
+    
+   }else if(details[0].owner !== "API" && reviews.length >0){          // toma cada valor de reviews + el input
       let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value))
       let sum = ratingRev.reduce((acc,curr) => acc + curr, 0)
       let prom = Math.round(sum/ratingRev.length)
-      let newRating = {rating:String(prom), owner: details[0].owner}
-      return newRating
-    }else if(details[0].owner === "API" && !reviews.length){
-      let sum = Number(details[0].rating) + Number(review.rating.value)
-      let prom = Math.round(sum /2)
-      let newRating = {rating:String(prom), owner: details[0].owner }
-      return newRating
-    }else{
-      let newRating = {rating : review.rating.value, owner:details[0].owner}
-      return newRating
+       newRating = {rating:String(prom), owner: details[0].owner}
+     
+    }else{                                                  // si es un resto creado y no tiene review, toma el valor del input
+      newRating = {rating : review.rating.value, owner:details[0].owner}
     }
+    return newRating
   }
+  console.log("resp de la funcionn" + JSON.stringify(changeRating()))
+  
 
   function validate(review) {
     let err = {hasErr : false}
