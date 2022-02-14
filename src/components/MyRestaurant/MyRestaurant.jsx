@@ -19,7 +19,9 @@ import RestoReservations from "../RestoReservations/RestoReservations";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
+
 import Swal from 'sweetalert2'
+
 
 export default function Restaurant() {
   const dispatch = useDispatch();
