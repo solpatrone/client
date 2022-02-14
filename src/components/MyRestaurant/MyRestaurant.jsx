@@ -1,56 +1,70 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, NavLink } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
-import styles from "./Details.module.css";
-import { BiCommentDetail } from "react-icons/bi";
 import Review from "../Review/Review";
-import ReviewForm from "../ReviewForm/ReviewForm";
 import Loading from "../Loading/Loading";
-import Cookies from "universal-cookie";
-import Reservations from "../Reservation/Reservations";
+import styles from "./MyRestaurant.module.css";
+import { Widget } from "@uploadcare/react-widget";
 import Carousel from 'react-bootstrap/Carousel'
+import { addImagesToRestos, getRestoReservations } from "../../actions";
+import RestoReservations from "../RestoReservations/RestoReservations";
 
-function Details() {
+
+export default function Restaurant() {
   const dispatch = useDispatch();
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
-  const [newReview, setNewReview] = useState(false);
+  const widgetApi = useRef();
+  const myReservations = useSelector((state) => state.restoReservations);
+
   const hasReviews = useSelector((state) => state.reviews);
 
-  const cookies = new Cookies();
-  const usuario = cookies.get("username");
+  let [photo, setPhoto] = useState();
 
-  console.log(params.id)
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
+    dispatch(getRestoReservations(params.id));
     return () => {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
   }, [params.id]);
 
-  function handdleClick(e) {
-    e.preventDefault();
-    setNewReview(!newReview);
+  function handleChange(e) {
+    var photo = []
+    
+    for (let index = 0; index < e.count ; index++) {
+     photo.push(('https://ucarecdn.com/' + e.uuid + '/nth/' + index + '/').toString())          
+     setPhoto(photo)
+    }
   }
 
-  //   function handlePreviousImage(e) {
-  //     e.preventDefault();
-  //     setCurrentImage(--currentImage)
-  // }
+  function handleClick(e) {
+    e.preventDefault()
+    const request = {
+      owner: myRestaurant.owner,
+      photo: photo
+    }
+    dispatch(addImagesToRestos(request, myRestaurant.id))
+    dispatch(getRestoDetails(params.id))
+
+   
+    //window.location.reload(false);
+   
+  }
 
   return (
     <div>
       <Navbar />
-      { !myRestaurant.id ? (
+      {!myRestaurant.id? (
         <Loading />
       ) : (
         <div className={styles.wrapper}>
@@ -61,8 +75,8 @@ function Details() {
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
-                    Direccion:{" "}
-                    {myRestaurant.address && myRestaurant.address.split(",", 1) +
+                    Direccion:
+                    {myRestaurant.address.split(",", 1) +
                       ", " +
                       myRestaurant.neighborhood_info[0]}
                   </p>
@@ -87,44 +101,48 @@ function Details() {
                   </p>
                   {myRestaurant.price && (
                     <p>
-                      {[...myRestaurant.price.split("")].map((key) => (
-                        <BsCurrencyDollar size={20} key={key} />
+                      {[...myRestaurant.price.split("")].map(() => (
+                        <BsCurrencyDollar size={20} />
                       ))}
-                    </p>
-                  )}
+                    </p>)}
+
                 </div>
               </div>
-              
- {myRestaurant.photo.length === 1 ?  <img
+
+
+              {myRestaurant.photo.length === 1 ?  <img
                 src={myRestaurant.photo}
                 alt="img not found"
                 className={styles.restauranteImage}
                 height="auto"
               /> : 
-              <Carousel  >
+                <Carousel className={styles.restauranteImage}>
  {myRestaurant && myRestaurant.photo.map((el, index) => {return ( 
  <Carousel.Item key={index}>
     <img
-     className= {["d-block w-100", styles.restauranteImage]}
-      
+      className="d-block w-100"
       src={el}
       alt="First slide"
     />
   </Carousel.Item>)})}
  
-</Carousel> }
+</Carousel>}
 
-              {/* <img
-                src={myRestaurant.photo}
-                alt="img not found"
-                className={styles.restauranteImage}
-                height="auto"
-              /> */}
+
+
+
+              <div className="mt-3">
+                <Widget ref={widgetApi} publicKey='0a91ec69631fd28d2d4a' multiple='true' imagesOnly='true' locale='es' onChange={handleChange} />
+                <div>{photo &&
+                  <button onClick={e => handleClick(e)}>
+                    Guardar Cambios
+                  </button>
+                }
+             </div>
+      </div>
               <span>
                 {myRestaurant.cuisine.map((el, index) => (
-                  <div key={index} className={styles.tag}>
-                    {el}
-                  </div>
+                  <div key={index} className={styles.tag}>{el}</div>
                 ))}
               </span>
               {myRestaurant.description && (
@@ -132,38 +150,6 @@ function Details() {
                   {myRestaurant.description}
                 </p>
               )}
-            </div>
-            <div className={styles.reservations}>
-              {myRestaurant.owner === "API" ? (
-                <p>No puedes realizar reservas en este restaurant</p>
-              ) : usuario ? (
-                <Reservations
-                  restoId={myRestaurant}
-                  userId={cookies.cookies.email}
-                />
-              ) : (
-                <button>
-                  <NavLink to="/login">
-                    <p className={styles.btn}>Reservá tu mesa</p>
-                  </NavLink>
-                </button>
-              )}
-              {usuario ? (
-                <button
-                  className={styles.button}
-                  onClick={(e) => handdleClick(e)}
-                >
-                  Dejá tu reseña <BiCommentDetail />
-                </button>
-              ) : (
-                <button>
-                  <NavLink to="/login">
-                    <p className={styles.btn}>Dejá tu reseña</p>
-                  </NavLink>
-                </button>
-              )}
-
-              {newReview && <ReviewForm setNewReview={setNewReview} />}
             </div>
           </div>
           <div>
@@ -174,9 +160,28 @@ function Details() {
               </div>
             )}
           </div>
+
+          <div>
+            <h3>Reservas</h3>
+
+            {myReservations.length > 0
+              ? myReservations.map((r) => (
+                  <RestoReservations
+                    id={r.id}
+                    key={r.id}
+                    pax={r.pax}
+                    date={r.date}
+                    time={r.time}
+                    username={r.author}
+                  />
+                ))
+              : "Aun no hay reservas"}
+          </div>
         </div>
       )}
+
+      
     </div>
   );
 }
-export default Details;
+

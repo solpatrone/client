@@ -6,10 +6,8 @@ import style from "./Login.module.css";
 import axios from "axios";
 
 export default function Login() {
-
-  const url = 'http://localhost:3001'
-  const loginModif = url + '/login'
-
+  const url = "https://rapiresto.herokuapp.com";
+  const loginModif = url + "/login";
 
   const history = useHistory();
   const [input, setInput] = useState({
@@ -38,7 +36,7 @@ export default function Login() {
 
           console.log("hola soy cookies", cookies);
         }
-        history.goBack();
+        history.push("/home");
         return userData;
       } catch (e) {
         alert(
@@ -55,7 +53,12 @@ export default function Login() {
       var userData = user.data;
       return userData;
     } catch (e) {
-      console.log(e);
+      if(e.response.data.message === "El usuario no existe"){
+        alert(e.response.data.message)
+        history.push("/registerclient")
+      }else{
+        alert(e.response.data.message)
+      }
     }
   }
 
@@ -74,10 +77,10 @@ export default function Login() {
       cookies.set("id", user.id, { path: "/" });
       cookies.set("username", user.username, { path: "/" });
       cookies.set("email", user.email, { path: "/" });
-      cookies.set("owner",user.email, { path: "/" });
-      cookies.set("restoName", '' , { path: "/" });
+      cookies.set("owner", user.email, { path: "/" });
+      cookies.set("restoName", "", { path: "/" });
 
-      history.push("/home");
+      history.push("home");
     }
   }
 
@@ -110,7 +113,7 @@ export default function Login() {
         </form>
         <hr />
         <GoogleLogin
-          clientId="573681437399-riki1t5m65bqd6q5h98o2r0f9qnolp8k.apps.googleusercontent.com"
+          clientId="666447071830-t1o2vsbnr22uaip19ug155dm5gd51o32.apps.googleusercontent.com"
           buttonText="Iniciar sesión"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
