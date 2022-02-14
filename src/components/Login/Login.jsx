@@ -42,6 +42,7 @@ export default function Login() {
       } catch (e) {
         Swal.fire({
           text: "Por favor, antes de acceder con Google registrate en nuestro sistema",
+          confirmButtonColor: "#8aa899"
         })
         // alert(
         //   "Por favor, antes de acceder con Google registrate en nuestro sistema"
