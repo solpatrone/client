@@ -212,7 +212,7 @@ export default function RegisterOwner() {
               value={owner.personas_max}
               name={"personas_max"}
               onChange={(e) => handleChange(e)}
-              onKeyPress={onlyNumbers}
+            
             />
           </div>
           <div>
