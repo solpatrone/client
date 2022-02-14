@@ -113,7 +113,7 @@ export default function Login() {
         </form>
         <hr />
         <GoogleLogin
-          clientId="573681437399-riki1t5m65bqd6q5h98o2r0f9qnolp8k.apps.googleusercontent.com"
+          clientId="666447071830-t1o2vsbnr22uaip19ug155dm5gd51o32.apps.googleusercontent.com"
           buttonText="Iniciar sesión"
           onSuccess={responseGoogle}
           onFailure={responseGoogle}
