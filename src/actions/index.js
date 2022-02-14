@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 import {
   GET_RESTOS,
@@ -16,7 +17,7 @@ import {
   GET_USER_REVIEWS,
 } from "./types";
 
-const url = "https://rapiresto.herokuapp.com";
+const url = "http://localhost:8080";
 const createUser = url + "/user";
 const reviewModif = url + "/review";
 const restoModif = url + "/restaurant";
@@ -226,9 +227,15 @@ export function postReservation(payload) {
     try {
       console.log("payload", revFormated);
       var newRes = await axios.post(reservationModif, revFormated);
-      alert(
-        `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`
-      );
+        Swal.fire({
+          icon: 'success',
+          text: `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`,
+          confirmButtonColor: "#8aa899"
+        })
+        
+      // alert(
+      //   `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`
+      // );
       return newRes;
     } catch (e) {
       console.log(e);
