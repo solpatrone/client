@@ -51,12 +51,15 @@ export default function Reservations({ userId, restoId }) {
     if (paxInput > restoId.personas_max) {
       error.pax = `El número de comesales debe ser menos a ${restoId.personas_max}`;
     }
+    if (paxInput <= 0) {
+      error.pax = "El número debe ser mayor a cero";
+    }
 
     return error;
   }
 
   function handlePaxChange(e) {
-    setReservations((prev) => ({ ...prev, pax: Number(e.target.value) }));
+    setReservations((prev) => ({ ...prev, pax: e.target.value }));
     setError(validatePaxMax(e.target.value));
   }
 
@@ -67,96 +70,109 @@ export default function Reservations({ userId, restoId }) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReservation(reservations));
-    console.log(reservations)
-    setReservations({ date: new Date(), time: "", pax: 0, email: userId, id: restoId.id, });
+    setReservations({
+      date: new Date(),
+      time: "",
+      pax: 0,
+      email: userId,
+      id: restoId.id,
+    });
   }
 
   let date = reservations.date.toString().split("00")[0].split(" ");
   date = date[2].concat(" " + date[1] + " ").concat(date[3]);
   return (
-    <div className={s.container}>
-      <div className={s.headContainer}>
-        <h3>hace tu reserva</h3>
-        <div className={s.iconContainer}>
-          <div>
-            <FaRegCalendarAlt />
+    <div>
+      {restoId.personas_max === 0 ? (
+        <p className={s.errorMaxLimit}>
+          Ya no hay lugares disponibles para hacer reservas
+        </p>
+      ) : (
+        <div className={s.container}>
+          <div className={s.headContainer}>
+            <h3>hace tu reserva</h3>
+            <div className={s.iconContainer}>
+              <div>
+                <FaRegCalendarAlt />
+              </div>
+              <div>
+                <FaClock />
+              </div>
+              <div>
+                <GrGroup style={{ color: "var(--bright-color)" }} />
+              </div>
+            </div>
+          </div>
+          <div className={s.form}>
+            {/* {restoId.personas_max === 0 ? (
+          <p className={s.error}>Ya no hay lugares disponibles</p>
+        ) : null} */}
+            <form onSubmit={(e) => handleSubmit(e)}>
+              <div className={s.calendar}>
+                <div>
+                  <Calendar
+                    value={reservations.date}
+                    onChange={(e) => handleDateChange(e)}
+                    locale="es-ES"
+                    minDate={new Date()}
+                    maxDate={new Date("2022-08-20")}
+                  />
+                </div>
+              </div>
+
+              <hr></hr>
+              <div className={s.colContainer}>
+                {!reservations.time && (
+                  <strong className={s.error}>Selecciona un horario</strong>
+                )}
+                <div className={s.column}>
+                  <label>Horarios</label>
+                  <Select
+                    options={times}
+                    isMulti={false}
+                    value={reservations.time}
+                    name={"time"}
+                    onChange={(e) => handleTimesChange(e)}
+                  />
+                </div>
+              </div>
+
+              <hr></hr>
+
+              <div className={s.column}>
+                {!reservations.pax && (
+                  <strong className={s.error}>
+                    Selecciona cantidad de personas
+                  </strong>
+                )}
+                <label>Cantidad de personas</label>
+                <input
+                  type="number"
+                  placeholder="Seleccione cantidad de comensales"
+                  onChange={(e) => handlePaxChange(e)}
+                />
+              </div>
+              {error.pax ? <p className={s.error}>{error.pax}</p> : null}
+            </form>
           </div>
           <div>
-            <FaClock />
-          </div>
-          <div>
-            <GrGroup style={{ color: "var(--bright-color)" }} />
+            <p className={s.text}>
+              Confirme su reserva para el {date ? date : "--"}, a las{" "}
+              {reservations.time.label ? reservations.time.label : "--"} hs para{" "}
+              {reservations.pax ? reservations.pax : "--"} personas
+            </p>
+
+            {/* //cambiar boton por el siguiente paso -->Mercado Pago */}
+            {!reservations.date ||
+            !reservations.time ||
+            !reservations.pax ? null : (
+              <button onClick={(e) => handleSubmit(e)} className={s.btn}>
+                Confirmar Reserva
+              </button>
+            )}
           </div>
         </div>
-      </div>
-      <div className={s.form}>
-        {restoId.personas_max === 0 ? (
-          <p className={s.error}>Ya no hay lugares disponibles</p>
-        ) : null}
-        <form onSubmit={(e) => handleSubmit(e)}>
-          <div className={s.calendar}>
-            <div>
-              <Calendar
-                value={reservations.date}
-                onChange={(e) => handleDateChange(e)}
-                locale="es-ES"
-                minDate={new Date()}
-                maxDate={new Date("2022-08-20")}
-              />
-            </div>
-          </div>
-
-          <hr></hr>
-          <div className={s.colContainer}>
-            {!reservations.time && (
-              <strong className={s.error}>Selecciona un horario</strong>
-            )}
-            <div className={s.column}>
-              <label>Horarios</label>
-              <Select
-                options={times}
-                isMulti={false}
-                value={reservations.time}
-                name={"time"}
-                onChange={(e) => handleTimesChange(e)}
-              />
-            </div>
-          </div>
-
-          <hr></hr>
-
-          <div className={s.column}>
-            {!reservations.pax && (
-              <strong className={s.error}>
-                Selecciona cantidad de personas
-              </strong>
-            )}
-            <label>Cantidad de personas</label>
-            <input
-              type="number"
-              placeholder="Seleccione cantidad de comensales"
-              onChange={(e) => handlePaxChange(e)}
-            />
-          </div>
-          {error.pax ? <p className={s.error}>{error.pax}</p> : null}
-        </form>
-      </div>
-      <div>
-        <p className={s.text}>
-          Confirme su reserva para el {date ? date : "--"}, a las{" "}
-          {reservations.time.label ? reservations.time.label : "--"} hs para{" "}
-          {reservations.pax ? reservations.pax : "--"} personas
-        </p>
-
-        {/* //cambiar boton por el siguiente paso -->Mercado Pago */}
-        {!reservations.date ||
-        !reservations.time ||
-        !reservations.pax ? null : (
-          <button onClick={(e) => handleSubmit(e)} className={s.btn}>
-            Confirmar Reserva
-          </button>
-        )}
-      </div>
+      )}
     </div>
   );
 }
