@@ -1,6 +1,5 @@
 import React from "react";
 import s from "./card.module.css";
-import defaultImg from "../../assets/table.jpg";
 import { RiStarFill } from "react-icons/ri";
 import defaultImage from "../../assets/no_food.png"
 
