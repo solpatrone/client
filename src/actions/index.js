@@ -14,6 +14,7 @@ import {
   GET_RESTO_RESERVATIONS,
   PUT_RATING,
   GET_USER_REVIEWS,
+  GET_USER_RESERVATION,
 } from "./types";
 
 const url = "https://rapiresto.herokuapp.com";
@@ -24,6 +25,7 @@ const reservationModif = url + "/reserve";
 const neighModif = url + "/neighborhood";
 const cuisineModif = url + "/cuisines";
 const userReviewModif = url + "/review/user";
+const userReservationModif= url + "reserve/user" ;
 
 export function createClient(info) {
   return async () => {
@@ -264,4 +266,20 @@ export function getUserReviews(id) {
       console.log(e);
     }
   };
+}
+export function getUserReservation(id){
+return async function (dispatch) {
+  try {
+    let json = await axios.get(`${userReservationModif}/${id}/all`);
+    console.log(json);
+    const reviews = json && json.data ? json.data : [];
+    console.log(reviews)
+    return dispatch({
+      type: GET_USER_RESERVATION,
+      payload: reviews,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
 }

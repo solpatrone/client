@@ -42,9 +42,11 @@
 
 .navlinks {
   text-decoration: none;
-  margin-right: 10px;
+  margin-right: 0px;
   margin-top: 0;
   margin-bottom: 0;
+  color: var(--dark-color);
+  margin-left: 0px;
 }
 
 .nlhome {
@@ -61,7 +63,7 @@
 }
 
 .nlhome strong {
-  color: var(--bright-color);
+  color: var(--dark-color);
   font-weight: lighter;
   font-family: var(--logo-font);
   font-size: 25px;
@@ -73,11 +75,25 @@
 
 .button {
   border: none;
-  background-color: var(--medium-color);
-  color: var(--bright-color);
+  background-color: var(--background-color);
+  color: var(--dark-color);
   width: fit-content;
   padding: 8px 5px;
   text-transform: uppercase;
   transition: all 0.5s;
   margin: 10px;
+}
+.resto{
+  margin: 0px;
+}
+
+.btn{
+  background-color: 3px solid #000000;
+}
+.navlinks2{
+  text-decoration: none;
+  
+  margin:0;
+  color: var(--dark-color);
+  
 }

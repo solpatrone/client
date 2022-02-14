@@ -11,10 +11,11 @@ export default function MyProfile() {
 
     const dispatch = useDispatch();
     const cookies = new Cookies();
-    const id = cookies.get("id")
-    const reviews = useSelector((state)=>state.userReviews)
-   
+    const id = cookies.get("id");
+    const reviews = useSelector((state)=>state.userReviews);
+    const reserve = useSelector((state)=>state.userReservation)
     console.log(reviews)
+    console.log("mis reservas",reserve)
     useEffect(() => {      
         dispatch(getUserReviews(id))// eslint-disable-next-line
       }, [id]);
@@ -45,11 +46,7 @@ export default function MyProfile() {
         <h1 className={s.favorites}>Resto favoritos</h1>
       </div>
 
-      <button className={s.btn}>
-          <NavLink to="/home">
-            <p>Volver</p>
-          </NavLink>
-      </button>
+     
     </div>)
 }
 

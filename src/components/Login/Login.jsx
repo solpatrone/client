@@ -30,10 +30,6 @@ export default function Login() {
           cookies.set("username", userData.username, { path: "/" });
 
           cookies.set("email", userData.email, { path: "/" });
-          cookies.set("restoName", "", { path: "/" });
-
-          cookies.set("email", userData.email, { path: "/" });
-
           console.log("hola soy cookies", cookies);
         }
         history.push("/home");
