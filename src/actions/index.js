@@ -17,7 +17,7 @@ import {
   GET_USER_RESERVATION,
 } from "./types";
 
-const url = "https://rapiresto.herokuapp.com";
+const url = "http://localhost:8080";
 const createUser = url + "/user";
 const reviewModif = url + "/review";
 const restoModif = url + "/restaurant";
@@ -25,7 +25,7 @@ const reservationModif = url + "/reserve";
 const neighModif = url + "/neighborhood";
 const cuisineModif = url + "/cuisines";
 const userReviewModif = url + "/review/user";
-const userReservationModif= url + "reserve/user" ;
+const userReservationModif= url + "/reserve/user" ;
 
 export function createClient(info) {
   return async () => {
@@ -50,17 +50,17 @@ export function addImagesToRestos(request, id) {
     } catch (e) {
       console.error(e);
     }
-  }
+  };
 }
 
-export function putRating(id, info){
+export function putRating(id, info) {
   return async () => {
-    try{
+    try {
       var newRating = await axios.put(`${restoModif}/${id}`, info);
       return {
         type: PUT_RATING,
-        payload:newRating
-      }
+        payload: newRating,
+      };
     } catch (e) {
       console.log(e);
     }
@@ -213,8 +213,8 @@ export function getNeighborhoods() {
   };
 }
 
-export function postReservation(payload) {
-  const revToBack = ({ date, time, pax, email, id }) => {
+export  function postReservation(payload) {
+  const revToBack = ( {date, time, pax, email, id}) => {
     return {
       date,
       time: time.value,
@@ -223,7 +223,7 @@ export function postReservation(payload) {
       id,
     };
   };
-  let revFormated = revToBack(payload);
+  let revFormated =  revToBack(payload);
   return async function () {
     try {
       console.log("payload", revFormated);
@@ -233,6 +233,7 @@ export function postReservation(payload) {
       );
       return newRes;
     } catch (e) {
+      console.log('acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
       console.log(e);
     }
   };
@@ -271,12 +272,12 @@ export function getUserReservation(id){
 return async function (dispatch) {
   try {
     let json = await axios.get(`${userReservationModif}/${id}/all`);
-    console.log(json);
-    const reviews = json && json.data ? json.data : [];
-    console.log(reviews)
+    console.log("hola",json);
+    const reserves = json && json.data ? json.data : [];
+    console.log("1111111111111111111",reserves)
     return dispatch({
       type: GET_USER_RESERVATION,
-      payload: reviews,
+      payload: reserves,
     });
   } catch (e) {
     console.log(e);

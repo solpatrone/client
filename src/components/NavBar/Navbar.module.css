@@ -56,6 +56,12 @@
   text-decoration: none;
   color: var(--dark-color);
   font-family: var(--logo-font);
+  line-height: 50px;
+}
+
+.nlhome:hover {
+  text-decoration: none;
+  color: var(--dark-color);
 }
 
 .nlhome .title {
@@ -68,7 +74,7 @@
   font-family: var(--logo-font);
   font-size: 25px;
 }
-.user{
+.user {
   margin-top: auto;
   margin-bottom: auto;
 }

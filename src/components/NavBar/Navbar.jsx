@@ -6,8 +6,8 @@ import Cookies from "universal-cookie";
 import Logout from "../Logout/Logout";
 import { useSelector, useDispatch } from "react-redux";
 import { getMyRestos } from "../../actions";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import  { DropdownButton, ButtonGroup, Dropdown}  from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 
 export default function Navbar() {
   const cookies = new Cookies();
@@ -94,8 +94,8 @@ export default function Navbar() {
                             <Dropdown.Item eventKey="6" className={styles.navlinks}> <Logout /> </Dropdown.Item>
                         </DropdownButton>
                     </ButtonGroup>
+          
           }
-
         </div>
       </div>
     </div>
