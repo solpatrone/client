@@ -95,14 +95,14 @@ function Details() {
                 </div>
               </div>
               
- {myRestaurant.photo.length === 1 ?  <img
+ {myRestaurant.photo && myRestaurant.photo.length === 1 ?  <img
                 src={myRestaurant.photo}
                 alt="img not found"
                 className={styles.restauranteImage}
                 height="auto"
               /> : 
               <Carousel  >
- {myRestaurant && myRestaurant.photo.map((el, index) => {return ( 
+ {myRestaurant && myRestaurant.photo?.map((el, index) => {return ( 
  <Carousel.Item key={index}>
     <img
      className= {["d-block w-100", styles.restauranteImage]}

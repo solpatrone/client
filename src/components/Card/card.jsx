@@ -1,15 +1,16 @@
 import React from "react";
 import s from "./card.module.css";
-import { RiStarFill } from "react-icons/ri";
 import defaultImage from "../../assets/no_food.png";
+import { RiStarFill } from "react-icons/ri";
 
 function card({ name, photo, neighborhood, rating }) {
+  console.log("photo", photo);
   return (
     <div className={s.container}>
       <div>
         <div className={s.tittle}>{name}</div>
         <div>
-          {photo.length > 0 ? (
+          {photo && photo.length > 0 ? (
             <img src={photo[0]} alt="img not found" width="240px" />
           ) : (
             <img src={defaultImage} alt="img not found" width="240px" />
