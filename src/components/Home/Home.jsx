@@ -47,11 +47,9 @@ export default function Home() {
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredByNeighborhood, setFilteredByNeighborhood] =
-    useState(defaultNeighborhood);
+  const [filteredByNeighborhood, setFilteredByNeighborhood] = useState(defaultNeighborhood);
   const [filteredByPrice, setFilteredByPrice] = useState(priceOptions[0]);
-  const [filteredByFoodTypes, setFilteredByFoodTypes] =
-    useState(defaultCuisine);
+  const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(defaultCuisine);
   const [restosPerPage] = useState(12);
 
   function paginado(pageNumber) {
