@@ -117,7 +117,7 @@ export default function Restaurant() {
                 height="auto"
               /> : 
                 <Carousel className={styles.restauranteImage}>
- {myRestaurant && myRestaurant.photo.map((el, index) => {return ( 
+ {myRestaurant && myRestaurant.photo?.map((el, index) => {return ( 
  <Carousel.Item key={index}>
     <img
       className="d-block w-100"
