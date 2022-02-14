@@ -6,8 +6,8 @@ import Cookies from "universal-cookie";
 import Logout from "../Logout/Logout";
 import { useSelector, useDispatch } from "react-redux";
 import { getMyRestos } from "../../actions";
-import 'bootstrap/dist/css/bootstrap.min.css';
-import  { DropdownButton, ButtonGroup, Dropdown}  from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 
 export default function Navbar() {
   const cookies = new Cookies();
@@ -24,14 +24,8 @@ export default function Navbar() {
     }
   }, [dispatch, id]);
 
-
-
-
   return (
     <div>
-     
-          
-
       {/* <div className={styles.links}>
         {usuario ? <p>Mis Restaurantes</p> : null}
       </div> */}
@@ -59,46 +53,62 @@ export default function Navbar() {
             </NavLink>
           ) : null}
 
-        
-          {!usuario?null:
-                    <ButtonGroup>
-                        <DropdownButton   as={ButtonGroup} title="Menu" id="bg-nested-dropdown">
-                          <Dropdown.Item eventKey="1" > 
-                            <NavLink to="/home" className={styles.navlinks}>    
-                              Home
+          {!usuario ? null : (
+            <ButtonGroup>
+              <DropdownButton
+                as={ButtonGroup}
+                title="Menu"
+                id="bg-nested-dropdown"
+              >
+                <Dropdown.Item eventKey="1">
+                  <NavLink to="/home" className={styles.navlinks}>
+                    Home
+                  </NavLink>
+                </Dropdown.Item>
+                <Dropdown.Item eventKey="2">
+                  <NavLink className={styles.navlinks} to="/myProfile">
+                    Mi perfil
+                  </NavLink>
+                </Dropdown.Item>
+
+                <Dropdown.Item eventKey="3">
+                  <NavLink className={styles.navlinks} to="/registerOwner">
+                    Registrar restaurant
+                  </NavLink>
+                </Dropdown.Item>
+
+                <DropdownButton
+                  drop={"start"}
+                  as={ButtonGroup}
+                  title="Mis restaurant"
+                  id="bg-nested-dropdown"
+                >
+                  <Dropdown.Item eventKey="4">
+                    <NavLink className={styles.navlinks} to="/MyRestaurant">
+                      {myRestaurants.map((el, index) => {
+                        return (
+                          <div key={index}>
+                            <NavLink
+                              className={styles.navlinks}
+                              to={`/myrestaurant/${el.id}`}
+                            >
+                              {" "}
+                              {el.name}
                             </NavLink>
+                          </div>
+                        );
+                      })}
+                    </NavLink>
+                  </Dropdown.Item>
+                </DropdownButton>
 
-                          </Dropdown.Item>
-                            <Dropdown.Item eventKey="2" > 
-                              <NavLink className={styles.navlinks} to="/myProfile">
-                                Mi perfil
-                              </NavLink></Dropdown.Item>
-
-                            <Dropdown.Item eventKey="3" >
-                              <NavLink className={styles.navlinks} to="/registerOwner">
-                                Registrar restaurant
-                              </NavLink>
-                            </Dropdown.Item>
-
-                            <DropdownButton drop={'start'} as={ButtonGroup} title="Mis restaurant" id="bg-nested-dropdown">
-                              <Dropdown.Item eventKey="4">
-                              <NavLink className={styles.navlinks} to="/MyRestaurant">
-                                {myRestaurants.map((el, index) => {
-                                      return (
-                                        <div key={index}>
-                                          <NavLink className={styles.navlinks} to={`/myrestaurant/${el.id}`}> {el.name}</NavLink>
-                                        </div>
-                                      );
-                                    })}
-                              </NavLink>                            
-                                </Dropdown.Item>
-                            </DropdownButton>
-
-                            <Dropdown.Item eventKey="5"> <Logout /> </Dropdown.Item>
-                        </DropdownButton>
-                    </ButtonGroup>
-          }
-
+                <Dropdown.Item eventKey="5">
+                  {" "}
+                  <Logout />{" "}
+                </Dropdown.Item>
+              </DropdownButton>
+            </ButtonGroup>
+          )}
         </div>
       </div>
     </div>
