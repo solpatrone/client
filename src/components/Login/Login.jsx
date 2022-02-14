@@ -57,6 +57,7 @@ export default function Login() {
       var userData = user.data;
       return userData;
     } catch (e) {
+<<<<<<< HEAD
       if(e.response.data.message === "El usuario no existe"){
         Swal.fire({
           text: e.response.data.message,
@@ -70,6 +71,13 @@ export default function Login() {
           confirmButtonColor: "#8aa899"
         })
         // alert(e.response.data.message)
+=======
+      if (e.response.data.message === "El usuario no existe") {
+        alert(e.response.data.message);
+        history.push("/registerclient");
+      } else {
+        alert(e.response.data.message);
+>>>>>>> develop
       }
     }
   }
