@@ -17,7 +17,7 @@ import {
   GET_USER_REVIEWS,
 } from "./types";
 
-const url = "http://localhost:8080";
+const url = "https://rapiresto.herokuapp.com";
 const createUser = url + "/user";
 const reviewModif = url + "/review";
 const restoModif = url + "/restaurant";

@@ -7,7 +7,7 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 
 export default function Login() {
-  const url = "http://localhost:8080";
+  const url = "https://rapiresto.herokuapp.com";
   const loginModif = url + "/login";
 
   const history = useHistory();
