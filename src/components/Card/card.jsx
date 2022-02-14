@@ -4,14 +4,13 @@ import defaultImg from "../../assets/table.jpg";
 import { RiStarFill } from "react-icons/ri";
 
 function card({ name, photo, neighborhood, rating }) {
-  console.log(photo);
   return (
     <div className={s.container}>
       <div>
         <div className={s.tittle}>{name}</div>
         <div>
           <img
-            src={photo && photo.length === 0 ? defaultImg : photo[0]}
+            src={photo ? photo[0] : defaultImg}
             alt="img not found"
             width="240px"
           />
