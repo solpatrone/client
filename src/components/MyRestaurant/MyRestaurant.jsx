@@ -110,7 +110,12 @@ export default function Restaurant() {
               </div>
 
 
-            
+              {myRestaurant.photo.length === 1 ?  <img
+                src={myRestaurant.photo}
+                alt="img not found"
+                className={styles.restauranteImage}
+                height="auto"
+              /> : 
                 <Carousel className={styles.restauranteImage}>
  {myRestaurant && myRestaurant.photo.map((el, index) => {return ( 
  <Carousel.Item key={index}>
@@ -121,7 +126,7 @@ export default function Restaurant() {
     />
   </Carousel.Item>)})}
  
-</Carousel>
+</Carousel>}
 
 
 
