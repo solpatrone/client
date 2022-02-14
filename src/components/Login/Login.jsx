@@ -4,6 +4,7 @@ import { GoogleLogin } from "react-google-login";
 import Cookies from "universal-cookie";
 import style from "./Login.module.css";
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 export default function Login() {
   const url = "https://rapiresto.herokuapp.com";
@@ -39,9 +40,13 @@ export default function Login() {
         history.push("/home");
         return userData;
       } catch (e) {
-        alert(
-          "Por favor, antes de acceder con Google registrate en nuestro sistema"
-        );
+        Swal.fire({
+          text: "Por favor, antes de acceder con Google registrate en nuestro sistema",
+          confirmButtonColor: "#8aa899"
+        })
+        // alert(
+        //   "Por favor, antes de acceder con Google registrate en nuestro sistema"
+        // );
         history.push("/registerclient");
       }
     }
@@ -53,11 +58,19 @@ export default function Login() {
       var userData = user.data;
       return userData;
     } catch (e) {
-      if (e.response.data.message === "El usuario no existe") {
-        alert(e.response.data.message);
-        history.push("/registerclient");
-      } else {
-        alert(e.response.data.message);
+      if(e.response.data.message === "El usuario no existe"){
+        Swal.fire({
+          text: e.response.data.message,
+          confirmButtonColor: "#8aa899",
+        })
+        // alert(e.response.data.message)
+        history.push("/registerclient")
+      }else{
+        Swal.fire({
+          text: e.response.data.message,
+          confirmButtonColor: "#8aa899"
+        })
+        // alert(e.response.data.message)
       }
     }
   }
