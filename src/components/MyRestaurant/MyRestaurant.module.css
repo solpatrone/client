@@ -1,98 +1,123 @@
 .wrapper {
-    display: flex;
-    flex-direction: column;
-  }
-  .container {
-    padding-top: 30px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-  }
-  .restaurantInfo {
-    margin-left: 5vw;
-    display: flex;
-    flex-direction: column;
-    width: fit-content;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-  .address_icons {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-  }
-  .address_icons p,
-  h3 {
-    margin-top: 0;
-    margin-bottom: 10px;
-    margin-right: 20px;
-  }
-  
-  .address {
-    margin-right: 3vw;
-    padding: 10px;
-    text-align: justify;
-  }
-  .icons {
-    text-align: center;
-  }
-  .container3 {
-    display: flex;
-    flex-direction: column;
-    padding: 15px;
-  }
-  .tag {
-    display: inline-block;
-    margin: 8px;
-    background-color: #bfc0c0;
-    width: fit-content;
-    border-radius: 5px;
-    padding: 5px 10px 5px 10px;
-  }
-  
-  .button{
-      height: fit-content;
-      align-self: center;
-      font-size: 1.2rem;
-      padding: 5px 10px 5px 10px;
-      background-color: #bfc0c0;
-      border-radius: 5px;
-      text-decoration: none;
-      margin-top: 20px;
-  }
-  .description {
-    margin-top: 10px;
-    width: 70%;
-    text-align: justify;
-  }
-  .reservations {
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .restauranteImage {
-    width: 600px;
-    height: auto;
-  }
-  .btn {
-    margin: auto;
-    color: black;
-  }
-  .reviews{
-      margin-bottom: 5vh;
-      margin-left: 4vw;
-      display: flex;
-      flex-direction: column;
-      margin-top: 5vh;
-      align-items: center;
-      width: fit-content;
-  }
-  
-  .btn{
-      margin: auto;
-      color: black;
-  }
-  
-  
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  padding-top: 30px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.restaurantInfo {
+  margin-left: 5vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-wrap: wrap;
+  border-left: 1px solid var(--background-color);
+}
+.address_icons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  font-family: var(--input-font);
+  font-size: 13px;
+  line-height: 15px;
+}
+.address_icons p,
+h3 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  margin-right: 20px;
+}
+
+.address {
+  margin-right: 3vw;
+  padding: 10px;
+  text-align: justify;
+}
+.icons {
+  text-align: center;
+}
+.container3 {
+  display: flex;
+  flex-direction: column;
+  padding: 15px;
+}
+.tag {
+  display: inline-block;
+  margin: 8px;
+  background-color: #bfc0c0;
+  width: fit-content;
+  border-radius: 5px;
+  padding: 5px 10px 5px 10px;
+}
+
+.button {
+  height: fit-content;
+  align-self: center;
+  font-size: 1rem;
+  padding: 2.5px 5px;
+  background-color: var(--medium-color);
+  color: var(--bright-color);
+  border-radius: 5px;
+  text-decoration: none;
+  margin-top: 20px;
+  border: none;
+}
+.description {
+  margin-top: 10px;
+  width: 70%;
+  text-align: justify;
+}
+.reservations {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+}
+
+.restauranteImage {
+  width: 90%;
+  margin: auto;
+  min-height: 260px;
+  height: auto;
+}
+
+.reviews {
+  margin-bottom: 5vh;
+  margin-left: 4vw;
+  display: flex;
+  flex-direction: column;
+  margin-top: 5vh;
+  align-items: center;
+  width: fit-content;
+}
+
+.centeredContainer {
+  width: 60%;
+  margin: auto;
+  padding: 15px;
+  min-height: 100vh;
+  border-left: 2px solid var(--background-color);
+  border-right: 2px solid var(--background-color);
+}
+
+.itemC {
+  max-height: 300px;
+  object-fit: cover;
+}
+.tittle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 5px 20px;
+  align-items: center;
+}
+
+.restoName {
+  font-family: var(--important-font);
+  text-transform: capitalize;
+  color: var(--dark-color);
+  font-size: 35px;
+}
