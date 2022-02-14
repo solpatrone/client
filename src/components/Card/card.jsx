@@ -4,7 +4,7 @@ import defaultImage from "../../assets/no_food.png";
 import { RiStarFill } from "react-icons/ri";
 
 function card({ name, photo, neighborhood, rating }) {
-  console.log("photo", photo);
+
   return (
     <div className={s.container}>
       <div>
@@ -15,6 +15,7 @@ function card({ name, photo, neighborhood, rating }) {
           ) : (
             <img src={defaultImage} alt="img not found" width="240px" />
           )}
+
         </div>
       </div>
       <div className={s.infoContainer}>
