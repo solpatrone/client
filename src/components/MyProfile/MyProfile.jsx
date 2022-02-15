@@ -14,7 +14,6 @@ export default function MyProfile() {
     const id = cookies.get("id");
     const reviews = useSelector((state)=>state.userReviews);
     const reserves = useSelector((state)=>state.userReservation)
-    console.log('accccccccccccccca',reviews)
     console.log("mis reservas",reserves)
 
     useEffect(() => {      
@@ -24,18 +23,36 @@ export default function MyProfile() {
       useEffect(() => {      
         dispatch(getUserReservation(id))// eslint-disable-next-line
       }, [id]);  
-
+        
+      const reservesInProgress = reserves.filter(elem => elem.status === "IN PROGRESS" )
     return (
       
     <div>
       <Navbar />
       <h1>Mi perfil </h1>
-      <div className={s.res}>
+      <div className={s.container}>
+
+      <div className={s.uno}>
+        <h1 className={s.bookings}>Mis reservas</h1>
+
+        {
+          reservesInProgress  ?
+          reservesInProgress.map( (e, index) =>
+              <UserReserve key={index} elem ={e}/>             
+            )
+            :
+            <div className={s.review} >
+                  <p>No hay reservas</p>
+              </div>
+        }
+        
+      </div>
+      <div className={s.dos}>
         <h1 className={s.reviews}>Mis reseñas</h1>
         {
           reviews.length > 0 ?
             reviews.map( (e, index) =>
-              <UserReview key={index} elem ={e}/>             
+            <UserReview key={index} elem ={e}/>             
             )
             :
               <div className={s.review} >
@@ -43,25 +60,13 @@ export default function MyProfile() {
               </div>
         }
         </div>
-      <div>
-        <h1 className={s.bookings}>Mis reservas</h1>
-        {
-          reserves.status =  "IN PROGRESS" ?
-          reserves.map( (e, index) =>
-              <UserReserve key={index} elem ={e}/>             
-            )
-            :
-              <div className={s.review} >
-                  <p>No hay reservas</p>
-              </div>
-        }
-      </div>
+        </div>
       
-      <div>
+      <div className={s.tres}>
         <h1 className={s.favorites}>Resto favoritos</h1>
       </div>
-
      
-    </div>)
+    </div>
+    )
 }
 

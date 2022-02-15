@@ -1,10 +1,13 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import Cookies from "universal-cookie";
 import style from "./Login.module.css";
 import axios from "axios";
 import Swal from 'sweetalert2'
+import { Button } from "react-bootstrap";
+
+import logo from "../../assets/rapiresto.png";
 
 export default function Login() {
   const url = "http://localhost:8080";
@@ -98,10 +101,26 @@ export default function Login() {
 
   return (
     <>
+     <div className={style.mainNavbar}>
+        <NavLink to="/home" className={style.nlhome}>
+          <img className={style.logo} src={logo} alt="Logo not found" />
+          <div className={style.title}>
+            rapi<strong>Resto</strong>
+          </div>
+        </NavLink>
+
+        <Button variant="secondary">
+          <div>
+            <NavLink to="/home"  className={style.navlinks}>    
+                    Volver
+            </NavLink>
+          </div>
+        </Button>{' '}
+      </div>
       <div className={style.container}>
         <form onSubmit={handleSubmit}>
           <div>
-            <div>Email: </div>
+            <div className={style.text}>Email: </div>
             <input
               type="email"
               value={input.email}
