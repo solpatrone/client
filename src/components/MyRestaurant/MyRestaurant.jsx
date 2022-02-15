@@ -49,6 +49,7 @@ export default function Restaurant() {
       );
       setPhoto(photo);
     }
+    photo = []
   }
 
   function handleClick(e) {

@@ -34,7 +34,6 @@ export default function Login() {
 
           cookies.set("email", userData.email, { path: "/" });
 
-          console.log("hola soy cookies", cookies);
         }
         history.push("/home");
         return userData;

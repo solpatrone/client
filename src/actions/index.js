@@ -17,11 +17,11 @@ import {
 } from "./types";
 
 const url = "https://rapiresto.herokuapp.com";
-const createUser = url + "/user";
+const createUser = url + "/users";
 const reviewModif = url + "/review";
-const restoModif = url + "/restaurant";
+const restoModif = url + "/restaurants";
 const reservationModif = url + "/reserve";
-const neighModif = url + "/neighborhood";
+const neighModif = url + "/neighborhoods";
 const cuisineModif = url + "/cuisines";
 const userReviewModif = url + "/review/user";
 
@@ -168,7 +168,7 @@ export function postReview(payload) {
   let revFormated = revToBack(payload);
   return async (dispatch) => {
     try {
-      let newReview = await axios.post(reviewModif, revFormated);
+      let newReview = await axios.post(`${reviewModif}/${id}/reviews`, revFormated);
       return dispatch({
         type: POST_REVIEW,
         payload: newReview,
@@ -181,7 +181,7 @@ export function postReview(payload) {
 export function getRestaurantReviews(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`${reviewModif}/restaurant/${id}/all`);
+      let json = await axios.get(`${restoModif}/${id}/reviews`);
       return dispatch({
         type: GET_RESTO_REVIEWS,
         payload: json.data,
@@ -225,7 +225,7 @@ export function postReservation(payload) {
   return async function () {
     try {
       console.log("payload", revFormated);
-      var newRes = await axios.post(reservationModif, revFormated);
+      var newRes = await axios.post(`${restoModif}/${id}/reserves`, revFormated);
       alert(
         `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`
       );
@@ -239,7 +239,7 @@ export function postReservation(payload) {
 export function getRestoReservations(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`${reservationModif}/restaurant/${id}/all`);
+      let json = await axios.get(`${restoModif}/${id}/reserves`);
       let data = json.data;
       return dispatch({
         type: GET_RESTO_RESERVATIONS,
@@ -253,7 +253,7 @@ export function getRestoReservations(id) {
 export function getUserReviews(id) {
   return async function (dispatch) {
     try {
-      let json = await axios.get(`${userReviewModif}/${id}/all`);
+      let json = await axios.get(`${createUser}/${id}/reviews`);
       console.log(json);
       const reviews = json && json.data ? json.data : [];
       return dispatch({
