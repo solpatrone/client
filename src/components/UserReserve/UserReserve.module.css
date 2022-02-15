@@ -1,0 +1,22 @@
+.review{
+    display:flex;
+    justify-content: space-around;
+    width: 45vw;
+    border-radius: 5px;
+    box-shadow: 1px 1px 13px rgb(197, 196, 196);
+    margin-top: 10px;
+    height: fit-content;
+    flex-direction: column;
+    margin-left: 20px;
+}
+.text{ 
+    padding-right: 10px;
+}
+.rating{
+    margin-bottom: 2px;
+}
+
+.topRow{
+    display: inline;
+    justify-content: space-around;
+}
