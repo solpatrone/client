@@ -58,8 +58,8 @@ export default function Navbar() {
                       
                         <DropdownButton   as={ButtonGroup} title="Menu" id="bg-nested-dropdown" variant="secondary">
                           <Dropdown.Item eventKey="1" variant="secondary" className={styles.btn}> 
-                            <div>
-                              <NavLink to="/home" className={styles.navlinks}>    
+                            <div >
+                              <NavLink to="/home" className={styles.navlinks} >    
                               Home
                               </NavLink>
                             </div>

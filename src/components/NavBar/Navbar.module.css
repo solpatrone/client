@@ -94,7 +94,12 @@
 }
 
 .btn{
-  background-color: 3px solid #000000;
+  
+    margin-top: auto;
+    margin-bottom: auto;
+    color: var(--dark-color);
+    margin-left: 0px;
+
 }
 .navlinks2{
   text-decoration: none;
