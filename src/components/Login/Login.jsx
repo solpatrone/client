@@ -7,8 +7,8 @@ import axios from "axios";
 import Swal from 'sweetalert2'
 
 export default function Login() {
-  const url = "https://rapiresto.herokuapp.com";
-  const loginModif = url + "/login";
+  const url = "http://localhost:8080";
+  const loginModif = url + "/logins";
 
   const history = useHistory();
   const [input, setInput] = useState({
@@ -35,7 +35,6 @@ export default function Login() {
 
           cookies.set("email", userData.email, { path: "/" });
 
-          console.log("hola soy cookies", cookies);
         }
         history.push("/home");
         return userData;

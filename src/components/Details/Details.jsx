@@ -117,12 +117,7 @@ function Details() {
             <img src={defaultImage} alt="img not found" width="240px" />
           )}
 
-              {/* <img
-                src={myRestaurant.photo}
-                alt="img not found"
-                className={styles.restauranteImage}
-                height="auto"
-              /> */}
+              
               <span>
                 {myRestaurant.cuisine.map((el, index) => (
                   <div key={index} className={styles.tag}>
