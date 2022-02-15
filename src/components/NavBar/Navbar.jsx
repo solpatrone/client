@@ -22,7 +22,7 @@ export default function Navbar() {
     if (id) {
       dispatch(getMyRestos(id));
     }
-  }, [id]);
+  }, [dispatch, id]);
 
   return (
     <div>
