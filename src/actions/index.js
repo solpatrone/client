@@ -275,7 +275,7 @@ export function getUserReviews(id) {
 export function getUserReservation(id){
 return async function (dispatch) {
   try {
-    let json = await axios.get(`${userReservationModif}/${id}/all`);
+    let json = await axios.get(`${userModif}/${id}/reserves`);
     console.log("hola",json);
     const reserves = json && json.data ? json.data : [];
     console.log("1111111111111111111",reserves)
