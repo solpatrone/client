@@ -8,7 +8,7 @@ import Swal from 'sweetalert2'
 
 export default function Login() {
   const url = "http://localhost:8080";
-  const loginModif = url + "/login";
+  const loginModif = url + "/logins";
 
   const history = useHistory();
   const [input, setInput] = useState({
@@ -31,7 +31,10 @@ export default function Login() {
           cookies.set("username", userData.username, { path: "/" });
 
           cookies.set("email", userData.email, { path: "/" });
-          console.log("hola soy cookies", cookies);
+          cookies.set("restoName", "", { path: "/" });
+
+          cookies.set("email", userData.email, { path: "/" });
+
         }
         history.push("/home");
         return userData;
