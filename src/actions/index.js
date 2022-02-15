@@ -224,7 +224,7 @@ export function postReservation(payload) {
   return async function () {
     try {
       console.log("payload", revFormated);
-      var newRes = await axios.post(reservationModif, revFormated);
+      var newRes = await axios.post(`${restoModif}/${payload.id}/reserves`, revFormated);
         Swal.fire({
           icon: 'success',
           text: `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`,
