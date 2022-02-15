@@ -251,7 +251,7 @@ export default function RegisterOwner() {
               name="description"
               value={owner.description}
               cols="30"
-              rows="10"
+              rows="8"
               placeholder="Ingrese una breve descripción"
               onChange={(e) => handleChange(e)}
               ></textarea>

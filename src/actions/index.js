@@ -15,6 +15,7 @@ import {
   GET_RESTO_RESERVATIONS,
   PUT_RATING,
   GET_USER_REVIEWS,
+  GET_USER_RESERVATION,
 } from "./types";
 
 const url = "http://localhost:8080";
@@ -210,8 +211,8 @@ export function getNeighborhoods() {
   };
 }
 
-export function postReservation(payload) {
-  const revToBack = ({ date, time, pax, email, id }) => {
+export  function postReservation(payload) {
+  const revToBack = ( {date, time, pax, email, id}) => {
     return {
       date,
       time: time.value,
@@ -220,7 +221,7 @@ export function postReservation(payload) {
       id,
     };
   };
-  let revFormated = revToBack(payload);
+  let revFormated =  revToBack(payload);
   return async function () {
     try {
       console.log("payload", revFormated);
@@ -236,6 +237,7 @@ export function postReservation(payload) {
       // );
       return newRes;
     } catch (e) {
+      console.log('acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
       console.log(e);
     }
   };
@@ -269,4 +271,20 @@ export function getUserReviews(id) {
       console.log(e);
     }
   };
+}
+export function getUserReservation(id){
+return async function (dispatch) {
+  try {
+    let json = await axios.get(`${userModif}/${id}/reserves`);
+    console.log("hola",json);
+    const reserves = json && json.data ? json.data : [];
+    console.log("1111111111111111111",reserves)
+    return dispatch({
+      type: GET_USER_RESERVATION,
+      payload: reserves,
+    });
+  } catch (e) {
+    console.log(e);
+  }
+};
 }
