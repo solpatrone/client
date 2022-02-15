@@ -6,8 +6,8 @@ import style from "./Login.module.css";
 import axios from "axios";
 
 export default function Login() {
-  const url = "https://rapiresto.herokuapp.com";
-  const loginModif = url + "/login";
+  const url = "http://localhost:8080";
+  const loginModif = url + "/logins";
 
   const history = useHistory();
   const [input, setInput] = useState({
