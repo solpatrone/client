@@ -69,7 +69,7 @@
 }
 
 .nlhome strong {
-  color: var(--dark-color);
+  color: var(--bright-color);
   font-weight: lighter;
   font-family: var(--logo-font);
   font-size: 25px;
@@ -89,22 +89,19 @@
   transition: all 0.5s;
   margin: 10px;
 }
-.resto{
+.resto {
   margin: 0px;
 }
 
-.btn{
-  
-    margin-top: auto;
-    margin-bottom: auto;
-    color: var(--dark-color);
-    margin-left: 0px;
-
-}
-.navlinks2{
-  text-decoration: none;
-  
-  margin:0;
+.btn {
+  margin-top: auto;
+  margin-bottom: auto;
   color: var(--dark-color);
-  
+  margin-left: 0px;
+}
+.navlinks2 {
+  text-decoration: none;
+
+  margin: 0;
+  color: var(--dark-color);
 }
