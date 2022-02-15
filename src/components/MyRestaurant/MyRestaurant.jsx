@@ -32,7 +32,7 @@ export default function Restaurant() {
 
   const hasReviews = useSelector((state) => state.reviews);
 
-  let [photo, setPhoto] = useState();
+  let [photo, setPhoto] = useState([]);
 
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
@@ -52,7 +52,7 @@ export default function Restaurant() {
       );
       setPhoto(photo);
     }
-    photo = []
+    
   }
 
   function handleClick(e) {
@@ -86,6 +86,7 @@ export default function Restaurant() {
         )
     }
     })
+    setPhoto([])
 
   }
 
@@ -195,7 +196,7 @@ export default function Restaurant() {
                           onChange={handleChange}
                         />
                         <div>
-                          {photo && (
+                          {(photo.length > 0) && (
                             <button
                               onClick={(e) => handleClick(e)}
                               className={styles.button}
