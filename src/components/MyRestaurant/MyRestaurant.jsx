@@ -20,6 +20,9 @@ import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
 
+import Swal from 'sweetalert2'
+
+
 export default function Restaurant() {
   const dispatch = useDispatch();
   const params = useParams();
@@ -54,14 +57,36 @@ export default function Restaurant() {
 
   function handleClick(e) {
     e.preventDefault();
-    const request = {
-      owner: myRestaurant.owner,
-      photo: photo,
-    };
-    dispatch(addImagesToRestos(request, myRestaurant.id));
-    dispatch(getRestoDetails(params.id));
+    Swal.fire({
+      text: `Vas a modificar la información de ${myRestaurant.name}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: "#8aa899",
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Guardar cambios'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const request = {
+          owner: myRestaurant.owner,
+          photo: photo,
+        };
+        dispatch(addImagesToRestos(request, myRestaurant.id));
+        setTimeout(()=>{
+          dispatch(getRestoDetails(params.id));
+        },1000)
+        Swal.fire({
+          text:`${myRestaurant.name} fue actualizado con éxito`,
+          confirmButtonColor: "#8aa899"
+        })
+        // window.location.reload(false);
+      }else if (result.dismiss === "cancel") {
+        Swal.fire({
+          text: "No se guardaron los cambios"
+        }
+        )
+    }
+    })
 
-    //window.location.reload(false);
   }
 
   return (

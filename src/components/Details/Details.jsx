@@ -17,6 +17,7 @@ import Loading from "../Loading/Loading";
 import Cookies from "universal-cookie";
 import Reservations from "../Reservation/Reservations";
 import Carousel from 'react-bootstrap/Carousel'
+import defaultImage from '../../assets/no_food.png'
 
 function Details() {
   const dispatch = useDispatch();
@@ -95,7 +96,7 @@ function Details() {
                 </div>
               </div>
               
- {myRestaurant.photo &&  myRestaurant.photo.length === 1 ?  <img
+ {myRestaurant.photo[0] ? myRestaurant.photo.length === 1 ?  <img
                 src={myRestaurant.photo}
                 alt="img not found"
                 className={styles.restauranteImage}
@@ -112,7 +113,9 @@ function Details() {
     />
   </Carousel.Item>)})}
  
-</Carousel> }
+</Carousel>  : (
+            <img src={defaultImage} alt="img not found" width="240px" />
+          )}
 
               
               <span>
