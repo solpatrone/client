@@ -7,6 +7,7 @@ import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { GrGroup } from "react-icons/gr";
 import { postReservation } from "../../actions";
+// import emailjs from "emailjs-com"
 
 export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
@@ -17,7 +18,7 @@ export default function Reservations({ userId, restoId }) {
     id: restoId.id,
   });
   const [error, setError] = useState({});
-
+  
   const dispatch = useDispatch();
 
   let times = [
@@ -70,6 +71,19 @@ export default function Reservations({ userId, restoId }) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReservation(reservations));
+//     let templateParams = {
+//       resto_name : restoId.name,
+//       pax: reservations.pax,
+//       time: reservations.time.value,
+//       date: date,
+//       user_email: reservations.email
+//  }
+//     emailjs.send("service_vwcqene","template_zn5kw4j", templateParams, "user_xvn5dt907bREXqYpY0YPa")
+//       .then((result) => {
+//           console.log(result.text);
+//       }, (error) => {
+//           console.log(error.text);
+//       });
     setReservations({
       date: new Date(),
       time: "",
