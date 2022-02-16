@@ -104,4 +104,14 @@
 .options{
  width: auto;
 }
+.dropB{
+  margin-right: 10px;
+}
+.dropB:hover{
+  background-color: #f0ede0;
 
+}
+.dropB:active{
+  background-color: #f0ede0;
+
+}

@@ -6,6 +6,7 @@ import s from './MyProfile.module.css'
 import UserReview from '../UserReview/UserReview';
 import Navbar from '../NavBar/Navbar';
 import UserReserve from '../UserReserve/UseReserve';
+import { Tab, Row, Col, Nav } from "react-bootstrap";
 
 export default function MyProfile() {
 
@@ -25,48 +26,69 @@ export default function MyProfile() {
       }, [id]);  
         
       const reservesInProgress = (reserves.length>0)?reserves.filter(elem => elem.status === "IN PROGRESS" ):[]
-      console.log("reservassssss",reservesInProgress)
+      console.log("reservas en progreso",reservesInProgress)
     return (
       
     <div>
       <Navbar />
+      <div className={s.centeredContainer}>
       <h1>Mi perfil </h1>
-      <div className={s.container}>
+        <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
+          <Row>
+          <Col sm={3}>
+                <Nav variant="pills" className="flex-column" variant="">
+                  <Nav.Item>
+                    <Nav.Link eventKey="first" className={s.option} >Mis reservas</Nav.Link >
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link eventKey="second" className={s.option} >Mis reseñas</Nav.Link>
+                  </Nav.Item>
+                  <Nav.Item>
+                    <Nav.Link eventKey="third" className={s.option}>Mis favoritos</Nav.Link>
+                  </Nav.Item>
+                </Nav>
+            </Col>
+            <Col sm={9}>
+              <Tab.Content>
+                <Tab.Pane eventKey="first">
+                  <h2>Mis reservas</h2>
+                      {
+                        reservesInProgress  ?
+                        reservesInProgress.map( (e, index) =>
+                            <UserReserve key={index} elem ={e}/>             
+                          )
+                          :
+                          <div className={s.review} >
+                                <p>No hay reservas</p>
+                            </div>
+                      }        
+                </Tab.Pane >
 
-      <div className={s.uno}>
-        <h1 className={s.bookings}>Mis reservas</h1>
+                <Tab.Pane eventKey="second">
+                  <h2>Mis reseñas</h2>
+                      {
+                        reviews.length > 0 ?
+                        reviews.map( (e, index) =>
+                        <UserReview key={index} elem ={e}/>             
+                        )
+                        :
+                          <div className={s.review} >
+                              <p>No hay reviews</p>
+                          </div>
+                      }
+                </Tab.Pane>
 
-        {
-          reservesInProgress  ?
-          reservesInProgress.map( (e, index) =>
-              <UserReserve key={index} elem ={e}/>             
-            )
-            :
-            <div className={s.review} >
-                  <p>No hay reservas</p>
-              </div>
-        }
-        
+                <Tab.Pane eventKey="third">
+                <h2>Mis favoritos</h2>
+                {
+          
+                }
+                </Tab.Pane>
+              </Tab.Content>
+              </Col>
+          </Row>
+      </Tab.Container>     
       </div>
-      <div className={s.dos}>
-        <h1 className={s.reviews}>Mis reseñas</h1>
-        {
-          reviews.length > 0 ?
-            reviews.map( (e, index) =>
-            <UserReview key={index} elem ={e}/>             
-            )
-            :
-              <div className={s.review} >
-                  <p>No hay reviews</p>
-              </div>
-        }
-        </div>
-        </div>
-      
-      <div className={s.tres}>
-        <h1 className={s.favorites}>Resto favoritos</h1>
-      </div>
-     
     </div>
     )
 }
