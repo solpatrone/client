@@ -44,7 +44,7 @@ export default function Navbar() {
             </h3>
           )}
           {!usuario ? (
-            <NavLink to="/registerclient" className={styles.navlinks}>
+            <NavLink to="/registerclient" className={styles.navlinksOne}>
               <p>Crear cuenta</p>
             </NavLink>
           ) : null}
