@@ -12,6 +12,7 @@
     padding: 8px;
     gap: 5px;
   }
+  
   .container {
     display: flex;
     flex-direction: column;
