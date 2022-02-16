@@ -5,7 +5,7 @@ import Calendar from "react-calendar";
 import "./reactCalendar.css";
 import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
-import { GrGroup } from "react-icons/gr";
+import { MdGroups } from "react-icons/md";
 import { postReservation } from "../../actions";
 // import emailjs from "emailjs-com"
 
@@ -113,7 +113,7 @@ export default function Reservations({ userId, restoId }) {
                 <FaClock />
               </div>
               <div>
-                <GrGroup style={{ color: "var(--bright-color)" }} />
+                <MdGroups style={{ color: "var(--bright-color)" }} /> Personas
               </div>
             </div>
           </div>
