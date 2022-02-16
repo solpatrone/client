@@ -109,7 +109,7 @@ function Details() {
                   </p>
                   {myRestaurant.price && (
                     <p>
-                      {[...myRestaurant.price.split("")].map((key) => (
+                      {[...myRestaurant.price.split("")].map((elem,key) => (
                         <BsCurrencyDollar size={20} key={key} />
                       ))}
                     </p>

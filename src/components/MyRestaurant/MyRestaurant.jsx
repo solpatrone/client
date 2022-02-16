@@ -156,10 +156,11 @@ export default function Restaurant() {
                           </p>
                           {myRestaurant.price && (
                             <p>
-                              {[...myRestaurant.price.split("")].map(() => (
+                              {[...myRestaurant.price.split("")].map((elem,key) => (
                                 <BsCurrencyDollar
                                   size={13}
                                   style={{ color: "var(--dark-color)" }}
+                                  key={key}
                                 />
                               ))}
                             </p>
