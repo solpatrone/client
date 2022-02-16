@@ -56,7 +56,7 @@ export default function MyProfile() {
                         reservesInProgress  ?
                         reservesInProgress.map( (e, index) =>
                             <UserReserve key={index} elem ={e}/>             
-                          )
+                           )
                           :
                           <div className={s.review} >
                                 <p>No hay reservas</p>
