@@ -63,34 +63,19 @@
     color: black;
   }
   
-  .uno{
-      display: flex;
-      flex-direction: column;
-      width: 50%;
-      margin-left: 20px;
-  }
-  .dos{
-    display: flex;
-    flex-direction: column;
-    width: 50%;
-}
-.tres{
-    display: flex;
-    flex-direction: row;
-    width: 50%;
-}
+
 .container{
     display: flex;
 
 }
-.centeredContainer{
+.centeredContainer {
     width: 60%;
-  margin: auto;
-  padding: 15px;
-  min-height: 100vh;
-  border-left: 2px solid var(--background-color);
-  border-right: 2px solid var(--background-color);
-}
+    margin: auto;
+    padding: 15px;
+    min-height: 100vh;
+    border-left: 2px solid var(--background-color);
+    border-right: 2px solid var(--background-color);
+  }
 .option{
     cursor: pointer;
     background-color: #ffffff;
@@ -100,3 +85,27 @@
     background-color:#f0ede0;
     cursor: pointer;    
 }
+.reservationsContainer {
+    height: 520px;
+    overflow-y: scroll;
+  }
+  .reservationsContainer::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+    background-color: var(--medium-color);
+  }
+  .reviewsContainer {
+    max-width: 100%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    height: 520px;
+    overflow-y: scroll;
+  }
+  
+  .reviewsContainer::-webkit-scrollbar {
+    width: 6px;
+    border-radius: 10px;
+    background-color: var(--medium-color);
+  }
+  
