@@ -51,16 +51,16 @@ export default function MyProfile() {
               <Tab.Content>
                 <Tab.Pane eventKey="first">
               <div className={s.reviewsContainer}>
-                      {
-                        reservesInProgress  ?
-                        reservesInProgress.map( (e, index) =>
-                            <UserReserve key={index} elem ={e}/>             
-                           )
-                          :
-                          <div className={s.review} >
-                                <p>No hay reservas</p>
-                            </div>
-                      }        
+                  {
+                    reservesInProgress  ?
+                    reservesInProgress.map( (e, index) =>
+                        <UserReserve key={index} elem ={e}/>             
+                        )
+                      :
+                      <div className={s.review} >
+                            <p>No hay reservas</p>
+                        </div>
+                  }        
                       </div>
                 </Tab.Pane >
 
