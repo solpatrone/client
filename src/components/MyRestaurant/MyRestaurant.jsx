@@ -20,8 +20,7 @@ import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { AiOutlineDelete } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
 
-import Swal from 'sweetalert2'
-
+import Swal from "sweetalert2";
 
 export default function Restaurant() {
   const dispatch = useDispatch();
@@ -52,18 +51,17 @@ export default function Restaurant() {
       );
       setPhoto(photo);
     }
-    
   }
 
   function handleClick(e) {
     e.preventDefault();
     Swal.fire({
       text: `Vas a modificar la información de ${myRestaurant.name}`,
-      icon: 'warning',
+      icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#8aa899",
-      cancelButtonColor: '#d33',
-      confirmButtonText: 'Guardar cambios'
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Guardar cambios",
     }).then((result) => {
       if (result.isConfirmed) {
         const request = {
@@ -71,23 +69,21 @@ export default function Restaurant() {
           photo: photo,
         };
         dispatch(addImagesToRestos(request, myRestaurant.id));
-        setTimeout(()=>{
+        setTimeout(() => {
           dispatch(getRestoDetails(params.id));
-        },1000)
+        }, 1000);
         Swal.fire({
-          text:`${myRestaurant.name} fue actualizado con éxito`,
-          confirmButtonColor: "#8aa899"
-        })
+          text: `${myRestaurant.name} fue actualizado con éxito`,
+          confirmButtonColor: "#8aa899",
+        });
         // window.location.reload(false);
-      }else if (result.dismiss === "cancel") {
+      } else if (result.dismiss === "cancel") {
         Swal.fire({
-          text: "No se guardaron los cambios"
-        }
-        )
-    }
-    })
-    setPhoto([])
-
+          text: "No se guardaron los cambios",
+        });
+      }
+    });
+    setPhoto([]);
   }
 
   return (
@@ -168,6 +164,20 @@ export default function Restaurant() {
                           )}
                         </div>
                       </div>
+                      <div className={styles.checks}>
+                        {myRestaurant.cuisine.map((el, index) => (
+                          <div key={index}>
+                            <FcCheckmark /> {el}
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        {myRestaurant.description && (
+                          <p className={styles.description}>
+                            {myRestaurant.description}
+                          </p>
+                        )}
+                      </div>
                       <Carousel className={styles.restauranteImage}>
                         {myRestaurant &&
                           myRestaurant.photo.map((el, index) => {
@@ -177,7 +187,7 @@ export default function Restaurant() {
                                 className={styles.itemC}
                               >
                                 <img
-                                  className="d-block w-100 h-100"
+                                  className={["d-block w-100 h-100"]}
                                   src={el}
                                   alt="First slide"
                                 />
@@ -196,7 +206,7 @@ export default function Restaurant() {
                           onChange={handleChange}
                         />
                         <div>
-                          {(photo.length > 0) && (
+                          {photo.length > 0 && (
                             <button
                               onClick={(e) => handleClick(e)}
                               className={styles.button}
@@ -206,25 +216,11 @@ export default function Restaurant() {
                           )}
                         </div>
                       </div>
-                      <span>
-                        {myRestaurant.cuisine.map((el, index) => (
-                          <div key={index}>
-                            <FcCheckmark /> {el}
-                          </div>
-                        ))}
-                      </span>
-                      {myRestaurant.description && (
-                        <p className={styles.description}>
-                          {myRestaurant.description}
-                        </p>
-                      )}
                     </div>
                   </Tab.Pane>
 
                   <Tab.Pane eventKey="second">
-                    <div>
-                      <h3>Reservas</h3>
-
+                    <div className={styles.reservationsContainer}>
                       {myReservations.length > 0
                         ? myReservations.map((r) => (
                             <RestoReservations
@@ -240,10 +236,9 @@ export default function Restaurant() {
                     </div>
                   </Tab.Pane>
                   <Tab.Pane eventKey="third">
-                    <div>
+                    <div className={styles.reviewsContainer}>
                       {hasReviews.length > 0 && (
                         <div className={styles.reviews}>
-                          <h3>Opiniones</h3>
                           <Review reviews={hasReviews} />
                         </div>
                       )}
