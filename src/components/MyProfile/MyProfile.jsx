@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
-import { getUserReviews, getUserReservation } from '../../actions';
+import { getUserReviews, getUserReservation, getUserFavorites } from '../../actions';
 import s from './MyProfile.module.css'
 import UserReview from '../UserReview/UserReview';
 import Navbar from '../NavBar/Navbar';
 import UserReserve from '../UserReserve/UseReserve';
+import UserFavorite from '../UserFavorite/UserFavorite';
+
 
 export default function MyProfile() {
 
@@ -14,16 +16,21 @@ export default function MyProfile() {
     const id = cookies.get("id");
     const reviews = useSelector((state)=>state.userReviews);
     const reserves = useSelector((state)=>state.userReservation)
+    const favorites = useSelector((state) => state.UserFavorites)
     console.log('accccccccccccccca',reviews)
     console.log("mis reservas",reserves)
 
-    useEffect(() => {      
+    useEffect(() => {
         dispatch(getUserReviews(id))// eslint-disable-next-line
       }, [id]);
 
       useEffect(() => {      
         dispatch(getUserReservation(id))// eslint-disable-next-line
       }, [id]);  
+
+      useEffect(() => {      
+        dispatch(getUserFavorites(id))// eslint-disable-next-line
+      }, [id]);
 
     return (
       
@@ -59,6 +66,16 @@ export default function MyProfile() {
       
       <div>
         <h1 className={s.favorites}>Resto favoritos</h1>
+        {
+          favorites.length > 0 ?
+          favorites.map( (e, index) =>
+              <UserFavorite key={index} elem ={e}/>             
+            )
+            :
+              <div className={s.review} >
+                  <p>No hay reservas</p>
+              </div>
+        }
       </div>
 
      

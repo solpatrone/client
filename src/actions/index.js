@@ -16,6 +16,9 @@ import {
   PUT_RATING,
   GET_USER_REVIEWS,
   GET_USER_RESERVATION,
+  GET_USER_FAVORITES,
+  DELETE_FAVORITE,
+  ADD_FAVORITE
 } from "./types";
 
 const url = "http://localhost:8080";
@@ -41,6 +44,20 @@ export function addImagesToRestos(request, id) {
   return async (dispatch) => {
     try {
       var response = await axios.put(`${restoModif}/${id}`, request);
+      return dispatch({
+        type: GET_RESTO_DETAILS,
+        payload: [response.data],
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+}
+
+export function addToFavorites(request, id) {
+  return async (dispatch) => {
+    try {
+      var response = await axios.put(`${userModif}/${id}`, request);
       return dispatch({
         type: GET_RESTO_DETAILS,
         payload: [response.data],
@@ -272,13 +289,30 @@ export function getUserReviews(id) {
     }
   };
 }
+
+export function getUserFavorites(id) {
+  return async function (dispatch) {
+    try {
+     // let json = await axios.get(`${userModif}/${id}/favorites`);
+     let json = await axios.get(`${userModif}/${id}/favorites`);
+      const favorites = json && json.data ? json.data : [];
+      return dispatch({
+        type: GET_USER_FAVORITES,
+        payload: favorites,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function getUserReservation(id){
 return async function (dispatch) {
   try {
     let json = await axios.get(`${userModif}/${id}/reserves`);
     console.log("hola",json);
     const reserves = json && json.data ? json.data : [];
-    console.log("1111111111111111111",reserves)
+   
     return dispatch({
       type: GET_USER_RESERVATION,
       payload: reserves,
@@ -288,3 +322,12 @@ return async function (dispatch) {
   }
 };
 }
+
+
+export function deleteFavorite(id){
+ return{type: DELETE_FAVORITE, payload:id} 
+}
+
+export function addFavorite(id){
+  return{type: ADD_FAVORITE, payload:id} 
+ }
