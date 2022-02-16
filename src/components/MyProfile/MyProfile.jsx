@@ -24,7 +24,8 @@ export default function MyProfile() {
         dispatch(getUserReservation(id))// eslint-disable-next-line
       }, [id]);  
         
-      const reservesInProgress = reserves.filter(elem => elem.status === "IN PROGRESS" )
+      const reservesInProgress = (reserves.length>0)?reserves.filter(elem => elem.status === "IN PROGRESS" ):[]
+      console.log("reservassssss",reservesInProgress)
     return (
       
     <div>
