@@ -26,7 +26,6 @@ export default function Navbar() {
 
   return (
     <div>
-
       <div className={styles.mainNavbar}>
         <NavLink to="/home" className={styles.nlhome}>
           <img className={styles.logo} src={logo} alt="Logo not found" />
@@ -56,8 +55,8 @@ export default function Navbar() {
                       <ButtonGroup>
                         <div>
                       
-                        <DropdownButton   as={ButtonGroup} title="Menu" id="bg-nested-dropdown" variant="secondary">
-                          <Dropdown.Item eventKey="1" variant="secondary" className={styles.btn}> 
+                        <DropdownButton   as={ButtonGroup} title="Menu" id="bg-nested-dropdown" variant="" className={styles.dropB}>
+                          <Dropdown.Item eventKey="1" variant="" className={styles.btn}> 
                               <NavLink to="/home" className={styles.navlinks} >    
                             <div>
                               Home
@@ -65,7 +64,7 @@ export default function Navbar() {
                               </NavLink>
 
                           </Dropdown.Item>
-                            <Dropdown.Item eventKey="2" variant="secondary"> 
+                            <Dropdown.Item eventKey="2" variant="" className={styles.dropB}> 
 
                               <NavLink className={styles.navlinks} to="/myProfile">
                             <div>
@@ -74,7 +73,7 @@ export default function Navbar() {
                               </NavLink>
                               </Dropdown.Item>
 
-                            <Dropdown.Item eventKey="3">
+                            <Dropdown.Item eventKey="3" className={styles.dropB}>
                               <NavLink className={styles.navlinks} to="/registerOwner">
                               <div>
                                 Registrar restaurant
@@ -83,14 +82,14 @@ export default function Navbar() {
                             </Dropdown.Item>
 
                           {myRestaurants.length>0?
-                            <DropdownButton drop={'start'} as={ButtonGroup} title="Mis restaurantes" variant="light">
-                                <Dropdown.Item eventKey="4">
+                            <DropdownButton drop={'start'} as={ButtonGroup} title="Mis restaurantes" variant="" className={styles.dropB}>
+                                <Dropdown.Item eventKey="4" className={styles.dropB}>
                               
                                 <NavLink className={styles.navlinks} to="/MyRestaurant">
                                 {myRestaurants.map((el, index) => {
                                   return (
                                     <div key={index} className={styles.resto} >
-                                          <Dropdown.Item eventKey="5" className={styles.navlinks} >
+                                          <Dropdown.Item eventKey="5" className={styles.dropB}>
                                             <NavLink className={styles.navlinks} to={`/myrestaurant/${el.id}`}>
                                               <div className={styles.options}>
                                               {el.name}
