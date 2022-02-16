@@ -3,15 +3,19 @@ import {RiStarFill }from 'react-icons/ri'
 import { BsHeart } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
 import { useState } from "react";
+import { deleteFavorite } from "../../actions";
+import { useDispatch } from "react-redux";
 
 
 export default function UserFavorite(props) {
 
     const [favorite, setFavorite] = useState(true)
+    const dispatch = useDispatch()
 
     function handleFavorite(e) {
         e.preventDefault()
         setFavorite(false)
+        //dispatch(deleteFavorite())
       }
 
     const elem = props.elem;
@@ -19,7 +23,7 @@ export default function UserFavorite(props) {
         <div className={s.review}>
             <div className={s.topRow} >
                 <h4 >{elem.restaurant}</h4>      
-                 
+
                 <div className={elem.rating} > 
 
                     {[...Array(Number(elem.rating)).keys()].map((index) => (

@@ -3,6 +3,7 @@ import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
+  addFavorite
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
@@ -49,6 +50,7 @@ function Details() {
 
   function handleFavorite(e) {
     e.preventDefault()
+    //dispatch(addFavorite())
     setFavorite(true)
   }
 
@@ -62,7 +64,7 @@ function Details() {
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
               <h2 >{myRestaurant.name}</h2>
-              <button onClick={e => handleFavorite(e)}>
+              <button style={{backgroundColor: 'white'}} onClick={e => handleFavorite(e)}>
             {favorite  ? <BsHeartFill
                           style={{
                             display: "inline-block",

@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
-import { getUserReviews, getUserReservation, getUserFavorites } from '../../actions';
+import { getUserReviews, getUserReservation, getUserFavorites} from '../../actions';
 import s from './MyProfile.module.css'
 import UserReview from '../UserReview/UserReview';
 import Navbar from '../NavBar/Navbar';
