@@ -28,9 +28,9 @@ export default function MyProfile() {
         dispatch(getUserReservation(id))// eslint-disable-next-line
       }, [id]);  
 
-      useEffect(() => {      
-        dispatch(getUserFavorites(id))// eslint-disable-next-line
-      }, [id]);
+      // useEffect(() => {      
+      //   dispatch(getUserFavorites(id))// eslint-disable-next-line
+      // }, [id]);
 
         
       const reservesInProgress = (reserves.length>0)?reserves.filter(elem => elem.status === "IN PROGRESS" ):[]
@@ -74,7 +74,7 @@ export default function MyProfile() {
       
       <div className={s.tres}>
         <h1 className={s.favorites}>Resto favoritos</h1>
-        {
+        {/* {
           favorites.length > 0 ?
           favorites.map( (e, index) =>
               <UserFavorite key={index} elem ={e}/>             
@@ -83,7 +83,7 @@ export default function MyProfile() {
               <div className={s.review} >
                   <p>No hay reservas</p>
               </div>
-        }
+        } */}
       </div>
      
     </div>
