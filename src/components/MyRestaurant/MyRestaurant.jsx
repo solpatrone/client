@@ -5,7 +5,7 @@ import {
   getRestaurantReviews,
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -14,7 +14,7 @@ import Loading from "../Loading/Loading";
 import styles from "./MyRestaurant.module.css";
 import { Widget } from "@uploadcare/react-widget";
 import Carousel from "react-bootstrap/Carousel";
-import { addImagesToRestos, getRestoReservations } from "../../actions";
+import { addImagesToRestos, getRestoReservations, deleteRestaurant } from "../../actions";
 import RestoReservations from "../RestoReservations/RestoReservations";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import { AiOutlineDelete } from "react-icons/ai";
@@ -24,11 +24,11 @@ import Swal from "sweetalert2";
 
 export default function Restaurant() {
   const dispatch = useDispatch();
+  const history = useHistory()
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const widgetApi = useRef();
   const myReservations = useSelector((state) => state.restoReservations);
-
   const hasReviews = useSelector((state) => state.reviews);
 
   let [photo, setPhoto] = useState([]);
@@ -54,6 +54,32 @@ export default function Restaurant() {
   }
 
   
+
+  function handleDelete(e){
+    e.preventDefault()
+    Swal.fire({
+      text: `Vas a eliminar ${myRestaurant.name}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#8aa899",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Guardar cambios",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteRestaurant(params.id))
+        Swal.fire({
+          text: `${myRestaurant.name} fue elilmiado con éxito`,
+          confirmButtonColor: "#8aa899",
+        });
+          history.push("/home")
+         // window.location.reload(false);
+      } else if (result.dismiss === "cancel") {
+        Swal.fire({
+          text: "No se guardaron los cambios",
+        });
+      }
+    });
+  }
 
   function handleClick(e) {
     e.preventDefault();
@@ -119,13 +145,14 @@ export default function Restaurant() {
                         <h2 className={styles.restoName}>
                           {myRestaurant.name}
                         </h2>
-
+                        <button onClick={ e => handleDelete(e)}>
                         <AiOutlineDelete
                           style={{
                             color: "var(--error-color)",
                             fontSize: "25px",
                           }}
                         />
+                        </button>
                       </div>
                       <div className={styles.address_icons}>
                         <div className={styles.address}>
@@ -148,7 +175,8 @@ export default function Restaurant() {
                               (key) => (
                                 <RiStarFill
                                   size={13}
-                                  style={{ fill: "#f2d349" }}
+                                  style=
+                                  {{ fill: "#f2d349" }}
                                   key={key}
                                 />
                               )

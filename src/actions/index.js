@@ -16,6 +16,7 @@ import {
   PUT_RATING,
   GET_USER_REVIEWS,
   GET_USER_RESERVATION,
+  DELETE_RESTAURANT,
   GET_USER_FAVORITES,
   DELETE_FAVORITE,
   ADD_FAVORITE
@@ -75,6 +76,21 @@ export function putRating(id, info) {
       return {
         type: PUT_RATING,
         payload: newRating,
+      };
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+
+export function deleteRestaurant(id) {
+  return async () => {
+    try {
+      var deleteResto = await axios.put(`${restoModif}/${id}/disabled`);
+      return {
+        type: DELETE_RESTAURANT,
+        payload: deleteResto,
       };
     } catch (e) {
       console.log(e);

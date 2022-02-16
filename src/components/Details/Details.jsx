@@ -21,7 +21,7 @@ import Carousel from 'react-bootstrap/Carousel'
 import defaultImage from '../../assets/no_food.png'
 import { BsHeart } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
-
+import { FcCheckmark } from "react-icons/fc";
 
 function Details() {
   const dispatch = useDispatch();
@@ -142,7 +142,7 @@ function Details() {
               <span>
                 {myRestaurant.cuisine.map((el, index) => (
                   <div key={index} className={styles.tag}>
-                    {el}
+                   <FcCheckmark /> {el}
                   </div>
                 ))}
               </span>

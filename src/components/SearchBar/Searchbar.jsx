@@ -5,7 +5,8 @@ import { getRestoByName, getRestos } from "../../actions";
 import styles from "./Searchbar.module.css";
 
 function Searchbar() {
-  const resto = useSelector((state) => state.allRestaurants);
+  const restoRaw = useSelector((state) => state.allRestaurants);
+  const resto = restoRaw.filter(resto => resto.status === "ENABLED")
   const restoName = resto.map((r) => r.name);
 
   const searchedResto = useSelector((state) => state.restaurants);

@@ -16,7 +16,8 @@ export default function Navbar() {
   const dispatch = useDispatch();
   const id = cookies.get("id");
 
-  const myRestaurants = useSelector((state) => state.myRestaurants);
+  const myRestaurantsRaw = useSelector((state) => state.myRestaurants);
+  const myRestaurants = myRestaurantsRaw.filter(resto => resto.status === "ENABLED")
 
   useEffect(() => {
     if (id) {

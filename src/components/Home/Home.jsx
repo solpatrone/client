@@ -16,7 +16,8 @@ export default function Home() {
   const loading = useSelector((state) => state.loading);
   console.log(loading);
 
-  const allRestaurants = useSelector((state) => state.restaurants);
+  const allRestaurantsRaw = useSelector((state) => state.restaurants);
+  const allRestaurants = allRestaurantsRaw.filter(resto => resto.status === "ENABLED")
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
     return { name: n.name, label: n.name };
