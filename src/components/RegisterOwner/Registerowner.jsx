@@ -165,7 +165,7 @@ export default function RegisterOwner() {
       </div>
       <form onSubmit={(e) => handleSubmit(e)}>
         <div>
-          <h3>Información del Restaurante</h3>
+          
           <div>
             <label>Nombre del Restaurante</label>
             <input
@@ -252,7 +252,7 @@ export default function RegisterOwner() {
               value={owner.description}
               cols="30"
               rows="8"
-              placeholder="Ingrese una breve descripción"
+              placeholder="Ingrese una breve descripción de tu local"
               onChange={(e) => handleChange(e)}
               ></textarea>
             <p className="errors">{errors.description}</p>
