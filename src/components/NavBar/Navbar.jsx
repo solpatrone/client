@@ -58,48 +58,50 @@ export default function Navbar() {
                       
                         <DropdownButton   as={ButtonGroup} title="Menu" id="bg-nested-dropdown" variant="secondary">
                           <Dropdown.Item eventKey="1" variant="secondary" className={styles.btn}> 
+                              <NavLink to="/home" className={styles.navlinks} >    
                             <div>
-                              <NavLink to="/home" className={styles.navlinks}>    
                               Home
-                              </NavLink>
                             </div>
+                              </NavLink>
 
                           </Dropdown.Item>
                             <Dropdown.Item eventKey="2" variant="secondary"> 
-                            <div>
 
                               <NavLink className={styles.navlinks} to="/myProfile">
+                            <div>
                                 Mi perfil
+                            </div>                                
                               </NavLink>
-                            </div>
                               </Dropdown.Item>
 
                             <Dropdown.Item eventKey="3">
-                              <div>
                               <NavLink className={styles.navlinks} to="/registerOwner">
+                              <div>
                                 Registrar restaurant
-                              </NavLink>
                               </div>
+                              </NavLink>
                             </Dropdown.Item>
 
                           {myRestaurants.length>0?
-                            <DropdownButton drop={'start'} as={ButtonGroup} title="Mis restaurant" variant="light">
+                            <DropdownButton drop={'start'} as={ButtonGroup} title="Mis restaurantes" variant="light">
                                 <Dropdown.Item eventKey="4">
-                              <div>
+                              
                                 <NavLink className={styles.navlinks} to="/MyRestaurant">
                                 {myRestaurants.map((el, index) => {
                                   return (
                                     <div key={index} className={styles.resto} >
                                           <Dropdown.Item eventKey="5" className={styles.navlinks} >
-                                            <NavLink className={styles.navlinks2} to={`/myrestaurant/${el.id}`}>
+                                            <NavLink className={styles.navlinks} to={`/myrestaurant/${el.id}`}>
+                                              <div className={styles.options}>
                                               {el.name}
+                                              </div>
                                               </NavLink>
                                           </Dropdown.Item>
                                         </div>
                                       );
                                     })}
                               </NavLink>                            
-                                    </div>
+                                    
                                 </Dropdown.Item>
                             </DropdownButton>
                               :null          }

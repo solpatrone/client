@@ -32,17 +32,37 @@ export default function MyProfile() {
         dispatch(getUserFavorites(id))// eslint-disable-next-line
       }, [id]);
 
+        
+      const reservesInProgress = (reserves.length>0)?reserves.filter(elem => elem.status === "IN PROGRESS" ):[]
+      console.log("reservassssss",reservesInProgress)
     return (
       
     <div>
       <Navbar />
       <h1>Mi perfil </h1>
-      <div className={s.res}>
+      <div className={s.container}>
+
+      <div className={s.uno}>
+        <h1 className={s.bookings}>Mis reservas</h1>
+
+        {
+          reservesInProgress  ?
+          reservesInProgress.map( (e, index) =>
+              <UserReserve key={index} elem ={e}/>             
+            )
+            :
+            <div className={s.review} >
+                  <p>No hay reservas</p>
+              </div>
+        }
+        
+      </div>
+      <div className={s.dos}>
         <h1 className={s.reviews}>Mis reseñas</h1>
         {
           reviews.length > 0 ?
             reviews.map( (e, index) =>
-              <UserReview key={index} elem ={e}/>             
+            <UserReview key={index} elem ={e}/>             
             )
             :
               <div className={s.review} >
@@ -50,21 +70,9 @@ export default function MyProfile() {
               </div>
         }
         </div>
-      <div>
-        <h1 className={s.bookings}>Mis reservas</h1>
-        {
-          reserves.status =  "IN PROGRESS" ?
-          reserves.map( (e, index) =>
-              <UserReserve key={index} elem ={e}/>             
-            )
-            :
-              <div className={s.review} >
-                  <p>No hay reservas</p>
-              </div>
-        }
-      </div>
+        </div>
       
-      <div>
+      <div className={s.tres}>
         <h1 className={s.favorites}>Resto favoritos</h1>
         {
           favorites.length > 0 ?
@@ -77,8 +85,8 @@ export default function MyProfile() {
               </div>
         }
       </div>
-
      
-    </div>)
+    </div>
+    )
 }
 
