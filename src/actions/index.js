@@ -278,7 +278,6 @@ return async function (dispatch) {
     let json = await axios.get(`${userModif}/${id}/reserves`);
     console.log("hola",json);
     const reserves = json && json.data ? json.data : [];
-    console.log("1111111111111111111",reserves)
     return dispatch({
       type: GET_USER_RESERVATION,
       payload: reserves,
