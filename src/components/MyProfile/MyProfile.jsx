@@ -36,7 +36,7 @@ export default function MyProfile() {
         <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
           <Row>
           <Col sm={3}>
-                <Nav variant="pills" className="flex-column" variant="">
+                <Nav className="flex-column" variant="">
                   <Nav.Item>
                     <Nav.Link eventKey="first" className={s.option} >Mis reservas</Nav.Link >
                   </Nav.Item>
