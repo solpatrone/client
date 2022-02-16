@@ -1,7 +1,3 @@
-.wrapper {
-  display: flex;
-  flex-direction: column;
-}
 .container {
   padding-top: 30px;
   display: flex;
@@ -68,20 +64,24 @@ h3 {
 }
 .description {
   margin-top: 10px;
-  width: 70%;
+  width: 90%;
   text-align: justify;
-}
-.reservations {
-  width: 50%;
-  display: flex;
-  flex-direction: column;
+  font-family: var(--input-font);
+  font-size: 13px;
+  line-height: 15px;
 }
 
 .restauranteImage {
   width: 90%;
   margin: auto;
-  min-height: 260px;
-  height: auto;
+  max-height: 260px;
+  box-shadow: 1px 1px 6px var(--background-color),
+    -1px -1px 6px var(--background-color);
+}
+
+.itemC {
+  max-height: 260px;
+  object-fit: fill;
 }
 
 .reviews {
@@ -103,10 +103,6 @@ h3 {
   border-right: 2px solid var(--background-color);
 }
 
-.itemC {
-  max-height: 300px;
-  object-fit: cover;
-}
 .tittle {
   width: 100%;
   display: flex;
@@ -120,4 +116,40 @@ h3 {
   text-transform: capitalize;
   color: var(--dark-color);
   font-size: 35px;
+}
+
+.checks {
+  display: flex;
+  justify-content: space-evenly;
+  width: 90%;
+  padding-bottom: 15px;
+  font-family: var(--input-font);
+  font-size: 13px;
+  line-height: 15px;
+}
+
+.reservationsContainer {
+  height: 520px;
+  overflow-y: scroll;
+}
+
+.reservationsContainer::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 10px;
+  background-color: var(--medium-color);
+}
+
+.reviewsContainer {
+  max-width: 100%;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  height: 520px;
+  overflow-y: scroll;
+}
+
+.reviewsContainer::-webkit-scrollbar {
+  width: 6px;
+  border-radius: 10px;
+  background-color: var(--medium-color);
 }
