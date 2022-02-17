@@ -50,6 +50,7 @@
     font-size: 13px;
     font-weight: bold;
   }
+  
   @media screen and (min-width:1200px){
     .header{
       height: 70px;
@@ -73,7 +74,7 @@
         flex-direction: column;
         height: 250px;
         align-items: center;
-        padding: 0 8px;
+        padding: 10px;
       }
     
   }
