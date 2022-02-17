@@ -304,6 +304,9 @@ export  function postCheckout(response, id) {
       type: POST_CHECKOUT,
       payload
     }
-  };
-catch(e){}
+  }
+  catch (e) {
+    console.log(e);
+  }
+};
 }
