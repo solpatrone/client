@@ -13,7 +13,7 @@ export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
     date: new Date(),
     time: "",
-    pax: 0,
+    pax: "",
     email: userId,
     id: restoId.id,
   });
@@ -24,6 +24,8 @@ export default function Reservations({ userId, restoId }) {
   const [error, setError] = useState({});
 
   const dispatch = useDispatch();
+
+  
 
   let times = [
     { name: "12:00", label: "12 PM", value: "12:00" },
@@ -68,9 +70,17 @@ export default function Reservations({ userId, restoId }) {
     setError(validatePaxMax(e.target.value));
   }
 
+  let onlyNumbers = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+    }
+}
+
   function handleDateChange(e) {
     setReservations((prev) => ({ ...prev, date: e }));
   }
+
+  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -80,7 +90,7 @@ export default function Reservations({ userId, restoId }) {
     setReservations({
       date: new Date(),
       time: "",
-      pax: 0,
+      pax: "",
       email: userId,
       id: restoId.id,
     });
@@ -93,6 +103,7 @@ export default function Reservations({ userId, restoId }) {
     cookies.set("email", reservations.email ,{ path: "/" })
     console.log("reservaaaaaaassss ",cookies)
   }
+
 
   let date = reservations.date.toString().split("00")[0].split(" ");
   date = date[2].concat(" " + date[1] + " ").concat(date[3]);
@@ -157,13 +168,15 @@ export default function Reservations({ userId, restoId }) {
               <div className={s.column}>
                 {!reservations.pax && (
                   <strong className={s.error}>
-                    Selecciona cantidad de personas
+                    Indica cantidad de personas
                   </strong>
                 )}
                 <label>Cantidad de personas</label>
                 <input
-                  type="number"
-                  placeholder="Seleccione cantidad de comensales"
+                  type="text"
+                  placeholder="Indique cantidad de comensales"
+                  onKeyPress={onlyNumbers}
+                  value={reservations.pax}
                   onChange={(e) => handlePaxChange(e)}
                 />
               </div>
