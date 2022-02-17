@@ -177,11 +177,6 @@ export default function rootReducer(state = initialState, action) {
       ...state
     }
 
-  case POST_CHECKOUT:
-    return{
-      ...state
-    }
-
     default:
       return { ...state };
   }
