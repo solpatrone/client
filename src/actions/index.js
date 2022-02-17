@@ -16,6 +16,7 @@ import {
   PUT_RATING,
   GET_USER_REVIEWS,
   GET_USER_RESERVATION,
+  POST_CHECKOUT,
 } from "./types";
 
 const url = "http://localhost:8080";
@@ -286,4 +287,23 @@ return async function (dispatch) {
     console.log(e);
   }
 };
+}
+
+export  function postCheckout(response, id) {
+ 
+  return async function (dispatch)  {
+  try {
+    let payload = {
+      date:response.data,     
+      pax: Number(response.pax),    
+    };
+    let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
+    
+  
+    return {
+      type: POST_CHECKOUT,
+      payload
+    }
+  };
+catch(e){}
 }
