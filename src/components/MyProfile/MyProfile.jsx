@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
-import { getUserReviews, getUserReservation, getUserFavorites} from '../../actions';
+import { getUserReviews, getUserReservation} from '../../actions';
 import s from './MyProfile.module.css'
 import UserReview from '../UserReview/UserReview';
 import Navbar from '../NavBar/Navbar';
 import UserReserve from '../UserReserve/UseReserve';
-import UserFavorite from '../UserFavorite/UserFavorite';
+// import UserFavorite from '../UserFavorite/UserFavorite';
 
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 
@@ -17,7 +17,7 @@ export default function MyProfile() {
     const id = cookies.get("id");
     const reviews = useSelector((state)=>state.userReviews);
     const reserves = useSelector((state)=>state.userReservation)
-    const favorites = useSelector((state) => state.UserFavorites)
+   // const favorites = useSelector((state) => state.UserFavorites)
     
 
     useEffect(() => {

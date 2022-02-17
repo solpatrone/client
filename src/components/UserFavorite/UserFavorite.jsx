@@ -3,14 +3,14 @@ import {RiStarFill }from 'react-icons/ri'
 import { BsHeart } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
 import { useState } from "react";
-import { deleteFavorite } from "../../actions";
-import { useDispatch } from "react-redux";
+//import { deleteFavorite } from "../../actions";
+// import { useDispatch } from "react-redux";
 
 
 export default function UserFavorite(props) {
 
     const [favorite, setFavorite] = useState(true)
-    const dispatch = useDispatch()
+  //  const dispatch = useDispatch()
 
     function handleFavorite(e) {
         e.preventDefault()

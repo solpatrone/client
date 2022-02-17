@@ -4,7 +4,7 @@ import { AiOutlineDelete } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { deleteReview, getRestaurantReviews, putRating, getUserReviews } from "../../actions";
 import { useSelector } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export default function UserReview(props) {
 
@@ -17,6 +17,7 @@ export default function UserReview(props) {
    
     useEffect(()=>{
         dispatch(getUserReviews(elem.UserId))
+        // eslint-disable-next-line
     },[reviews])
 
 

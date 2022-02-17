@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import Calendar from "react-calendar";
@@ -6,7 +6,7 @@ import "./reactCalendar.css";
 import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
-import {getRestoDetails, postReservation , postCheckout} from "../../actions";
+import { postReservation , postCheckout} from "../../actions";
 import Cookies from "universal-cookie";
 
 
