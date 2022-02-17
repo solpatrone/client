@@ -289,20 +289,20 @@ return async function (dispatch) {
 };
 }
 
-export  function postCheckout(response, id) {
+export  function postCheckout(pax, date, id) {
  
-  return async function (dispatch)  {
+  return async function ()  {
   try {
     let payload = {
-      date:response.data,     
-      pax: Number(response.pax),    
+      date:date,     
+      pax: pax,    
     };
     let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
     
   
     return {
       type: POST_CHECKOUT,
-      payload
+      payload:json
     }
   }
   catch (e) {

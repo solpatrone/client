@@ -76,7 +76,7 @@ export default function Reservations({ userId, restoId }) {
     e.preventDefault();
     const cookies = new Cookies();
     dispatch(postReservation(reservations));
-    dispatch(postCheckout(restoId.id,date,pax))
+    dispatch(postCheckout(restoId.id,date,reservations.pax))
     setReservations({
       date: new Date(),
       time: "",
