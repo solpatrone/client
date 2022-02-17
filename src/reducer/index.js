@@ -18,6 +18,7 @@ import {
   PUT_RATING,
   GET_USER_REVIEWS,
   GET_USER_RESERVATION,
+  POST_CHECKOUT,
 } from "../actions/types";
 
 const initialState = {
@@ -156,6 +157,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state,
       };
+
+  case POST_CHECKOUT:
+    return{
+      ...state
+    }
 
     default:
       return { ...state };
