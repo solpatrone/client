@@ -11,10 +11,13 @@ export default function RestoReservations({ date, pax, time, username }) {
   return (
     <div className={s.container}>
       <div className={s.header}>
+
         <div>
           <FaUserCircle size={30} style={{ fill: "var(--medium-color)" }} />
         </div>
+
         <div>{username}</div>
+        
       </div>
       <div className={s.inputContainer}>
         <div className={s.input}>
