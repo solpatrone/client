@@ -99,9 +99,7 @@ export default function ReviewForm({setNewReview}) {
       dispatch(getRestoDetails(params.id));
     }, 1000);
     setNewReview(false);
-    setTimeout(() => { 
-      dispatch(putRating(params.id,changeRating()))
-    }, 2000);
+    
     
   }
 
@@ -144,3 +142,5 @@ export default function ReviewForm({setNewReview}) {
     </div>
   );
 }
+
+
