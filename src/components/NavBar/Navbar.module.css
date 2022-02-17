@@ -1,10 +1,4 @@
-.navBar {
-  position: sticky;
-  display: flex;
-  flex-direction: column;
-  max-width: 100vw;
-  margin-top: 25px;
-}
+
 .mainNavbar {
   display: flex;
   flex-direction: row;
@@ -112,4 +106,11 @@
 .dropB:active{
   background-color: #f0ede0;
 
+}
+@media screen and(max-width:540px) {
+  .mainNavbar{
+    display: inline;
+    background-color: aqua;
+  }
+  
 }

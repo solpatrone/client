@@ -9,7 +9,6 @@ import { MdGroups } from "react-icons/md";
 import { postReservation , postCheckout} from "../../actions";
 import Cookies from "universal-cookie";
 
-
 export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
     date: new Date(),
