@@ -20,7 +20,8 @@ import {
   DELETE_REVIEW,
   GET_USER_FAVORITES,
   DELETE_FAVORITE,
-  ADD_FAVORITE
+  ADD_FAVORITE,
+  POST_CHECKOUT,
 } from "./types";
 
 const url = "http://localhost:8080";
@@ -373,3 +374,24 @@ return async function (dispatch) {
 //   }
 //  }
 
+export  function postCheckout(pax, date, id) {
+ 
+  return async function ()  {
+  try {
+    let payload = {
+      date:date,     
+      pax: pax,    
+    };
+    let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
+    
+  
+    return {
+      type: POST_CHECKOUT,
+      payload:json
+    }
+  }
+  catch (e) {
+    console.log(e);
+  }
+};
+}

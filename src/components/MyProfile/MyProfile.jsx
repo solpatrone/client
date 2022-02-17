@@ -40,7 +40,6 @@ export default function MyProfile() {
     <div>
       <Navbar />
       <div className={s.centeredContainer}>
-      <h1>Mi perfil </h1>
         <Tab.Container id="left-tabs-example" defaultActiveKey="first" >
           <Row>
           <Col sm={3}>
@@ -59,21 +58,22 @@ export default function MyProfile() {
             <Col sm={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="first">
-                  <h2>Mis reservas</h2>
-                      {
-                        reservesInProgress  ?
-                        reservesInProgress.map( (e, index) =>
-                            <UserReserve key={index} elem ={e}/>             
-                           )
-                          :
-                          <div className={s.review} >
-                                <p>No hay reservas</p>
-                            </div>
-                      }        
+              <div className={s.reviewsContainer}>
+                  {
+                    reservesInProgress  ?
+                    reservesInProgress.map( (e, index) =>
+                        <UserReserve key={index} elem ={e}/>             
+                        )
+                      :
+                      <div className={s.review} >
+                            <p>No hay reservas</p>
+                        </div>
+                  }        
+                      </div>
                 </Tab.Pane >
 
                 <Tab.Pane eventKey="second">
-                  <h2>Mis reseñas</h2>
+                <div className={s.reservationsContainer}>
                       {
                         reviews.length > 0 ?
                         reviews.map( (e, index) =>
@@ -84,6 +84,7 @@ export default function MyProfile() {
                               <p>No hay reviews</p>
                           </div>
                       }
+                      </div>
                 </Tab.Pane>
 
                 <Tab.Pane eventKey="third">

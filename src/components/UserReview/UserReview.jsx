@@ -44,7 +44,6 @@ export default function UserReview(props) {
               setTimeout(() => {
                 dispatch(getRestaurantReviews(restaurant.id))
                 dispatch(putRating(restaurant.id,changeRating()))
-                console.log('set time out!')
               }, 1000);
             
             console.log('reviews resto', reviews)

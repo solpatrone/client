@@ -6,7 +6,9 @@ import "./reactCalendar.css";
 import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
-import { getRestoDetails, postReservation } from "../../actions";
+import {getRestoDetails, postReservation , postCheckout} from "../../actions";
+import Cookies from "universal-cookie";
+
 
 export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
@@ -16,6 +18,10 @@ export default function Reservations({ userId, restoId }) {
     email: userId,
     id: restoId.id,
   });
+  //restoId.name
+  //reservation.time.value
+  //date
+  //reservation.pax
   const [error, setError] = useState({});
 
   const dispatch = useDispatch();
@@ -78,8 +84,10 @@ export default function Reservations({ userId, restoId }) {
   
 
   function handleSubmit(e) {
-   
+    e.preventDefault();
+    const cookies = new Cookies();
     dispatch(postReservation(reservations));
+    dispatch(postCheckout(restoId.id,date,reservations.pax))
     setReservations({
       date: new Date(),
       time: "",
@@ -87,7 +95,14 @@ export default function Reservations({ userId, restoId }) {
       email: userId,
       id: restoId.id,
     });
-   
+    
+    cookies.set("id", reservations.id,{ path: "/" })
+    cookies.set("RestoNameReserv", restoId.name,{ path: "/" })
+    cookies.set("time", reservations.time.value ,{ path: "/" })
+    cookies.set("date", date ,{ path: "/" })
+    cookies.set("pax", reservations.pax ,{ path: "/" })
+    cookies.set("email", reservations.email ,{ path: "/" })
+    console.log("reservaaaaaaassss ",cookies)
   }
 
 

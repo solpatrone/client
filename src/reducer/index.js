@@ -21,6 +21,7 @@ import {
   GET_USER_FAVORITES,
   DELETE_RESTAURANT,
   DELETE_REVIEW,
+  POST_CHECKOUT,
 } from "../actions/types";
 
 const initialState = {
@@ -170,6 +171,11 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state
       }
+
+  case POST_CHECKOUT:
+    return{
+      ...state
+    }
 
     default:
       return { ...state };
