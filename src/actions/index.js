@@ -17,6 +17,7 @@ import {
   GET_USER_REVIEWS,
   GET_USER_RESERVATION,
   DELETE_RESTAURANT,
+  DELETE_REVIEW,
   GET_USER_FAVORITES,
   DELETE_FAVORITE,
   ADD_FAVORITE
@@ -36,7 +37,7 @@ export function createClient(info) {
       console.log(newClient);
       return newClient;
     } catch (e) {
-      console.log(e);
+      alert('');;
     }
   };
 }
@@ -110,12 +111,13 @@ export function createOwner(info) {
       const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine)); //stringfyle== pasa un objeto a un string en format JSON
       info.cuisine = cuisineCopy.map((e) => e.name);
       info.personas_max = Number(info.personas_max);
-
+      console.log('try')
       var newOwner = await axios.post(restoModif, info);
       console.log(newOwner);
       return newOwner;
     } catch (e) {
-      console.log(e);
+      console.log('catch')
+      alert(e.response.data.message);
     }
   };
 }
@@ -270,8 +272,7 @@ export  function postReservation(payload) {
       // );
       return newRes;
     } catch (e) {
-      console.log('acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-      console.log(e);
+      alert(e.response.data.message);;
     }
   };
 }
@@ -306,6 +307,20 @@ export function getUserReviews(id) {
   };
 }
 
+export function deleteReview(idUser, idReview){
+  return async function (dispatch) {
+    try{
+      let response = await axios.delete(`${userModif}/${idUser}/reviews/${idReview}`)
+      return dispatch({
+        type: DELETE_REVIEW,
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
 // export function getUserFavorites(id) {
 //   return async function (dispatch) {
 //     try {
@@ -326,7 +341,7 @@ export function getUserReservation(id){
 return async function (dispatch) {
   try {
     let json = await axios.get(`${userModif}/${id}/reserves`);
-    console.log("hola",json);
+   
     const reserves = json && json.data ? json.data : [];
    
     return dispatch({

@@ -12,7 +12,6 @@ import { DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 export default function Navbar() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
-  console.log(cookies);
   const dispatch = useDispatch();
   const id = cookies.get("id");
 

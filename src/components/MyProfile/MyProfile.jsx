@@ -18,8 +18,7 @@ export default function MyProfile() {
     const reviews = useSelector((state)=>state.userReviews);
     const reserves = useSelector((state)=>state.userReservation)
     const favorites = useSelector((state) => state.UserFavorites)
-    console.log('accccccccccccccca',reviews)
-    console.log("mis reservas",reserves)
+    
 
     useEffect(() => {
         dispatch(getUserReviews(id))// eslint-disable-next-line
@@ -35,7 +34,7 @@ export default function MyProfile() {
 
         
       const reservesInProgress = (reserves.length>0)?reserves.filter(elem => elem.status === "IN PROGRESS" ):[]
-      console.log("reservas en progreso",reservesInProgress)
+    
     return (
       
     <div>

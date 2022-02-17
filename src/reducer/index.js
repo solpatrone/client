@@ -20,6 +20,7 @@ import {
   GET_USER_RESERVATION,
   GET_USER_FAVORITES,
   DELETE_RESTAURANT,
+  DELETE_REVIEW,
 } from "../actions/types";
 
 const initialState = {
@@ -45,8 +46,8 @@ export default function rootReducer(state = initialState, action) {
     case GET_RESTOS:
       return {
         ...state,
-        restaurants: action.payload,
-        allRestaurants: action.payload,
+        restaurants: action.payload.filter(resto => resto.status === 'ENABLED'),
+        allRestaurants: action.payload.filter(resto => resto.status === 'ENABLED'),
         loading: false,
       };
     case GET_RESTO_NAME:
@@ -164,6 +165,10 @@ export default function rootReducer(state = initialState, action) {
     case DELETE_RESTAURANT:
       return {
         ...state,
+      }
+    case DELETE_REVIEW:
+      return {
+        ...state
       }
 
     default:

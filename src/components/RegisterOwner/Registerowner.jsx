@@ -19,7 +19,7 @@ export default function RegisterOwner() {
   let dispatch = useDispatch();
 
   const cookies = new Cookies();
-
+  
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
     return { name: n.name, label: n.name, value: n.name };
@@ -98,25 +98,32 @@ export default function RegisterOwner() {
     setOwner((prev) => ({ ...prev, cuisine: e }));
   }
 
+  let onlyNumbers = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+    }
+}
+
   function handleSubmit(e) {
     if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
       dispatch(getRestos());
-
+      console.log('owner' , owner.email)
       setIsSubmit(true);
-      setOwner({
-        name: "",
-        address: "",
-        neighborhood_info: "",
-        cuisine: [],
-        photo: [],
-        email: "",
-        personas_max: "",
-        owner: own,
-        description: "",
-        price: "",
-      });
+      // setOwner({
+      //   name: "",
+      //   address: "",
+      //   neighborhood_info: "",
+      //   cuisine: [],
+      //   photo: [],
+      //   email: "",
+      //   personas_max: "",
+      //   owner: own,
+      //   description: "",
+      //   price: "",
+      // });
     }
+
     history.push("/home");
   }
 
@@ -211,8 +218,9 @@ export default function RegisterOwner() {
               placeholder="ingresa cantidad de reservas maximas"
               value={owner.personas_max}
               name={"personas_max"}
+              onKeyPress={onlyNumbers}
               onChange={(e) => handleChange(e)}
-            
+
             />
           </div>
           <div>

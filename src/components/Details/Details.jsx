@@ -33,7 +33,6 @@ function Details() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
 
-  console.log(params.id)
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));

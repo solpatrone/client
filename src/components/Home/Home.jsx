@@ -16,12 +16,14 @@ export default function Home() {
   const loading = useSelector((state) => state.loading);
   console.log(loading);
 
-  const allRestaurantsRaw = useSelector((state) => state.restaurants);
-  const allRestaurants = allRestaurantsRaw.filter(resto => resto.status === "ENABLED")
+  const allRestaurants = useSelector((state) => state.restaurants);
+ // const allRestaurantsNo = allRestaurantsRaw.filter(resto => resto.status === "ENABLED")
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
     return { name: n.name, label: n.name };
   });
+
+  
 
   const allCuisinesRaw = useSelector((state) => state.cuisines);
   const allCuisines = allCuisinesRaw.map((n) => {
