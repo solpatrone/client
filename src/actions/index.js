@@ -16,6 +16,12 @@ import {
   PUT_RATING,
   GET_USER_REVIEWS,
   GET_USER_RESERVATION,
+  DELETE_RESTAURANT,
+  DELETE_REVIEW,
+//  GET_USER_FAVORITES,
+ // DELETE_FAVORITE,
+//  ADD_FAVORITE,
+  POST_CHECKOUT,
 } from "./types";
 
 const url = "http://localhost:8080";
@@ -32,7 +38,7 @@ export function createClient(info) {
       console.log(newClient);
       return newClient;
     } catch (e) {
-      console.log(e);
+      alert('');;
     }
   };
 }
@@ -41,6 +47,20 @@ export function addImagesToRestos(request, id) {
   return async (dispatch) => {
     try {
       var response = await axios.put(`${restoModif}/${id}`, request);
+      return dispatch({
+        type: GET_RESTO_DETAILS,
+        payload: [response.data],
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+}
+
+export function addToFavorites(request, id) {
+  return async (dispatch) => {
+    try {
+      var response = await axios.put(`${userModif}/${id}`, request);
       return dispatch({
         type: GET_RESTO_DETAILS,
         payload: [response.data],
@@ -65,6 +85,21 @@ export function putRating(id, info) {
   };
 }
 
+
+export function deleteRestaurant(id) {
+  return async () => {
+    try {
+      var deleteResto = await axios.put(`${restoModif}/${id}/disabled`);
+      return {
+        type: DELETE_RESTAURANT,
+        payload: deleteResto,
+      };
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
 export function createOwner(info) {
   return async () => {
     try {
@@ -77,12 +112,13 @@ export function createOwner(info) {
       const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine)); //stringfyle== pasa un objeto a un string en format JSON
       info.cuisine = cuisineCopy.map((e) => e.name);
       info.personas_max = Number(info.personas_max);
-
+      console.log('try')
       var newOwner = await axios.post(restoModif, info);
       console.log(newOwner);
       return newOwner;
     } catch (e) {
-      console.log(e);
+      console.log('catch')
+      alert(e.response.data.message);
     }
   };
 }
@@ -237,8 +273,7 @@ export  function postReservation(payload) {
       // );
       return newRes;
     } catch (e) {
-      console.log('acaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa')
-      console.log(e);
+      alert(e.response.data.message);;
     }
   };
 }
@@ -272,17 +307,90 @@ export function getUserReviews(id) {
     }
   };
 }
+
+export function deleteReview(idUser, idReview){
+  return async function (dispatch) {
+    try{
+      let response = await axios.delete(`${userModif}/${idUser}/reviews/${idReview}`)
+      return dispatch({
+        type: DELETE_REVIEW,
+        payload: response.data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  }
+}
+
+// export function getUserFavorites(id) {
+//   return async function (dispatch) {
+//     try {
+//      // let json = await axios.get(`${userModif}/${id}/favorites`);
+//      let json = await axios.get(`${userModif}/${id}/favorites`);
+//       const favorites = json && json.data ? json.data : [];
+//       return dispatch({
+//         type: GET_USER_FAVORITES,
+//         payload: favorites,
+//       });
+//     } catch (e) {
+//       console.log(e);
+//     }
+//   };
+// }
+
 export function getUserReservation(id){
 return async function (dispatch) {
   try {
     let json = await axios.get(`${userModif}/${id}/reserves`);
-    console.log("hola",json);
+   
     const reserves = json && json.data ? json.data : [];
+   
     return dispatch({
       type: GET_USER_RESERVATION,
       payload: reserves,
     });
   } catch (e) {
+    console.log(e);
+  }
+};
+}
+
+
+// export function deleteFavorite( id){
+//  return{type: DELETE_FAVORITE, payload:id} 
+// }
+
+// export function addFavorite(request,id){
+//   return async(dispatch) => {
+//     try {
+//       var response = await axios.put(`${userModif}/${id}/favorites`, request);
+//       return dispatch({
+//         type: ADD_FAVORITE,
+//         payload: [response.data],
+//       });
+//     } catch (e) {
+//       console.error(e);
+//     }
+//   }
+//  }
+
+export  function postCheckout(pax, date, id) {
+ 
+  return async function ()  {
+  try {
+    let payload = {
+      date:date,     
+      pax: pax,    
+    };
+    let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
+    
+  
+    return {
+      type: POST_CHECKOUT,
+      payload:json
+    }
+  }
+  catch (e) {
     console.log(e);
   }
 };

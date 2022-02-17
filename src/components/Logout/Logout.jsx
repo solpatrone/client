@@ -17,7 +17,7 @@ export default function Logout() {
     cookies.set("owner", "", { path: "/" });
 
     history.push("/home");
-    console.log(cookies);
+  
   }
 
   return (

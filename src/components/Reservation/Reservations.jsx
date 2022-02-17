@@ -6,19 +6,27 @@ import "./reactCalendar.css";
 import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
-import { postReservation } from "../../actions";
+import { postReservation , postCheckout} from "../../actions";
+import Cookies from "universal-cookie";
+
 
 export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
     date: new Date(),
     time: "",
-    pax: 0,
+    pax: "",
     email: userId,
     id: restoId.id,
   });
+  //restoId.name
+  //reservation.time.value
+  //date
+  //reservation.pax
   const [error, setError] = useState({});
 
   const dispatch = useDispatch();
+
+  
 
   let times = [
     { name: "12:00", label: "12 PM", value: "12:00" },
@@ -63,21 +71,40 @@ export default function Reservations({ userId, restoId }) {
     setError(validatePaxMax(e.target.value));
   }
 
+  let onlyNumbers = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+    }
+}
+
   function handleDateChange(e) {
     setReservations((prev) => ({ ...prev, date: e }));
   }
 
+  
+
   function handleSubmit(e) {
     e.preventDefault();
+    const cookies = new Cookies();
     dispatch(postReservation(reservations));
+    dispatch(postCheckout(restoId.id,date,reservations.pax))
     setReservations({
       date: new Date(),
       time: "",
-      pax: 0,
+      pax: "",
       email: userId,
       id: restoId.id,
     });
+    
+    cookies.set("id", reservations.id,{ path: "/" })
+    cookies.set("RestoNameReserv", restoId.name,{ path: "/" })
+    cookies.set("time", reservations.time.value ,{ path: "/" })
+    cookies.set("date", date ,{ path: "/" })
+    cookies.set("pax", reservations.pax ,{ path: "/" })
+    cookies.set("email", reservations.email ,{ path: "/" })
+    console.log("reservaaaaaaassss ",cookies)
   }
+
 
   let date = reservations.date.toString().split("00")[0].split(" ");
   date = date[2].concat(" " + date[1] + " ").concat(date[3]);
@@ -142,13 +169,15 @@ export default function Reservations({ userId, restoId }) {
               <div className={s.column}>
                 {!reservations.pax && (
                   <strong className={s.error}>
-                    Selecciona cantidad de personas
+                    Indica cantidad de personas
                   </strong>
                 )}
                 <label>Cantidad de personas</label>
                 <input
-                  type="number"
-                  placeholder="Seleccione cantidad de comensales"
+                  type="text"
+                  placeholder="Indique cantidad de comensales"
+                  onKeyPress={onlyNumbers}
+                  value={reservations.pax}
                   onChange={(e) => handlePaxChange(e)}
                 />
               </div>
