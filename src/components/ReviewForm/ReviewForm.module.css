@@ -60,8 +60,7 @@
   @media screen and (max-width: 800px){
     .container{
       width: 200px;
-      margin-left: 70px;
-     
+      margin-left:60px;    
 
     }
   }
