@@ -1,17 +1,45 @@
 import s from "./UserReserve.module.css"
+import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
+import { MdGroups } from "react-icons/md";
 
 export default function UserReserve(props) {
 
     const elem = props.elem;
     return (
-        <div className={s.review}>
-            <div className={s.topRow}>
-                <div className={s.text}><b>Para el restaurant :</b> {elem.RestaurantId}</div>
-                <div className={s.text}><b>A nombre de :</b>{elem.author}</div>
-                <div className={s.text}><b>Dia de la reservas:</b> {elem.date.split("T", 1)[0].split("-").reverse().join("-")}</div>
-                <div className={s.text}><b>Para las {elem.time} hs. </b></div>            
-                <div className={s.text}><b>Para {elem.pax} personas</b></div>
-            </div>                
+        <div className={s.container}>
+            <div className={s.header}>
+                <div>
+                    {elem.RestaurantId}
+                </div>
+
+                </div>
+                <div className={s.inputContainer}>
+             
+                <div className={s.input}>
+                    <p>
+                        <FaRegCalendarAlt style={{ color: "var(--bright-color)" }} /> Fecha
+                    </p>  
+                    <span>
+                        {elem.date.split("T", 1)[0].split("-").reverse().join("-")}
+                    </span>  
+                </div>
+                <div className={s.input}>
+                    <p>
+                        <FaClock style={{ color: "var(--bright-color)" }} /> Horario
+                    </p>
+                    <span>
+                        {elem.time}
+                    </span>
+                    </div>            
+                <div className={s.input}>
+                    <p>
+                        <MdGroups style={{ color: "var(--bright-color)" }} /> Personas
+                    </p>
+                    <span>
+                        {elem.pax} 
+                    </span>
+                 </div>                
+            </div>
         </div> 
     )
 }
