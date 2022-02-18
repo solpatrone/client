@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import Calendar from "react-calendar";
@@ -25,8 +25,6 @@ export default function Reservations({ userId, restoId }) {
   const [error, setError] = useState({});
   
   const dispatch = useDispatch();
-
-  
 
   let times = [
     { name: "12:00", label: "12 PM", value: "12:00" },
@@ -86,7 +84,7 @@ export default function Reservations({ userId, restoId }) {
   function handleSubmit(e) {
     e.preventDefault();
     const cookies = new Cookies();
-    dispatch(postReservation(reservations));
+    // dispatch(postReservation(reservations));
 //     let templateParams = {
 //       resto_name : restoId.name,
 //       pax: reservations.pax,
@@ -100,14 +98,16 @@ export default function Reservations({ userId, restoId }) {
 //       }, (error) => {
 //           console.log(error.text);
 //       });
-    dispatch(postCheckout(restoId.id,date,reservations.pax))
+    dispatch(postCheckout(restoId.id,reservations.date,reservations.pax))
     setReservations({
       date: new Date(),
       time: "",
       pax: "",
       email: userId,
       id: restoId.id,
+      
     });
+  
     
     cookies.set("id", reservations.id,{ path: "/" })
     cookies.set("RestoNameReserv", restoId.name,{ path: "/" })
