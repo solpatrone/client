@@ -7,7 +7,7 @@ import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
 // import emailjs from "emailjs-com"
-import { postReservation , postCheckout} from "../../actions";
+import {postCheckout} from "../../actions";
 import Cookies from "universal-cookie";
 
 export default function Reservations({ userId, restoId }) {
