@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import Calendar from "react-calendar";
@@ -6,7 +6,8 @@ import "./reactCalendar.css";
 import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
-import { postReservation , postCheckout} from "../../actions";
+// import emailjs from "emailjs-com"
+import {postCheckout} from "../../actions";
 import Cookies from "universal-cookie";
 
 export default function Reservations({ userId, restoId }) {
@@ -22,10 +23,8 @@ export default function Reservations({ userId, restoId }) {
   //date
   //reservation.pax
   const [error, setError] = useState({});
-
-  const dispatch = useDispatch();
-
   
+  const dispatch = useDispatch();
 
   let times = [
     { name: "12:00", label: "12 PM", value: "12:00" },
@@ -85,15 +84,30 @@ export default function Reservations({ userId, restoId }) {
   function handleSubmit(e) {
     e.preventDefault();
     const cookies = new Cookies();
-    dispatch(postReservation(reservations));
-    dispatch(postCheckout(restoId.id,date,reservations.pax))
+    // dispatch(postReservation(reservations));
+//     let templateParams = {
+//       resto_name : restoId.name,
+//       pax: reservations.pax,
+//       time: reservations.time.value,
+//       date: date,
+//       user_email: reservations.email
+//  }
+//     emailjs.send("service_vwcqene","template_zn5kw4j", templateParams, "user_xvn5dt907bREXqYpY0YPa")
+//       .then((result) => {
+//           console.log(result.text);
+//       }, (error) => {
+//           console.log(error.text);
+//       });
+    dispatch(postCheckout(restoId.id,reservations.date,reservations.pax))
     setReservations({
       date: new Date(),
       time: "",
       pax: "",
       email: userId,
       id: restoId.id,
+      
     });
+  
     
     cookies.set("id", reservations.id,{ path: "/" })
     cookies.set("RestoNameReserv", restoId.name,{ path: "/" })
