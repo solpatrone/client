@@ -81,7 +81,6 @@
 }
 .reservationsContainer {
     height: 750px;
-    overflow-y: scroll;
   }
   .reservationsContainer::-webkit-scrollbar {
     width: 6px;
