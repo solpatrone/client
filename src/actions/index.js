@@ -205,6 +205,7 @@ export function postReview(payload) {
     };
   };
   let revFormated = revToBack(payload);
+  console.log('id',revFormated.id)
   return async (dispatch) => {
     try {
       let newReview = await axios.post(`${restoModif}/${payload.id}/reviews`, revFormated);
@@ -250,21 +251,24 @@ export function getNeighborhoods() {
   };
 }
 
-export  function postReservation(payload) {
-  const revToBack = ( {date, time, pax, email, id}) => {
+export  function postReservation(date, time, pax, email, id) {
+  console.log('action', date)
+  console.log('action', id)
+  const revToBack = () => {
     return {
       date,
-      time: time.value,
+      time: time,
       pax: Number(pax),
       email,
       id,
     };
   };
-  let revFormated =  revToBack(payload);
+  let revFormated =  revToBack({date, time, pax, email, id});
+  
   return async function () {
     try {
       console.log("payload", revFormated);
-      var newRes = await axios.post(`${restoModif}/${payload.id}/reserves`, revFormated);
+      var newRes = await axios.post(`${restoModif}/${id}/reserves`, revFormated);
       return newRes;
     } catch (e) {
       alert(e.response.data.message);;

@@ -34,7 +34,7 @@ function App() {
       <Route path={"/Login"} render={() => <Login />} />
       <Route path={"/images"} render={() => <LoadImage />} />
       <Route path={"/reservations"} render={() => <Reservations />} />
-      <Route path={"/reservations/success"} render={() => <MercadoPago />} />
+      <Route path={"/success"} render={() => <MercadoPago />} />
       <Route path={"/reservations/canceled"} render={() => <PaymentError />} />
     </div>
   );
