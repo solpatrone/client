@@ -3,6 +3,7 @@ import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
+ // addFavorite
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
@@ -18,6 +19,9 @@ import Cookies from "universal-cookie";
 import Reservations from "../Reservation/Reservations";
 import Carousel from 'react-bootstrap/Carousel'
 import defaultImage from '../../assets/no_food.png'
+import { BsHeart } from "react-icons/bs";
+import { BsHeartFill } from "react-icons/bs";
+import { FcCheckmark } from "react-icons/fc";
 
 function Details() {
   const dispatch = useDispatch();
@@ -25,11 +29,10 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector((state) => state.reviews);
-
+  const [favorite, setFavorite] = useState(false)
   const cookies = new Cookies();
   const usuario = cookies.get("username");
 
-  console.log(params.id)
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
@@ -43,10 +46,12 @@ function Details() {
     setNewReview(!newReview);
   }
 
-  //   function handlePreviousImage(e) {
-  //     e.preventDefault();
-  //     setCurrentImage(--currentImage)
-  // }
+
+  function handleFavorite(e) {
+    e.preventDefault()
+    //dispatch(addFavorite())
+    setFavorite(true)
+  }
 
   return (
     <div>
@@ -57,8 +62,23 @@ function Details() {
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
-              <h2>{myRestaurant.name}</h2>
-
+              <h2 >{myRestaurant.name}</h2>
+              <button style={{backgroundColor: 'white'}} onClick={e => handleFavorite(e)}>
+            {favorite  ? <BsHeartFill
+                          style={{
+                            display: "inline-block",
+                            fontSize: "25px",
+                            color: "var(--error-color)"
+                          }}
+                        /> :  <BsHeart
+                          style={{
+                            display: "inline-block",
+                            fontSize: "25px",
+                          }}
+                        />
+                      }
+                
+              </button>
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
@@ -121,7 +141,7 @@ function Details() {
               <span>
                 {myRestaurant.cuisine.map((el, index) => (
                   <div key={index} className={styles.tag}>
-                    {el}
+                   <FcCheckmark /> {el}
                   </div>
                 ))}
               </span>

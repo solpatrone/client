@@ -12,11 +12,11 @@ import { DropdownButton, ButtonGroup, Dropdown } from "react-bootstrap";
 export default function Navbar() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
-  console.log(cookies);
   const dispatch = useDispatch();
   const id = cookies.get("id");
 
-  const myRestaurants = useSelector((state) => state.myRestaurants);
+  const myRestaurantsRaw = useSelector((state) => state.myRestaurants);
+  const myRestaurants = myRestaurantsRaw.filter(resto => resto.status === "ENABLED")
 
   useEffect(() => {
     if (id) {
