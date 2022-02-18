@@ -1,5 +1,5 @@
 .container {
-  max-height: 450px;
+  max-height: 900px;
   width: 90%;
   border-radius: 5px;
   box-shadow: 1px 1px 3px var(--medium-color), -1px -1px 3px var(--medium-color);
@@ -17,6 +17,7 @@
   border-radius: 10px;
   height: 6px;
 }
+
 
 .headContainer {
   border-radius: 5px 0px 0px 0px;
