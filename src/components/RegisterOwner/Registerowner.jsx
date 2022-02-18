@@ -167,6 +167,9 @@ export default function RegisterOwner() {
 
       <Navbar/>
     <div className="box">
+      <div children>
+
+      
       <div>
         <h2>Registra tu restaurante</h2>
       </div>
@@ -256,6 +259,7 @@ export default function RegisterOwner() {
           </div>
           <div>
             <textarea
+              className="inputTextarea"
               name="description"
               value={owner.description}
               cols="30"
@@ -276,7 +280,8 @@ export default function RegisterOwner() {
           </button>
         </div>
       </form>
+      </div>
     </div>
-            </div>
+  </div>
   );
 }
