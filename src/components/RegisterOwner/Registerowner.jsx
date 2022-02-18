@@ -173,115 +173,115 @@ export default function RegisterOwner() {
 
       
       <div>
-        <h2>Registra tu restaurante</h2>
-      </div>
-      <form onSubmit={(e) => handleSubmit(e)}>
-        <div>
-          
-          <div>
-            <label>Nombre del Restaurante</label>
-            <input
-              type="text"
-              name="name"
-              value={owner.name}
-              placeholder="Ingrese el nombre del restaurante"
-              autoComplete="off"
-              onChange={(e) => handleChange(e)}
-              />
-            <p className="errors">{errors.name}</p>
-          </div>
-
-          <div>
-            <label>Email del restaurant</label>
-            <input
-              type="text"
-              name="email"
-              value={owner.email}
-              placeholder="Ingrese el nombre del restaurante"
-              autoComplete="off"
-              onChange={(e) => handleChange(e)}
-            />
-            <p className="errors">{errors.email}</p>
-          </div>
-
-          <div>
-            <label>Direccion</label>
-            <input
-              type="text"
-              name="address"
-              value={owner.address}
-              placeholder="Ingrese la calle"
-              autoComplete="off"
-              onChange={(e) => handleChange(e)}
-              />
-            <p className="errors">{errors.address}</p>
-          </div>
-          <div>
-            <label>Reserva maxima</label>
-            <input
-              className="text"
-              placeholder="ingresa cantidad de reservas maximas"
-              value={owner.personas_max}
-              name={"personas_max"}
-              onKeyPress={onlyNumbers}
-              onChange={(e) => handleChange(e)}
-
-            />
-          </div>
-          <div>
-            <label className="inputText">Barrio</label>
-            <Select
-              className="selectOptions"
-              options={allNeighborhoods}
-              value={owner.neighborhood_info}
-              name={"neighborhood_info"}
-              onChange={(e) => handleNeighborhood(e)}
-              />
-          </div>
-          <div>
-            <label className="inputText">Precio</label>
-            <Select
-              className="selectOptions"
-              options={priceOptions}
-              value={owner.price}
-              name={"price"}
-              onChange={(e) => handlePrice(e)}
-            />
-          </div>
-          <div>
-            <label className="inputText">Tipo de comida</label>
-            <Select
-              className="selectOptions"
-              options={allCuisines}
-              isMulti={true}
-              value={owner.cuisine}
-              name={"cuisine"}
-              onChange={(e) => handleTypes(e)}
-              />
-          </div>
-          <div>
-            <textarea
-              className="inputTextarea"
-              name="description"
-              value={owner.description}
-              cols="30"
-              rows="8"
-              placeholder="Ingrese una breve descripción de tu local"
-              onChange={(e) => handleChange(e)}
-              ></textarea>
-            <p className="errors">{errors.description}</p>
-          </div>
+          <h2>Registra tu restaurante</h2>
         </div>
-        <div>
-          <button
-            type={"submit"}
-            disabled={errors.hasErrors}
-            onSubmit={(e) => handleSubmit(e)}
-          >
-            Registra tu restaurante!
-          </button>
-        </div>
-      </form>
+        <form onSubmit={(e) => handleSubmit(e)}>
+          <div>
+            
+            <div>
+              <label>Nombre del Restaurante</label>
+              <input
+                type="text"
+                name="name"
+                value={owner.name}
+                placeholder="Ingrese el nombre del restaurante"
+                autoComplete="off"
+                onChange={(e) => handleChange(e)}
+                />
+              <p className="errors">{errors.name}</p>
+            </div>
+
+            <div>
+              <label>Email del restaurant</label>
+              <input
+                type="text"
+                name="email"
+                value={owner.email}
+                placeholder="Ingrese el nombre del restaurante"
+                autoComplete="off"
+                onChange={(e) => handleChange(e)}
+              />
+              <p className="errors">{errors.email}</p>
+            </div>
+
+            <div>
+              <label>Direccion</label>
+              <input
+                type="text"
+                name="address"
+                value={owner.address}
+                placeholder="Ingrese la calle"
+                autoComplete="off"
+                onChange={(e) => handleChange(e)}
+                />
+              <p className="errors">{errors.address}</p>
+            </div>
+            <div>
+              <label>Reserva maxima</label>
+              <input
+                className="text"
+                placeholder="ingresa cantidad de reservas maximas"
+                value={owner.personas_max}
+                name={"personas_max"}
+                onKeyPress={onlyNumbers}
+                onChange={(e) => handleChange(e)}
+
+              />
+            </div>
+            <div>
+              <label className="inputText">Barrio</label>
+              <Select
+                className="selectOptions"
+                options={allNeighborhoods}
+                value={owner.neighborhood_info}
+                name={"neighborhood_info"}
+                onChange={(e) => handleNeighborhood(e)}
+                />
+            </div>
+            <div>
+              <label className="inputText">Precio</label>
+              <Select
+                className="selectOptions"
+                options={priceOptions}
+                value={owner.price}
+                name={"price"}
+                onChange={(e) => handlePrice(e)}
+              />
+            </div>
+            <div>
+              <label className="inputText">Tipo de comida</label>
+              <Select
+                className="selectOptions"
+                options={allCuisines}
+                isMulti={true}
+                value={owner.cuisine}
+                name={"cuisine"}
+                onChange={(e) => handleTypes(e)}
+                />
+            </div>
+            <div>
+              <textarea
+                className="inputTextarea"
+                name="description"
+                value={owner.description}
+                cols="30"
+                rows="8"
+                placeholder="Ingrese una breve descripción de tu local"
+                onChange={(e) => handleChange(e)}
+                ></textarea>
+              <p className="errors">{errors.description}</p>
+            </div>
+          </div>
+          <div>
+            <button
+              type={"submit"}
+              disabled={errors.hasErrors}
+              onSubmit={(e) => handleSubmit(e)}
+            >
+              Registra tu restaurante!
+            </button>
+          </div>
+        </form>
 
       <Form>
   <Form.Group className="mb-3" controlId="formBasicEmail">
