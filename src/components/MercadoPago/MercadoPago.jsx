@@ -25,7 +25,7 @@ export default function MercadoPago(){
     const [show, setShow] = useState(true);
 
     const handleClose = () =>{
-        //  dispatch(postReservation(day, time, pax, email, id))
+         dispatch(postReservation(day, time, pax, email, id))
         //  let templateParams = {
         //    resto_name: resto,
         //    pax: pax,
