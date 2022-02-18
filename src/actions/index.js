@@ -1,5 +1,4 @@
 import axios from "axios";
-import Swal from 'sweetalert2'
 
 import {
   GET_RESTOS,
@@ -266,15 +265,6 @@ export  function postReservation(payload) {
     try {
       console.log("payload", revFormated);
       var newRes = await axios.post(`${restoModif}/${payload.id}/reserves`, revFormated);
-        Swal.fire({
-          icon: 'success',
-          text: `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`,
-          confirmButtonColor: "#8aa899"
-        })
-        
-      // alert(
-      //   `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`
-      // );
       return newRes;
     } catch (e) {
       alert(e.response.data.message);;
@@ -378,8 +368,7 @@ return async function (dispatch) {
 //   }
 //  }
 
-export  function postCheckout(id, date, pax) {
- 
+export  function postCheckout( id, date, pax) { 
   return async function ()  {
   try {
     let payload = {

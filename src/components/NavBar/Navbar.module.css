@@ -107,10 +107,13 @@
   background-color: #f0ede0;
 
 }
-@media screen and(max-width:540px) {
-  .mainNavbar{
-    display: inline;
-    background-color: aqua;
+@media screen and (max-width: 540px) {
+  .mainNavbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    
   }
   
 }
