@@ -17,7 +17,7 @@ export default function MercadoPago(){
     const time = cookies.get("time")
     const day = cookies.get("date")
     const pax = cookies.get("pax")
-    // const email = cookies.get("email")
+    const email = cookies.get("email")
     
     const history = useHistory()
     
