@@ -21,7 +21,6 @@ import {
 //  GET_USER_FAVORITES,
  // DELETE_FAVORITE,
 //  ADD_FAVORITE,
-  POST_CHECKOUT,
 } from "./types";
 
 const url = "http://localhost:8080";
@@ -374,7 +373,8 @@ return async function (dispatch) {
 //   }
 //  }
 
-export  function postCheckout( id, date, pax) { 
+export  function postCheckout(id, date, pax) {
+ 
   return async function ()  {
   try {
     let payload = {
@@ -382,12 +382,7 @@ export  function postCheckout( id, date, pax) {
       pax: pax,    
     };
     let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
-    
-  
-    return {
-      type: POST_CHECKOUT,
-      payload:json
-    }
+    window.location.assign(json.data.url);
   }
   catch (e) {
     console.log(e);
