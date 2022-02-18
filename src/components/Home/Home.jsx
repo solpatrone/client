@@ -9,6 +9,7 @@ import Paginate from "../Paginate/Paginate";
 import { getRestos, getNeighborhoods, getCuisines } from "../../actions/index";
 import s from "./Home.module.css";
 import Loading from "../Loading/Loading";
+import Recomendations from "../Recomendations/Recomendations";
 
 export default function Home() {
   const dispatch = useDispatch();
@@ -47,9 +48,11 @@ export default function Home() {
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const [filteredByNeighborhood, setFilteredByNeighborhood] = useState(defaultNeighborhood);
+  const [filteredByNeighborhood, setFilteredByNeighborhood] =
+    useState(defaultNeighborhood);
   const [filteredByPrice, setFilteredByPrice] = useState(priceOptions[0]);
-  const [filteredByFoodTypes, setFilteredByFoodTypes] = useState(defaultCuisine);
+  const [filteredByFoodTypes, setFilteredByFoodTypes] =
+    useState(defaultCuisine);
   const [restosPerPage] = useState(12);
 
   function paginado(pageNumber) {
@@ -57,7 +60,6 @@ export default function Home() {
   }
 
   function displaySelectedRestaurantes() {
-    
     let restaurantesByNeighborhood =
       filteredByNeighborhood.value === "all"
         ? allRestaurants
@@ -150,17 +152,16 @@ export default function Home() {
       <Loading />
       <Navbar />
       <Landingpage />
+      <Recomendations allRestaurants={allRestaurants} />
       <div>
         <div className={"removeButton"}>
-          {" "}
           {(filteredByNeighborhood.value !== "all" ||
             filteredByPrice.value !== "all" ||
             filteredByFoodTypes.value !== "all") && (
             <button className={s.button} onClick={(e) => handleReload(e)}>
-              {" "}
               Mostrar todos los Restos
             </button>
-          )}{" "}
+          )}
         </div>
         <Select
           className={s.options}
