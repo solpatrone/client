@@ -18,7 +18,10 @@ import {
   GET_USER_RESERVATION,
   DELETE_RESTAURANT,
   DELETE_REVIEW,
-//  GET_USER_FAVORITES,
+  MODIF_USER,
+ // MODIF_CLIENT,
+ //  MODIF_USER
+ //  GET_USER_FAVORITES,
  // DELETE_FAVORITE,
 //  ADD_FAVORITE,
 } from "./types";
@@ -42,6 +45,8 @@ export function createClient(info) {
   };
 }
 
+
+// ESTA FUNCION EN REALIDAD NOS SIRVE PARA MODIFICAR RESTAURANT!
 export function addImagesToRestos(request, id) {
   return async (dispatch) => {
     try {
@@ -364,8 +369,8 @@ return async function (dispatch) {
 //     try {
 //       var response = await axios.put(`${userModif}/${id}/favorites`, request);
 //       return dispatch({
-//         type: ADD_FAVORITE,
-//         payload: [response.data],
+//         type: DELETE_FAVORITE,
+//         payload: response.data,
 //       });
 //     } catch (e) {
 //       console.error(e);
@@ -389,3 +394,18 @@ export  function postCheckout(id, date, pax) {
   }
 };
 }
+
+export function modifyUser(request, id) {
+  return async (dispatch) => {
+    try {
+      var response = await axios.put(`${userModif}/${id}`, request);
+      return dispatch({
+        type: MODIF_USER,
+        payload: [response.data],
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+}
+

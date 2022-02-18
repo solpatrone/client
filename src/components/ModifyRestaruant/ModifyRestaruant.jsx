@@ -56,7 +56,6 @@ export default function RegisterOwner() {
       value: "",
     },
     cuisine: [],
-    photo: [],
     email: "",
     personas_max: "",
     owner: own,
@@ -162,7 +161,7 @@ export default function RegisterOwner() {
 
   return isSubmit ? (
     <div>
-      <h3>Se ha registrado correctamente</h3>
+      <h3>Sus datos se han modificado correctamente</h3>
       <button onClick={() => history.push("/home")}>Volver a Home</button>
     </div>
   ) : (<div>
@@ -283,14 +282,28 @@ export default function RegisterOwner() {
         </div>
       </form>
 
-      {/* <Form>
+      <Form>
   <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" />
+    <Form.Label>Nombre del Restaurante</Form.Label>
+    <Form.Control type="email" placeholder="Ingrese el nombre del restaurante" />
     <Form.Text className="text-muted">
       We'll never share your email with anyone else.
     </Form.Text>
   </Form.Group>
+
+
+  <div>
+            <label>Nombre del Restaurante</label>
+            <input
+              type="text"
+              name="name"
+              value={owner.name}
+              placeholder="Ingrese el nombre del restaurante"
+              autoComplete="off"
+              onChange={(e) => handleChange(e)}
+              />
+            <p className="errors">{errors.name}</p>
+          </div>
 
   <Form.Group className="mb-3" controlId="formBasicPassword">
     <Form.Label>Password</Form.Label>
@@ -302,7 +315,7 @@ export default function RegisterOwner() {
   <Button variant="primary" type="submit">
     Submit
   </Button>
-</Form> */}
+</Form> 
       </div>
     </div>
   </div>
