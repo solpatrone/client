@@ -1,8 +1,6 @@
 import React, {useState} from 'react';
-import { useDispatch } from 'react-redux';
 import Modal from 'react-bootstrap/Modal';
 import {Button} from 'react-bootstrap';
-import { postReservation } from '../../actions';
 import Cookies from "universal-cookie";
 import { useHistory } from 'react-router';
 
