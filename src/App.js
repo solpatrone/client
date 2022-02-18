@@ -32,9 +32,12 @@ function App() {
 
       <Route path={"/restaurants/:id"} render={() => <Details />} />
       <Route path={"/Login"} render={() => <Login />} />
-      <Route path={"/images"} render={() => <LoadImage />} />
+      <Route path={"/images"} render={() => <LoadImage />} /> 
+       {/* eslint-disable-next-line */}
       <Route exact path={"/reservations"} render={() => <Reservations />} />
+      {/* eslint-disable-next-line */}
       <Route exact path={"/success"} render={() => <MercadoPago />} />
+      {/* eslint-disable-next-line */}
       <Route exact path={"/canceled"} render={() => <PaymentError />} />
     </div>
   );
