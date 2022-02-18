@@ -1,4 +1,4 @@
-import React, { useState, } from "react";
+import React, { useState } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import Calendar from "react-calendar";
@@ -22,7 +22,7 @@ export default function Reservations({ userId, restoId }) {
   //date
   //reservation.pax
   const [error, setError] = useState({});
-  
+
   const dispatch = useDispatch();
 
   let times = [
@@ -70,15 +70,13 @@ export default function Reservations({ userId, restoId }) {
 
   let onlyNumbers = (e) => {
     if (!/[0-9]/.test(e.key)) {
-        e.preventDefault();
+      e.preventDefault();
     }
-}
+  };
 
   function handleDateChange(e) {
     setReservations((prev) => ({ ...prev, date: e }));
   }
-
-  
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -90,19 +88,16 @@ export default function Reservations({ userId, restoId }) {
       pax: "",
       email: userId,
       id: restoId.id,
-      
     });
-  
-    
-    cookies.set("id", reservations.id,{ path: "/" })
-    cookies.set("RestoNameReserv", restoId.name,{ path: "/" })
-    cookies.set("time", reservations.time.value ,{ path: "/" })
-    cookies.set("date", date ,{ path: "/" })
-    cookies.set("pax", reservations.pax ,{ path: "/" })
-    cookies.set("email", reservations.email ,{ path: "/" })
-    console.log("reservaaaaaaassss ",cookies)
-  }
 
+    cookies.set("id", reservations.id, { path: "/" });
+    cookies.set("RestoNameReserv", restoId.name, { path: "/" });
+    cookies.set("time", reservations.time.value, { path: "/" });
+    cookies.set("date", date, { path: "/" });
+    cookies.set("pax", reservations.pax, { path: "/" });
+    cookies.set("email", reservations.email, { path: "/" });
+    console.log("reservaaaaaaassss ", cookies);
+  }
 
   let date = reservations.date.toString().split("00")[0].split(" ");
   date = date[2].concat(" " + date[1] + " ").concat(date[3]);
@@ -124,7 +119,7 @@ export default function Reservations({ userId, restoId }) {
                 <FaClock />
               </div>
               <div>
-                <MdGroups style={{ color: "var(--bright-color)" }} /> Personas
+                <MdGroups style={{ color: "var(--bright-color)" }} />
               </div>
             </div>
           </div>
