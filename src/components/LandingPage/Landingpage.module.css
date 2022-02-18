@@ -52,3 +52,16 @@ h3.second {
   font-weight: lighter;
   color: var(--bright-color);
 }
+@media screen and (max-width:1275px) {
+  .welcome{
+    width: 500px;
+    margin-left: 50px;
+  }
+}
+@media screen and (max-width:1000px) {
+  .welcome{
+    width: 500px;
+    margin-left: 20px;
+  }
+}
+
