@@ -43,3 +43,9 @@
 .rating {
   margin-right: 1vw;
 }
+
+@media screen and (max-width: 800px){
+  .review{
+    width: 380px;
+  }
+}

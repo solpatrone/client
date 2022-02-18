@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, } from "react";
 import Select from "react-select";
 import { useDispatch } from "react-redux";
 import Calendar from "react-calendar";
@@ -6,14 +6,15 @@ import "./reactCalendar.css";
 import s from "./Reservations.module.css";
 import { FaRegCalendarAlt, FaClock } from "react-icons/fa";
 import { MdGroups } from "react-icons/md";
-import { postReservation , postCheckout} from "../../actions";
+// import emailjs from "emailjs-com"
+import {postCheckout} from "../../actions";
 import Cookies from "universal-cookie";
 
 export default function Reservations({ userId, restoId }) {
   const [reservations, setReservations] = useState({
     date: new Date(),
     time: "",
-    pax: 0,
+    pax: "",
     email: userId,
     id: restoId.id,
   });
@@ -22,7 +23,7 @@ export default function Reservations({ userId, restoId }) {
   //date
   //reservation.pax
   const [error, setError] = useState({});
-
+  
   const dispatch = useDispatch();
 
   let times = [
@@ -68,22 +69,45 @@ export default function Reservations({ userId, restoId }) {
     setError(validatePaxMax(e.target.value));
   }
 
+  let onlyNumbers = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+        e.preventDefault();
+    }
+}
+
   function handleDateChange(e) {
     setReservations((prev) => ({ ...prev, date: e }));
   }
 
+  
+
   function handleSubmit(e) {
     e.preventDefault();
     const cookies = new Cookies();
-    dispatch(postReservation(reservations));
-    dispatch(postCheckout(restoId.id,date,reservations.pax))
+    // dispatch(postReservation(reservations));
+//     let templateParams = {
+//       resto_name : restoId.name,
+//       pax: reservations.pax,
+//       time: reservations.time.value,
+//       date: date,
+//       user_email: reservations.email
+//  }
+//     emailjs.send("service_vwcqene","template_zn5kw4j", templateParams, "user_xvn5dt907bREXqYpY0YPa")
+//       .then((result) => {
+//           console.log(result.text);
+//       }, (error) => {
+//           console.log(error.text);
+//       });
+    dispatch(postCheckout(restoId.id,reservations.date,reservations.pax))
     setReservations({
       date: new Date(),
       time: "",
-      pax: 0,
+      pax: "",
       email: userId,
       id: restoId.id,
+      
     });
+  
     
     cookies.set("id", reservations.id,{ path: "/" })
     cookies.set("RestoNameReserv", restoId.name,{ path: "/" })
@@ -93,6 +117,7 @@ export default function Reservations({ userId, restoId }) {
     cookies.set("email", reservations.email ,{ path: "/" })
     console.log("reservaaaaaaassss ",cookies)
   }
+
 
   let date = reservations.date.toString().split("00")[0].split(" ");
   date = date[2].concat(" " + date[1] + " ").concat(date[3]);
@@ -157,13 +182,15 @@ export default function Reservations({ userId, restoId }) {
               <div className={s.column}>
                 {!reservations.pax && (
                   <strong className={s.error}>
-                    Selecciona cantidad de personas
+                    Indica cantidad de personas
                   </strong>
                 )}
                 <label>Cantidad de personas</label>
                 <input
-                  type="number"
-                  placeholder="Seleccione cantidad de comensales"
+                  type="text"
+                  placeholder="Indique cantidad de comensales"
+                  onKeyPress={onlyNumbers}
+                  value={reservations.pax}
                   onChange={(e) => handlePaxChange(e)}
                 />
               </div>
