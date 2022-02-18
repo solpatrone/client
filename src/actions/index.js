@@ -374,8 +374,7 @@ return async function (dispatch) {
 //   }
 //  }
 
-export  function postCheckout(pax, date, id) {
- 
+export  function postCheckout( id, date, pax) { 
   return async function ()  {
   try {
     let payload = {

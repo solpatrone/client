@@ -125,15 +125,15 @@ export default function Restaurant() {
           <Tab.Container id="left-tabs-example" defaultActiveKey="first">
             <Row>
               <Col sm={3}>
-                <Nav variant="pills" className="flex-column">
+                <Nav variant="" className="flex-column">
                   <Nav.Item>
-                    <Nav.Link eventKey="first">Mi Restaurante</Nav.Link>
+                    <Nav.Link eventKey="first" className={styles.option}>Mi Restaurante</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="second">Reservas</Nav.Link>
+                    <Nav.Link eventKey="second" className={styles.option}>Reservas</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="third">Reseñas</Nav.Link>
+                    <Nav.Link eventKey="third" className={styles.option}>Reseñas</Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Col>
