@@ -11,6 +11,9 @@ import Details from "./components/Details/Details";
 import LoadImage from "./components/LoadImage/LoadImage";
 import Reservations from "./components/Reservation/Reservations";
 import MyProfile from "./components/MyProfile/MyProfile";
+import MercadoPago from "./components/MercadoPago/MercadoPago";
+import PaymentError from "./components/PaymentError/PaymentError";
+
 
 function App() {
   // const location = useLocation();
@@ -31,6 +34,8 @@ function App() {
       <Route path={"/Login"} render={() => <Login />} />
       <Route path={"/images"} render={() => <LoadImage />} />
       <Route path={"/reservations"} render={() => <Reservations />} />
+      <Route path={"/reservations/success"} render={() => <MercadoPago />} />
+      <Route path={"/reservations/canceled"} render={() => <PaymentError />} />
     </div>
   );
 }
