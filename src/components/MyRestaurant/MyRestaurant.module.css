@@ -10,7 +10,6 @@
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  border-left: 1px solid var(--background-color);
 }
 .address_icons {
   display: flex;
@@ -152,4 +151,18 @@ h3 {
   width: 6px;
   border-radius: 10px;
   background-color: var(--medium-color);
+}
+.option{
+  cursor: pointer;
+  background-color: #ffffff;
+  color: rgb(0, 0, 0);
+}
+.option:hover{
+  background-color:#f0ede0;
+  cursor: pointer;    
+}
+@media screen and (max-width:800px){
+  .centeredContainer{
+      width: 100%;
+  }
 }

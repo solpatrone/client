@@ -8,8 +8,8 @@ export default function UserReserve(props) {
     return (
         <div className={s.container}>
             <div className={s.header}>
-                <div>
-                    {elem.RestaurantId}
+                <div className={s.resto}>
+                    {elem.restaurant}
                 </div>
 
                 </div>

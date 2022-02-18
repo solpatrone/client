@@ -8,15 +8,7 @@
     height: fit-content;
     margin-left: 20px;
 }
-.user{
-    padding: 10px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1vw;
-    width: fit-content;
-}
+
 .text{
     display: inline-block;
    
@@ -27,7 +19,7 @@
 }
 
 .bookings{
-    display:block;
+    display:flex;
     width: 45vw;
     border-radius: 5px;
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
@@ -53,6 +45,7 @@
     margin-top: 50px;
     height: fit-content;
     margin-left: 20px;
+  
     }
 .res{
     width: 50%;
@@ -69,12 +62,13 @@
 
 }
 .centeredContainer {
-    width: 60%;
+    width: 10%;
     margin: auto;
     padding: 15px;
-    min-height: 100vh;
+    min-height: 80vh;
     border-left: 2px solid var(--background-color);
     border-right: 2px solid var(--background-color);
+    
   }
 .option{
     cursor: pointer;
@@ -86,7 +80,7 @@
     cursor: pointer;    
 }
 .reservationsContainer {
-    height: 520px;
+    height: 750px;
     overflow-y: scroll;
   }
   .reservationsContainer::-webkit-scrollbar {
@@ -98,6 +92,7 @@
     max-width: 100%;
     margin: auto;
     display: flex;
+    flex-direction: column;
 
 }
 .centeredContainer{
@@ -116,4 +111,9 @@
 .option:hover{
     background-color:#f0ede0;
     cursor: pointer;    
+}
+@media screen and (max-width:800px){
+    .centeredContainer{
+        width: 100%;
+    }
 }

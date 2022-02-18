@@ -18,6 +18,41 @@
 
 .topRow{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+   
 }
+.a{
+   display: flex;
+}
+
+@media screen and (max-width:1200px){
+.review{
+    width: 355px;
+}
+}
+@media screen and (max-width:930px){
+    .review{
+        width:300px;
+    }
+}
+@media screen and (max-width:800px){
+    .review{
+        width:400px;
+    }
+}
+
+@media screen and (max-width:775px){
+    .review{
+        width: 350px;
+        margin-left:20px;
+    }
+}
+@media screen and (max-width:550px){
+    .review{
+        width: 350px;
+        margin-left:20px;
+    }
+
+}
+
 
