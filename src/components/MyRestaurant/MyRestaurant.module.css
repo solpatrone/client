@@ -164,4 +164,7 @@ h3 {
   .centeredContainer{
       width: 100%;
   }
+  .reservations{
+    width: 500px;
+  }
 }
