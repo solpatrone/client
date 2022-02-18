@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { deleteReview, getRestaurantReviews, putRating, getUserReviews } from "../../actions";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
+import Swal from "sweetalert2";
 
 export default function UserReview(props) {
 
@@ -13,7 +14,7 @@ export default function UserReview(props) {
     const allRestaurants = useSelector(state => state.allRestaurants)
     const restaurant = allRestaurants.find(el => el.id === elem.RestaurantId)
     const reviews = useSelector(state => state.reviews)
-    console.log('reviews inicial', reviews.RestaurantId)
+
    
     useEffect(()=>{
         dispatch(getUserReviews(elem.UserId))
@@ -23,15 +24,23 @@ export default function UserReview(props) {
 
     function handleDelete(e){
         e.preventDefault()
-        function changeRating (){
+        Swal.fire({
+          text: `Vas a eliminar tu reseña`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#8aa899",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Eliminar reseña",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            function changeRating (){
               let newRating = {};
-             if(reviews.length === 1){    // Toma el rating de la api + el input
+             if(reviews.length === 1){    
           
                newRating = {rating: "0", owner: restaurant.owner }
           
-             }else if (reviews.length > 1){     // Toma el rating de la api + lo que haya en reviews + el input
+             }else if (reviews.length > 1){     
                 let reviewRaw = reviews.filter(el => el.id !== elem.id)  
-              console.log(reviewRaw)
               let ratingRev = reviewRaw.map(el => Number(el.rating))
               let sum =  ratingRev.reduce((acc,curr) => acc + curr, 0)
               let prom = Math.round(sum /ratingRev.length)
@@ -46,11 +55,18 @@ export default function UserReview(props) {
                 dispatch(getRestaurantReviews(restaurant.id))
                 dispatch(putRating(restaurant.id,changeRating()))
               }, 1000);
-            
-            console.log('reviews resto', reviews)
-            console.log('restaurant', restaurant)
-            console.log('newRating', changeRating())
-     }
+            Swal.fire({
+              text: `Reseña elilmiada con éxito`,
+              confirmButtonColor: "#8aa899",
+            });
+          } else if (result.dismiss === "cancel") {
+            Swal.fire({
+              text: "No se guardaron los cambios",
+            });
+          }
+        });
+      }
+       
 
     return (
         <div className={s.review}>
