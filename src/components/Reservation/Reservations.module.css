@@ -50,9 +50,7 @@
 .column {
   display: flex;
   flex-direction: column;
-  margin-left: 30%;
   gap: 6px;
-  width: 500px;
 }
 
 .colContainer {
@@ -102,13 +100,4 @@ hr {
   color: red;
   font-size: 16px;
   font-style: italic;
-}
-@media screen and (max-width:1900px) {
-  .column {
-    display: flex;
-    flex-direction: column;
-    margin-left: 10%;
-    gap: 6px;
-    width: 500px;
-  }
 }
