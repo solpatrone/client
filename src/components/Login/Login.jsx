@@ -116,9 +116,10 @@ export default function Login() {
       <div className={style.container}>
         <div className={style.img}></div>
         <div className={style.formContainer}>
-          <form onSubmit={handleSubmit}>
-            <div>
-              <div className={style.text}>Email: </div>
+          <div className={style.header}>Iniciar Sesión</div>
+          <form onSubmit={handleSubmit} className={style.form}>
+            <div className={style.inputContainer}>
+              <label>Email </label>
               <input
                 type="email"
                 value={input.email}
@@ -127,8 +128,8 @@ export default function Login() {
                 onChange={(e) => handleChange(e)}
               />
             </div>
-            <div>
-              <div>Contraseña: </div>
+            <div className={style.inputContainer}>
+              <label>Contraseña </label>
               <input
                 type="password"
                 value={input.password}
@@ -139,18 +140,23 @@ export default function Login() {
             </div>
 
             <div>
-              <NavLink to="/forgotPassword"> ¿Olvidaste tu contraseña?</NavLink>
+              <NavLink to="/forgotPassword" className={style.link}>
+                ¿Olvidaste tu contraseña?
+              </NavLink>
             </div>
 
-            <button type="submit">Iniciar sesíon</button>
+            <button type="submit" className={style.btn}>
+              Ingresar
+            </button>
           </form>
           <hr />
           <GoogleLogin
             clientId="666447071830-t1o2vsbnr22uaip19ug155dm5gd51o32.apps.googleusercontent.com"
-            buttonText="Iniciar sesión"
+            buttonText="Ingresar con Google"
             onSuccess={responseGoogle}
             onFailure={responseGoogle}
             cookiePolicy={"single_host_origin"}
+            className={style.google}
           />
         </div>
       </div>
