@@ -32,10 +32,13 @@ function App() {
 
       <Route path={"/restaurants/:id"} render={() => <Details />} />
       <Route path={"/Login"} render={() => <Login />} />
-      <Route path={"/images"} render={() => <LoadImage />} />
-      <Route path={"/reservations"} render={() => <Reservations />} />
-      <Route path={"/reservations/success"} render={() => <MercadoPago />} />
-      <Route path={"/reservations/canceled"} render={() => <PaymentError />} />
+      <Route path={"/images"} render={() => <LoadImage />} /> 
+      
+      <Route exact path={"/reservations"} render={() => <Reservations />} />
+    
+      <Route exact path={"/success"} render={() => <MercadoPago />} />
+     
+      <Route exact path={"/canceled"} render={() => <PaymentError />} />
     </div>
   );
 }

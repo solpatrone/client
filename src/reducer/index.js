@@ -74,21 +74,8 @@ export default function rootReducer(state = initialState, action) {
 
     case CREATE_OWNER:
       return { ...state };
-    //case CREATE_OWNER:
-    //  let existsOwn = state.owners.find(
-    //    (u) => u.email === action.payload.email
-    //  );
-    //  console.log(state.owners);
-    //  if (!existsOwn) {
-    //    return {
-    //      ...state,
-    //      owners: [...state.owners, action.payload],
-    //    };
-    //  } else {
-    //    return {
-    //      ...state,
-    //    };
-    //  }
+
+  
     case GET_USERS:
       return {
         ...state,
@@ -156,7 +143,7 @@ export default function rootReducer(state = initialState, action) {
         userReservation: action.payload };
     case GET_USER_FAVORITES:
       return { ...state, 
-        userFavorites: action.payload };
+        userFavorites: [...state, action.payload] };
 
     case PUT_RATING:
       return {

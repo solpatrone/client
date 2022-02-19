@@ -12,20 +12,21 @@ export default function MercadoPago(){
 
     const dispatch = useDispatch()
     const cookies = new Cookies();
-    const id = cookies.get("id")
+    const id = cookies.get("idR")
     const resto = cookies.get("RestoNameReserv")
     const time = cookies.get("time")
     const day = cookies.get("date")
     const pax = cookies.get("pax")
+    const fullDate = cookies.get("fullDate")
     const email = cookies.get("email")
-    
+
     const history = useHistory()
     
     
-    const [show, setShow] = useState(true);
+    const show = useState(true);
 
     const handleClose = () =>{
-         dispatch(postReservation(day, time, pax, email, id))
+         dispatch(postReservation(fullDate, time, pax, email, id))
         //  let templateParams = {
         //    resto_name: resto,
         //    pax: pax,
@@ -48,9 +49,14 @@ export default function MercadoPago(){
         //        console.log(error.text);
         //      }
         //    );
-         setShow(false);
+         //setShow(false);
+
+
+        
          history.push('/myProfile')
         }
+
+      
 
     
 return ( 

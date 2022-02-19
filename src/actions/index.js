@@ -17,7 +17,10 @@ import {
   GET_USER_RESERVATION,
   DELETE_RESTAURANT,
   DELETE_REVIEW,
-//  GET_USER_FAVORITES,
+  MODIF_USER,
+ // MODIF_CLIENT,
+ //  MODIF_USER
+ //  GET_USER_FAVORITES,
  // DELETE_FAVORITE,
 //  ADD_FAVORITE,
 } from "./types";
@@ -41,6 +44,8 @@ export function createClient(info) {
   };
 }
 
+
+// ESTA FUNCION EN REALIDAD NOS SIRVE PARA MODIFICAR RESTAURANT!
 export function addImagesToRestos(request, id) {
   return async (dispatch) => {
     try {
@@ -200,6 +205,7 @@ export function postReview(payload) {
     };
   };
   let revFormated = revToBack(payload);
+  console.log('id',revFormated.id)
   return async (dispatch) => {
     try {
       let newReview = await axios.post(`${restoModif}/${payload.id}/reviews`, revFormated);
@@ -245,21 +251,24 @@ export function getNeighborhoods() {
   };
 }
 
-export  function postReservation(payload) {
-  const revToBack = ( {date, time, pax, email, id}) => {
+export  function postReservation(date, time, pax, email, id) {
+  console.log('action', date)
+  console.log('action', id)
+  const revToBack = () => {
     return {
       date,
-      time: time.value,
+      time: time,
       pax: Number(pax),
       email,
       id,
     };
   };
-  let revFormated =  revToBack(payload);
+  let revFormated =  revToBack({date, time, pax, email, id});
+  
   return async function () {
     try {
       console.log("payload", revFormated);
-      var newRes = await axios.post(`${restoModif}/${payload.id}/reserves`, revFormated);
+      var newRes = await axios.post(`${restoModif}/${id}/reserves`, revFormated);
       return newRes;
     } catch (e) {
       alert(e.response.data.message);;
@@ -354,8 +363,8 @@ return async function (dispatch) {
 //     try {
 //       var response = await axios.put(`${userModif}/${id}/favorites`, request);
 //       return dispatch({
-//         type: ADD_FAVORITE,
-//         payload: [response.data],
+//         type: DELETE_FAVORITE,
+//         payload: response.data,
 //       });
 //     } catch (e) {
 //       console.error(e);
@@ -378,3 +387,18 @@ export  function postCheckout( id, date, pax) {
   }
 };
 }
+
+export function modifyUser(request, id) {
+  return async (dispatch) => {
+    try {
+      var response = await axios.put(`${userModif}/${id}`, request);
+      return dispatch({
+        type: MODIF_USER,
+        payload: [response.data],
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+}
+
