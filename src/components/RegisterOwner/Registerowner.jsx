@@ -108,7 +108,7 @@ export default function RegisterOwner() {
     if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
       dispatch(getRestos());
-      console.log("owner", owner.email);
+      //console.log("owner", owner.email);
       setIsSubmit(true);
       // setOwner({
       //   name: "",
