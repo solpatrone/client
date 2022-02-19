@@ -19,10 +19,13 @@
 .topRow{
     display: flex;
     justify-content: space-between;
+
    
 }
 .a{
+
    display: flex;
+   margin-left: 10px;
 }
 
 @media screen and (max-width:1200px){
