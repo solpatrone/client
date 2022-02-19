@@ -6,7 +6,7 @@ import Swal from 'sweetalert2'
 import logo from "../../assets/rapiresto.png";
 import emailjs from "emailjs-com"
 
-function ForgotPassword() {
+export default function ForgotPassword() {
 
     const [input, setInput] = useState({
       email: "",
@@ -103,4 +103,3 @@ function ForgotPassword() {
   )
 }
 
-export default ForgotPassword
