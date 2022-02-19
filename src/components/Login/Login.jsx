@@ -138,6 +138,9 @@ export default function Login() {
               onChange={(e) => handleChange(e)}
             />
           </div>
+          <div>
+            <NavLink to = "/forgotPassword"> ¿Olvidaste tu contraseña?</NavLink>
+          </div>
 
           <button type="submit">Iniciar sesíon</button>
         </form>
