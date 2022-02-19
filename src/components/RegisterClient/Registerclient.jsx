@@ -1,7 +1,10 @@
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { createClient } from "../../actions";
-import { useHistory } from "react-router-dom";
+import { useHistory, NavLink } from "react-router-dom";
+import style from "./Registerclient.module.css";
+import { Button } from "react-bootstrap";
+import logo from "../../assets/rapiresto.png";
 
 export default function RegisterUser() {
   const history = useHistory();
@@ -91,79 +94,100 @@ export default function RegisterUser() {
     }
   };
 
-  return isSubmit ? (
+  return (
     <div>
-      <h3>Se ha registrado correctamente</h3>
-      <button onClick={() => history.push("/Login")}>Volver a Home</button>
-    </div>
-  ) : (
-    <div>
-      <div>
-        <h2>Registrate!</h2>
+      <div className={style.mainNavbar}>
+        <NavLink to="/home" className={style.nlhome}>
+          <img className={style.logo} src={logo} alt="Logo not found" />
+          <div className={style.title}>
+            rapi<strong>Resto</strong>
+          </div>
+        </NavLink>
+        <Button variant="secondary">
+          <div>
+            <NavLink to="/home" className={style.navlinks}>
+              Volver
+            </NavLink>
+          </div>
+        </Button>
       </div>
-      <br />
-      <form onSubmit={handleSubmit}>
+      {isSubmit ? (
         <div>
-          <label>Nombre de usuario </label>
-          <input
-            type={"text"}
-            name={"username"}
-            onKeyPress={onlyLetters}
-            value={input.username}
-            autoComplete="off"
-            placeholder="Ingrese su nombre de usuario"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.username && <p className={"errors"}>{errors.username}</p>}
+          <h3>Se ha registrado correctamente</h3>
+          <button onClick={() => history.push("/Login")}>Volver a Home</button>
         </div>
+      ) : (
         <div>
+          <div>
+            <h2>Registrate!</h2>
+          </div>
           <br />
-          <label>E-mail </label>
-          <input
-            type={"text"}
-            name={"email"}
-            placeholder="Ingrese su e-mail"
-            value={input.email}
-            autoComplete="off"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.email && <p className={"errors"}>{errors.email}</p>}
+          <form onSubmit={handleSubmit}>
+            <div>
+              <label>Nombre de usuario </label>
+              <input
+                type={"text"}
+                name={"username"}
+                onKeyPress={onlyLetters}
+                value={input.username}
+                autoComplete="off"
+                placeholder="Ingrese su nombre de usuario"
+                onChange={(e) => handleChange(e)}
+              />
+              {errors.username && <p className={"errors"}>{errors.username}</p>}
+            </div>
+            <div>
+              <br />
+              <label>E-mail </label>
+              <input
+                type={"text"}
+                name={"email"}
+                placeholder="Ingrese su e-mail"
+                value={input.email}
+                autoComplete="off"
+                onChange={(e) => handleChange(e)}
+              />
+              {errors.email && <p className={"errors"}>{errors.email}</p>}
+            </div>
+            <div>
+              <br />
+              <label>Contraseña </label>
+              <input
+                type={"password"}
+                name={"password"}
+                value={input.password}
+                placeholder="Ingrese su contraseña"
+                onChange={(e) => handleChange(e)}
+              />
+              {errors.password && <p className={"errors"}>{errors.password}</p>}
+            </div>
+            <div>
+              <br />
+              <label>Confirma tu Contraseña </label>
+              <input
+                type={"password"}
+                name={"password2"}
+                value={input.password2}
+                placeholder="Ingrese su contraseña"
+                onChange={(e) => handleChange(e)}
+              />
+              {errors.password2 && (
+                <p className={"errors"}>{errors.password2}</p>
+              )}
+            </div>
+            <br />
+            <div>
+              <button
+                type={"submit"}
+                disabled={errors.hasErrors}
+                onSubmit={(e) => handleSubmit(e)}
+              >
+                Registrate
+              </button>
+            </div>
+          </form>
         </div>
-        <div>
-          <br />
-          <label>Contraseña </label>
-          <input
-            type={"password"}
-            name={"password"}
-            value={input.password}
-            placeholder="Ingrese su contraseña"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.password && <p className={"errors"}>{errors.password}</p>}
-        </div>
-        <div>
-          <br />
-          <label>Confirma tu Contraseña </label>
-          <input
-            type={"password"}
-            name={"password2"}
-            value={input.password2}
-            placeholder="Ingrese su contraseña"
-            onChange={(e) => handleChange(e)}
-          />
-          {errors.password2 && <p className={"errors"}>{errors.password2}</p>}
-        </div>
-        <br />
-        <div>
-          <button
-            type={"submit"}
-            disabled={errors.hasErrors}
-            onSubmit={(e) => handleSubmit(e)}
-          >
-            Registrate
-          </button>
-        </div>
-      </form>
+      )}
     </div>
   );
 }
