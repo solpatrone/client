@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 // import { changePassword } from "../../actions";
 import {NavLink, useHistory } from "react-router-dom";
@@ -9,7 +9,7 @@ import { Button } from "react-bootstrap";
 
 export default function NewPassword() {
   const history = useHistory();
-  let dispatch = useDispatch();
+//   let dispatch = useDispatch();
 
   let [input, setInput] = useState({
     email: "",
@@ -19,7 +19,6 @@ export default function NewPassword() {
 
   let [errors, setErrors] = useState({ hasErrors: true });
 
-  const [isSubmit, setIsSubmit] = useState(false);
 
   function validate(input) {
     let errors = { hasErrors: false };
