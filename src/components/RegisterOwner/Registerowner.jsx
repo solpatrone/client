@@ -13,8 +13,6 @@ import {
 
 import Cookies from "universal-cookie";
 import Navbar from "../NavBar/Navbar";
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 
 export default function RegisterOwner() {
   const history = useHistory();
