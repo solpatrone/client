@@ -90,13 +90,14 @@ export default function Reservations({ userId, restoId }) {
       id: restoId.id,
     });
 
-    cookies.set("id", reservations.id, { path: "/" });
+    cookies.set("idR", reservations.id, { path: "/" });
     cookies.set("RestoNameReserv", restoId.name, { path: "/" });
     cookies.set("time", reservations.time.value, { path: "/" });
     cookies.set("date", date, { path: "/" });
     cookies.set("pax", reservations.pax, { path: "/" });
     cookies.set("email", reservations.email, { path: "/" });
-    console.log("reservaaaaaaassss ", cookies);
+    cookies.set("fullDate", reservations.date, { path: "/" });
+  
   }
 
   let date = reservations.date.toString().split("00")[0].split(" ");

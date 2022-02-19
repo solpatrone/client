@@ -56,7 +56,7 @@ export default function UserReview(props) {
                 dispatch(putRating(restaurant.id,changeRating()))
               }, 1000);
             Swal.fire({
-              text: `Reseña elilmiada con éxito`,
+              text: `Reseña eliminada con éxito`,
               confirmButtonColor: "#8aa899",
             });
           } else if (result.dismiss === "cancel") {
