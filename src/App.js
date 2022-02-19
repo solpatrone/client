@@ -13,6 +13,8 @@ import Reservations from "./components/Reservation/Reservations";
 import MyProfile from "./components/MyProfile/MyProfile";
 import MercadoPago from "./components/MercadoPago/MercadoPago";
 import PaymentError from "./components/PaymentError/PaymentError";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import NewPassword from "./components/NewPassword/NewPassword";
 
 
 function App() {
@@ -32,13 +34,13 @@ function App() {
 
       <Route path={"/restaurants/:id"} render={() => <Details />} />
       <Route path={"/Login"} render={() => <Login />} />
-      <Route path={"/images"} render={() => <LoadImage />} /> 
-      
-      <Route exact path={"/reservations"} render={() => <Reservations />} />
-    
-      <Route exact path={"/success"} render={() => <MercadoPago />} />
-     
-      <Route exact path={"/canceled"} render={() => <PaymentError />} />
+      <Route path={"/images"} render={() => <LoadImage />} />
+      <Route path={"/reservations"} render={() => <Reservations />} />
+      <Route path={"/success"} render={() => <MercadoPago />} />
+      <Route path={"/canceled"} render={() => <PaymentError />} />
+      <Route path={"/forgotPassword"} render={() => <ForgotPassword />} />
+      <Route path={"/resetpassword"} render={() => <NewPassword />} />
+
     </div>
   );
 }

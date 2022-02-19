@@ -138,6 +138,10 @@ export default function Login() {
               />
             </div>
 
+            <div>
+              <NavLink to="/forgotPassword"> ¿Olvidaste tu contraseña?</NavLink>
+            </div>
+
             <button type="submit">Iniciar sesíon</button>
           </form>
           <hr />
