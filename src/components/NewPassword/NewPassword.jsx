@@ -1,6 +1,6 @@
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import React, { useState } from "react";
-// import { changePassword } from "../../actions";
+import { changePassword } from "../../actions";
 import {NavLink, useHistory } from "react-router-dom";
 import Swal from 'sweetalert2'
 import logo from "../../assets/rapiresto.png";
@@ -9,7 +9,7 @@ import { Button } from "react-bootstrap";
 
 export default function NewPassword() {
   const history = useHistory();
-//   let dispatch = useDispatch();
+  let dispatch = useDispatch();
 
   let [input, setInput] = useState({
     email: "",
@@ -66,14 +66,11 @@ export default function NewPassword() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    //   dispatch(changePassword(input));
+     dispatch(changePassword(input));
       Swal.fire({
         text: "Su contraseña fue actualizada con éxito" ,
         confirmButtonColor: "#8aa899"
       })
-      setTimeout(()=>{
-          history.push("/login");
-      },1000)
     }
 
   return (

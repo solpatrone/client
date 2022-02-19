@@ -87,7 +87,6 @@ export default function RegisterUser() {
         password: "",
         password2: "",
       });
-      history.push("/Login");
     }
   };
 

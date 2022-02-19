@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 import {
   GET_RESTOS,
@@ -36,10 +37,14 @@ export function createClient(info) {
   return async () => {
     try {
       var newClient = await axios.post(userModif, info);
-      console.log(newClient);
+      window.location.href= '/login'
       return newClient;
     } catch (e) {
-      alert('');;
+      Swal.fire({
+        icon: 'error',
+        text: `El email ${info.email} ya corresponde a un usuario`,
+        confirmButtonColor: "#8aa899"
+      });;
     }
   };
 }
@@ -402,3 +407,19 @@ export function modifyUser(request, id) {
   };
 }
 
+export function changePassword(payload) {
+  console.log("payloadd", JSON.stringify(payload))
+  return async () => {
+    try {
+      let response = await axios.put(`${userModif}/resetPassword`, payload);
+      window.location.href= '/login'
+      return response;
+    } catch (e) {
+      Swal.fire({
+        icon: 'error',
+        text: e.response.data.message,
+        confirmButtonColor: "#8aa899"
+      });
+    }
+  };
+}
