@@ -1,7 +1,7 @@
 // import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import Select from "react-select";
 import "./Registerowner.css";
 import {
@@ -9,7 +9,6 @@ import {
   getNeighborhoods,
   getCuisines,
   getRestos,
-  getMyRestos
 } from "../../actions";
 
 import Cookies from "universal-cookie";
@@ -17,7 +16,7 @@ import Navbar from "../NavBar/Navbar";
 import Loading from "../Loading/Loading";
 import Swal from 'sweetalert2'
 export default function RegisterOwner() {
-  const history = useHistory();
+  // const history = useHistory();
   let dispatch = useDispatch();
 
   const cookies = new Cookies();

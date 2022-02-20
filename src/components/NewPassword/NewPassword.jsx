@@ -1,14 +1,13 @@
 import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { changePassword } from "../../actions";
-import {NavLink, useHistory } from "react-router-dom";
+import {NavLink} from "react-router-dom";
 import Swal from 'sweetalert2'
 import logo from "../../assets/rapiresto.png";
 import style from "./NewPassword.module.css";
 import { Button } from "react-bootstrap";
 
 export default function NewPassword() {
-  const history = useHistory();
   let dispatch = useDispatch();
 
   let [input, setInput] = useState({
