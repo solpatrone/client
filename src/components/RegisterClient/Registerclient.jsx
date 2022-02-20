@@ -23,7 +23,6 @@ export default function RegisterUser() {
 
   function validate(input) {
     let errors = { hasErrors: false };
-    console.log("input", input);
 
     if (!input.username) {
       errors.username = `El nombre es requerido`;
@@ -90,7 +89,6 @@ export default function RegisterUser() {
         password: "",
         password2: "",
       });
-      history.push("/Login");
     }
   };
 
@@ -116,140 +114,99 @@ export default function RegisterUser() {
         </div>
       ) : (
         <div className={style.container}>
-          {/* <form onSubmit={handleSubmit}>
-            <div>
-            <label>Nombre de usuario </label>
-            <input
-            type={"text"}
-            name={"username"}
-            onKeyPress={onlyLetters}
-            value={input.username}
-            autoComplete="off"
-            placeholder="Ingrese su nombre de usuario"
-                onChange={(e) => handleChange(e)}
-              />
-              {errors.username && <p className={"errors"}>{errors.username}</p>}
-            </div>
-            <div>
-            <br />
-            <label>E-mail </label>
-              <input
-                type={"text"}
-                name={"email"}
-                placeholder="Ingrese su e-mail"
-                value={input.email}
-                autoComplete="off"
-                onChange={(e) => handleChange(e)}
-              />
-              {errors.email && <p className={"errors"}>{errors.email}</p>}
-            </div>
-            <div>
-              <br />
-              <label>Contraseña </label>
-              <input
-                type={"password"}
-                name={"password"}
-                value={input.password}
-                placeholder="Ingrese su contraseña"
-                onChange={(e) => handleChange(e)}
-              />
-              {errors.password && <p className={"errors"}>{errors.password}</p>}
-              </div>
-            <div>
-              <br />
-              <label>Confirma tu Contraseña </label>
-              <input
-                type={"password"}
-                name={"password2"}
-                value={input.password2}
-                placeholder="Ingrese su contraseña"
-                onChange={(e) => handleChange(e)}
-              />
-              {errors.password2 && (
-                <p className={"errors"}>{errors.password2}</p>
-              )}
-            </div>
-            <br />
-            <div>
-              <button
-                type={"submit"}
-                disabled={errors.hasErrors}
-                onSubmit={(e) => handleSubmit(e)}
-              >
-                Registrate
-                </button>
-                </div>
-              </form> */}
-
           <Form onSubmit={handleSubmit} className={style.formContainer}>
             <h2 className={style.header}>Registrarse</h2>
-            <Form.Group className="mb-3" controlId="formBasicName">
+            <Form.Group className="mb-3">
               <div class="row">
                 <div class="col text-right my-auto">
-                  <Form.Label className={style.label}>
+                  <Form.Label className={["align-middle m-0", style.label]}>
                     Nombre de usuario
                   </Form.Label>
                 </div>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingrese su nombre de usuario"
-                  name={"username"}
-                  onKeyPress={onlyLetters}
-                  value={input.username}
-                  autoComplete="off"
-                  onChange={(e) => handleChange(e)}
-                  className={style.input}
-                />
+                <div class="col-9">
+                  <Form.Control
+                    type="text"
+                    placeholder="Ingrese su nombre de usuario"
+                    name={"username"}
+                    onKeyPress={onlyLetters}
+                    value={input.username}
+                    autoComplete="off"
+                    onChange={(e) => handleChange(e)}
+                    className={style.input}
+                  />
+                </div>
                 {errors.username && (
                   <p className={style.errors}>{errors.username}</p>
                 )}
               </div>
             </Form.Group>
-            <Form.Group className="mb-3" controlId="formBasicEmail">
-              <Form.Label className={style.label}>Email</Form.Label>
-              <Form.Control
-                type={"text"}
-                name={"email"}
-                placeholder="Ingrese su e-mail"
-                value={input.email}
-                autoComplete="off"
-                onChange={(e) => handleChange(e)}
-                className={style.input}
-              />
 
-              {errors.email && <p className={style.errors}>{errors.email}</p>}
+            <Form.Group className="mb-3">
+              <div class="row">
+                <div class="col text-right my-auto">
+                  <Form.Label className={["align-middle m-0", style.label]}>
+                    E-mail
+                  </Form.Label>
+                </div>
+                <div class="col-9">
+                  <Form.Control
+                    type={"text"}
+                    name={"email"}
+                    placeholder="Ingrese su e-mail"
+                    value={input.email}
+                    autoComplete="off"
+                    onChange={(e) => handleChange(e)}
+                    className={style.input}
+                  />
+                </div>
+                {errors.email && <p className={style.errors}>{errors.email}</p>}
+              </div>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className={style.label}>Contraseña</Form.Label>
-              <Form.Control
-                type={"password"}
-                name={"password"}
-                value={input.password}
-                placeholder="Ingrese su contraseña"
-                onChange={(e) => handleChange(e)}
-                className={style.input}
-              />
-              {errors.password && (
-                <p className={style.errors}>{errors.password}</p>
-              )}
+            <Form.Group className="mb-3">
+              <div class="row">
+                <div class="col text-right my-auto">
+                  <Form.Label className={["align-middle m-0", style.label]}>
+                    Contraseña
+                  </Form.Label>
+                </div>
+                <div class="col-9">
+                  <Form.Control
+                    type={"password"}
+                    name={"password"}
+                    value={input.password}
+                    placeholder="Ingrese su contraseña"
+                    onChange={(e) => handleChange(e)}
+                    className={style.input}
+                  />
+                </div>
+                {errors.password && (
+                  <p className={style.errors}>{errors.password}</p>
+                )}
+              </div>
             </Form.Group>
 
-            <Form.Group className="mb-3" controlId="formBasicPassword">
-              <Form.Label className={style.label}>
-                Confirma la contraseña
-              </Form.Label>
-              <Form.Control
-                type={"password"}
-                name={"password2"}
-                value={input.password2}
-                placeholder="Ingrese su contraseña"
-                onChange={(e) => handleChange(e)}
-                className={style.input}
-              />
-              {errors.password2 && (
-                <p className={style.errors}>{errors.password2}</p>
-              )}
+            <Form.Group className="mb-3">
+              <div class="row">
+                <div class="col text-right my-auto">
+                  <Form.Label className={["align-middle m-0", style.label]}>
+                    Confirmar contraseña
+                  </Form.Label>
+                </div>
+                <div class="col-9">
+                  <Form.Control
+                    type={"password"}
+                    name={"password2"}
+                    value={input.password2}
+                    placeholder="Ingrese su contraseña"
+                    onChange={(e) => handleChange(e)}
+                    className={style.input}
+                  />
+                </div>
+                {errors.password2 && (
+                  <p className={style.errors}>{errors.password2}</p>
+                )}
+              </div>
             </Form.Group>
 
             <button
