@@ -3,8 +3,8 @@ import React, { useState } from "react";
 import { createClient } from "../../actions";
 import { useHistory, NavLink } from "react-router-dom";
 import style from "./Registerclient.module.css";
-import { Button } from "react-bootstrap";
 import logo from "../../assets/rapiresto.png";
+import { Form } from "react-bootstrap";
 
 export default function RegisterUser() {
   const history = useHistory();
@@ -52,7 +52,7 @@ export default function RegisterUser() {
       )
     ) {
       errors.password =
-        "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
+        "La contrseña debe incluir entre 8 y 15 carateres (mayúsculas, minúsculas y números)";
       errors.hasErrors = true;
     }
 
@@ -103,42 +103,36 @@ export default function RegisterUser() {
             rapi<strong>Resto</strong>
           </div>
         </NavLink>
-        <Button variant="secondary">
-          <div>
-            <NavLink to="/home" className={style.navlinks}>
-              Volver
-            </NavLink>
-          </div>
-        </Button>
+        <div>
+          <NavLink to="/home" className={style.navlinks}>
+            home
+          </NavLink>
+        </div>
       </div>
       {isSubmit ? (
         <div>
           <h3>Se ha registrado correctamente</h3>
-          <button onClick={() => history.push("/Login")}>Volver a Home</button>
+          <button onClick={() => history.push("/Login")}>Iniciar sesión</button>
         </div>
       ) : (
-        <div>
-          <div>
-            <h2>Registrate!</h2>
-          </div>
-          <br />
-          <form onSubmit={handleSubmit}>
+        <div className={style.container}>
+          {/* <form onSubmit={handleSubmit}>
             <div>
-              <label>Nombre de usuario </label>
-              <input
-                type={"text"}
-                name={"username"}
-                onKeyPress={onlyLetters}
-                value={input.username}
-                autoComplete="off"
-                placeholder="Ingrese su nombre de usuario"
+            <label>Nombre de usuario </label>
+            <input
+            type={"text"}
+            name={"username"}
+            onKeyPress={onlyLetters}
+            value={input.username}
+            autoComplete="off"
+            placeholder="Ingrese su nombre de usuario"
                 onChange={(e) => handleChange(e)}
               />
               {errors.username && <p className={"errors"}>{errors.username}</p>}
             </div>
             <div>
-              <br />
-              <label>E-mail </label>
+            <br />
+            <label>E-mail </label>
               <input
                 type={"text"}
                 name={"email"}
@@ -160,7 +154,7 @@ export default function RegisterUser() {
                 onChange={(e) => handleChange(e)}
               />
               {errors.password && <p className={"errors"}>{errors.password}</p>}
-            </div>
+              </div>
             <div>
               <br />
               <label>Confirma tu Contraseña </label>
@@ -183,9 +177,90 @@ export default function RegisterUser() {
                 onSubmit={(e) => handleSubmit(e)}
               >
                 Registrate
-              </button>
-            </div>
-          </form>
+                </button>
+                </div>
+              </form> */}
+
+          <Form onSubmit={handleSubmit} className={style.formContainer}>
+            <h2 className={style.header}>Registrarse</h2>
+            <Form.Group className="mb-3" controlId="formBasicName">
+              <div class="row">
+                <div class="col text-right my-auto">
+                  <Form.Label className={style.label}>
+                    Nombre de usuario
+                  </Form.Label>
+                </div>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingrese su nombre de usuario"
+                  name={"username"}
+                  onKeyPress={onlyLetters}
+                  value={input.username}
+                  autoComplete="off"
+                  onChange={(e) => handleChange(e)}
+                  className={style.input}
+                />
+                {errors.username && (
+                  <p className={style.errors}>{errors.username}</p>
+                )}
+              </div>
+            </Form.Group>
+            <Form.Group className="mb-3" controlId="formBasicEmail">
+              <Form.Label className={style.label}>Email</Form.Label>
+              <Form.Control
+                type={"text"}
+                name={"email"}
+                placeholder="Ingrese su e-mail"
+                value={input.email}
+                autoComplete="off"
+                onChange={(e) => handleChange(e)}
+                className={style.input}
+              />
+
+              {errors.email && <p className={style.errors}>{errors.email}</p>}
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label className={style.label}>Contraseña</Form.Label>
+              <Form.Control
+                type={"password"}
+                name={"password"}
+                value={input.password}
+                placeholder="Ingrese su contraseña"
+                onChange={(e) => handleChange(e)}
+                className={style.input}
+              />
+              {errors.password && (
+                <p className={style.errors}>{errors.password}</p>
+              )}
+            </Form.Group>
+
+            <Form.Group className="mb-3" controlId="formBasicPassword">
+              <Form.Label className={style.label}>
+                Confirma la contraseña
+              </Form.Label>
+              <Form.Control
+                type={"password"}
+                name={"password2"}
+                value={input.password2}
+                placeholder="Ingrese su contraseña"
+                onChange={(e) => handleChange(e)}
+                className={style.input}
+              />
+              {errors.password2 && (
+                <p className={style.errors}>{errors.password2}</p>
+              )}
+            </Form.Group>
+
+            <button
+              type={"submit"}
+              disabled={errors.hasErrors}
+              onSubmit={(e) => handleSubmit(e)}
+              className={style.btn}
+            >
+              Registrate
+            </button>
+          </Form>
         </div>
       )}
     </div>

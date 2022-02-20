@@ -168,7 +168,7 @@
   transition: all 0.5s;
 }
 
-.container button:hover {
+.btn:hover {
   background-color: var(--dark-color);
   border: none;
 }
