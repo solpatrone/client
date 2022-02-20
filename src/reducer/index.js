@@ -31,6 +31,7 @@ const initialState = {
   restaurants: [],
   myRestaurants: [],
   allRestaurants: [],
+  enabledAndDisabled: [],
   neighborhoods: [],
   details: {},
   reviews: [],
@@ -49,6 +50,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         restaurants: action.payload.filter(resto => resto.status === 'ENABLED'),
         allRestaurants: action.payload.filter(resto => resto.status === 'ENABLED'),
+        enabledAndDisabled : action.payload,
         loading: false,
       };
     case GET_RESTO_NAME:

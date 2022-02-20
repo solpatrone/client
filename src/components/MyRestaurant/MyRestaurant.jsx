@@ -3,6 +3,7 @@ import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
+  getMyRestos,
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, useHistory, Link } from "react-router-dom";
@@ -19,6 +20,7 @@ import RestoReservations from "../RestoReservations/RestoReservations";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import {AiOutlineDelete } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
+import Cookies from "universal-cookie";
 import { BsPencil} from "react-icons/bs";
 
 import Swal from "sweetalert2";
@@ -31,6 +33,7 @@ export default function Restaurant() {
   const widgetApi = useRef();
   const myReservations = useSelector((state) => state.restoReservations);
   const hasReviews = useSelector((state) => state.reviews);
+  const cookies = new Cookies();
 
   let [photo, setPhoto] = useState([]);
 
@@ -68,6 +71,10 @@ export default function Restaurant() {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteRestaurant(params.id))
+        setTimeout(()=>{
+          
+          dispatch(getMyRestos(cookies.get("id")))
+        },1000)
         Swal.fire({
           text: `${myRestaurant.name} fue elilmiado con éxito`,
           confirmButtonColor: "#8aa899",
