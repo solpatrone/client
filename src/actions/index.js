@@ -52,7 +52,7 @@ export function addImagesToRestos(request, id) {
       var response = await axios.put(`${restoModif}/${id}`, request);
       return dispatch({
         type: GET_RESTO_DETAILS,
-        payload: [response.data],
+        payload: response.data,
       });
     } catch (e) {
       console.error(e);
@@ -314,8 +314,7 @@ export function addToFavorites(params) {
       const {userId, restaurantId}= params;
       const request={
         favorite:restaurantId
-      }
-      
+      }      
       var response = await axios.put(`${userModif}/${userId}/favorites`, request);
       return dispatch({
         type: ADD_FAVORITE,
@@ -377,9 +376,19 @@ return async function (dispatch) {
 }
 
 
-// export function deleteFavorite( id){
-//  return{type: DELETE_FAVORITE, payload:id} 
-// }
+export function deleteFavorite(idUser, idResto){
+  return async () => {
+    try {
+      var deleteResto = await axios.put(`${userModif}/${idUser}/favorites?id=${idResto}`);
+      return {
+        type: DELETE_RESTAURANT,
+        payload: deleteResto,
+      };
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
 
 // export function addFavorite(id , request){
 //   return async(dispatch) => {

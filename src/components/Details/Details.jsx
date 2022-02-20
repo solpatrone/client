@@ -33,7 +33,7 @@ function Details() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
 
-let [userFavorite, setUserFavorite] = useState ({
+let [userFavorite] = useState ({
      
         restaurantId: params.id,
         userId: cookies.get("id")

@@ -8,6 +8,8 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { getUserFavorites } from "../../actions";
 
+import { deleteFavorite } from "../../actions";
+
 
 
 export default function UserFavorite(props) {
@@ -23,11 +25,12 @@ export default function UserFavorite(props) {
 
 
     const [favorite, setFavorite] = useState(true)
+   
 
     function handleFavorite(e) {
         e.preventDefault()
         setFavorite(false)
-        //dispatch(deleteFavorite())
+        dispatch(deleteFavorite())
       }
 
     const elem = props.elem;
