@@ -63,14 +63,12 @@ export default function Login() {
           text: e.response.data.message,
           confirmButtonColor: "#8aa899",
         });
-        // alert(e.response.data.message)
         history.push("/registerclient");
       } else {
         Swal.fire({
           text: e.response.data.message,
           confirmButtonColor: "#8aa899",
         });
-        // alert(e.response.data.message)
       }
     }
   }
