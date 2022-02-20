@@ -373,7 +373,7 @@ return async function (dispatch) {
     console.log(e);
   }
 };
-}
+} 
 
 
 export function deleteFavorite(idUser, idResto){
