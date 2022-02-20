@@ -18,8 +18,10 @@ import {
   DELETE_RESTAURANT,
   DELETE_REVIEW,
   MODIF_USER,
+ // MODIF_CLIENT,
+ //  MODIF_USER
   GET_USER_FAVORITES,
-  // DELETE_FAVORITE,
+ // DELETE_FAVORITE,
   ADD_FAVORITE,
 } from "./types";
 
@@ -58,19 +60,6 @@ export function addImagesToRestos(request, id) {
   };
 }
 
-export function addToFavorites(request, id) {
-  return async (dispatch) => {
-    try {
-      var response = await axios.put(`${userModif}/${id}`, request);
-      return dispatch({
-        type: GET_RESTO_DETAILS,
-        payload: [response.data],
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-}
 
 export function putRating(id, info) {
   return async () => {
@@ -106,7 +95,7 @@ export function createOwner(info) {
     try {
       const neighborhood = info.neighborhood_info.name;
       info.neighborhood_info = [neighborhood];
-
+      
       const price = info.price.name;
       info.price = price;
 
@@ -153,6 +142,7 @@ export function getMyRestos(id) {
   return async function (dispatch) {
     dispatch({
       type: LOADING,
+      
     });
     let json = await axios.get(`${userModif}/${id}/restaurants`);
     let data = json.data;
@@ -318,21 +308,41 @@ export function deleteReview(idUser, idReview){
   }
 }
 
-export function getUserFavorites(id) {
-  return async function (dispatch) {
+export function addToFavorites(params) {
+  return async (dispatch) => {
     try {
-     // let json = await axios.get(`${userModif}/${id}/favorites`);
-     let json = await axios.get(`${userModif}/${id}/favorites`);
-      const favorites = json && json.data ? json.data : [];
+      const {userId, restaurantId}= params;
+      const request={
+        favorite:restaurantId
+      }      
+      var response = await axios.put(`${userModif}/${userId}/favorites`, request);
       return dispatch({
-        type: GET_USER_FAVORITES,
-        payload: favorites,
+        type: ADD_FAVORITE,
+        payload: [response.data],
       });
     } catch (e) {
-      console.log(e);
+      console.error(e);
     }
   };
 }
+ export function getUserFavorites(id) {
+   return async function (dispatch) {
+     try {
+      // let json = await axios.get(`${userModif}/${id}/favorites`);
+      if(!id){
+        return}
+      let json = await axios.get(`${userModif}/${id}/favorites`);
+       const favorites = json && json.data ? json.data : [];
+       console.log('aca esta el json', favorites)
+       return dispatch({
+         type: GET_USER_FAVORITES,
+         payload: favorites,
+       });
+     } catch (e) {
+       console.log(e);
+     }
+   };
+ }
 
 export function getUserReservation(id){
 return async function (dispatch) {
@@ -349,7 +359,7 @@ return async function (dispatch) {
     console.log(e);
   }
 };
-}
+} 
 
 
 export function deleteFavorite(idUser, idResto){
@@ -365,48 +375,30 @@ export function deleteFavorite(idUser, idResto){
     }
   };
 }
-
-export function addFavorite(request,id){
-  return async(dispatch) => {
+export function postCheckout(id, date, pax) {
+  return async function () {
     try {
-      var response = await axios.put(`${userModif}/${id}/favorites`, request);
-      return dispatch({
-        type: ADD_FAVORITE,
-        payload: response.data,
-      });
+      let payload = {
+        date: date,
+        pax: pax,
+      };
+      let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
+      window.location.assign(json.data.url);
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
-  }
- }
-
-export  function postCheckout( id, date, pax) { 
-  return async function ()  {
-  try {
-    let payload = {
-      date:date,     
-      pax: pax,    
-    };
-    let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
-    window.location.assign(json.data.url);
-  }
-  catch (e) {
-    console.log(e);
-  }
-};
-}
-
-export function modifyUser(request, id) {
-  return async (dispatch) => {
-    try {
-      var response = await axios.put(`${userModif}/${id}`, request);
-      return dispatch({
-        type: MODIF_USER,
-        payload: [response.data],
-      });
-    } catch (e) {
-      console.error(e);
+  }}
+    export function modifyUser(request, id) {
+      return async (dispatch) => {
+        try {
+          var response = await axios.put(`${userModif}/${id}`, request);
+          return dispatch({
+            type: MODIF_USER,
+            payload: [response.data],
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      };
     }
-  };
-}
 

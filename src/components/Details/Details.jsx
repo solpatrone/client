@@ -3,7 +3,7 @@ import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
- // addFavorite
+  addToFavorites,
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
@@ -33,6 +33,12 @@ function Details() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
 
+let [userFavorite] = useState ({
+     
+        restaurantId: params.id,
+        userId: cookies.get("id")
+})
+
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
@@ -49,7 +55,7 @@ function Details() {
 
   function handleFavorite(e) {
     e.preventDefault()
-    //dispatch(addFavorite())
+    dispatch(addToFavorites(userFavorite))
     setFavorite(true)
   }
 

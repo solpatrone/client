@@ -145,9 +145,10 @@ export default function rootReducer(state = initialState, action) {
     case GET_USER_RESERVATION:
       return { ...state, 
         userReservation: action.payload };
+
     case GET_USER_FAVORITES:
       return { ...state, 
-        userFavorites:  [...state, action.payload]};
+        userFavorites:  action.payload };
 
     case PUT_RATING:
       return {
@@ -161,7 +162,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state
       }
-
+     
     default:
       return { ...state };
   }
