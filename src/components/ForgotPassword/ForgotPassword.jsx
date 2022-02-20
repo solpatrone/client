@@ -66,7 +66,7 @@ export default function ForgotPassword() {
 
       }
   return (
-    <div>
+    <div className={style.main}>
         <div className={style.mainNavbar}>
         <NavLink to="/home" className={style.nlhome}>
           <img className={style.logo} src={logo} alt="Logo not found" />
@@ -75,19 +75,20 @@ export default function ForgotPassword() {
           </div>
         </NavLink>
 
-        <Button variant="secondary">
+        
           <div>
             <NavLink to="/home"  className={style.navlinks}>    
-                    Volver
+                    Home
             </NavLink>
           </div>
-        </Button>{' '}
-      </div>
-        <h4>¿Olvidaste tu contraseña?</h4>
-        <br/>
-        <div>
+       
+      </div >
+      <div className={style.container}>
+        <div className={style.formContainer}>
+        <div className={style.header}>¿Olvidaste tu contraseña?</div>
             <p>Por favor, ingresá tu email y recibirás un link para restablecer tu contraseña</p>
-            <form onSubmit={handleSubmit}>
+            <form onSubmit={handleSubmit} className={style.form}>
+            <div className={style.inputContainer}>
             <input
               type="email"
               value={input.email}
@@ -95,9 +96,11 @@ export default function ForgotPassword() {
               placeholder="Ingrese su email"
               onChange={(e) => handleChange(e)}
             />
-            <button type="submit" disabled={errors.hasErrors}>Enviar</button>
+            </div>
+            <button type="submit" disabled={errors.hasErrors} className={style.btn}>Enviar</button>
             <p>{errors && errors.email}</p>
             </form>
+        </div>
         </div>
     </div>
   )
