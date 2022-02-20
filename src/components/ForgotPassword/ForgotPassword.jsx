@@ -1,6 +1,5 @@
 import React, {useState} from 'react'
 import {NavLink, useHistory } from "react-router-dom";
-import { Button } from "react-bootstrap";
 import style from "./ForgotPassword.module.css";
 import Swal from 'sweetalert2'
 import logo from "../../assets/rapiresto.png";
