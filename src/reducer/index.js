@@ -21,6 +21,7 @@ import {
   GET_USER_FAVORITES,
   DELETE_RESTAURANT,
   DELETE_REVIEW,
+  ADD_FAVORITE,
 } from "../actions/types";
 
 const initialState = {
@@ -71,6 +72,9 @@ export default function rootReducer(state = initialState, action) {
       }
     case ADD_IMAGES:
       return { ...state };
+
+    case ADD_FAVORITE:
+        return { ...state };
 
     case CREATE_OWNER:
       return { ...state };
@@ -143,7 +147,7 @@ export default function rootReducer(state = initialState, action) {
         userReservation: action.payload };
     case GET_USER_FAVORITES:
       return { ...state, 
-        userFavorites: [...state, action.payload] };
+        userFavorites:  [...state, action.payload]};
 
     case PUT_RATING:
       return {
