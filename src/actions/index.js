@@ -122,11 +122,10 @@ export function createOwner(info) {
       info.personas_max = Number(info.personas_max);
       console.log('try')
       var newOwner = await axios.post(restoModif, info);
-      console.log(newOwner);
+      window.location.href= '/home'
       return newOwner;
     } catch (e) {
-      console.log('catch')
-      alert(e.response.data.message);
+      console.log(e);
     }
   };
 }
