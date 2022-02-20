@@ -5,7 +5,7 @@ import {
   getRestaurantReviews,
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -17,8 +17,9 @@ import Carousel from "react-bootstrap/Carousel";
 import { addImagesToRestos, getRestoReservations, deleteRestaurant } from "../../actions";
 import RestoReservations from "../RestoReservations/RestoReservations";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
-import { AiOutlineDelete } from "react-icons/ai";
+import {AiOutlineDelete } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
+import { BsPencil} from "react-icons/bs";
 
 import Swal from "sweetalert2";
 
@@ -54,7 +55,7 @@ export default function Restaurant() {
   }
 
   
-
+  console.log(params)
   function handleDelete(e){
     e.preventDefault()
     Swal.fire({
@@ -117,7 +118,6 @@ export default function Restaurant() {
   return (
     <div>
       <Navbar />
-
       {!myRestaurant.id ? (
         <Loading />
       ) : (
@@ -145,6 +145,13 @@ export default function Restaurant() {
                         <h2 className={styles.restoName}>
                           {myRestaurant.name}
                         </h2>
+                        <Link to={`/modify/${myRestaurant.id}`}>
+                        <BsPencil
+                          style={{
+                            fontSize: "25px",
+                          }}
+                        />
+                        </Link>
                         <button onClick={ e => handleDelete(e)}>
                         <AiOutlineDelete
                           style={{
