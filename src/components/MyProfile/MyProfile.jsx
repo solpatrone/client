@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Cookies from 'universal-cookie';
-import { getUserReviews, getUserReservation} from '../../actions';
+import { getUserReviews, getUserReservation, getUserFavorites} from '../../actions';
 import s from './MyProfile.module.css'
 import UserReview from '../UserReview/UserReview';
 import Navbar from '../NavBar/Navbar';
 import UserReserve from '../UserReserve/UseReserve';
-// import UserFavorite from '../UserFavorite/UserFavorite';
+import UserFavorite from '../UserFavorite/UserFavorite';
 
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 
@@ -16,9 +16,9 @@ export default function MyProfile() {
     const cookies = new Cookies();
     const id = cookies.get("id");
     const reviews = useSelector((state)=>state.userReviews);
-    const reserves = useSelector((state)=>state.userReservation)
-   // const favorites = useSelector((state) => state.UserFavorites)
-    
+    const reserves = useSelector((state)=>state.userReservation);
+
+    const favorites = useSelector((state) => state.userFavorites);
 
     useEffect(() => {
         dispatch(getUserReviews(id))// eslint-disable-next-line
@@ -28,9 +28,9 @@ export default function MyProfile() {
         dispatch(getUserReservation(id))// eslint-disable-next-line
       }, [id]);  
 
-      // useEffect(() => {      
-      //   dispatch(getUserFavorites(id))// eslint-disable-next-line
-      // }, [id]);
+       useEffect(() => {      
+         dispatch(getUserFavorites(id))// eslint-disable-next-line
+       }, [id]);
 
         
       const reservesInProgress = (reserves.length>0)?reserves.filter(elem => elem.status === "IN PROGRESS" ):[]
@@ -89,16 +89,16 @@ export default function MyProfile() {
 
                 <Tab.Pane eventKey="third">
                 <h2>Mis favoritos</h2>
-                {/* {
+                {
           favorites.length > 0 ?
           favorites.map( (e, index) =>
               <UserFavorite key={index} elem ={e}/>             
             )
             :
               <div className={s.review} >
-                  <p>No hay reservas</p>
+                  <p>No hay favoritos</p>
               </div>
-        } */}
+        }
                 </Tab.Pane>
               </Tab.Content>
               </Col>
