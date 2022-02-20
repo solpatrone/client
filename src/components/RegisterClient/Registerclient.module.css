@@ -59,9 +59,7 @@
 .container {
   height: calc(100vh - 80px);
   display: flex;
-  justify-content: space-between;
-
-  /* background-color: rgba(69, 151, 110); */
+  justify-content: center;
   background: linear-gradient(
     150deg,
     rgb(252, 252, 252) 37%,
@@ -69,52 +67,37 @@
   );
 }
 
-/*formulario container*/
+/*form container*/
 .formContainer {
-  width: 25%;
-  height: 400px;
-  margin: auto;
-  /* background: rgb(240, 237, 224, 0.3); */
+  min-width: 45%;
+  max-width: 45%;
+  padding: 20px 20px 0;
   background: rgb(252, 250, 250);
-  box-shadow: 12px 12px 6px var(--dark-color), -1px -1px 6px var(--dark-color);
-  border-radius: 5%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-  align-items: center;
-  padding: 0 20px;
+  border: 1px solid var(--background-color);
+  box-shadow: 1px 1px 6px var(--background-color);
 }
 
-.form {
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  gap: 10px;
+/*errores*/
+.errors {
+  font-family: var(--input-font);
+  color: var(--medium-color);
+  font-weight: bold;
+  font-size: 13px;
 }
 
-/*fromulario titulo*/
+/*titulo*/
 .header {
-  display: flex;
-  justify-content: center;
-  width: 90%;
-  border-bottom: 2px solid var(--background-color);
   font-family: var(--input-font);
   font-weight: bold;
   text-transform: uppercase;
   font-size: 25px;
   color: var(--dark-color);
   letter-spacing: 2px;
+  padding: 5px 0 0 15px;
 }
 
-/*container input y label*/
-.inputContainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-/*font label*/
-.inputContainer label {
+/*label*/
+.label {
   font-family: var(--input-font);
   font-size: 13px;
   color: var(--dark-color);
@@ -122,20 +105,17 @@
 }
 
 /*input styles*/
-
-.inputContainer input {
+.input {
   border: none;
   box-shadow: 1px 1px 2px var(--background-color),
     -1px -1px 2px var(--background-color);
-  padding: 4px;
   font-family: var(--input-font);
   font-style: italic;
   font-size: 15px;
   border-radius: 3px;
 }
 
-/*input styles cuando estas escribiendo*/
-.inputContainer input:focus {
+.input:focus {
   outline: none;
   box-shadow: 1px 1px 2px var(--medium-color), -1px -1px 2px var(--medium-color);
   border-radius: 3px;
@@ -144,26 +124,14 @@
   color: var(--dark-color);
 }
 
-/*link de password reset*/
-.link {
-  color: var(--dark-color);
-  font-family: var(--important-font);
-  font-size: 13px;
-  text-decoration: none;
-}
-
-.link:hover {
-  color: var(--medium-color);
-  font-family: var(--important-font);
-  font-size: 13px;
-}
-
 /*button*/
 .btn {
+  width: 100%;
   border: none;
   background-color: var(--medium-color);
   color: var(--bright-color);
   padding: 8px 0;
+  margin-top: 20px;
   text-transform: uppercase;
   transition: all 0.5s;
 }
@@ -173,39 +141,29 @@
   border: none;
 }
 
-.google {
-  width: 90%;
-  text-transform: uppercase;
-  color: var(--dark-color);
+.btn:disabled {
+  background-color: var(--medium-color);
+  opacity: 0.5;
+  border: none;
 }
 
 /*media queries*/
-
-@media screen and (max-width: 1100px) {
+@media screen and (max-width: 850px) {
   .formContainer {
-    width: 50%;
-    height: 600px;
+    min-width: 65%;
+    max-width: 65%;
   }
 }
 
-@media screen and (max-width: 650px) {
+@media screen and (max-width: 590px) {
   .formContainer {
-    width: 70%;
+    min-width: 95%;
+    max-width: 95%;
   }
-}
-
-@media screen and (max-width: 500px) {
-  .formContainer {
-    width: 80%;
-    height: 600px;
+  .label {
+    font-size: 11px;
   }
-}
-
-@media screen and (max-width: 360px) {
-  .formContainer {
-    height: 400px;
-  }
-  .header {
-    font-size: 16px;
+  .input {
+    font-size: 13px;
   }
 }
