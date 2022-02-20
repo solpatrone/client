@@ -1,0 +1,44 @@
+.selectOptions {
+  display: inline-block;
+  width: 100%;
+}
+
+.inputContainer {
+  width: 500px;
+  text-align: left;
+  margin-top: 5px;
+}
+
+.inputText {
+  width: 100%;
+  display: inline-block;
+}
+
+.errors {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+}
+
+.inputTextarea {
+  margin-top: 20px;
+}
+
+.box {
+  margin-top: 50px;
+  border: solid black 4px;
+  width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@media screen and (max-width: 660px) {
+  .box {
+    width: 400px;
+  }
+}
+@media screen and (max-width: 410px) {
+  .box {
+    width: 300px;
+  }
+}
