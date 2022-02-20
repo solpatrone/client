@@ -389,48 +389,33 @@ export function deleteFavorite(idUser, idResto){
     }
   };
 }
-
-// export function addFavorite(id , request){
-//   return async(dispatch) => {
-//     try {
-//       var response = await axios.put(`${userModif}/${id}/favorites`, request);
-//       return dispatch({
-//         type: ADD_FAVORITE,
-//         payload: response.data,
-//       });
-//     } catch (e) {
-//       console.error(e);
-//     }
-//   }
-//  }
-
-export  function postCheckout( id, date, pax) { 
-  return async function ()  {
-  try {
-    let payload = {
-      date:date,     
-      pax: pax,    
-    };
-    let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
-    window.location.assign(json.data.url);
-  }
-  catch (e) {
-    console.log(e);
-  }
-};
-}
-
-export function modifyUser(request, id) {
-  return async (dispatch) => {
+export function postCheckout(id, date, pax) {
+  return async function () {
     try {
-      var response = await axios.put(`${userModif}/${id}`, request);
-      return dispatch({
-        type: MODIF_USER,
-        payload: [response.data],
-      });
+      let payload = {
+        date: date,
+        pax: pax,
+      };
+      let json = await axios.post(`${restoModif}/${id}/checkout`, payload);
+      window.location.assign(json.data.url);
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
-  };
+  }
 }
+    export function modifyUser(request, id) {
+      return async (dispatch) => {
+        try {
+          var response = await axios.put(`${userModif}/${id}`, request);
+          return dispatch({
+            type: MODIF_USER,
+            payload: [response.data],
+          });
+        } catch (e) {
+          console.error(e);
+        }
+      };
+    }
+
+
 
