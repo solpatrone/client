@@ -4,8 +4,8 @@ import { GoogleLogin } from "react-google-login";
 import Cookies from "universal-cookie";
 import style from "./Login.module.css";
 import axios from "axios";
-import Swal from 'sweetalert2'
-import { Button } from "react-bootstrap";
+import Swal from "sweetalert2";
+// import { Button } from "react-bootstrap";
 
 import logo from "../../assets/rapiresto.png";
 
@@ -36,15 +36,14 @@ export default function Login() {
           cookies.set("email", userData.email, { path: "/" });
 
           cookies.set("email", userData.email, { path: "/" });
-
         }
         history.push("/home");
         return userData;
       } catch (e) {
         Swal.fire({
           text: "Por favor, antes de acceder con Google registrate en nuestro sistema",
-          confirmButtonColor: "#8aa899"
-        })
+          confirmButtonColor: "#8aa899",
+        });
         // alert(
         //   "Por favor, antes de acceder con Google registrate en nuestro sistema"
         // );
@@ -59,18 +58,18 @@ export default function Login() {
       var userData = user.data;
       return userData;
     } catch (e) {
-      if(e.response.data.message === "El usuario no existe"){
+      if (e.response.data.message === "El usuario no existe") {
         Swal.fire({
           text: e.response.data.message,
           confirmButtonColor: "#8aa899",
-        })
+        });
         // alert(e.response.data.message)
-        history.push("/registerclient")
-      }else{
+        history.push("/registerclient");
+      } else {
         Swal.fire({
           text: e.response.data.message,
-          confirmButtonColor: "#8aa899"
-        })
+          confirmButtonColor: "#8aa899",
+        });
         // alert(e.response.data.message)
       }
     }
@@ -99,8 +98,8 @@ export default function Login() {
   }
 
   return (
-    <>
-     <div className={style.mainNavbar}>
+    <div className={style.main}>
+      <div className={style.mainNavbar}>
         <NavLink to="/home" className={style.nlhome}>
           <img className={style.logo} src={logo} alt="Logo not found" />
           <div className={style.title}>
@@ -108,48 +107,59 @@ export default function Login() {
           </div>
         </NavLink>
 
-        <Button variant="secondary">
-          <div>
-            <NavLink to="/home"  className={style.navlinks}>    
-                    Volver
-            </NavLink>
-          </div>
-        </Button>{' '}
+        <div>
+          <NavLink to="/home" className={style.navlinks}>
+            Home
+          </NavLink>
+        </div>
       </div>
       <div className={style.container}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <div className={style.text}>Email: </div>
-            <input
-              type="email"
-              value={input.email}
-              name="email"
-              placeholder="Ingrese su usuario"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
-          <div>
-            <div>Contraseña: </div>
-            <input
-              type="password"
-              value={input.password}
-              name="password"
-              placeholder="Ingrese su contraseña"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
+        <div className={style.img}></div>
+        <div className={style.formContainer}>
+          <div className={style.header}>Iniciar Sesión</div>
+          <form onSubmit={handleSubmit} className={style.form}>
+            <div className={style.inputContainer}>
+              <label>Email </label>
+              <input
+                type="email"
+                value={input.email}
+                name="email"
+                placeholder="Ingrese su usuario"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className={style.inputContainer}>
+              <label>Contraseña </label>
+              <input
+                type="password"
+                value={input.password}
+                name="password"
+                placeholder="Ingrese su contraseña"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
 
-          <button type="submit">Iniciar sesíon</button>
-        </form>
-        <hr />
-        <GoogleLogin
-          clientId="666447071830-t1o2vsbnr22uaip19ug155dm5gd51o32.apps.googleusercontent.com"
-          buttonText="Iniciar sesión"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={"single_host_origin"}
-        />
+            <div>
+              <NavLink to="/forgotPassword" className={style.link}>
+                ¿Olvidaste tu contraseña?
+              </NavLink>
+            </div>
+
+            <button type="submit" className={style.btn}>
+              Ingresar
+            </button>
+          </form>
+          <hr />
+          <GoogleLogin
+            clientId="666447071830-t1o2vsbnr22uaip19ug155dm5gd51o32.apps.googleusercontent.com"
+            buttonText="Ingresar con Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            className={style.google}
+          />
+        </div>
       </div>
-    </>
+    </div>
   );
 }

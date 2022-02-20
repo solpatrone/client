@@ -30,11 +30,11 @@ export default function ReviewForm({setNewReview}) {
     let newRating = {};
    if(details.owner === "API" && !reviews.length){    // Toma el rating de la api + el input
     let sum = Number(details.rating) + Number(review.rating.value)
-    let prom = Math.round(sum /2)
+    let prom = details.rating === "0" ? Math.round(sum) : Math.round(sum/2)
      newRating = {rating:String(prom), owner: details.owner }
    
    }else if (details.owner === "API" && reviews.length > 0){     // Toma el rating de la api + lo que haya en reviews + el input
-    let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value), Number(details.rating) )
+    let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value))
     let sum =  ratingRev.reduce((acc,curr) => acc + curr, 0)
     let prom = Math.round(sum /ratingRev.length)
      newRating = {rating:String(prom), owner: details.owner }
@@ -92,8 +92,8 @@ export default function ReviewForm({setNewReview}) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(postReview(review));
-    dispatch(putRating(params.id,changeRating()))
+   dispatch(postReview(review));
+   dispatch(putRating(params.id,changeRating()))
     setTimeout(() => {
       dispatch(getRestaurantReviews(params.id))
       dispatch(getRestoDetails(params.id));
