@@ -22,14 +22,14 @@ import {AiOutlineDelete } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
 import Cookies from "universal-cookie";
 import { BsPencil} from "react-icons/bs";
-
+import { useHistory } from "react-router-dom";
 import Swal from "sweetalert2";
 
 
 
 export default function Restaurant() {
   const dispatch = useDispatch();
-  //const history = useHistory()
+  const history = useHistory()
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const widgetApi = useRef();
@@ -48,6 +48,14 @@ export default function Restaurant() {
     }; // eslint-disable-next-line
   }, [params.id]);
 
+  useEffect(() => {
+    if (myRestaurant && myRestaurant.id) {
+      if (myRestaurant.owner !== cookies.get("email")) {
+        history.push("/home");
+      }
+    } // eslint-disable-next-line
+  }, [myRestaurant]);
+
   function handleChange(e) {
     var photo = [];
 
@@ -59,8 +67,6 @@ export default function Restaurant() {
     }
   }
 
-  
-  console.log(params)
   function handleDelete(e){
     e.preventDefault()
     Swal.fire({

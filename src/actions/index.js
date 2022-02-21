@@ -25,7 +25,7 @@ import {
   ADD_FAVORITE,
 } from "./types";
 
-const url = "https://rapiresto.herokuapp.com";
+const url = "http://localhost:8080";
 const userModif = url + "/users";
 const restoModif = url + "/restaurants";
 const neighModif = url + "/neighborhoods";
@@ -111,11 +111,17 @@ export function createOwner(info) {
       info.personas_max = Number(info.personas_max);
       console.log("try");
       var newOwner = await axios.post(restoModif, info);
+      Swal.fire({
+        icon: 'success',
+        text: `${info.name} se ha registrado con éxito`,
+        confirmButtonColor: "#8aa899"
+      }); 
       window.location.href= '/home'
       return newOwner;
     } catch (e) {
       console.log("catch");
-      alert(e.response.data.message);
+      console.error(e);
+      
     }
   };
 }
