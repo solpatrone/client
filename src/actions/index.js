@@ -266,7 +266,6 @@ export function postReservation(date, time, pax, email, id) {
         `${restoModif}/${id}/reserves`,
         revFormated
       );
-      window.location.href = "myProfile"
       return newRes;
     } catch (e) {
       alert(e.response.data.message);
