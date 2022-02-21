@@ -3,7 +3,7 @@ import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
-  addToFavorites,
+  addFavorite,
   getUserFavorites
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -38,12 +38,11 @@ function Details() {
   console.log('favorite',favorite)
   const cookies = new Cookies();
   const usuario = cookies.get("username");
+  const userId = cookies.get("id")
   
-  let [userFavorite] = useState ({
+  let userFavorite =  {favorite: params.id}
     
-    restaurantId: params.id,
-    userId: cookies.get("id")
-  })
+
   
   useEffect(() => {
     
@@ -58,7 +57,7 @@ function Details() {
     if(findFavorite){
       setFavorite(true)
     }
-    dispatch(getUserFavorites(userFavorite.userId))
+    dispatch(getUserFavorites(userId))
    // eslint-disable-next-line
   }, []);
 
@@ -72,7 +71,7 @@ function Details() {
   function handleFavorite(e) {
     e.preventDefault()
     if(!favorite){
-    dispatch(addToFavorites(userFavorite))
+    dispatch(addFavorite(userFavorite, userId ))
     setFavorite(true)
   }
   }

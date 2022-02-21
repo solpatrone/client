@@ -65,19 +65,7 @@ export function addImagesToRestos(request, id) {
   };
 }
 
-export function addToFavorites(request, id) {
-  return async (dispatch) => {
-    try {
-      var response = await axios.put(`${userModif}/${id}`, request);
-      return dispatch({
-        type: GET_RESTO_DETAILS,
-        payload: [response.data],
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-}
+
 
 export function putRating(id, info) {
   return async () => {
@@ -332,6 +320,7 @@ export function deleteReview(idUser, idReview) {
     }
   };
 }
+
 
 export function getUserFavorites(id) {
   return async function (dispatch) {
