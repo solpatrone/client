@@ -47,35 +47,38 @@ export default function UserFavorite(props) {
         }, 100);
       }
 
-    return (
+      return (
         <div className={s.review}>
             <div className={s.topRow} >
-                <h4 >{elem.name}</h4>
-                <h4 >{elem.cuisine}</h4>      
-
-                <div className={elem.rating} > 
-
+                <div className={s.a}>
+                  <h4 >{elem.name}</h4>
+                  <div className={elem.rating} > 
                     {[...Array(Number(elem.rating)).keys()].map((index) => (
                         <RiStarFill size={20} style={{ fill: "#f2d349" }} key={index} />
                     ))}
+                  </div>
                 </div>
-                <button onClick={e => handleFavorite(e)}>
-            {favorite  ? <BsHeartFill
-                          style={{
-                            display: "inline-block",
-                            fontSize: "25px",
-                            color: "var(--error-color)"
-                          }}
-                        /> :  <BsHeart
-                          style={{
-                            display: "inline-block",
-                            fontSize: "25px",
-                          }}
-                        />
-                      }
-                
-              </button>
+                <div className={s.btn}>
+                    <button onClick={e => handleFavorite(e)}>
+                            {favorite  ? <BsHeartFill
+                              style={{
+                                display: "inline-block",
+                                fontSize: "25px",
+                                color: "var(--error-color)"
+                              }}
+                              /> :  <BsHeart
+                              style={{
+                                display: "inline-block",
+                                fontSize: "25px",
+                              }}
+                              />
+                            }            
+                  </button>
+                </div>
             </div>
+                          <div >
+                            <h4 className={s.cuisines}  >{elem.cuisine.join(', ')}</h4>      
+                          </div>
             <div className={s.text}>
                 <p>{elem.description}</p>
             </div>
