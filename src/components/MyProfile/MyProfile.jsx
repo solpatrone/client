@@ -65,7 +65,7 @@ export default function MyProfile() {
                         )
                       :
                       <div className={s.review} >
-                            <p>No hay reservas</p>
+                            <p>No has realizado ninguna Reserva</p>
                         </div>
                   }        
                       </div>
@@ -80,7 +80,7 @@ export default function MyProfile() {
                         )
                         :
                           <div className={s.review} >
-                              <p>No hay reviews</p>
+                              <p>No has realizado ninguna reseña</p>
                           </div>
                       }
                       </div>
@@ -95,7 +95,7 @@ export default function MyProfile() {
             )
             :
               <div className={s.review} >
-                  <p>No hay favoritos</p>
+                  <p>No has agregado ningún restaurant a favoritos</p>
               </div>
         }
                 </Tab.Pane>

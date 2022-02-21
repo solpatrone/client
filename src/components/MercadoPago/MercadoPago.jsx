@@ -4,7 +4,6 @@ import {Modal} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import { postReservation } from '../../actions';
 import Cookies from "universal-cookie";
-import { useHistory } from 'react-router';
 import emailjs from "emailjs-com"
 
 
@@ -20,7 +19,6 @@ export default function MercadoPago(){
     const fullDate = cookies.get("fullDate")
     const email = cookies.get("email")
 
-    const history = useHistory()
     
     
     const show = useState(true);
@@ -49,11 +47,6 @@ export default function MercadoPago(){
                console.log(error.text);
              }
            );
-         
-
-
-        
-         history.push('/myProfile')
         }
 
       

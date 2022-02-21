@@ -60,7 +60,7 @@ export default function Restaurant() {
   }
 
   
-  console.log(params)
+  
   function handleDelete(e){
     e.preventDefault()
     Swal.fire({
