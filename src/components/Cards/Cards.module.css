@@ -12,6 +12,11 @@
   max-width: 240px;
 }
 
+.linkCard:hover {
+  text-decoration: none;
+  color: var(--dark-color);
+}
+
 .box {
   width: 240px;
   min-height: 380px;

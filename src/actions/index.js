@@ -1,4 +1,5 @@
 import axios from "axios";
+import Swal from 'sweetalert2'
 
 import {
   GET_RESTOS,
@@ -9,26 +10,26 @@ import {
   POST_REVIEW,
   GET_CUISINES,
   LOADING,
-  ADD_IMAGES,
   GET_RESTO_REVIEWS,
+  GET_MY_RESTOS,
+  GET_RESTO_RESERVATIONS,
+  PUT_RATING,
+  GET_USER_REVIEWS,
 } from "./types";
 
-
-const url = 'http://localhost:3001'
-const createUser = url + '/user'
-const reviewModif = url + '/review'
-const restoModif = url + '/restaurant'
-const reservationModif = url + '/reserve'
-const neighModif = url + "/neighborhood"
-const cuisineModif = url + "/cuisines"
+const url = "https://rapiresto.herokuapp.com";
+const createUser = url + "/user";
+const reviewModif = url + "/review";
+const restoModif = url + "/restaurant";
+const reservationModif = url + "/reserve";
+const neighModif = url + "/neighborhood";
+const cuisineModif = url + "/cuisines";
+const userReviewModif = url + "/review/user";
 
 export function createClient(info) {
   return async () => {
     try {
-      var newClient = await axios.post(
-        createUser,
-        info
-      );
+      var newClient = await axios.post(createUser, info);
       console.log(newClient);
       return newClient;
     } catch (e) {
@@ -37,40 +38,48 @@ export function createClient(info) {
   };
 }
 
-export function addImagesToRestos(info, id){
+export function addImagesToRestos(request, id) {
+  return async (dispatch) => {
+    try {
+      var response = await axios.put(`${restoModif}/${id}`, request);
+      return dispatch({
+        type: GET_RESTO_DETAILS,
+        payload: [response.data],
+      });
+    } catch (e) {
+      console.error(e);
+    }
+  };
+}
+
+export function putRating(id, info) {
   return async () => {
-   // const request = {photo: info}
-    try{
-      var newImages = await axios.put(`${restoModif}/${id}`, info);
+    try {
+      var newRating = await axios.put(`${restoModif}/${id}`, info);
       return {
-        type: ADD_IMAGES,
-        payload:newImages
-      }
+        type: PUT_RATING,
+        payload: newRating,
+      };
     } catch (e) {
       console.log(e);
     }
-  }
+  };
 }
 
 export function createOwner(info) {
   return async () => {
     try {
       const neighborhood = info.neighborhood_info.name;
-      info.neighborhood_info = [neighborhood]
+      info.neighborhood_info = [neighborhood];
 
       const price = info.price.name;
-      info.price = price
+      info.price = price;
 
-      const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine))//stringfyle== pasa un objeto a un string en format JSON
-      info.cuisine = cuisineCopy.map( e => e.name )
+      const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine)); //stringfyle== pasa un objeto a un string en format JSON
+      info.cuisine = cuisineCopy.map((e) => e.name);
+      info.personas_max = Number(info.personas_max);
 
-
-      //const person_max=info.personas_max.name;
-      //info.personas_max=person_max
-      info.personas_max=info.personas_max.name
-      
-
-      var newOwner = await axios.post( restoModif , info);
+      var newOwner = await axios.post(restoModif, info);
       console.log(newOwner);
       return newOwner;
     } catch (e) {
@@ -99,6 +108,20 @@ export function getRestos() {
     let data = json.data;
     return dispatch({
       type: GET_RESTOS,
+      payload: data,
+    });
+  };
+}
+
+export function getMyRestos(id) {
+  return async function (dispatch) {
+    dispatch({
+      type: LOADING,
+    });
+    let json = await axios.get(`${createUser}/${id}/restaurants`);
+    let data = json.data;
+    return dispatch({
+      type: GET_MY_RESTOS,
       payload: data,
     });
   };
@@ -135,43 +158,39 @@ export function clearDetailsState() {
 }
 
 export function postReview(payload) {
-  const revToBack = ({rating, description, email, id}) =>{
-    return{
+  const revToBack = ({ rating, description, email, id }) => {
+    return {
       rating: rating.value,
       description,
       author: email,
-      id
-
-      
-    }
-  }
-  let revFormated = revToBack(payload)
-  return async (dispatch)=>{
-    try{
-      let newReview= await axios.post( reviewModif, revFormated)
+      id,
+    };
+  };
+  let revFormated = revToBack(payload);
+  return async (dispatch) => {
+    try {
+      let newReview = await axios.post(reviewModif, revFormated);
       return dispatch({
         type: POST_REVIEW,
         payload: newReview,
       });
-      
-
-    }catch(e){
-      console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 }
-export function getRestaurantReviews(id){
-  return async function(dispatch){
-    try{
-      let json = await axios.get(`${reviewModif}/${id}`)
+export function getRestaurantReviews(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`${reviewModif}/restaurant/${id}/all`);
       return dispatch({
         type: GET_RESTO_REVIEWS,
         payload: json.data,
       });
-    }catch(e){
-        console.log(e)
+    } catch (e) {
+      console.log(e);
     }
-  }
+  };
 }
 
 export function getNeighborhoods() {
@@ -194,14 +213,60 @@ export function getNeighborhoods() {
 }
 
 export function postReservation(payload) {
+  const revToBack = ({ date, time, pax, email, id }) => {
+    return {
+      date,
+      time: time.value,
+      pax: Number(pax),
+      email,
+      id,
+    };
+  };
+  let revFormated = revToBack(payload);
   return async function () {
     try {
-      var newRes = await axios.post(
-        reservationModif,
-        payload
-      );
-      alert("Tu reserva a sido realizada");
+      console.log("payload", revFormated);
+      var newRes = await axios.post(reservationModif, revFormated);
+        Swal.fire({
+          icon: 'success',
+          text: `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`,
+          confirmButtonColor: "#8aa899"
+        })
+        
+      // alert(
+      //   `Tu reserva para ${payload.pax} personas a las ${payload.time.value}hs ha sido realizada`
+      // );
       return newRes;
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+
+export function getRestoReservations(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`${reservationModif}/restaurant/${id}/all`);
+      let data = json.data;
+      return dispatch({
+        type: GET_RESTO_RESERVATIONS,
+        payload: data,
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  };
+}
+export function getUserReviews(id) {
+  return async function (dispatch) {
+    try {
+      let json = await axios.get(`${userReviewModif}/${id}/all`);
+      console.log(json);
+      const reviews = json && json.data ? json.data : [];
+      return dispatch({
+        type: GET_USER_REVIEWS,
+        payload: reviews,
+      });
     } catch (e) {
       console.log(e);
     }

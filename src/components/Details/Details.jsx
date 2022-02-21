@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { getRestoDetails, clearDetailsState, getRestaurantReviews } from "../../actions";
+import {
+  getRestoDetails,
+  clearDetailsState,
+  getRestaurantReviews,
+} from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
@@ -12,19 +16,23 @@ import ReviewForm from "../ReviewForm/ReviewForm";
 import Loading from "../Loading/Loading";
 import Cookies from "universal-cookie";
 import Reservations from "../Reservation/Reservations";
+import Carousel from 'react-bootstrap/Carousel'
+import defaultImage from '../../assets/no_food.png'
 
 function Details() {
   const dispatch = useDispatch();
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
-  const hasReviews = useSelector(state => state.reviews)
-  const cookies= new Cookies()
-  const usuario = cookies.get("username")
+  const hasReviews = useSelector((state) => state.reviews);
 
+  const cookies = new Cookies();
+  const usuario = cookies.get("username");
+
+  console.log(params.id)
   useEffect(() => {
-    dispatch(getRestoDetails(params.id))
-    dispatch(getRestaurantReviews(params.id))
+    dispatch(getRestoDetails(params.id));
+    dispatch(getRestaurantReviews(params.id));
     return () => {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
@@ -35,79 +43,103 @@ function Details() {
     setNewReview(!newReview);
   }
 
-//   function handlePreviousImage(e) {
-//     e.preventDefault();
-//     setCurrentImage(--currentImage)
-// }
+  //   function handlePreviousImage(e) {
+  //     e.preventDefault();
+  //     setCurrentImage(--currentImage)
+  // }
 
   return (
     <div>
       <Navbar />
-      {myRestaurant.length === 0 ? (
+      { !myRestaurant.id ? (
         <Loading />
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
-              <h2>{myRestaurant[0].name}</h2>
+              <h2>{myRestaurant.name}</h2>
 
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
-                    Direccion:
-                    {myRestaurant[0].address.split(",", 1) +
+                    Direccion:{" "}
+                    {myRestaurant.address && myRestaurant.address.split(",", 1) +
                       ", " +
-                      myRestaurant[0].neighborhood_info[0]}
+                      myRestaurant.neighborhood_info[0]}
                   </p>
-                   {myRestaurant[0].email !== " - " && <p>Contacto:
-                    {" " + myRestaurant[0].email}</p> }
-                    
+                  {myRestaurant.email !== " - " && (
+                    <p>
+                      Contacto:
+                      {" " + myRestaurant.email}
+                    </p>
+                  )}
                 </div>
                 <div className={styles.icons}>
                   <p>
-                    {[...Array(Number(myRestaurant[0].rating)).keys()].map(
+                    {[...Array(Number(myRestaurant.rating)).keys()].map(
                       (key) => (
-                        <RiStarFill size={20} style={{ fill: '#f2d349' }} key={key} />
+                        <RiStarFill
+                          size={20}
+                          style={{ fill: "#f2d349" }}
+                          key={key}
+                        />
                       )
                     )}
                   </p>
-                  {myRestaurant[0].price &&
-                  <p>
-                  {[...myRestaurant[0].price[0].split("")].map(() => (
-                    <BsCurrencyDollar size={20} />
-                  ))}
-                </p> }
-                  
+                  {myRestaurant.price && (
+                    <p>
+                      {[...myRestaurant.price.split("")].map((key) => (
+                        <BsCurrencyDollar size={20} key={key} />
+                      ))}
+                    </p>
+                  )}
                 </div>
               </div>
               
-              {/* <div>
-                    {currentPhoto > 1 && <button onClick={e => handlePreviousImage(e)}> Previous </button>}
-                    <span > aca iria la photo actual </span>
-                    {currentPhoto < maxPhoto && <button onClick={e => handleNextPhoto(e)}>  Next</button>}
-
-                </div> */}
-
-
-              <img
-                src={myRestaurant[0].photo}
+ {myRestaurant.photo[0] ? myRestaurant.photo.length === 1 ?  <img
+                src={myRestaurant.photo}
                 alt="img not found"
                 className={styles.restauranteImage}
                 height="auto"
-              />
+              /> : 
+              <Carousel  >
+ {myRestaurant && myRestaurant.photo?.map((el, index) => {return ( 
+ <Carousel.Item key={index}>
+    <img
+     className= {["d-block w-100", styles.restauranteImage]}
+      
+      src={el}
+      alt="First slide"
+    />
+  </Carousel.Item>)})}
+ 
+</Carousel>  : (
+            <img src={defaultImage} alt="img not found" width="240px" />
+          )}
+
+              {/* <img
+                src={myRestaurant.photo}
+                alt="img not found"
+                className={styles.restauranteImage}
+                height="auto"
+              /> */}
               <span>
-                {myRestaurant[0].cuisine.map((el, index) => (
-                  <div key={index} className={styles.tag}>{el}</div>
+                {myRestaurant.cuisine.map((el, index) => (
+                  <div key={index} className={styles.tag}>
+                    {el}
+                  </div>
                 ))}
               </span>
-              {myRestaurant[0].description && (
+              {myRestaurant.description && (
                 <p className={styles.description}>
-                  {myRestaurant[0].description}
+                  {myRestaurant.description}
                 </p>
               )}
             </div>
             <div className={styles.reservations}>
-              {usuario ? (
+              {myRestaurant.owner === "API" ? (
+                <p>No puedes realizar reservas en este restaurant</p>
+              ) : usuario ? (
                 <Reservations
                   restoId={myRestaurant}
                   userId={cookies.cookies.email}
@@ -129,7 +161,7 @@ function Details() {
               ) : (
                 <button>
                   <NavLink to="/login">
-                    <p className={styles.btn}>Dejá te reseña</p>
+                    <p className={styles.btn}>Dejá tu reseña</p>
                   </NavLink>
                 </button>
               )}
@@ -138,12 +170,12 @@ function Details() {
             </div>
           </div>
           <div>
-          {hasReviews.length > 0 && (
-            <div className={styles.reviews}>
-              <h3>Opiniones</h3>                    
-              <Review reviews={hasReviews} />
-            </div>
-          )}
+            {hasReviews.length > 0 && (
+              <div className={styles.reviews}>
+                <h3>Opiniones</h3>
+                <Review reviews={hasReviews} />
+              </div>
+            )}
           </div>
         </div>
       )}

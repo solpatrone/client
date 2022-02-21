@@ -87,3 +87,17 @@ hr {
   background-color: var(--dark-color);
   border: none;
 }
+
+.error {
+  color: red;
+  font-size: 12px;
+  font-style: italic;
+  font-weight: bold;
+}
+
+/* usar estilo para los restos de api */
+.errorMaxLimit {
+  color: red;
+  font-size: 16px;
+  font-style: italic;
+}

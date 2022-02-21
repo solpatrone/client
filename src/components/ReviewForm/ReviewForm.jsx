@@ -1,11 +1,12 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Select from "react-select";
-import { getRestaurantReviews, postReview } from "../../actions";
+import { getRestaurantReviews, getRestoDetails, postReview, putRating } from "../../actions";
 import styles from "./ReviewForm.module.css"
 import { RiStarFill } from "react-icons/ri";
 import Cookies from "universal-cookie";
 import {useParams } from "react-router-dom";
+
 
 
 
@@ -18,8 +19,39 @@ export default function ReviewForm({setNewReview}) {
     email: cookies.get("email"),
     id: params.id,
   });
-
+ 
   let [err, setErr] = useState({hasErr : true});
+
+
+  const reviews = useSelector((state) => state.reviews)
+  const details = useSelector((state) => state.details)
+
+  function changeRating (){
+    let newRating = {};
+   if(details.owner === "API" && !reviews.length){    // Toma el rating de la api + el input
+    let sum = Number(details.rating) + Number(review.rating.value)
+    let prom = Math.round(sum /2)
+     newRating = {rating:String(prom), owner: details.owner }
+   
+   }else if (details.owner === "API" && reviews.length > 0){     // Toma el rating de la api + lo que haya en reviews + el input
+    let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value), Number(details.rating) )
+    let sum =  ratingRev.reduce((acc,curr) => acc + curr, 0)
+    let prom = Math.round(sum /ratingRev.length)
+     newRating = {rating:String(prom), owner: details.owner }
+    
+   }else if(details.owner !== "API" && reviews.length >0){          // toma cada valor de reviews + el input
+      let ratingRev = reviews.map(el => Number(el.rating)).concat(Number(review.rating.value))
+      let sum = ratingRev.reduce((acc,curr) => acc + curr, 0)
+      let prom = Math.round(sum/ratingRev.length)
+       newRating = {rating:String(prom), owner: details.owner}
+     
+    }else{                                                  // si es un resto creado y no tiene review, toma el valor del input
+      newRating = {rating : review.rating.value, owner:details.owner}
+    }
+    return newRating
+  }
+  console.log("resp de la funcionn" + JSON.stringify(changeRating()))
+  
 
   function validate(review) {
     let err = {hasErr : false}
@@ -61,11 +93,18 @@ export default function ReviewForm({setNewReview}) {
   function handleSubmit(e) {
     e.preventDefault();
     dispatch(postReview(review));
+    dispatch(putRating(params.id,changeRating()))
     setTimeout(() => {
-      dispatch(getRestaurantReviews(params.id));
+      dispatch(getRestaurantReviews(params.id))
+      dispatch(getRestoDetails(params.id));
     }, 1000);
     setNewReview(false);
+    setTimeout(() => { 
+      dispatch(putRating(params.id,changeRating()))
+    }, 2000);
+    
   }
+
   function handleClose(e) {
     e.preventDefault();
     setNewReview(false);
@@ -83,10 +122,11 @@ export default function ReviewForm({setNewReview}) {
             name={"rating"}
             onChange={(e) => handleRatings(e)}
           />
-          {err.rating && <p>{err.rating}</p>}
+          {err.rating && <p className={styles.error}>{err.rating}</p>}
         </div>
         <div>
           <textarea
+            className={styles.input}
             required
             name="description"
             cols="50"
@@ -94,11 +134,11 @@ export default function ReviewForm({setNewReview}) {
             placeholder="Escribe tu reseña"
             onChange={(e) => handleRev(e)}
           ></textarea>
-          {err && <p>{err.description}</p>}
+          {err && <p className={styles.error}>{err.description}</p>}
         </div>
         <div>
-          <button disabled={err.hasErr} >Enviar Reseña</button>
-          <button onClick={e => handleClose(e)} >Cerrar</button>
+          <button disabled={err.hasErr} className={styles.button} >Enviar Reseña</button>
+          <button onClick={e => handleClose(e)} className={styles.button} >Cerrar</button>
         </div>
       </form>
     </div>
