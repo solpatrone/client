@@ -1,7 +1,7 @@
 // import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-// import { useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Select from "react-select";
 import  style from "./Registerowner.module.css";
 import {
@@ -10,14 +10,11 @@ import {
   getCuisines,
   getRestos,
 } from "../../actions";
-import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Cookies from "universal-cookie";
 import Navbar from "../NavBar/Navbar";
-import Loading from "../Loading/Loading";
-import Swal from 'sweetalert2'
 export default function RegisterOwner() {
-  // const history = useHistory();
+  const history = useHistory();
   let dispatch = useDispatch();
 
   const cookies = new Cookies();
@@ -33,14 +30,18 @@ export default function RegisterOwner() {
   const allCuisines = allCuisinesRaw.map((n) => {
     return { name: n.name, label: n.name, value: n.name };
   });
-  useEffect(() => {
-    dispatch(getCuisines());
-    
-  }, [dispatch]);
 
   useEffect(() => {
-    dispatch(getNeighborhoods());
-  }, [dispatch]);
+    if (!cookies.get("email")){
+      console.error("there is no user logged in")
+      history.push("/home");
+    }
+    dispatch(getCuisines());// eslint-disable-next-line
+  }, []);
+
+  useEffect(() => {
+    dispatch(getNeighborhoods());// eslint-disable-next-line
+  }, []);
 
   let priceOptions = [
     { name: "$", label: "$", value: "$" },
@@ -51,6 +52,8 @@ export default function RegisterOwner() {
   ];
 
   const own = cookies.get("email");
+
+
   //owner object
   const [owner, setOwner] = useState({
     name: "",
@@ -84,8 +87,7 @@ export default function RegisterOwner() {
   //error objects
   const [errors, setError] = useState({ hasErrors: true });
 
-  //flag for submit
-  const [isSubmit, setIsSubmit] = useState(false);
+  //const [isSubmit, setIsSubmit] = useState(false);
 
   function handleChange(e) {
     setOwner((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -104,22 +106,17 @@ export default function RegisterOwner() {
     setOwner((prev) => ({ ...prev, cuisine: e }));
   }
 
-  let onlyNumbers = (e) => {
-    if (!/[0-9]/.test(e.key)) {
-      e.preventDefault();
-    }
-  };
+  // let onlyNumbers = (e) => {
+  //   if (!/[0-9]/.test(e.key)) {
+  //     e.preventDefault();
+  //   }
+  // };
 
   function handleSubmit(e) {
-      dispatch(createOwner(owner));
-      setIsSubmit(true);
-      dispatch(getRestos());
-      // dispatch(getMyRestos(cookies.get("id")))
-      Swal.fire({
-        icon: 'success',
-        text: `${owner.name} se ha registrado con éxito`,
-        confirmButtonColor: "#8aa899"
-      }); 
+    e.preventDefault();
+    dispatch(createOwner(owner));
+    //setIsSubmit(true);
+    dispatch(getRestos());     
 }
 
   //validate function for inputs
