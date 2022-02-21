@@ -32,14 +32,13 @@ function Details() {
   const hasReviews = useSelector((state) => state.reviews);
   const userFavorites = useSelector((state) => state.userFavorites)
   console.log('userFav', userFavorites)
-  const findFavorite = userFavorites.find(el => el.name === myRestaurant.name)
+  const findFavorite = userFavorites.filter(el => el.name === myRestaurant.name)
   console.log('findFAv', findFavorite)
   const [favorite, setFavorite] = useState(false)
   console.log('favorite',favorite)
   const cookies = new Cookies();
   const usuario = cookies.get("username");
   const userId = cookies.get("id")
-  
   let userFavorite =  {favorite: params.id}
     
 
@@ -54,12 +53,13 @@ function Details() {
   }, [params.id]);
   
   useEffect(() => {
-    if(findFavorite){
-      setFavorite(true)
-    }
     dispatch(getUserFavorites(userId))
+    if(findFavorite.length === 1){
+      setFavorite(true)
+  
+    }
    // eslint-disable-next-line
-  }, []);
+  }, [findFavorite.length]);
 
 
   function handdleClick(e) {
@@ -73,6 +73,7 @@ function Details() {
     if(!favorite){
     dispatch(addFavorite(userFavorite, userId ))
     setFavorite(true)
+   
   }
   }
 

@@ -10,7 +10,7 @@ import Swal from "sweetalert2";
 import logo from "../../assets/rapiresto.png";
 
 export default function Login() {
-  const url = "http://localhost:8080";
+  const url = "https://rapiresto.herokuapp.com";
   const loginModif = url + "/logins";
 
   const history = useHistory();

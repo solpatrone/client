@@ -32,16 +32,19 @@ export default function UserFavorite(props) {
 },[])
 
 
-    const [favorite, setFavorite] = useState(true)
+    const favorite = useState(true)
    
 
     function handleFavorite(e) {
         e.preventDefault()
        
         
-        setFavorite(false)
-       
+        
+       // setFavorite(false)
         dispatch(deleteFavorite(userId, elem.id))
+        setTimeout(() => {
+          dispatch(getUserFavorites(userId))
+        }, 100);
       }
 
     return (
