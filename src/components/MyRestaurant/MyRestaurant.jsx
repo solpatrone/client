@@ -25,7 +25,6 @@ import { BsPencil} from "react-icons/bs";
 
 import Swal from "sweetalert2";
 
-import Swal from 'sweetalert2'
 
 
 export default function Restaurant() {
