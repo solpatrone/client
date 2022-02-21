@@ -172,7 +172,6 @@ export default function RegisterUser() {
                 </div>
                 <div class="col-9">
                   <Form.Control
-                    variant=""
                     type={"password"}
                     name={"password"}
                     value={input.password}
