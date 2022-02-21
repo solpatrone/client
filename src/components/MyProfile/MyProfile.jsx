@@ -59,7 +59,7 @@ export default function MyProfile() {
                 <Tab.Pane eventKey="first">
               <div className={s.reviewsContainer}>
                   {
-                    reservesInProgress  ?
+                    reservesInProgress >0 ?
                     reservesInProgress.map( (e, index) =>
                         <UserReserve key={index} elem ={e}/>             
                         )
