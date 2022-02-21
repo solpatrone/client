@@ -3,9 +3,10 @@ import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
+  getMyRestos,
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -19,18 +20,20 @@ import RestoReservations from "../RestoReservations/RestoReservations";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 import {AiOutlineDelete } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
+import Cookies from "universal-cookie";
 import { BsPencil} from "react-icons/bs";
 
 import Swal from "sweetalert2";
 
 export default function Restaurant() {
   const dispatch = useDispatch();
-  const history = useHistory()
+  //const history = useHistory()
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const widgetApi = useRef();
   const myReservations = useSelector((state) => state.restoReservations);
   const hasReviews = useSelector((state) => state.reviews);
+  const cookies = new Cookies();
 
   let [photo, setPhoto] = useState([]);
 
@@ -68,11 +71,15 @@ export default function Restaurant() {
     }).then((result) => {
       if (result.isConfirmed) {
         dispatch(deleteRestaurant(params.id))
+        setTimeout(()=>{
+          
+          dispatch(getMyRestos(cookies.get("id")))
+        },1000)
         Swal.fire({
           text: `${myRestaurant.name} fue elilmiado con éxito`,
           confirmButtonColor: "#8aa899",
         });
-          history.push("/home")
+        //  history.push("/home")
          // window.location.reload(false);
       } else if (result.dismiss === "cancel") {
         Swal.fire({

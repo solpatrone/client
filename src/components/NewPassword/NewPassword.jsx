@@ -1,15 +1,13 @@
-// import { useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import React, { useState } from "react";
-// import { changePassword } from "../../actions";
-import {NavLink, useHistory } from "react-router-dom";
+import { changePassword } from "../../actions";
+import {NavLink} from "react-router-dom";
 import Swal from 'sweetalert2'
 import logo from "../../assets/rapiresto.png";
 import style from "./NewPassword.module.css";
-import { Button } from "react-bootstrap";
 
 export default function NewPassword() {
-  const history = useHistory();
-//   let dispatch = useDispatch();
+  let dispatch = useDispatch();
 
   let [input, setInput] = useState({
     email: "",
@@ -25,7 +23,7 @@ export default function NewPassword() {
     console.log("input", input);
 
     if (!input.email) {
-      errors.email = `El email es requerido`;
+      errors.email = `* El email es requerido`;
       errors.hasErrors = true;
     } else if (
       !/(\W|^)[\w.]{0,30}@(yahoo|hotmail|gmail)\.com(\W|$)/.test(input.email)
@@ -34,8 +32,8 @@ export default function NewPassword() {
       errors.hasErrors = true;
     }
 
-    if (!input.password) {
-      errors.password = `La contraseña es requerida`;
+    else if (!input.password) {
+      errors.password = ` * La contraseña es requerida`;
       errors.hasErrors = true;
     } else if (
       !/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,15}$/gm.test(
@@ -43,11 +41,11 @@ export default function NewPassword() {
       )
     ) {
       errors.password =
-        "La contrseña debe incluir: \n Entre 8 y 15 carateres \n Mayúsculas y minúsculas \n Números";
+        "La contrseña debe incluir: \n Entre 8 y 15 carateres, \n mayúsculas, minúsculas y \n números";
       errors.hasErrors = true;
     }
 
-    if (!input.password2) {
+    else if (!input.password2) {
       errors.password2 = "Confirme su contraseña";
       errors.hasErrors = true;
     } else if (input.password !== input.password2) {
@@ -66,18 +64,15 @@ export default function NewPassword() {
 
   let handleSubmit = (e) => {
     e.preventDefault();
-    //   dispatch(changePassword(input));
+     dispatch(changePassword(input));
       Swal.fire({
         text: "Su contraseña fue actualizada con éxito" ,
         confirmButtonColor: "#8aa899"
       })
-      setTimeout(()=>{
-          history.push("/login");
-      },1000)
     }
 
   return (
-    <div>
+    <div  className={style.main}>
         <div className={style.mainNavbar}>
         <NavLink to="/home" className={style.nlhome}>
           <img className={style.logo} src={logo} alt="Logo not found" />
@@ -85,22 +80,19 @@ export default function NewPassword() {
             rapi<strong>Resto</strong>
           </div>
         </NavLink>
-
-        <Button variant="secondary">
           <div>
             <NavLink to="/home"  className={style.navlinks}>    
-                    Volver
+                    Home
             </NavLink>
           </div>
-        </Button>{' '}
-      </div>
-      <div>
-        <h3>Restablacer Contraseña</h3>
-      </div>
-      <br />
-      <form onSubmit={handleSubmit}>
-        <div>
-          <br />
+          </div>
+      <div className={style.container}>
+        <div className={style.formContainer}>
+        <div  className={style.header}> Restablacer Contraseña</div>
+            
+      <form onSubmit={handleSubmit} className={style.form}>
+        <div className={style.inputContainer}>
+         
           <label>E-mail </label>
           <input
             type={"text"}
@@ -110,10 +102,9 @@ export default function NewPassword() {
             autoComplete="off"
             onChange={(e) => handleChange(e)}
           />
-          {errors.email && <p className={"errors"}>{errors.email}</p>}
+          {errors.email && <p >{errors.email}</p>}
         </div>
-        <div>
-          <br />
+        <div className={style.inputContainer}>
           <label>Nueva Contraseña </label>
           <input
             type={"password"}
@@ -122,10 +113,9 @@ export default function NewPassword() {
             placeholder="Ingrese su contraseña"
             onChange={(e) => handleChange(e)}
           />
-          {errors.password && <p className={"errors"}>{errors.password}</p>}
+          {errors.password && <p >{errors.password}</p>}
         </div>
-        <div>
-          <br />
+        <div className={style.inputContainer}>
           <label>Confirma tu Contraseña </label>
           <input
             type={"password"}
@@ -134,19 +124,20 @@ export default function NewPassword() {
             placeholder="Ingrese su contraseña"
             onChange={(e) => handleChange(e)}
           />
-          {errors.password2 && <p className={"errors"}>{errors.password2}</p>}
+          {errors.password2 && <p>{errors.password2}</p>}
         </div>
-        <br />
-        <div>
           <button
+            className={style.btn}
             type={"submit"}
             disabled={errors.hasErrors}
             onSubmit={(e) => handleSubmit(e)}
           >
             Restablecer Contraseña
           </button>
-        </div>
+       
       </form>
+      </div>
+      </div>
     </div>
   );
   }

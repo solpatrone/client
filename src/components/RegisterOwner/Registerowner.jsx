@@ -1,7 +1,7 @@
 // import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+// import { useHistory } from "react-router-dom";
 import Select from "react-select";
 import "./Registerowner.css";
 import {
@@ -13,9 +13,10 @@ import {
 
 import Cookies from "universal-cookie";
 import Navbar from "../NavBar/Navbar";
-
+import Loading from "../Loading/Loading";
+import Swal from 'sweetalert2'
 export default function RegisterOwner() {
-  const history = useHistory();
+  // const history = useHistory();
   let dispatch = useDispatch();
 
   const cookies = new Cookies();
@@ -25,11 +26,15 @@ export default function RegisterOwner() {
     return { name: n.name, label: n.name, value: n.name };
   });
   const allCuisinesRaw = useSelector((state) => state.cuisines);
+  const restaurants =  useSelector((state) => state.enabledAndDisabled);
+  const emails = restaurants.map(r => r.email)
+  const names = restaurants.map(r => r.name)
   const allCuisines = allCuisinesRaw.map((n) => {
     return { name: n.name, label: n.name, value: n.name };
   });
   useEffect(() => {
     dispatch(getCuisines());
+    
   }, [dispatch]);
 
   useEffect(() => {
@@ -83,7 +88,7 @@ export default function RegisterOwner() {
 
   function handleChange(e) {
     setOwner((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    setError(validate(owner));
+    setError(validate({ ...owner, [e.target.name]: e.target.value }));
   }
 
   function handleNeighborhood(e) {
@@ -105,27 +110,16 @@ export default function RegisterOwner() {
   };
 
   function handleSubmit(e) {
-    if (!validate(owner).hasErrors) {
       dispatch(createOwner(owner));
-      dispatch(getRestos());
-      //console.log("owner", owner.email);
       setIsSubmit(true);
-      // setOwner({
-      //   name: "",
-      //   address: "",
-      //   neighborhood_info: "",
-      //   cuisine: [],
-      //   photo: [],
-      //   email: "",
-      //   personas_max: "",
-      //   owner: own,
-      //   description: "",
-      //   price: "",
-      // });
-    }
-
-    history.push("/home");
-  }
+      dispatch(getRestos());
+      // dispatch(getMyRestos(cookies.get("id")))
+      Swal.fire({
+        icon: 'success',
+        text: `${owner.name} se ha registrado con éxito`,
+        confirmButtonColor: "#8aa899"
+      }); 
+}
 
   //validate function for inputs
   function validate(owner) {
@@ -137,7 +131,12 @@ export default function RegisterOwner() {
       errors.name = "Debes ingresar el nombre de tu restaurante";
       errors.hasErrors = true;
     }
-
+    const sameName = names.find(e => e.toLowerCase() === owner.name.toLowerCase())
+    if(sameName){
+      errors.name = "El nombre ingresado ya corresponde a un restaurant registrado";
+      errors.hasErrors = true
+    }
+    
     if (!owner.address) {
       errors.address = "Ingrese una calle";
       errors.hasErrors = true;
@@ -149,6 +148,11 @@ export default function RegisterOwner() {
       errors.email = `El email debe ser una dirección válida`;
       errors.hasErrors = true;
     }
+    const sameEmail = emails.find(e => e === owner.email)
+    if(sameEmail){
+      errors.email = "El email ingresado ya corresponde a un restaurant registrado";
+      errors.hasErrors = true
+    }
 
     //if (owner.description.length < 0 || owner.description.length > 200) {
     //  errors.description = "La descripción debe tener menos de 200 caracteres";
@@ -158,16 +162,20 @@ export default function RegisterOwner() {
     return errors;
   }
 
-  return isSubmit ? (
-    <div>
-      <h3>Se ha registrado correctamente</h3>
-      <button onClick={() => history.push("/home")}>Volver a Home</button>
-    </div>
-  ) : (
-    <div>
-      <Navbar />
-      <div className="box">
-        <div children>
+  return(
+  isSubmit ? (
+    <Loading/>
+    // <div>
+    //   <h3>{owner.name} se ha registrado correctamente</h3>
+    //   <button onClick={() => history.push("/home")}>Volver a Home</button>
+    // </div>
+  ) : 
+  
+  <div>
+
+      <Navbar/>
+    <div className="box">
+      <div children>
           <div>
             <h2>Registra tu restaurante</h2>
           </div>

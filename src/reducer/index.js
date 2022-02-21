@@ -31,6 +31,7 @@ const initialState = {
   restaurants: [],
   myRestaurants: [],
   allRestaurants: [],
+  enabledAndDisabled: [],
   neighborhoods: [],
   details: {},
   reviews: [],
@@ -49,6 +50,7 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         restaurants: action.payload.filter(resto => resto.status === 'ENABLED'),
         allRestaurants: action.payload.filter(resto => resto.status === 'ENABLED'),
+        enabledAndDisabled : action.payload,
         loading: false,
       };
     case GET_RESTO_NAME:
@@ -145,9 +147,10 @@ export default function rootReducer(state = initialState, action) {
     case GET_USER_RESERVATION:
       return { ...state, 
         userReservation: action.payload };
+
     case GET_USER_FAVORITES:
       return { ...state, 
-        userFavorites:  [...state, action.payload]};
+        userFavorites:  action.payload };
 
     case PUT_RATING:
       return {
@@ -161,7 +164,7 @@ export default function rootReducer(state = initialState, action) {
       return {
         ...state
       }
-
+     
     default:
       return { ...state };
   }
