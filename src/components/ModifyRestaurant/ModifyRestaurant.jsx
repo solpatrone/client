@@ -163,11 +163,11 @@ console.log(owner.email)
     <Navbar className={s.mainNavbar}/>
     <div >
       <div  children>
+        <div className={s.container}>
+        <Form onSubmit={handleSubmit} className={s.formContainer}>
         <div className="mb-3">
           <h2 className={s.header}>Modificar restaurant: {myRestaurant.name}</h2>
         </div>
-        <div className={s.container}>
-        <Form onSubmit={handleSubmit} className={s.formContainer}>
           <Form.Group className="mb-3" >
             <div class="row">
               <div class="col text-right my-auto">

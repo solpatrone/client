@@ -164,16 +164,16 @@ export default function RegisterOwner() {
   }
 
   return(   <div>
-    <Loading/>
+    
       <Navbar className={style.mainNavbar}/>
     <div>
       <div children >
-        <div className="mb-3">
-          <div >
-            <h2 className={style.header}>Registra tu restaurante</h2>
-          </div>
+        
           <div className={style.container}> 
           <Form onSubmit={handleSubmit} className={style.formContainer}>
+          <div className="mb-3">
+            <h2 className={style.header}>Registra tu restaurante</h2>
+          </div>
             <Form.Group className="mb-3" >
             <div class="row">
               <div class="col text-right my-auto">
@@ -313,7 +313,7 @@ export default function RegisterOwner() {
                 <Form.Label className={["align-middle m-0", style.label]}>Descripcion </Form.Label>
               </div>
               <div class="col-9">
-                <Form.Control  as="textarea" rows={8}
+                <Form.Control  as="textarea" rows={3}
                   className={style.input}
                   name="description"
                   value={owner.description}
@@ -323,14 +323,13 @@ export default function RegisterOwner() {
               </div>
             </div>
           </Form.Group>
-            <Button className={style.btn} type="submit"  disabled={errors.hasErrors}>
-          </Button>
+            <button   className={style.btn} type="submit"  disabled={errors.hasErrors}> Registrar restaurant
+          </button>
             </Form>
             </div>
 
         </div>
       </div>
-    </div>
     </div>
   );
 }
