@@ -4,6 +4,7 @@ import {
   clearDetailsState,
   getRestaurantReviews,
   addToFavorites,
+  getUserFavorites
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
@@ -29,23 +30,38 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector((state) => state.reviews);
+  const userFavorites = useSelector((state) => state.userFavorites)
+  console.log('userFav', userFavorites)
+  const findFavorite = userFavorites.find(el => el.name === myRestaurant.name)
+  console.log('findFAv', findFavorite)
   const [favorite, setFavorite] = useState(false)
+  console.log('favorite',favorite)
   const cookies = new Cookies();
   const usuario = cookies.get("username");
-
-let [userFavorite] = useState ({
-     
-        restaurantId: params.id,
-        userId: cookies.get("id")
-})
-
+  
+  let [userFavorite] = useState ({
+    
+    restaurantId: params.id,
+    userId: cookies.get("id")
+  })
+  
   useEffect(() => {
+    
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
     return () => {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
   }, [params.id]);
+  
+  useEffect(() => {
+    if(findFavorite){
+      setFavorite(true)
+    }
+    dispatch(getUserFavorites(userFavorite.userId))
+   // eslint-disable-next-line
+  }, []);
+
 
   function handdleClick(e) {
     e.preventDefault();
@@ -55,8 +71,10 @@ let [userFavorite] = useState ({
 
   function handleFavorite(e) {
     e.preventDefault()
+    if(!favorite){
     dispatch(addToFavorites(userFavorite))
     setFavorite(true)
+  }
   }
 
   return (

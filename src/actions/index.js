@@ -365,7 +365,7 @@ return async function (dispatch) {
 export function deleteFavorite(idUser, idResto){
   return async () => {
     try {
-      var deleteResto = await axios.put(`${userModif}/${idUser}/favorites?id=${idResto}`);
+      var deleteResto = await axios.delete(`${userModif}/${idUser}/favorites?favId=${idResto}`);
       return {
         type: DELETE_RESTAURANT,
         payload: deleteResto,

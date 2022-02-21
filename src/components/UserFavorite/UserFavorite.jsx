@@ -4,24 +4,32 @@ import { BsHeart } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-//import { deleteFavorite } from "../../actions";
+import { deleteFavorite } from "../../actions";
 import { useDispatch } from "react-redux";
 import { getUserFavorites } from "../../actions";
-
-import { deleteFavorite } from "../../actions";
+import Cookies from "universal-cookie";
 
 
 
 export default function UserFavorite(props) {
-
+  
+  const elem = props.elem;
+  const cookies = new Cookies();
   const dispatch = useDispatch()
   const favorites = useSelector((state)=>state.userFavorites);
-  console.log('aca estan los favoritos', favorites)
+  console.log('favoritos', favorites)
+  const userId = cookies.get("id");
+  console.log('cookie ',userId)
+  
+ 
+
    
   useEffect(()=>{
-    dispatch(getUserFavorites(elem.UserId))
+   dispatch(getUserFavorites(userId))
+   console.log('get', elem.UserId)
+
     // eslint-disable-next-line
-},[favorites])
+},[])
 
 
     const [favorite, setFavorite] = useState(true)
@@ -29,11 +37,13 @@ export default function UserFavorite(props) {
 
     function handleFavorite(e) {
         e.preventDefault()
+       
+        
         setFavorite(false)
-        dispatch(deleteFavorite())
+       
+        dispatch(deleteFavorite(userId, elem.id))
       }
 
-    const elem = props.elem;
     return (
         <div className={s.review}>
             <div className={s.topRow} >

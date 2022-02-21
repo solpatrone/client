@@ -215,7 +215,7 @@ export default function RegisterOwner() {
               </div>
               <div class="col-9">
                 <Form.Control
-                  className={s.inputText}
+                  className={s.input}
                   type="text"
                   name="personas_max"
                   value={owner.personas_max}
