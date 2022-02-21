@@ -5,7 +5,7 @@ import {Button} from 'react-bootstrap';
 import { postReservation } from '../../actions';
 import Cookies from "universal-cookie";
 import { useHistory } from 'react-router';
-// import emailjs from "emailjs-com"
+import emailjs from "emailjs-com"
 
 
 export default function MercadoPago(){
@@ -27,29 +27,29 @@ export default function MercadoPago(){
 
     const handleClose = () =>{
          dispatch(postReservation(fullDate, time, pax, email, id))
-        //  let templateParams = {
-        //    resto_name: resto,
-        //    pax: pax,
-        //    time: time,
-        //    date: day,
-        //    user_email: email,
-        //  };
-        //  emailjs
-        //    .send(
-        //      "service_vwcqene",
-        //      "template_zn5kw4j",
-        //      templateParams,
-        //      "user_xvn5dt907bREXqYpY0YPa"
-        //    )
-        //    .then(
-        //      (result) => {
-        //        console.log(result.text);
-        //      },
-        //      (error) => {
-        //        console.log(error.text);
-        //      }
-        //    );
-         //setShow(false);
+         let templateParams = {
+           resto_name: resto,
+           pax: pax,
+           time: time,
+           date: day,
+           user_email: email,
+         };
+         emailjs
+           .send(
+             "service_vwcqene",
+             "template_zn5kw4j",
+             templateParams,
+             "user_xvn5dt907bREXqYpY0YPa"
+           )
+           .then(
+             (result) => {
+               console.log(result.text);
+             },
+             (error) => {
+               console.log(error.text);
+             }
+           );
+         
 
 
         

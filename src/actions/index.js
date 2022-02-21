@@ -24,7 +24,7 @@ import {
   ADD_FAVORITE,
 } from "./types";
 
-const url = "http://localhost:8080";
+const url = "https://rapiresto.herokuapp.com";
 const userModif = url + "/users";
 const restoModif = url + "/restaurants";
 const neighModif = url + "/neighborhoods";
@@ -65,19 +65,7 @@ export function addImagesToRestos(request, id) {
   };
 }
 
-export function addToFavorites(request, id) {
-  return async (dispatch) => {
-    try {
-      var response = await axios.put(`${userModif}/${id}`, request);
-      return dispatch({
-        type: GET_RESTO_DETAILS,
-        payload: [response.data],
-      });
-    } catch (e) {
-      console.error(e);
-    }
-  };
-}
+
 
 export function putRating(id, info) {
   return async () => {
@@ -97,6 +85,7 @@ export function deleteRestaurant(id) {
   return async () => {
     try {
       var deleteResto = await axios.put(`${restoModif}/${id}/disabled`);
+      window.location.href = "/home"
       return {
         type: DELETE_RESTAURANT,
         payload: deleteResto,
@@ -332,6 +321,7 @@ export function deleteReview(idUser, idReview) {
   };
 }
 
+
 export function getUserFavorites(id) {
   return async function (dispatch) {
     try {
@@ -368,9 +358,7 @@ export function getUserReservation(id) {
 export function deleteFavorite(idUser, idResto) {
   return async () => {
     try {
-      var deleteResto = await axios.put(
-        `${userModif}/${idUser}/favorites?id=${idResto}`
-      );
+      var deleteResto = await axios.delete(`${userModif}/${idUser}/favorites?favId=${idResto}`);
       return {
         type: DELETE_RESTAURANT,
         payload: deleteResto,

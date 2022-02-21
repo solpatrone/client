@@ -17,7 +17,6 @@ export default function MyProfile() {
     const id = cookies.get("id");
     const reviews = useSelector((state)=>state.userReviews);
     const reserves = useSelector((state)=>state.userReservation);
-
     const favorites = useSelector((state) => state.userFavorites);
 
     useEffect(() => {
