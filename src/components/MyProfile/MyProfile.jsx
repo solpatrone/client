@@ -87,7 +87,6 @@ export default function MyProfile() {
                 </Tab.Pane>
 
                 <Tab.Pane eventKey="third">
-                <h2>Mis favoritos</h2>
                 {
           favorites.length > 0 ?
           favorites.map( (e, index) =>

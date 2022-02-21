@@ -4,10 +4,11 @@ import { GoogleLogin } from "react-google-login";
 import Cookies from "universal-cookie";
 import style from "./Login.module.css";
 import axios from "axios";
-import Swal from "sweetalert2";
 // import { Button } from "react-bootstrap";
 
 import logo from "../../assets/rapiresto.png";
+
+import Swal from 'sweetalert2'
 
 export default function Login() {
   const url = "http://localhost:8080";
@@ -42,8 +43,8 @@ export default function Login() {
       } catch (e) {
         Swal.fire({
           text: "Por favor, antes de acceder con Google registrate en nuestro sistema",
-          confirmButtonColor: "#8aa899",
-        });
+          confirmButtonColor: "#8aa899"
+        })
         // alert(
         //   "Por favor, antes de acceder con Google registrate en nuestro sistema"
         // );

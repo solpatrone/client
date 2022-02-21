@@ -95,11 +95,11 @@ export default function Restaurant() {
     e.preventDefault();
     Swal.fire({
       text: `Vas a modificar la información de ${myRestaurant.name}`,
-      icon: "warning",
+      icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: "#8aa899",
-      cancelButtonColor: "#d33",
-      confirmButtonText: "Guardar cambios",
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Guardar cambios'
     }).then((result) => {
       if (result.isConfirmed) {
         const request = {
@@ -107,6 +107,7 @@ export default function Restaurant() {
           photo: photo,
         };
         dispatch(addImagesToRestos(request, myRestaurant.id));
+
         setTimeout(() => {
           dispatch(getRestoDetails(params.id));
         }, 1000);
@@ -122,6 +123,7 @@ export default function Restaurant() {
       }
     });
     setPhoto([]);
+
   }
 
   return (
