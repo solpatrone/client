@@ -39,9 +39,12 @@ export default function UserFavorite(props) {
         e.preventDefault()
        
         
-        setFavorite(false)
-       
+        
+       // setFavorite(false)
         dispatch(deleteFavorite(userId, elem.id))
+        setTimeout(() => {
+          dispatch(getUserFavorites(userId))
+        }, 100);
       }
 
     return (
