@@ -1,7 +1,7 @@
 .review{
     display:flex;
     justify-content: space-around;
-    width: 45vw;
+    width: 40vw;
     border-radius: 5px;
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
     margin-top: 10px;
@@ -18,5 +18,53 @@
 
 .topRow{
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+
+   
 }
+.a{
+
+   display: flex;
+   margin-left: 10px;
+}
+
+@media screen and (max-width:1200px){
+.review{
+    width: 355px;
+}
+}
+@media screen and (max-width:930px){
+    .review{
+        max-width: 90%;
+    }
+}
+@media screen and (max-width:800px){
+    .review{
+        max-width: 100%;
+    }
+}
+
+@media screen and (max-width:775px){
+    .review{
+        max-width: 100%;
+        margin-left:20px;
+    }
+}
+@media screen and (max-width:550px){
+    .review{
+        max-width: 100%;
+        margin-left:30px;
+    }
+
+}
+@media screen and (max-width:440px){
+    .review{
+        max-width: 90%;
+        margin-left:20px;
+    }
+
+}
+
+
+
+

@@ -52,3 +52,27 @@ h3.second {
   font-weight: lighter;
   color: var(--bright-color);
 }
+@media screen and (max-width:1275px) {
+  .welcome{
+    width: 500px;
+    margin-left: 50px;
+  }
+}
+@media screen and (max-width:1000px) {
+  .welcome{
+    width: 500px;
+    margin-left: 20px;
+  }
+}
+@media screen and (max-width:400px) {
+  .wrapper h3 {
+    font-family: var(--important-font);
+    text-transform: uppercase;
+    font-weight: 500;
+    font-size: 20px;
+    text-align: center;
+    letter-spacing: 4px;
+    line-height: 35px;
+  }
+}
+

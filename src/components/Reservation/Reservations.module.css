@@ -1,22 +1,12 @@
 .container {
-  max-height: 450px;
+  max-height: 900px;
   width: 90%;
   border-radius: 5px;
   box-shadow: 1px 1px 3px var(--medium-color), -1px -1px 3px var(--medium-color);
-  overflow-y: scroll;
+  
 }
 
-.container::-webkit-scrollbar {
-  width: 6px;
-  border-radius: 10px;
-  background-color: var(--medium-color);
-}
 
-.container::-webkit-scrollbar-thumb {
-  background-color: var(--dark-color);
-  border-radius: 10px;
-  height: 6px;
-}
 
 .headContainer {
   border-radius: 5px 0px 0px 0px;
@@ -101,3 +91,23 @@ hr {
   font-size: 16px;
   font-style: italic;
 }
+/*@media screen and (max-width:1200px) {
+  .container{
+      max-height: 800px;
+      width: 98%;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px var(--medium-color), -1px -1px 3px var(--medium-color);
+      
+    
+  }
+}
+@media screen and (max-width:1000px) {
+  .container{
+      max-height: 600px;
+      width: 98%;
+      border-radius: 5px;
+      box-shadow: 1px 1px 3px var(--medium-color), -1px -1px 3px var(--medium-color);
+      
+    
+  }
+}*/

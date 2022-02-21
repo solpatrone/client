@@ -1,4 +1,6 @@
 .btn{
     margin-top: auto;
     margin-bottom: auto;
+    color: var(--dark-color);
+    margin-left: 0px;
 }

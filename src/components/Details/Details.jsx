@@ -3,6 +3,8 @@ import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
+  addFavorite,
+  getUserFavorites
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
@@ -18,6 +20,9 @@ import Cookies from "universal-cookie";
 import Reservations from "../Reservation/Reservations";
 import Carousel from 'react-bootstrap/Carousel'
 import defaultImage from '../../assets/no_food.png'
+import { BsHeart } from "react-icons/bs";
+import { BsHeartFill } from "react-icons/bs";
+import { FcCheckmark } from "react-icons/fc";
 
 function Details() {
   const dispatch = useDispatch();
@@ -25,28 +30,52 @@ function Details() {
   const myRestaurant = useSelector((state) => state.details);
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector((state) => state.reviews);
-
+  const userFavorites = useSelector((state) => state.userFavorites)
+  console.log('userFav', userFavorites)
+  const findFavorite = userFavorites.filter(el => el.name === myRestaurant.name)
+  console.log('findFAv', findFavorite)
+  const [favorite, setFavorite] = useState(false)
+  console.log('favorite',favorite)
   const cookies = new Cookies();
   const usuario = cookies.get("username");
+  const userId = cookies.get("id")
+  let userFavorite =  {favorite: params.id}
+    
 
-  console.log(params.id)
+  
   useEffect(() => {
+    
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
     return () => {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
   }, [params.id]);
+  
+  useEffect(() => {
+    dispatch(getUserFavorites(userId))
+    if(findFavorite.length === 1){
+      setFavorite(true)
+  
+    }
+   // eslint-disable-next-line
+  }, [findFavorite.length]);
+
 
   function handdleClick(e) {
     e.preventDefault();
     setNewReview(!newReview);
   }
 
-  //   function handlePreviousImage(e) {
-  //     e.preventDefault();
-  //     setCurrentImage(--currentImage)
-  // }
+
+  function handleFavorite(e) {
+    e.preventDefault()
+    if(!favorite){
+    dispatch(addFavorite(userFavorite, userId ))
+    setFavorite(true)
+   
+  }
+  }
 
   return (
     <div>
@@ -57,8 +86,23 @@ function Details() {
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
-              <h2>{myRestaurant.name}</h2>
-
+              <h2 >{myRestaurant.name}</h2>
+              <button style={{backgroundColor: 'white'}} onClick={e => handleFavorite(e)}>
+            {favorite  ? <BsHeartFill
+                          style={{
+                            display: "inline-block",
+                            fontSize: "25px",
+                            color: "var(--error-color)"
+                          }}
+                        /> :  <BsHeart
+                          style={{
+                            display: "inline-block",
+                            fontSize: "25px",
+                          }}
+                        />
+                      }
+                
+              </button>
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
@@ -88,7 +132,7 @@ function Details() {
                   </p>
                   {myRestaurant.price && (
                     <p>
-                      {[...myRestaurant.price.split("")].map((key) => (
+                      {[...myRestaurant.price.split("")].map((elem,key) => (
                         <BsCurrencyDollar size={20} key={key} />
                       ))}
                     </p>
@@ -117,16 +161,11 @@ function Details() {
             <img src={defaultImage} alt="img not found" width="240px" />
           )}
 
-              {/* <img
-                src={myRestaurant.photo}
-                alt="img not found"
-                className={styles.restauranteImage}
-                height="auto"
-              /> */}
+              
               <span>
                 {myRestaurant.cuisine.map((el, index) => (
                   <div key={index} className={styles.tag}>
-                    {el}
+                   <FcCheckmark /> {el}
                   </div>
                 ))}
               </span>

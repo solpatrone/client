@@ -17,6 +17,11 @@ import {
   GET_RESTO_RESERVATIONS,
   PUT_RATING,
   GET_USER_REVIEWS,
+  GET_USER_RESERVATION,
+  GET_USER_FAVORITES,
+  DELETE_RESTAURANT,
+  DELETE_REVIEW,
+  ADD_FAVORITE,
 } from "../actions/types";
 
 const initialState = {
@@ -26,14 +31,16 @@ const initialState = {
   restaurants: [],
   myRestaurants: [],
   allRestaurants: [],
+  enabledAndDisabled: [],
   neighborhoods: [],
   details: {},
   reviews: [],
   cuisines: [],
   loading: false,
   userReviews: [],
-  // images: []
+  userFavorites: [],
   restoReservations: [],
+  userReservation:[],
 };
 
 export default function rootReducer(state = initialState, action) {
@@ -41,8 +48,9 @@ export default function rootReducer(state = initialState, action) {
     case GET_RESTOS:
       return {
         ...state,
-        restaurants: action.payload,
-        allRestaurants: action.payload,
+        restaurants: action.payload.filter(resto => resto.status === 'ENABLED'),
+        allRestaurants: action.payload.filter(resto => resto.status === 'ENABLED'),
+        enabledAndDisabled : action.payload,
         loading: false,
       };
     case GET_RESTO_NAME:
@@ -67,23 +75,13 @@ export default function rootReducer(state = initialState, action) {
     case ADD_IMAGES:
       return { ...state };
 
+    case ADD_FAVORITE:
+        return { ...state };
+
     case CREATE_OWNER:
       return { ...state };
-    //case CREATE_OWNER:
-    //  let existsOwn = state.owners.find(
-    //    (u) => u.email === action.payload.email
-    //  );
-    //  console.log(state.owners);
-    //  if (!existsOwn) {
-    //    return {
-    //      ...state,
-    //      owners: [...state.owners, action.payload],
-    //    };
-    //  } else {
-    //    return {
-    //      ...state,
-    //    };
-    //  }
+
+  
     case GET_USERS:
       return {
         ...state,
@@ -143,13 +141,30 @@ export default function rootReducer(state = initialState, action) {
       };
     }
     case GET_USER_REVIEWS:
-      return { ...state, userReviews: action.payload };
+      return { ...state, 
+        userReviews: action.payload };
+
+    case GET_USER_RESERVATION:
+      return { ...state, 
+        userReservation: action.payload };
+
+    case GET_USER_FAVORITES:
+      return { ...state, 
+        userFavorites:  action.payload };
 
     case PUT_RATING:
       return {
         ...state,
       };
-
+    case DELETE_RESTAURANT:
+      return {
+        ...state,
+      }
+    case DELETE_REVIEW:
+      return {
+        ...state
+      }
+     
     default:
       return { ...state };
   }
