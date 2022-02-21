@@ -95,7 +95,7 @@ export default function RegisterOwner() {
 
   function handleChange(e) {
     setOwner((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-    setError(validate(owner));
+    setError(validate({ ...owner, [e.target.name]: e.target.value }));
   }
 
   function handleNeighborhood(e) {
@@ -136,12 +136,27 @@ export default function RegisterOwner() {
     console.log("input", owner);
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    if (!regexEmail.test(owner.email)) {
+    if (owner.name === '') {
+      errors.name = "Debes ingresar el nombre de tu restaurante";
+      errors.hasErrors = true;
+    }
+    
+  
+    if (owner.address === '') {
+      errors.address = "Ingrese una calle";
+      errors.hasErrors = true;
+    }
+    if (owner.email === '') {
+      errors.email = `El email es requerido`;
+      errors.hasErrors = true;
+    } else if (owner.email && !regexEmail.test(owner.email)) {
       errors.email = `El email debe ser una dirección válida`;
       errors.hasErrors = true;
     }
+    
     return errors;
   }
+console.log(owner.email)
 
   return (<div>
     <Loading />
@@ -280,6 +295,24 @@ export default function RegisterOwner() {
               </div>
             </div>
           </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", s.label]}>Descripcion </Form.Label>
+              </div>
+              <div class="col-9">
+                <Form.Control  as="textarea" rows={4}
+                  className={s.input}
+                  name="description"
+                  value={owner.description}
+                  placeholder="Ingrese una breve descripción de tu local"
+                  autoComplete="off"
+                  onChange={(e) => handleChange(e)} />
+              </div>
+            </div>
+          </Form.Group>
+          
 
           <Button className={s.btn} type="submit"  disabled={errors.hasErrors}>
             Actualizar

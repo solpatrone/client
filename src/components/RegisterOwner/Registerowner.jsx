@@ -3,14 +3,15 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { useHistory } from "react-router-dom";
 import Select from "react-select";
-import "./Registerowner.css";
+import  style from "./Registerowner.module.css";
 import {
   createOwner,
   getNeighborhoods,
   getCuisines,
   getRestos,
 } from "../../actions";
-
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
 import Cookies from "universal-cookie";
 import Navbar from "../NavBar/Navbar";
 import Loading from "../Loading/Loading";
@@ -162,150 +163,174 @@ export default function RegisterOwner() {
     return errors;
   }
 
-  return(
-  isSubmit ? (
+  return(   <div>
     <Loading/>
-    // <div>
-    //   <h3>{owner.name} se ha registrado correctamente</h3>
-    //   <button onClick={() => history.push("/home")}>Volver a Home</button>
-    // </div>
-  ) : 
-  
-  <div>
-
-      <Navbar/>
-    <div className="box">
-      <div children>
-          <div>
-            <h2>Registra tu restaurante</h2>
+      <Navbar className={style.mainNavbar}/>
+    <div>
+      <div children >
+        <div className="mb-3">
+          <div >
+            <h2 className={style.header}>Registra tu restaurante</h2>
           </div>
-          <form onSubmit={(e) => handleSubmit(e)}>
-            <div>
-              <div>
-                <label>Nombre del Restaurante</label>
-                <input
+          <div className={style.container}> 
+          <Form onSubmit={handleSubmit} className={style.formContainer}>
+            <Form.Group className="mb-3" >
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", style.label]}>Nombre del Restaurante</Form.Label>
+              </div>
+              <div class="col-9">
+                <Form.Control
+                  className={style.input}
                   type="text"
                   name="name"
                   value={owner.name}
                   placeholder="Ingrese el nombre del restaurante"
-                  autoComplete="off"
-                  onChange={(e) => handleChange(e)}
-                />
-                <p className="errors">{errors.name}</p>
+                  onChange={(e) => handleChange(e)} />
               </div>
+              <Form.Text className={style.errors}>
+                {errors.name}
+              </Form.Text>
+            </div>
+          </Form.Group>
 
-              <div>
-                <label>Email del restaurant</label>
-                <input
+              <Form.Group className="mb-3" >
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", style.label]}>Email del restaurant</Form.Label>
+              </div>
+              <div class="col-9">
+                <Form.Control
+                  className={style.input}
                   type="text"
                   name="email"
                   value={owner.email}
                   placeholder="Ingrese el nombre del restaurante"
-                  autoComplete="off"
-                  onChange={(e) => handleChange(e)}
-                />
-                <p className="errors">{errors.email}</p>
+                  onChange={(e) => handleChange(e)} />
               </div>
+              <Form.Text className={style.errors}>
+                {errors.email}
+              </Form.Text>
+            </div>
+          </Form.Group>
 
-              <div>
-                <label>Direccion</label>
-                <input
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", style.label]}>Direccion</Form.Label>
+              </div>
+              <div class="col-9">
+                <Form.Control
+                  className={style.input}
                   type="text"
                   name="address"
                   value={owner.address}
                   placeholder="Ingrese la calle"
-                  autoComplete="off"
-                  onChange={(e) => handleChange(e)}
-                />
-                <p className="errors">{errors.address}</p>
+                  onChange={(e) => handleChange(e)} />
               </div>
-              <div>
-                <label>Reserva maxima</label>
-                <input
-                  className="text"
-                  placeholder="ingresa cantidad de reservas maximas"
+              <Form.Text className={style.errors}>
+                {errors.address}
+              </Form.Text>
+            </div>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", style.label]}>Capacidad maxima </Form.Label>
+              </div>
+              <div class="col-9">
+                <Form.Control
+                  className={style.input}
+                  type="text"
+                  name="personas_max"
                   value={owner.personas_max}
-                  name={"personas_max"}
-                  onKeyPress={onlyNumbers}
-                  onChange={(e) => handleChange(e)}
-                />
+                  placeholder="ingresa cantidad de reservas maximas diarias"
+                  autoComplete="off"
+                  onChange={(e) => handleChange(e)} />
               </div>
-              <div>
-                <label className="inputText">Barrio</label>
+            </div>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", style.label]}>Barrio</Form.Label>
+              </div>
+              <div class="col-9">
                 <Select
-                  className="selectOptions"
+                  className={style.input}
                   options={allNeighborhoods}
                   value={owner.neighborhood_info}
-                  name={"neighborhood_info"}
+                  placeholder={'seleccione el barrio'}
+                  name={"cuisine"}
                   onChange={(e) => handleNeighborhood(e)}
                 />
               </div>
-              <div>
-                <label className="inputText">Precio</label>
-                <Select
-                  className="selectOptions"
-                  options={priceOptions}
-                  value={owner.price}
-                  name={"price"}
-                  onChange={(e) => handlePrice(e)}
-                />
+            </div>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", style.label]}>Tipos de comida</Form.Label>
               </div>
-              <div>
-                <label className="inputText">Tipo de comida</label>
+              <div class="col-9">
                 <Select
-                  className="selectOptions"
+                  className={style.input}
                   options={allCuisines}
                   isMulti={true}
                   value={owner.cuisine}
                   name={"cuisine"}
+                  placeholder={'seleccione tipo de comida'}
                   onChange={(e) => handleTypes(e)}
                 />
               </div>
-              <div>
-                <textarea
-                  className="inputTextarea"
-                  name="description"
-                  value={owner.description}
-                  cols="30"
-                  rows="8"
-                  placeholder="Ingrese una breve descripción de tu local"
-                  onChange={(e) => handleChange(e)}
-                ></textarea>
-                <p className="errors">{errors.description}</p>
+            </div>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", style.label]}>Precio</Form.Label>
+              </div>
+              <div class="col-9">
+                <Select
+                  className={style.input}
+                  options={priceOptions}
+                  value={owner.price}
+                  name={"price"}
+                  placeholder={'Seleccione el precio de reserva'}
+                  onChange={(e) => handlePrice(e)}
+                />
               </div>
             </div>
-            <div>
-              <button
-                type={"submit"}
-                disabled={errors.hasErrors}
-                onSubmit={(e) => handleSubmit(e)}
-              >
-                Registra tu restaurante!
-              </button>
+          </Form.Group>
+              
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", style.label]}>Descripcion </Form.Label>
+              </div>
+              <div class="col-9">
+                <Form.Control  as="textarea" rows={8}
+                  className={style.input}
+                  name="description"
+                  value={owner.description}
+                  placeholder="Ingrese una breve descripción de tu local"
+                  autoComplete="off"
+                  onChange={(e) => handleChange(e)} />
+              </div>
             </div>
-          </form>
+          </Form.Group>
+            <Button className={style.btn} type="submit"  disabled={errors.hasErrors}>
+          </Button>
+            </Form>
+            </div>
 
-          {/* <Form>
-  <Form.Group className="mb-3" controlId="formBasicEmail">
-    <Form.Label>Email address</Form.Label>
-    <Form.Control type="email" placeholder="Enter email" />
-    <Form.Text className="text-muted">
-      We'll never share your email with anyone else.
-    </Form.Text>
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicPassword">
-    <Form.Label>Password</Form.Label>
-    <Form.Control type="password" placeholder="Password" />
-  </Form.Group>
-  <Form.Group className="mb-3" controlId="formBasicCheckbox">
-    <Form.Check type="checkbox" label="Check me out" />
-  </Form.Group>
-  <Button variant="primary" type="submit">
-    Submit
-  </Button>
-</Form> */}
         </div>
       </div>
+    </div>
     </div>
   );
 }
