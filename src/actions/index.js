@@ -97,6 +97,7 @@ export function deleteRestaurant(id) {
   return async () => {
     try {
       var deleteResto = await axios.put(`${restoModif}/${id}/disabled`);
+      window.location.href = "/home"
       return {
         type: DELETE_RESTAURANT,
         payload: deleteResto,
@@ -368,9 +369,7 @@ export function getUserReservation(id) {
 export function deleteFavorite(idUser, idResto) {
   return async () => {
     try {
-      var deleteResto = await axios.put(
-        `${userModif}/${idUser}/favorites?id=${idResto}`
-      );
+      var deleteResto = await axios.delete(`${userModif}/${idUser}/favorites?favId=${idResto}`);
       return {
         type: DELETE_RESTAURANT,
         payload: deleteResto,

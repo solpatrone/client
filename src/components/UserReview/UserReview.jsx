@@ -11,6 +11,7 @@ export default function UserReview(props) {
 
     const dispatch = useDispatch()
     const elem = props.elem;
+    console.log('resenias', elem)
     const allRestaurants = useSelector(state => state.allRestaurants)
     const restaurant = allRestaurants.find(el => el.id === elem.RestaurantId)
     const reviews = useSelector(state => state.reviews)

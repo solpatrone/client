@@ -6,7 +6,7 @@ import {
   getMyRestos,
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams, useHistory, Link } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -27,7 +27,7 @@ import Swal from "sweetalert2";
 
 export default function Restaurant() {
   const dispatch = useDispatch();
-  const history = useHistory()
+  //const history = useHistory()
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const widgetApi = useRef();
@@ -79,7 +79,7 @@ export default function Restaurant() {
           text: `${myRestaurant.name} fue elilmiado con éxito`,
           confirmButtonColor: "#8aa899",
         });
-          history.push("/home")
+        //  history.push("/home")
          // window.location.reload(false);
       } else if (result.dismiss === "cancel") {
         Swal.fire({

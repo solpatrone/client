@@ -145,28 +145,28 @@ export default function RegisterOwner() {
 
   return (<div>
     <Loading />
-    <Navbar />
-    <div className="box pt-2 pb-2">
-      <div className="container" children>
+    <Navbar className={s.mainNavbar}/>
+    <div >
+      <div  children>
         <div className="mb-3">
-          <h2>Modificar restaurant {myRestaurant.name}</h2>
+          <h2 className={s.header}>Modificar restaurant: {myRestaurant.name}</h2>
         </div>
-
-        <Form onSubmit={handleSubmit}>
+        <div className={s.container}>
+        <Form onSubmit={handleSubmit} className={s.formContainer}>
           <Form.Group className="mb-3" >
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className="align-middle m-0">Nombre</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Nombre</Form.Label>
               </div>
               <div class="col-9">
                 <Form.Control
-                  className={s.inputText}
+                  className={s.input}
                   type="text"
                   name="name"
                   value={owner.name}
                   onChange={(e) => handleChange(e)} />
               </div>
-              <Form.Text className="text-muted">
+              <Form.Text className={s.errors}>
                 {errors.name}
               </Form.Text>
             </div>
@@ -175,11 +175,11 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" >
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className="align-middle m-0">Email</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Email</Form.Label>
               </div>
               <div class="col-9">
                 <Form.Control
-                  className={s.inputText}
+                  className={s.input}
                   type="text"
                   name="email"
                   value={owner.email}
@@ -194,11 +194,11 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className="align-middle m-0">Direccion</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Direccion</Form.Label>
               </div>
               <div class="col-9">
                 <Form.Control
-                  className={s.inputText}
+                  className={s.input}
                   type="text"
                   name="address"
                   value={owner.address}
@@ -211,11 +211,11 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className="align-middle m-0">Reserva </Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Reserva </Form.Label>
               </div>
               <div class="col-9">
                 <Form.Control
-                  className={s.inputText}
+                  className={s.input}
                   type="text"
                   name="personas_max"
                   value={owner.personas_max}
@@ -229,11 +229,11 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label>Precio</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Precio</Form.Label>
               </div>
               <div class="col-9">
                 <Select
-                  className={s.selectOptions}
+                  className={s.input}
                   options={priceOptions}
                   value={owner.price}
                   name={"price"}
@@ -247,11 +247,11 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className="align-middle m-0">Tipos de comida</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Tipos de comida</Form.Label>
               </div>
               <div class="col-9">
                 <Select
-                  className={s.selectOptions}
+                  className={s.input}
                   options={allCuisines}
                   isMulti={true}
                   value={owner.cuisine}
@@ -266,11 +266,11 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className="align-middle m-0">Barrio</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Barrio</Form.Label>
               </div>
               <div class="col-9">
                 <Select
-                  className={s.selectOptions}
+                  className={s.input}
                   options={allNeighborhoods}
                   value={owner.neighborhood_info}
                   placeholder={'seleccione el barrio'}
@@ -281,10 +281,11 @@ export default function RegisterOwner() {
             </div>
           </Form.Group>
 
-          <Button className={s.button} type="submit">
+          <Button className={s.btn} type="submit"  disabled={errors.hasErrors}>
             Actualizar
           </Button>
         </Form>
+        </div>
       </div>
     </div>
   </div>)
