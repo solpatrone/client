@@ -32,7 +32,7 @@ export default function UserFavorite(props) {
 },[])
 
 
-    const [favorite, setFavorite] = useState(true)
+    const favorite = useState(true)
    
 
     function handleFavorite(e) {

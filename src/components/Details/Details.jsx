@@ -39,7 +39,6 @@ function Details() {
   const cookies = new Cookies();
   const usuario = cookies.get("username");
   const userId = cookies.get("id")
-  var isFavorite = false
   let userFavorite =  {favorite: params.id}
     
 
@@ -57,7 +56,7 @@ function Details() {
     dispatch(getUserFavorites(userId))
     if(findFavorite.length === 1){
       setFavorite(true)
-      isFavorite = true
+  
     }
    // eslint-disable-next-line
   }, [findFavorite.length]);
