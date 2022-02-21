@@ -4,6 +4,7 @@ import {Modal} from 'react-bootstrap';
 import {Button} from 'react-bootstrap';
 import { postReservation } from '../../actions';
 import Cookies from "universal-cookie";
+// import { useHistory } from 'react-router';
 import emailjs from "emailjs-com"
 
 
@@ -19,6 +20,7 @@ export default function MercadoPago(){
     const fullDate = cookies.get("fullDate")
     const email = cookies.get("email")
 
+    // const history = useHistory()
     
     
     const show = useState(true);
@@ -29,11 +31,11 @@ export default function MercadoPago(){
            resto_name: resto,
            pax: pax,
            time: time,
-           date: day,
+           date: fullDate,
            user_email: email,
          };
-         emailjs
-           .send(
+         console.log(templateParams)
+         emailjs.send(
              "service_vwcqene",
              "template_zn5kw4j",
              templateParams,
@@ -47,6 +49,11 @@ export default function MercadoPago(){
                console.log(error.text);
              }
            );
+         
+
+
+        
+        //  history.push('/myProfile')
         }
 
       
@@ -60,7 +67,7 @@ return (
           <Modal.Header closeButton>
             <Modal.Title>Su reserva fue confirmada</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Para {resto}, el dia {day} para {pax} personas. </Modal.Body>
+          <Modal.Body>Para {resto} el dia {day} para {pax} personas. </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>Aceptar
             </Button>

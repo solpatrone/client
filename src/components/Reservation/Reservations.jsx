@@ -72,12 +72,16 @@ export default function Reservations({ userId, restoId }) {
   }
 
   function validatePaxMax(paxInput) {
+    
     if (paxInput > restoId.personas_max) {
       error.pax = `El número de comesales debe ser menos a ${restoId.personas_max}`;
     }
-    if (paxInput <= 0) {
-      error.pax = "El número debe ser mayor a cero";
+    else if(paxInput > restoId.personas_max - paxNotAvaliable){
+      error.pax = `Solo nos queda lugar para ${restoId.personas_max - paxNotAvaliable} personas `
     }
+    // else if (paxInput == 0) {
+    //   error.pax = "Ingrese un numero valido";
+    // }
 
     return error;
   }
