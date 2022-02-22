@@ -78,7 +78,7 @@ hr {
   border: none;
 }
 .price{
-  color: var(--error-color);
+  color: var(--grey-color);
   font-size: 15px;
   font-family: var(--input-font);
   font-weight: bold;
