@@ -1,4 +1,4 @@
-.container {
+  .container {
   height: 520px;
   max-width: 100%;
   display: flex;
@@ -24,6 +24,7 @@
 .searchContainer {
   display: flex;
   justify-content: center;
+  height: 200px;
 }
 
 .wrapper h3 {
