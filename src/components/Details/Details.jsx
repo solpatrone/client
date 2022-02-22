@@ -168,6 +168,14 @@ function Details() {
                   {myRestaurant.description}
                 </p>
               )}
+              <div>
+            {hasReviews.length > 0 && (
+              <div className={styles.reviews}>
+                <h3>Opiniones</h3>
+                <Review reviews={hasReviews} />
+              </div>
+            )}
+          </div>
             </div>
             <div className={styles.reservations}>
               {myRestaurant.owner === "API" ? (
@@ -202,14 +210,7 @@ function Details() {
               {newReview && <ReviewForm setNewReview={setNewReview} />}
             </div>
           </div>
-          <div>
-            {hasReviews.length > 0 && (
-              <div className={styles.reviews}>
-                <h3>Opiniones</h3>
-                <Review reviews={hasReviews} />
-              </div>
-            )}
-          </div>
+          
         </div>
       )}
     </div>
