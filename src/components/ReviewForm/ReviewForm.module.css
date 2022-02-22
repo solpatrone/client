@@ -53,8 +53,10 @@
     font-weight: 300;
   }
   .error {
-    color: red;
-    font-size: 1.2rem;
+    color: var(--error-color);
+    font-size: 15px;
+    font-family: var(--input-font);
+    font-weight: bold;
     margin-top: 10px;
   }
   @media screen and (max-width: 800px){
