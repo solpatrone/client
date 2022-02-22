@@ -15,7 +15,6 @@ export default function Home() {
   const dispatch = useDispatch();
 
   const loading = useSelector((state) => state.loading);
-  console.log(loading);
 
   const allRestaurants = useSelector((state) => state.restaurants);
   // const allRestaurantsNo = allRestaurantsRaw.filter(resto => resto.status === "ENABLED")
