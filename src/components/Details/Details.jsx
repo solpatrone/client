@@ -31,75 +31,70 @@ function Details() {
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector((state) => state.reviews);
   const userFavorites = useSelector((state) => state.userFavorites)
-  const findFavorite = userFavorites.filter(el => el.name === myRestaurant.name)
   const [favorite, setFavorite] = useState(false)
   const cookies = new Cookies();
   const usuario = cookies.get("username");
   const userId = cookies.get("id")
-  let userFavorite =  {favorite: params.id}
-    
+  let userFavorite = { favorite: params.id }
 
-  
   useEffect(() => {
-    
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
+    dispatch(getUserFavorites(userId));
     return () => {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
   }, [params.id]);
-  
-  useEffect(() => {
-    dispatch(getUserFavorites(userId))
-    if(findFavorite.length === 1){
-      setFavorite(true)
-  
-    }
-   // eslint-disable-next-line
-  }, [findFavorite.length]);
 
+  useEffect(() => {
+    const findFavorite = userFavorites.filter(el => el.name === myRestaurant.name)
+    console.log('findFAv', findFavorite)
+    if (findFavorite.length === 1) {
+      setFavorite(true)
+    }
+    // eslint-disable-next-line
+  }, [userFavorites]);
 
   function handdleClick(e) {
     e.preventDefault();
     setNewReview(!newReview);
   }
 
-
   function handleFavorite(e) {
-    e.preventDefault()
-    if(!favorite){
-    dispatch(addFavorite(userFavorite, userId ))
-    setFavorite(true)
-   
-  }
+    e.preventDefault();
+     if (!favorite) {
+      dispatch(addFavorite(userFavorite, userId));
+      setFavorite(true);
+    }
   }
 
   return (
     <div>
       <Navbar />
-      { !myRestaurant.id ? (
+      {!myRestaurant.id ? (
         <Loading />
       ) : (
         <div className={styles.wrapper}>
           <div className={styles.container}>
             <div className={styles.restaurantInfo}>
               <h2 >{myRestaurant.name}</h2>
-              <button style={{backgroundColor: 'white'}} onClick={e => handleFavorite(e)}>
-            {favorite  ? <BsHeartFill
-                          style={{
-                            display: "inline-block",
-                            fontSize: "25px",
-                            color: "var(--error-color)"
-                          }}
-                        /> :  <BsHeart
-                          style={{
-                            display: "inline-block",
-                            fontSize: "25px",
-                          }}
-                        />
-                      }
-                
+              {userId && 
+              <button style={{ backgroundColor: 'white' }} onClick={e => handleFavorite(e)}>
+                {favorite ? <BsHeartFill
+                  style={{
+                    display: "inline-block",
+                    fontSize: "25px",
+                    color: "var(--error-color)"
+                  }}
+                /> : <BsHeart
+                  style={{
+                    display: "inline-block",
+                    fontSize: "25px",
+                  }}
+                />
+                }
               </button>
+              }
               <div className={styles.address_icons}>
                 <div className={styles.address}>
                   <p>
@@ -129,40 +124,42 @@ function Details() {
                   </p>
                   {myRestaurant.price && (
                     <p>
-                      {[...myRestaurant.price.split("")].map((elem,key) => (
+                      {[...myRestaurant.price.split("")].map((elem, key) => (
                         <BsCurrencyDollar size={20} key={key} />
                       ))}
                     </p>
                   )}
                 </div>
               </div>
-              
- {myRestaurant.photo[0] ? myRestaurant.photo.length === 1 ?  <img
+
+              {myRestaurant.photo[0] ? myRestaurant.photo.length === 1 ? <img
                 src={myRestaurant.photo}
                 alt="img not found"
                 className={styles.restauranteImage}
                 height="auto"
-              /> : 
-              <Carousel  >
- {myRestaurant && myRestaurant.photo?.map((el, index) => {return ( 
- <Carousel.Item key={index}>
-    <img
-     className= {["d-block w-100", styles.restauranteImage]}
-      
-      src={el}
-      alt="First slide"
-    />
-  </Carousel.Item>)})}
- 
-</Carousel>  : (
-            <img src={defaultImage} alt="img not found" width="240px" />
-          )}
+              /> :
+                <Carousel  >
+                  {myRestaurant && myRestaurant.photo?.map((el, index) => {
+                    return (
+                      <Carousel.Item key={index}>
+                        <img
+                          className={["d-block w-100", styles.restauranteImage]}
 
-              
+                          src={el}
+                          alt="First slide"
+                        />
+                      </Carousel.Item>)
+                  })}
+
+                </Carousel> : (
+                <img src={defaultImage} alt="img not found" width="240px" />
+              )}
+
+
               <span>
                 {myRestaurant.cuisine.map((el, index) => (
                   <div key={index} className={styles.tag}>
-                   <FcCheckmark /> {el}
+                    <FcCheckmark /> {el}
                   </div>
                 ))}
               </span>
