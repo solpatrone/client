@@ -55,7 +55,7 @@ function Details() {
     if(findFavorite.length === 1){
       setFavorite(true)
   
-    } // eslint-discheckoutable-next-line
+    } // eslint-disable-next-line
   }, [findFavorite.length]);
 
 
