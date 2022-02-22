@@ -8,6 +8,9 @@ import { deleteFavorite } from "../../actions";
 import { useDispatch } from "react-redux";
 import { getUserFavorites } from "../../actions";
 import Cookies from "universal-cookie";
+import { Link } from "react-router-dom";
+import { FcCheckmark } from "react-icons/fc";
+import { AiOutlineShop } from "react-icons/ai"
 
 
 
@@ -24,7 +27,6 @@ export default function UserFavorite(props) {
    
   useEffect(()=>{
    dispatch(getUserFavorites(userId))
-
     // eslint-disable-next-line
 },[])
 
@@ -44,24 +46,29 @@ export default function UserFavorite(props) {
         }, 100);
       }
 
+      console.log('elem', elem)
       return (
-        <div className={s.review}>
+        <div className={s.favorite}>
             <div className={s.topRow} >
                 <div className={s.a}>
-                  <h4 >{elem.name}</h4>
-                  <div className={elem.rating} > 
+                  <div className={elem.rating} >    
+                  <Link className={s.restoName} to = {`/restaurants/${elem.id}`} >
+                  <AiOutlineShop />   {elem.name}
+                  </Link>
                     {[...Array(Number(elem.rating)).keys()].map((index) => (
                         <RiStarFill size={20} style={{ fill: "#f2d349" }} key={index} />
                     ))}
                   </div>
                 </div>
                 <div className={s.btn}>
-                    <button onClick={e => handleFavorite(e)}>
+                    <button  style={{backgroundColor: "white",
+                                border: "none"}} onClick={e => handleFavorite(e)}>
                             {favorite  ? <BsHeartFill
                               style={{
                                 display: "inline-block",
                                 fontSize: "25px",
-                                color: "var(--error-color)"
+                                color: "var(--error-color)",
+                                
                               }}
                               /> :  <BsHeart
                               style={{
@@ -73,12 +80,13 @@ export default function UserFavorite(props) {
                   </button>
                 </div>
             </div>
-                          <div >
-                            <h4 className={s.cuisines}  >{elem.cuisine.join(', ')}</h4>      
+                          <div className={s.hash} >
+                            <div className={s.cuisines}  >{elem.cuisine.map(el => (
+                              <div >
+                              <FcCheckmark /> {el} 
+                            </div>
+                            ))}</div>      
                           </div>
-            <div className={s.text}>
-                <p>{elem.description}</p>
-            </div>
         </div> 
     
     )
