@@ -5,8 +5,6 @@ import { MdGroups } from "react-icons/md";
 import { FaUserCircle } from "react-icons/fa";
 
 export default function RestoReservations({ date, pax, time, username }) {
-  let fixedDate = date.split("T")[0].split("-");
-  let endDate = fixedDate[2] + "-" + fixedDate[1] + "-" + fixedDate[0];
 
   return (
     <div className={s.container}>
@@ -24,7 +22,7 @@ export default function RestoReservations({ date, pax, time, username }) {
           <p>
             <FaRegCalendarAlt style={{ color: "var(--bright-color)" }} /> Fecha
           </p>
-          <span>{endDate}</span>
+          <span>{date}</span>
         </div>
         <div className={s.input}>
           <p>

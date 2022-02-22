@@ -61,9 +61,9 @@ export default function MyProfile() {
                         reservesInProgress.map((e, index) =>
                           <UserReserve key={index} elem={e} />
                         )
-                        :
-                        <div className={s.review} >
-                          <p>No hay reservas</p>
+                      :
+                      <div className={s.review} >
+                            <p>No has realizado ninguna reserva</p>
                         </div>
                     }
                   </div>
@@ -77,24 +77,24 @@ export default function MyProfile() {
                           <UserReview key={index} elem={e} />
                         )
                         :
-                        <div className={s.review} >
-                          <p>No hay reviews</p>
-                        </div>
-                    }
-                  </div>
+                          <div className={s.review} >
+                              <p>No has realizado ninguna reseña</p>
+                          </div>
+                      }
+                      </div>
                 </Tab.Pane>
 
                 <Tab.Pane eventKey="third">
-                  {
-                    favorites.length > 0 ?
-                      favorites.map((e, index) =>
-                        <UserFavorite key={index} elem={e} />
-                      )
-                      :
-                      <div className={s.review} >
-                        <p>No hay favoritos</p>
-                      </div>
-                  }
+                {
+          favorites.length > 0 ?
+          favorites.map( (e, index) =>
+              <UserFavorite key={index} elem ={e}/>             
+            )
+            :
+              <div className={s.review} >
+                  <p>No has agregado ningún restaurant a favoritos</p>
+              </div>
+        }
                 </Tab.Pane>
               </Tab.Content>
             </Col>

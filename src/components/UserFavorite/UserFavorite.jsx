@@ -3,7 +3,7 @@ import {RiStarFill }from 'react-icons/ri'
 import { BsHeart } from "react-icons/bs";
 import { BsHeartFill } from "react-icons/bs";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
+// import { useSelector } from "react-redux";
 import { deleteFavorite } from "../../actions";
 import { useDispatch } from "react-redux";
 import { getUserFavorites } from "../../actions";
@@ -16,17 +16,14 @@ export default function UserFavorite(props) {
   const elem = props.elem;
   const cookies = new Cookies();
   const dispatch = useDispatch()
-  const favorites = useSelector((state)=>state.userFavorites);
-  console.log('favoritos', favorites)
+  // const favorites = useSelector((state)=>state.userFavorites);
   const userId = cookies.get("id");
-  console.log('cookie ',userId)
   
  
 
    
   useEffect(()=>{
    dispatch(getUserFavorites(userId))
-   console.log('get', elem.UserId)
 
     // eslint-disable-next-line
 },[])
