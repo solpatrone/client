@@ -148,8 +148,13 @@ h3 {
  .reservations{
   width: 380px;
   justify-content: center;
-  margin:auto
+  margin-left:auto;
  }
  .button{
    margin: auto; }
+   .description {
+    margin-top: 10px;
+    width: 90%;
+    text-align: justify;
+  }
 }
