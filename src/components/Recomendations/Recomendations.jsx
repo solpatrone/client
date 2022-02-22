@@ -8,7 +8,7 @@ import defaultImage from "../../assets/no_food.png";
 
 export default function Recomendations({ allRestaurants }) {
   let recomendations = allRestaurants.filter((r) => r.rating === "5");
-  console.log(recomendations[0]);
+ 
 
   return (
     <div className={s.container}>

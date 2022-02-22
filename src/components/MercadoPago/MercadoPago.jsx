@@ -31,11 +31,11 @@ export default function MercadoPago(){
            resto_name: resto,
            pax: pax,
            time: time,
-           date: day,
+           date: fullDate,
            user_email: email,
          };
-         emailjs
-           .send(
+         console.log(templateParams)
+         emailjs.send(
              "service_vwcqene",
              "template_zn5kw4j",
              templateParams,
@@ -44,6 +44,7 @@ export default function MercadoPago(){
            .then(
              (result) => {
                console.log(result.text);
+               history.push('/myProfile')
              },
              (error) => {
                console.log(error.text);
@@ -53,7 +54,6 @@ export default function MercadoPago(){
 
 
         
-         history.push('/myProfile')
         }
 
       
@@ -67,7 +67,7 @@ return (
           <Modal.Header closeButton>
             <Modal.Title>Su reserva fue confirmada</Modal.Title>
           </Modal.Header>
-          <Modal.Body>Para {resto}, el dia {day} para {pax} personas. </Modal.Body>
+          <Modal.Body>Para {resto} el dia {day} para {pax} personas. </Modal.Body>
           <Modal.Footer>
             <Button variant="secondary" onClick={handleClose}>Aceptar
             </Button>
