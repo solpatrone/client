@@ -8,10 +8,11 @@ import axios from "axios";
 
 import logo from "../../assets/rapiresto.png";
 
-import Swal from 'sweetalert2'
+import Swal from "sweetalert2";
 
 export default function Login() {
   const url = "http://localhost:8080";
+
   const loginModif = url + "/logins";
 
   const history = useHistory();
@@ -43,8 +44,8 @@ export default function Login() {
       } catch (e) {
         Swal.fire({
           text: "Por favor, antes de acceder con Google registrate en nuestro sistema",
-          confirmButtonColor: "#8aa899"
-        })
+          confirmButtonColor: "#8aa899",
+        });
         // alert(
         //   "Por favor, antes de acceder con Google registrate en nuestro sistema"
         // );
