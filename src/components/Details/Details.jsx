@@ -47,9 +47,9 @@ function Details() {
   }, [params.id]);
 
   useEffect(() => {
-    const findFavorite = userFavorites.filter(el => el.name === myRestaurant.name)
+    const findFavorite = userFavorites.find(el => el.name === myRestaurant.name)
     console.log('findFAv', findFavorite)
-    if (findFavorite.length === 1) {
+    if (findFavorite) {
       setFavorite(true)
     }
     // eslint-disable-next-line

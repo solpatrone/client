@@ -114,6 +114,7 @@
   font-style: italic;
   font-size: 15px;
   border-radius: 3px;
+  font-weight: bold;
 }
 
 .input:focus {
@@ -123,6 +124,7 @@
   font-family: var(--important-font);
   font-style: normal;
   color: var(--dark-color);
+  font-weight: 100;
 }
 
 /*button*/
