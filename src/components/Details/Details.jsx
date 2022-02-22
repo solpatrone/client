@@ -31,11 +31,8 @@ function Details() {
   const [newReview, setNewReview] = useState(false);
   const hasReviews = useSelector((state) => state.reviews);
   const userFavorites = useSelector((state) => state.userFavorites)
-  console.log('userFav', userFavorites)
   const findFavorite = userFavorites.filter(el => el.name === myRestaurant.name)
-  console.log('findFAv', findFavorite)
   const [favorite, setFavorite] = useState(false)
-  console.log('favorite',favorite)
   const cookies = new Cookies();
   const usuario = cookies.get("username");
   const userId = cookies.get("id")
