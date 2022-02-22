@@ -1,47 +1,42 @@
-// import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, useParams } from "react-router-dom";
 import Select from "react-select";
-import  style from "./Registerowner.module.css";
+import s from "./ModifyRestaurant.module.css";
 import {
-  createOwner,
+  addImagesToRestos,
   getNeighborhoods,
   getCuisines,
-  getRestos,
+  getRestoDetails
 } from "../../actions";
-import Form from 'react-bootstrap/Form';
 import Cookies from "universal-cookie";
 import Navbar from "../NavBar/Navbar";
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Loading from "../Loading/Loading";
+
+
 export default function RegisterOwner() {
   const history = useHistory();
   let dispatch = useDispatch();
-
+  const params = useParams();
   const cookies = new Cookies();
+  const myRestaurant = useSelector((state) => state.details);
 
   const allNeighborhoodsRaw = useSelector((state) => state.neighborhoods);
   const allNeighborhoods = allNeighborhoodsRaw.map((n) => {
     return { name: n.name, label: n.name, value: n.name };
   });
   const allCuisinesRaw = useSelector((state) => state.cuisines);
-  const restaurants =  useSelector((state) => state.enabledAndDisabled);
-  const emails = restaurants.map(r => r.email)
-  const names = restaurants.map(r => r.name)
   const allCuisines = allCuisinesRaw.map((n) => {
     return { name: n.name, label: n.name, value: n.name };
   });
 
-  useEffect(() => {
-    if (!cookies.get("email")){
-      console.error("there is no user logged in")
-      history.push("/home");
-    }
-    dispatch(getCuisines());// eslint-disable-next-line
-  }, []);
 
-  useEffect(() => {
-    dispatch(getNeighborhoods());// eslint-disable-next-line
-  }, []);
+  const own = cookies.get("email");
+  //owner object
+  const [owner, setOwner] = useState(generateOwner(myRestaurant));
+  const [errors, setError] = useState({ hasErrors: true });
 
   let priceOptions = [
     { name: "$", label: "$", value: "$" },
@@ -51,43 +46,52 @@ export default function RegisterOwner() {
     { name: "$$$$$", label: "$$$$$", value: "$$$$$" },
   ];
 
-  const own = cookies.get("email");
+  useEffect(() => {
+    dispatch(getCuisines());
+    dispatch(getNeighborhoods());
+    dispatch(getRestoDetails(params.id)); // eslint-disable-next-line
+  }, [params.id]);
 
+  function generateOwner(myRestaurant) {
+    let owner = {
+      name: myRestaurant.name,
+      address: myRestaurant.address,
+      cuisine: myRestaurant.cuisine,
+      email: myRestaurant.email,
+      personas_max: myRestaurant.personas_max,
+      owner: own,
+      description: myRestaurant.description,
+      price: {
+        name: myRestaurant.price,
+        value: myRestaurant.price,
+        label: myRestaurant.price,
+      },
+    };
 
-  //owner object
-  const [owner, setOwner] = useState({
-    name: "",
-    address: "",
-    neighborhood_info: {
-      name: "",
-      value: "",
-    },
-    cuisine: [],
-    photo: [],
-    email: "",
-    personas_max: "",
-    owner: own,
-    description: "",
-    price: {
-      name: "",
-      value: "",
-    },
-  });
+    if (myRestaurant.neighborhood_info) {
+      owner.neighborhood_info = {
+        name: myRestaurant.neighborhood_info[0],
+        value: myRestaurant.neighborhood_info[0],
+        label: myRestaurant.neighborhood_info[0],
+      }
+    }
 
-  //ver para inputs de solo letras ej: nombre
-  //let onlyLetters = (e) => {
-  //  if (!/[a-zA-Z\s]/.test(e.key)) {
-  //    e.preventDefault();
-  //  }
-  //};
-  // en el input poner: onKeyPress={onlyLetters}
+    if (myRestaurant.cuisine) {
+      owner.cuisine = myRestaurant.cuisine.map((el) => {
+        return {
+          name: el,
+          value: el,
+          label: el,
+        }
+      })
+    }
+    return owner;
+  }
 
-  //ver para numero de direccion
-
-  //error objects
-  const [errors, setError] = useState({ hasErrors: true });
-
-  //const [isSubmit, setIsSubmit] = useState(false);
+  useEffect(() => { 
+    setOwner(generateOwner(myRestaurant));
+    setError(validate(owner)); // eslint-disable-next-line
+  }, [myRestaurant]);
 
   function handleChange(e) {
     setOwner((prev) => ({ ...prev, [e.target.name]: e.target.value }));
@@ -106,18 +110,25 @@ export default function RegisterOwner() {
     setOwner((prev) => ({ ...prev, cuisine: e }));
   }
 
-  // let onlyNumbers = (e) => {
-  //   if (!/[0-9]/.test(e.key)) {
-  //     e.preventDefault();
-  //   }
-  // };
-
   function handleSubmit(e) {
     e.preventDefault();
-    dispatch(createOwner(owner));
-    //setIsSubmit(true);
-    dispatch(getRestos());     
-}
+    if (!validate(owner).hasErrors) {
+      const request = {
+        owner: myRestaurant.owner,
+        name: owner.name,
+        address: owner.address,
+        email: owner.email,
+        personas_max: owner.personas_max,
+        description: owner.description,
+        neighborhood_info: owner.neighborhood_info ? [owner.neighborhood_info.value] : [],
+        cuisine: owner.cuisine.length > 0 ? owner.cuisine.map((e) => e.name) : [],
+        price: owner.price ? owner.price.value : null,
+      }
+      console.log(request)
+      dispatch(addImagesToRestos(request, params.id));
+      history.push(`/myrestaurant/${params.id}`)
+    }    
+  }
 
   //validate function for inputs
   function validate(owner) {
@@ -125,87 +136,71 @@ export default function RegisterOwner() {
     console.log("input", owner);
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
-    if (!owner.name) {
+    if (owner.name === '') {
       errors.name = "Debes ingresar el nombre de tu restaurante";
       errors.hasErrors = true;
     }
-    const sameName = names.find(e => e.toLowerCase() === owner.name.toLowerCase())
-    if(sameName){
-      errors.name = "El nombre ingresado ya corresponde a un restaurant registrado";
-      errors.hasErrors = true
-    }
     
-    if (!owner.address) {
+  
+    if (owner.address === '') {
       errors.address = "Ingrese una calle";
       errors.hasErrors = true;
     }
-    if (!owner.email) {
+    if (owner.email === '') {
       errors.email = `El email es requerido`;
       errors.hasErrors = true;
-    } else if (!regexEmail.test(owner.email)) {
+    } else if (owner.email && !regexEmail.test(owner.email)) {
       errors.email = `El email debe ser una dirección válida`;
       errors.hasErrors = true;
     }
-    const sameEmail = emails.find(e => e === owner.email)
-    if(sameEmail){
-      errors.email = "El email ingresado ya corresponde a un restaurant registrado";
-      errors.hasErrors = true
-    }
-
-    //if (owner.description.length < 0 || owner.description.length > 200) {
-    //  errors.description = "La descripción debe tener menos de 200 caracteres";
-    //  errors.hasErrors = true;
-    //}
-
+    
     return errors;
   }
+console.log(owner.email)
 
-  return(   <div>
-    
-      <Navbar className={style.mainNavbar}/>
-    <div>
-      <div children >
-        
-          <div className={style.container}> 
-          <Form onSubmit={handleSubmit} className={style.formContainer}>
-          <div className="mb-3">
-            <h2 className={style.header}>Registra tu restaurante</h2>
-          </div>
-            <Form.Group className="mb-3" >
+  return (<div>
+    <Loading />
+    <Navbar className={s.mainNavbar}/>
+    <div >
+      <div  children>
+        <div className={s.container}>
+        <Form onSubmit={handleSubmit} className={s.formContainer}>
+        <div className="mb-3">
+          <h2 className={s.header}>Modificar restaurant: {myRestaurant.name}</h2>
+        </div>
+          <Form.Group className="mb-3" >
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className={["align-middle m-0", style.label]}>Nombre del Restaurante</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Nombre</Form.Label>
               </div>
               <div class="col-9">
                 <Form.Control
-                  className={style.input}
+                  className={s.input}
                   type="text"
                   name="name"
                   value={owner.name}
-                  placeholder="Ingrese el nombre del restaurante"
                   onChange={(e) => handleChange(e)} />
               </div>
-              <Form.Text className={style.errors}>
+              <Form.Text className={s.errors}>
                 {errors.name}
               </Form.Text>
             </div>
           </Form.Group>
 
-              <Form.Group className="mb-3" >
+          <Form.Group className="mb-3" >
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className={["align-middle m-0", style.label]}>Email del restaurant</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Email</Form.Label>
               </div>
               <div class="col-9">
                 <Form.Control
-                  className={style.input}
+                  className={s.input}
                   type="text"
                   name="email"
                   value={owner.email}
-                  placeholder="Ingrese el nombre del restaurante"
                   onChange={(e) => handleChange(e)} />
               </div>
-              <Form.Text className={style.errors}>
+              <Form.Text className="text-muted">
                 {errors.email}
               </Form.Text>
             </div>
@@ -214,35 +209,14 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className={["align-middle m-0", style.label]}>Direccion</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Direccion</Form.Label>
               </div>
               <div class="col-9">
                 <Form.Control
-                  className={style.input}
+                  className={s.input}
                   type="text"
                   name="address"
                   value={owner.address}
-                  placeholder="Ingrese la calle"
-                  onChange={(e) => handleChange(e)} />
-              </div>
-              <Form.Text className={style.errors}>
-                {errors.address}
-              </Form.Text>
-            </div>
-          </Form.Group>
-
-          <Form.Group className="mb-3" controlId="formBasicText">
-            <div class="row">
-              <div class="col text-right my-auto">
-                <Form.Label className={["align-middle m-0", style.label]}>Capacidad maxima </Form.Label>
-              </div>
-              <div class="col-9">
-                <Form.Control
-                  className={style.input}
-                  type="text"
-                  name="personas_max"
-                  value={owner.personas_max}
-                  placeholder="ingresa cantidad de reservas maximas diarias"
                   autoComplete="off"
                   onChange={(e) => handleChange(e)} />
               </div>
@@ -252,16 +226,34 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className={["align-middle m-0", style.label]}>Barrio</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Reserva </Form.Label>
+              </div>
+              <div class="col-9">
+                <Form.Control
+                  className={s.input}
+                  type="text"
+                  name="personas_max"
+                  value={owner.personas_max}
+                  placeholder={'Capacidad maxima'}
+                  autoComplete="off"
+                  onChange={(e) => handleChange(e)} />
+              </div>
+            </div>
+          </Form.Group>
+
+          <Form.Group className="mb-3" controlId="formBasicText">
+            <div class="row">
+              <div class="col text-right my-auto">
+                <Form.Label className={["align-middle m-0", s.label]}>Precio</Form.Label>
               </div>
               <div class="col-9">
                 <Select
-                  className={style.input}
-                  options={allNeighborhoods}
-                  value={owner.neighborhood_info}
-                  placeholder={'seleccione el barrio'}
-                  name={"cuisine"}
-                  onChange={(e) => handleNeighborhood(e)}
+                  className={s.input}
+                  options={priceOptions}
+                  value={owner.price}
+                  name={"price"}
+                  placeholder={'Seleccione el precio de reserva'}
+                  onChange={(e) => handlePrice(e)}
                 />
               </div>
             </div>
@@ -270,11 +262,11 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className={["align-middle m-0", style.label]}>Tipos de comida</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Tipos de comida</Form.Label>
               </div>
               <div class="col-9">
                 <Select
-                  className={style.input}
+                  className={s.input}
                   options={allCuisines}
                   isMulti={true}
                   value={owner.cuisine}
@@ -289,29 +281,29 @@ export default function RegisterOwner() {
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className={["align-middle m-0", style.label]}>Precio</Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Barrio</Form.Label>
               </div>
               <div class="col-9">
                 <Select
-                  className={style.input}
-                  options={priceOptions}
-                  value={owner.price}
-                  name={"price"}
-                  placeholder={'Seleccione el precio de reserva'}
-                  onChange={(e) => handlePrice(e)}
+                  className={s.input}
+                  options={allNeighborhoods}
+                  value={owner.neighborhood_info}
+                  placeholder={'seleccione el barrio'}
+                  name={"cuisine"}
+                  onChange={(e) => handleNeighborhood(e)}
                 />
               </div>
             </div>
           </Form.Group>
-              
+
           <Form.Group className="mb-3" controlId="formBasicText">
             <div class="row">
               <div class="col text-right my-auto">
-                <Form.Label className={["align-middle m-0", style.label]}>Descripcion </Form.Label>
+                <Form.Label className={["align-middle m-0", s.label]}>Descripcion </Form.Label>
               </div>
               <div class="col-9">
-                <Form.Control  as="textarea" rows={3}
-                  className={style.input}
+                <Form.Control  as="textarea" rows={4}
+                  className={s.input}
                   name="description"
                   value={owner.description}
                   placeholder="Ingrese una breve descripción de tu local"
@@ -320,13 +312,14 @@ export default function RegisterOwner() {
               </div>
             </div>
           </Form.Group>
-            <button   className={style.btn} type="submit"  disabled={errors.hasErrors}> Registrar restaurant
-          </button>
-            </Form>
-            </div>
+          
 
+          <Button className={s.btn} type="submit"  disabled={errors.hasErrors}>
+            Actualizar
+          </Button>
+        </Form>
         </div>
       </div>
     </div>
-  );
+  </div>)
 }

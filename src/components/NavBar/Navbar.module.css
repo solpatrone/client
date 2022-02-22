@@ -1,10 +1,3 @@
-.navBar {
-  position: sticky;
-  display: flex;
-  flex-direction: column;
-  max-width: 100vw;
-  margin-top: 25px;
-}
 .mainNavbar {
   display: flex;
   flex-direction: row;
@@ -42,9 +35,24 @@
 
 .navlinks {
   text-decoration: none;
-  margin-right: 10px;
+  margin-right: 0px;
   margin-top: 0;
   margin-bottom: 0;
+  color: var(--dark-color);
+  margin-left: 0px;
+}
+
+.navlinks:hover {
+  text-decoration: none;
+  color: var(--medium-color);
+}
+
+.links {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  text-transform: uppercase;
+  margin-right: 10px;
 }
 
 .nlhome {
@@ -79,11 +87,41 @@
 
 .button {
   border: none;
-  background-color: var(--medium-color);
-  color: var(--bright-color);
+  background-color: var(--background-color);
+  color: var(--dark-color);
   width: fit-content;
   padding: 8px 5px;
   text-transform: uppercase;
   transition: all 0.5s;
   margin: 10px;
+}
+.resto {
+  margin: 0px;
+}
+
+.btn {
+  margin-top: auto;
+  margin-bottom: auto;
+  color: var(--dark-color);
+  margin-left: 0px;
+}
+.options {
+  width: auto;
+}
+.dropB {
+  margin-right: 10px;
+}
+.dropB:hover {
+  background-color: #f0ede0;
+}
+.dropB:active {
+  background-color: #f0ede0;
+}
+@media screen and (max-width: 540px) {
+  .mainNavbar {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+  }
 }

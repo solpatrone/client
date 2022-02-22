@@ -11,6 +11,12 @@ import Details from "./components/Details/Details";
 import LoadImage from "./components/LoadImage/LoadImage";
 import Reservations from "./components/Reservation/Reservations";
 import MyProfile from "./components/MyProfile/MyProfile";
+import MercadoPago from "./components/MercadoPago/MercadoPago";
+import ModifyRestaurant from "./components/ModifyRestaurant/ModifyRestaurant";
+import PaymentError from "./components/PaymentError/PaymentError";
+import ForgotPassword from "./components/ForgotPassword/ForgotPassword";
+import NewPassword from "./components/NewPassword/NewPassword";
+
 
 function App() {
   // const location = useLocation();
@@ -29,8 +35,13 @@ function App() {
 
       <Route path={"/restaurants/:id"} render={() => <Details />} />
       <Route path={"/Login"} render={() => <Login />} />
+      <Route path={"/modify/:id"} render={() => <ModifyRestaurant />} />
       <Route path={"/images"} render={() => <LoadImage />} />
       <Route path={"/reservations"} render={() => <Reservations />} />
+      <Route path={"/success"} render={() => <MercadoPago />} />
+      <Route path={"/canceled"} render={() => <PaymentError />} />
+      <Route path={"/forgotPassword"} render={() => <ForgotPassword />} />
+      <Route path={"/resetpassword"} render={() => <NewPassword />} />
     </div>
   );
 }

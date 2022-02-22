@@ -3,9 +3,10 @@ import {
   getRestoDetails,
   clearDetailsState,
   getRestaurantReviews,
+  getMyRestos,
 } from "../../actions";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import Navbar from "../NavBar/Navbar";
 import { BsCurrencyDollar } from "react-icons/bs";
 import { RiStarFill } from "react-icons/ri";
@@ -14,22 +15,29 @@ import Loading from "../Loading/Loading";
 import styles from "./MyRestaurant.module.css";
 import { Widget } from "@uploadcare/react-widget";
 import Carousel from "react-bootstrap/Carousel";
-import { addImagesToRestos, getRestoReservations } from "../../actions";
+import { addImagesToRestos, getRestoReservations, deleteRestaurant } from "../../actions";
 import RestoReservations from "../RestoReservations/RestoReservations";
 import { Tab, Row, Col, Nav } from "react-bootstrap";
-import { AiOutlineDelete } from "react-icons/ai";
+import {AiOutlineDelete } from "react-icons/ai";
 import { FcCheckmark } from "react-icons/fc";
+import Cookies from "universal-cookie";
+import { BsPencil} from "react-icons/bs";
+import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
+
+
 
 export default function Restaurant() {
   const dispatch = useDispatch();
+  const history = useHistory()
   const params = useParams();
   const myRestaurant = useSelector((state) => state.details);
   const widgetApi = useRef();
   const myReservations = useSelector((state) => state.restoReservations);
-
   const hasReviews = useSelector((state) => state.reviews);
+  const cookies = new Cookies();
 
-  let [photo, setPhoto] = useState();
+  let [photo, setPhoto] = useState([]);
 
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
@@ -39,6 +47,14 @@ export default function Restaurant() {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
   }, [params.id]);
+
+  useEffect(() => {
+    if (myRestaurant && myRestaurant.id) {
+      if (myRestaurant.owner !== cookies.get("email")) {
+        history.push("/home");
+      }
+    } // eslint-disable-next-line
+  }, [myRestaurant]);
 
   function handleChange(e) {
     var photo = [];
@@ -51,22 +67,74 @@ export default function Restaurant() {
     }
   }
 
+  function handleDelete(e){
+    e.preventDefault()
+    Swal.fire({
+      text: `Vas a eliminar ${myRestaurant.name}`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#8aa899",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Guardar cambios",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        dispatch(deleteRestaurant(params.id))
+        setTimeout(()=>{
+          
+          dispatch(getMyRestos(cookies.get("id")))
+        },1000)
+        Swal.fire({
+          text: `${myRestaurant.name} fue elilmiado con éxito`,
+          confirmButtonColor: "#8aa899",
+        });
+        //  history.push("/home")
+         // window.location.reload(false);
+      } else if (result.dismiss === "cancel") {
+        Swal.fire({
+          text: "No se guardaron los cambios",
+        });
+      }
+    });
+  }
+
   function handleClick(e) {
     e.preventDefault();
-    const request = {
-      owner: myRestaurant.owner,
-      photo: photo,
-    };
-    dispatch(addImagesToRestos(request, myRestaurant.id));
-    dispatch(getRestoDetails(params.id));
+    Swal.fire({
+      text: `Vas a modificar la información de ${myRestaurant.name}`,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: "#8aa899",
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Guardar cambios'
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const request = {
+          owner: myRestaurant.owner,
+          photo: photo,
+        };
+        dispatch(addImagesToRestos(request, myRestaurant.id));
 
-    //window.location.reload(false);
+        setTimeout(() => {
+          dispatch(getRestoDetails(params.id));
+        }, 1000);
+        Swal.fire({
+          text: `${myRestaurant.name} fue actualizado con éxito`,
+          confirmButtonColor: "#8aa899",
+        });
+        // window.location.reload(false);
+      } else if (result.dismiss === "cancel") {
+        Swal.fire({
+          text: "No se guardaron los cambios",
+        });
+      }
+    });
+    setPhoto([]);
+
   }
 
   return (
     <div>
       <Navbar />
-
       {!myRestaurant.id ? (
         <Loading />
       ) : (
@@ -74,15 +142,15 @@ export default function Restaurant() {
           <Tab.Container id="left-tabs-example" defaultActiveKey="first">
             <Row>
               <Col sm={3}>
-                <Nav variant="pills" className="flex-column">
+                <Nav variant="" className="flex-column">
                   <Nav.Item>
-                    <Nav.Link eventKey="first">Mi Restaurante</Nav.Link>
+                    <Nav.Link eventKey="first" className={styles.option}>Mi Restaurante</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="second">Reservas</Nav.Link>
+                    <Nav.Link eventKey="second" className={styles.option}>Reservas</Nav.Link>
                   </Nav.Item>
                   <Nav.Item>
-                    <Nav.Link eventKey="third">Reseñas</Nav.Link>
+                    <Nav.Link eventKey="third" className={styles.option}>Reseñas</Nav.Link>
                   </Nav.Item>
                 </Nav>
               </Col>
@@ -94,13 +162,21 @@ export default function Restaurant() {
                         <h2 className={styles.restoName}>
                           {myRestaurant.name}
                         </h2>
-
+                        <Link to={`/modify/${myRestaurant.id}`}>
+                        <BsPencil
+                          style={{
+                            fontSize: "25px",
+                          }}
+                        />
+                        </Link>
+                        <button onClick={ e => handleDelete(e)}>
                         <AiOutlineDelete
                           style={{
                             color: "var(--error-color)",
                             fontSize: "25px",
                           }}
                         />
+                        </button>
                       </div>
                       <div className={styles.address_icons}>
                         <div className={styles.address}>
@@ -123,7 +199,8 @@ export default function Restaurant() {
                               (key) => (
                                 <RiStarFill
                                   size={13}
-                                  style={{ fill: "#f2d349" }}
+                                  style=
+                                  {{ fill: "#f2d349" }}
                                   key={key}
                                 />
                               )
@@ -131,15 +208,30 @@ export default function Restaurant() {
                           </p>
                           {myRestaurant.price && (
                             <p>
-                              {[...myRestaurant.price.split("")].map(() => (
+                              {[...myRestaurant.price.split("")].map((elem,key) => (
                                 <BsCurrencyDollar
                                   size={13}
                                   style={{ color: "var(--dark-color)" }}
+                                  key={key}
                                 />
                               ))}
                             </p>
                           )}
                         </div>
+                      </div>
+                      <div className={styles.checks}>
+                        {myRestaurant.cuisine.map((el, index) => (
+                          <div key={index}>
+                            <FcCheckmark /> {el}
+                          </div>
+                        ))}
+                      </div>
+                      <div>
+                        {myRestaurant.description && (
+                          <p className={styles.description}>
+                            {myRestaurant.description}
+                          </p>
+                        )}
                       </div>
                       <Carousel className={styles.restauranteImage}>
                         {myRestaurant &&
@@ -150,7 +242,7 @@ export default function Restaurant() {
                                 className={styles.itemC}
                               >
                                 <img
-                                  className="d-block w-100 h-100"
+                                  className={["d-block w-100 h-100"]}
                                   src={el}
                                   alt="First slide"
                                 />
@@ -169,7 +261,7 @@ export default function Restaurant() {
                           onChange={handleChange}
                         />
                         <div>
-                          {photo && (
+                          {photo.length > 0 && (
                             <button
                               onClick={(e) => handleClick(e)}
                               className={styles.button}
@@ -179,25 +271,11 @@ export default function Restaurant() {
                           )}
                         </div>
                       </div>
-                      <span>
-                        {myRestaurant.cuisine.map((el, index) => (
-                          <div key={index}>
-                            <FcCheckmark /> {el}
-                          </div>
-                        ))}
-                      </span>
-                      {myRestaurant.description && (
-                        <p className={styles.description}>
-                          {myRestaurant.description}
-                        </p>
-                      )}
                     </div>
                   </Tab.Pane>
 
                   <Tab.Pane eventKey="second">
-                    <div>
-                      <h3>Reservas</h3>
-
+                    <div className={styles.reservationsContainer}>
                       {myReservations.length > 0
                         ? myReservations.map((r) => (
                             <RestoReservations
@@ -213,10 +291,9 @@ export default function Restaurant() {
                     </div>
                   </Tab.Pane>
                   <Tab.Pane eventKey="third">
-                    <div>
+                    <div className={styles.reviewsContainer}>
                       {hasReviews.length > 0 && (
                         <div className={styles.reviews}>
-                          <h3>Opiniones</h3>
                           <Review reviews={hasReviews} />
                         </div>
                       )}

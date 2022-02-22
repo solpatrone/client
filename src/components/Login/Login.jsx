@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { NavLink, useHistory } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 import Cookies from "universal-cookie";
 import style from "./Login.module.css";
 import axios from "axios";
+// import { Button } from "react-bootstrap";
+
+import logo from "../../assets/rapiresto.png";
+
+import Swal from 'sweetalert2'
 
 export default function Login() {
   const url = "https://rapiresto.herokuapp.com";
-  const loginModif = url + "/login";
+  const loginModif = url + "/logins";
 
   const history = useHistory();
   const [input, setInput] = useState({
@@ -30,18 +35,19 @@ export default function Login() {
           cookies.set("username", userData.username, { path: "/" });
 
           cookies.set("email", userData.email, { path: "/" });
-          cookies.set("restoName", "", { path: "/" });
 
           cookies.set("email", userData.email, { path: "/" });
-
-          console.log("hola soy cookies", cookies);
         }
         history.push("/home");
         return userData;
       } catch (e) {
-        alert(
-          "Por favor, antes de acceder con Google registrate en nuestro sistema"
-        );
+        Swal.fire({
+          text: "Por favor, antes de acceder con Google registrate en nuestro sistema",
+          confirmButtonColor: "#8aa899"
+        })
+        // alert(
+        //   "Por favor, antes de acceder con Google registrate en nuestro sistema"
+        // );
         history.push("/registerclient");
       }
     }
@@ -54,10 +60,16 @@ export default function Login() {
       return userData;
     } catch (e) {
       if (e.response.data.message === "El usuario no existe") {
-        alert(e.response.data.message);
+        Swal.fire({
+          text: e.response.data.message,
+          confirmButtonColor: "#8aa899",
+        });
         history.push("/registerclient");
       } else {
-        alert(e.response.data.message);
+        Swal.fire({
+          text: e.response.data.message,
+          confirmButtonColor: "#8aa899",
+        });
       }
     }
   }
@@ -85,41 +97,68 @@ export default function Login() {
   }
 
   return (
-    <>
-      <div className={style.container}>
-        <form onSubmit={handleSubmit}>
-          <div>
-            <div>Email: </div>
-            <input
-              type="email"
-              value={input.email}
-              name="email"
-              placeholder="Ingrese su usuario"
-              onChange={(e) => handleChange(e)}
-            />
+    <div className={style.main}>
+      <div className={style.mainNavbar}>
+        <NavLink to="/home" className={style.nlhome}>
+          <img className={style.logo} src={logo} alt="Logo not found" />
+          <div className={style.title}>
+            rapi<strong>Resto</strong>
           </div>
-          <div>
-            <div>Contraseña: </div>
-            <input
-              type="password"
-              value={input.password}
-              name="password"
-              placeholder="Ingrese su contraseña"
-              onChange={(e) => handleChange(e)}
-            />
-          </div>
+        </NavLink>
 
-          <button type="submit">Iniciar sesíon</button>
-        </form>
-        <hr />
-        <GoogleLogin
-          clientId="666447071830-t1o2vsbnr22uaip19ug155dm5gd51o32.apps.googleusercontent.com"
-          buttonText="Iniciar sesión"
-          onSuccess={responseGoogle}
-          onFailure={responseGoogle}
-          cookiePolicy={"single_host_origin"}
-        />
+        <div>
+          <NavLink to="/home" className={style.navlinks}>
+            Home
+          </NavLink>
+        </div>
       </div>
-    </>
+      <div className={style.container}>
+        <div className={style.img}></div>
+        <div className={style.formContainer}>
+          <div className={style.header}>Iniciar Sesión</div>
+          <form onSubmit={handleSubmit} className={style.form}>
+            <div className={style.inputContainer}>
+              <label>Email </label>
+              <input
+                type="email"
+                value={input.email}
+                name="email"
+                placeholder="Ingrese su usuario"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+            <div className={style.inputContainer}>
+              <label>Contraseña </label>
+              <input
+                type="password"
+                value={input.password}
+                name="password"
+                placeholder="Ingrese su contraseña"
+                onChange={(e) => handleChange(e)}
+              />
+            </div>
+
+            <div>
+              <NavLink to="/forgotPassword" className={style.link}>
+                ¿Olvidaste tu contraseña?
+              </NavLink>
+            </div>
+
+            <button type="submit" className={style.btn}>
+              Ingresar
+            </button>
+          </form>
+          <hr />
+          <GoogleLogin
+            clientId="666447071830-t1o2vsbnr22uaip19ug155dm5gd51o32.apps.googleusercontent.com"
+            buttonText="Ingresar con Google"
+            onSuccess={responseGoogle}
+            onFailure={responseGoogle}
+            cookiePolicy={"single_host_origin"}
+            className={style.google}
+          />
+        </div>
+      </div>
+    </div>
   );
 }
