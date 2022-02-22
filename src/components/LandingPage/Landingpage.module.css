@@ -54,8 +54,11 @@ h3.second {
 }
 @media screen and (max-width:1275px) {
   .welcome{
-    width: 500px;
+    width: 400px;
     margin-left: 50px;
+  }
+  .searchContainer{
+    justify-content: start;
   }
 }
 @media screen and (max-width:500px) {
