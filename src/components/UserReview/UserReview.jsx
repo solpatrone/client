@@ -53,14 +53,12 @@ export default function UserReview(props) {
             }
 
               dispatch(deleteReview(elem.UserId, elem.id))
-          setTimeout(() => {
-                dispatch(getRestaurantReviews(restaurant.id))
-                dispatch(putRating(restaurant.id,changeRating()))
-              }, 1000);
+              dispatch(putRating(restaurant.id,changeRating()));
+          
             Swal.fire({
               text: `Reseña eliminada con éxito`,
               confirmButtonColor: "#8aa899",
-            });
+            }).then(dispatch(getRestaurantReviews(restaurant.id)))
           } else if (result.dismiss === "cancel") {
             Swal.fire({
               text: "No se guardaron los cambios",
