@@ -25,7 +25,7 @@ import {
   ADD_FAVORITE,
 } from "./types";
 
-const url = "https://rapiresto.herokuapp.com";
+const url = "http://localhost:8080";
 const userModif = url + "/users";
 const restoModif = url + "/restaurants";
 const neighModif = url + "/neighborhoods";
@@ -111,11 +111,17 @@ export function createOwner(info) {
       info.personas_max = Number(info.personas_max);
       console.log("try");
       var newOwner = await axios.post(restoModif, info);
+      Swal.fire({
+        icon: 'success',
+        text: `${info.name} se ha registrado con éxito`,
+        confirmButtonColor: "#8aa899"
+      }); 
       window.location.href= '/home'
       return newOwner;
     } catch (e) {
       console.log("catch");
-      alert(e.response.data.message);
+      console.error(e);
+      
     }
   };
 }
@@ -249,8 +255,6 @@ export function getNeighborhoods() {
 }
 
 export function postReservation(date, time, pax, email, id) {
-  console.log("action", date);
-  console.log("action", id);
   const revToBack = () => {
     return {
       date,
@@ -264,7 +268,6 @@ export function postReservation(date, time, pax, email, id) {
 
   return async function () {
     try {
-      console.log("payload", revFormated);
       var newRes = await axios.post(
         `${restoModif}/${id}/reserves`,
         revFormated
@@ -294,7 +297,6 @@ export function getUserReviews(id) {
   return async function (dispatch) {
     try {
       let json = await axios.get(`${userModif}/${id}/reviews`);
-      console.log(json);
       const reviews = json && json.data ? json.data : [];
       return dispatch({
         type: GET_USER_REVIEWS,
@@ -379,7 +381,7 @@ export function addFavorite(request, id) {
         payload: response.data,
       });
     } catch (e) {
-      console.error(e);
+      console.log(e);
     }
   };
 }
