@@ -60,6 +60,9 @@
   @media screen and (max-width: 800px){
     .container{
       width: auto;
-      margin-left:0px;    
+      margin-left:5px;    
+    }
+    .input {
+      width: 300px;
     }
   }
