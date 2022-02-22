@@ -73,15 +73,17 @@ export default function Reservations({ userId, restoId }) {
 
   function validatePaxMax(paxInput) {
     
-    if (paxInput > restoId.personas_max) {
-      error.pax = `El número de comesales debe ser menos a ${restoId.personas_max}`;
-    }
-    else if(paxInput > restoId.personas_max - paxNotAvaliable){
-      error.pax = `Solo nos queda lugar para ${restoId.personas_max - paxNotAvaliable} personas `
-    }
-    // else if (paxInput == 0) {
-    //   error.pax = "Ingrese un numero valido";
+    // if (paxInput > restoId.personas_max) {
+    //   error.pax = `El número de comesales debe ser menos a ${restoId.personas_max}`;
     // }
+    if(paxInput > restoId.personas_max - paxNotAvaliable){
+      error.pax = `Solo nos queda lugar para ${restoId.personas_max - paxNotAvaliable} personas en el dia seleccionado `
+    }
+    else if (paxInput <= 0) {
+      error.pax = "Ingrese un número válido";
+    }
+    else{ error.pax = false
+    }
 
     return error;
   }
@@ -204,6 +206,7 @@ export default function Reservations({ userId, restoId }) {
           {!reservations.date ||
           !reservations.time ||
           error.max ||
+          error.pax ||
           !reservations.pax ? null : (
             <button onClick={(e) => handleSubmit(e)} className={s.btn}>
               Pagar Reserva
