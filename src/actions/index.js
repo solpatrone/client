@@ -1,6 +1,5 @@
 import axios from "axios";
-import Swal from 'sweetalert2'
-
+import Swal from "sweetalert2";
 
 import {
   GET_RESTOS,
@@ -66,8 +65,6 @@ export function addImagesToRestos(request, id) {
   };
 }
 
-
-
 export function putRating(id, info) {
   return async () => {
     try {
@@ -86,7 +83,7 @@ export function deleteRestaurant(id) {
   return async () => {
     try {
       var deleteResto = await axios.put(`${restoModif}/${id}/disabled`);
-      window.location.href = "/home"
+      window.location.href = "/home";
       return {
         type: DELETE_RESTAURANT,
         payload: deleteResto,
@@ -111,17 +108,17 @@ export function createOwner(info) {
       info.personas_max = Number(info.personas_max);
       console.log("try");
       var newOwner = await axios.post(restoModif, info);
+
       Swal.fire({
-        icon: 'success',
+        icon: "success",
         text: `${info.name} se ha registrado con éxito`,
-        confirmButtonColor: "#8aa899"
-      }); 
-      window.location.href= '/home'
+        confirmButtonColor: "#8aa899",
+      });
+      window.location.href = "/home";
       return newOwner;
     } catch (e) {
       console.log("catch");
       console.error(e);
-      
     }
   };
 }
@@ -324,7 +321,6 @@ export function deleteReview(idUser, idReview) {
   };
 }
 
-
 export function getUserFavorites(id) {
   return async function (dispatch) {
     try {
@@ -361,7 +357,9 @@ export function getUserReservation(id) {
 export function deleteFavorite(idUser, idResto) {
   return async () => {
     try {
-      var deleteResto = await axios.delete(`${userModif}/${idUser}/favorites?favId=${idResto}`);
+      var deleteResto = await axios.delete(
+        `${userModif}/${idUser}/favorites?favId=${idResto}`
+      );
       return {
         type: DELETE_RESTAURANT,
         payload: deleteResto,
@@ -416,17 +414,17 @@ export function modifyUser(request, id) {
 }
 
 export function changePassword(payload) {
-  console.log("payloadd", JSON.stringify(payload))
+  console.log("payloadd", JSON.stringify(payload));
   return async () => {
     try {
       let response = await axios.put(`${userModif}/resetPassword`, payload);
-      window.location.href= '/login'
+      window.location.href = "/login";
       return response;
     } catch (e) {
       Swal.fire({
-        icon: 'error',
+        icon: "error",
         text: e.response.data.message,
-        confirmButtonColor: "#8aa899"
+        confirmButtonColor: "#8aa899",
       });
     }
   };

@@ -1,32 +1,81 @@
-.review{
+.favorite{
     display:flex;
-    justify-content: space-around;
     border-radius: 5px;
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
     margin-top: 10px;
+    height: fit-content;
     flex-direction: column;
     margin-left: 20px;
-    margin-bottom: 25px;
+    text-align: start;
 }
+
+.hash {
+    padding: 15px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-family: var(--inportant-font);
+    font-size: 13px;
+    color: var(--dark-color);
+  }
+
+
+  .cuisines {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+
 .text{ 
-    padding-right: 10px;
-    margin-left: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    justify-content: center;
+    margin-left: 1vw;
+    margin-top: 15px;
+    padding-right: 1vw;
+    font-family: var(--input-font);
+    font-size: 15px;
 }
 .rating{
-    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 20px;
 }
 
 .topRow{
     display: flex;
     justify-content: space-between;
-   
+    border-bottom: 1px solid var(--background-color);
+    padding: 10px;
+    padding-bottom: 2px;
 }
-.cuisines{
-    margin: 15px;
-    font-size: 1.2rem;
+.restoName{
+    font-family: var(--important-font);
+    font-size: 20px;
+    text-decoration: none;
+    align-items: center;
+    color: var(--medium-color);
+    margin-left: 10px;
+    margin-top: 5px
+}
+.retoName:hover{
+    text-decoration: none;
+    color: var(--dark-color);
+}
+.restoIcon{
+   margin-left: 10px;
+    display: flex;
+    align-items: center;
 }
 .a{
-    display: flex;
-    margin-left: 10px;
-    text-align: center;
+   text-decoration: none;
+   display: flex;
+}
+
+.btn{
+    border:none;
+    background: #fff;
 }

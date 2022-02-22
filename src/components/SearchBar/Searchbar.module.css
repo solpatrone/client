@@ -7,6 +7,8 @@
   background-color: var(--white-color);
   box-shadow: 1px 1px 13px rgb(197, 196, 196);
   gap: 10px;
+  height: 90%;
+  margin-right: 50px;
 }
 
 .container input {
@@ -19,12 +21,14 @@
   font-style: italic;
   letter-spacing: 1px;
   font-family: var(--input-font);
+  
 }
 
 .container input:focus {
   outline: 2px solid var(--medium-color);
   font-style: normal;
   font-weight: 300;
+  
 }
 
 .container button {
@@ -46,6 +50,7 @@
   color: var(--error-color);
   font-family: var(--input-font);
   font-weight: 300;
+  
 }
 
 .autocomplete {
@@ -58,12 +63,14 @@
   max-height: 32vh;
   overflow-y: scroll;
   overflow-x: hidden;
+  max-height: 170px;
 }
 
 .autocompleteItems {
   width: 100%;
   cursor: pointer;
   padding-left: 2px;
+  
 }
 .autocompleteItems:hover {
   background-color: var(--medium-color);
@@ -74,15 +81,34 @@
   font-size: 1.2rem;
   margin-top: 10px;
 }
-@media screen and (max-width:400px) {
+@media screen and (max-width:500px) {
   .container {
     display: flex;
     flex-direction: column;
-    width: 200px;
     padding: 20px;
     border-radius: 5px;
     background-color: var(--white-color);
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
     gap: 10px;
+    height: 70%;
+    background-color: aliceblue;
+  }
+  
+}
+
+@media screen and (max-width:1300px) {
+  .autocomplete {
+   
+    max-height: 50px;
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: var(--white-color);
+    box-shadow: 1px 1px 13px rgb(197, 196, 196);
+    gap: 10px;
+    height: 90%;
   }
 }

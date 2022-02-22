@@ -31,7 +31,12 @@ export default function RegisterOwner() {
   const allCuisines = allCuisinesRaw.map((n) => {
     return { name: n.name, label: n.name, value: n.name };
   });
-
+ 
+  let onlyNumbers = (e) => {
+    if (!/[0-9]/.test(e.key)) {
+      e.preventDefault();
+    }
+  };
 
   const own = cookies.get("email");
   //owner object
@@ -230,6 +235,7 @@ console.log(owner.email)
               </div>
               <div class="col-9">
                 <Form.Control
+                  onKeyPress={onlyNumbers}
                   className={s.input}
                   type="text"
                   name="personas_max"
