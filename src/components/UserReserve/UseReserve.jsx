@@ -20,7 +20,7 @@ export default function UserReserve(props) {
                         <FaRegCalendarAlt style={{ color: "var(--bright-color)" }} /> Fecha
                     </p>  
                     <span>
-                        {elem.date.split("T", 1)[0].split("-").reverse().join("-")}
+                        {elem.date}
                     </span>  
                 </div>
                 <div className={s.input}>

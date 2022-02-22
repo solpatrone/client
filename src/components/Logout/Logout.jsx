@@ -7,7 +7,6 @@ export default function Logout() {
 
   function handleSubmit(e) {
     const cookies = new Cookies();
-    console.log(cookies);
     cookies.set("username", "", { path: "/" });
     cookies.set("password", "", { path: "/" });
     cookies.set("name", "", { path: "/" });
