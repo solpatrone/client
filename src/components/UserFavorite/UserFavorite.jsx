@@ -8,7 +8,7 @@ import { deleteFavorite } from "../../actions";
 import { useDispatch } from "react-redux";
 import { getUserFavorites } from "../../actions";
 import Cookies from "universal-cookie";
-import {Link} from "react-router-dom"
+
 
 
 
@@ -49,9 +49,7 @@ export default function UserFavorite(props) {
         <div className={s.review}>
             <div className={s.topRow} >
                 <div className={s.a}>
-                  <Link to = {`/restaurants/${elem.id}`} >
                   <h4 >{elem.name}</h4>
-                  </Link>
                   <div className={elem.rating} > 
                     {[...Array(Number(elem.rating)).keys()].map((index) => (
                         <RiStarFill size={20} style={{ fill: "#f2d349" }} key={index} />
