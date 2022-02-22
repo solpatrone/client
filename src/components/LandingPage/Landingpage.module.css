@@ -1,4 +1,4 @@
-.container {
+  .container {
   height: 520px;
   max-width: 100%;
   display: flex;
@@ -58,10 +58,13 @@ h3.second {
     margin-left: 50px;
   }
 }
-@media screen and (max-width:1000px) {
+@media screen and (max-width:500px) {
   .welcome{
     width: 500px;
     margin-left: 20px;
+  }
+  .searchContainer{
+    height: 200px;
   }
 }
 @media screen and (max-width:400px) {
@@ -74,5 +77,6 @@ h3.second {
     letter-spacing: 4px;
     line-height: 35px;
   }
+  
 }
 

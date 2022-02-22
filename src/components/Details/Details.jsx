@@ -34,9 +34,6 @@ function Details() {
   const [newReservations, setNewReservations] = useState(false);
   const hasReviews = useSelector((state) => state.reviews);
   const userFavorites = useSelector((state) => state.userFavorites);
-  const findFavorite = userFavorites.filter(
-    (el) => el.name === myRestaurant.name
-  );
   const [favorite, setFavorite] = useState(false);
   const cookies = new Cookies();
   const usuario = cookies.get("username");
@@ -46,18 +43,22 @@ function Details() {
   useEffect(() => {
     dispatch(getRestoDetails(params.id));
     dispatch(getRestaurantReviews(params.id));
+    dispatch(getUserFavorites(userId));
     return () => {
       dispatch(clearDetailsState());
     }; // eslint-disable-next-line
   }, [params.id]);
 
   useEffect(() => {
-    dispatch(getUserFavorites(userId));
+    const findFavorite = userFavorites.filter(
+      (el) => el.name === myRestaurant.name
+    );
+    console.log("findFAv", findFavorite);
     if (findFavorite.length === 1) {
       setFavorite(true);
     }
     // eslint-disable-next-line
-  }, [findFavorite.length]);
+  }, [userFavorites]);
 
   function handdleClick(e) {
     e.preventDefault();
@@ -89,27 +90,30 @@ function Details() {
               <div className={styles.restaurantInfo}>
                 <div className={styles.header}>
                   <h2>{myRestaurant.name}</h2>
-                  <button
-                    className={styles.btnFav}
-                    onClick={(e) => handleFavorite(e)}
-                  >
-                    {favorite ? (
-                      <BsHeartFill
-                        style={{
-                          display: "inline-block",
-                          fontSize: "25px",
-                          color: "var(--error-color)",
-                        }}
-                      />
-                    ) : (
-                      <BsHeart
-                        style={{
-                          display: "inline-block",
-                          fontSize: "25px",
-                        }}
-                      />
-                    )}
-                  </button>
+
+                  {userId && (
+                    <button
+                      style={{ backgroundColor: "white", border:"none" }}
+                      onClick={(e) => handleFavorite(e)}
+                    >
+                      {favorite ? (
+                        <BsHeartFill
+                          style={{
+                            display: "inline-block",
+                            fontSize: "25px",
+                            color: "var(--error-color)",
+                          }}
+                        />
+                      ) : (
+                        <BsHeart
+                          style={{
+                            display: "inline-block",
+                            fontSize: "25px",
+                          }}
+                        />
+                      )}
+                    </button>
+                  )}
                 </div>
                 <div className={styles.infoCont}>
                   <div className={styles.address_icons}>

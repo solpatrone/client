@@ -57,10 +57,12 @@
     font-size: 1.2rem;
     margin-top: 10px;
   }
-  /*@media screen and (max-width: 800px){
+  @media screen and (max-width: 800px){
     .container{
-      width: 200px;
-      margin-left:60px;    
-
+      width: auto;
+      margin-left:5px;    
     }
-  }*/
+    .input {
+      width: 300px;
+    }
+  }
