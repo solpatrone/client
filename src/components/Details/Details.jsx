@@ -49,13 +49,13 @@ function Details() {
     }; // eslint-disable-next-line
   }, [params.id]);
   
+  // eslint-discheckoutable-next-line
   useEffect(() => {
     dispatch(getUserFavorites(userId))
     if(findFavorite.length === 1){
       setFavorite(true)
   
-    }
-   // eslint-discheckoutable-next-line
+    } // eslint-discheckoutable-next-line
   }, [findFavorite.length]);
 
 
