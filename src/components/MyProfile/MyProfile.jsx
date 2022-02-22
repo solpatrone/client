@@ -11,6 +11,7 @@ import UserFavorite from '../UserFavorite/UserFavorite';
 
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 
+  
 export default function MyProfile() {
   const history = useHistory();
   const dispatch = useDispatch();
