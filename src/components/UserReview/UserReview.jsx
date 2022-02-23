@@ -33,22 +33,23 @@ export default function UserReview(props) {
   }
 
 
+
   useEffect(() => {
     dispatch(getUserReviews(elem.UserId))
     // eslint-disable-next-line
   }, [reviews])
 
-
   function handleDelete(e) {
     e.preventDefault()
-    
+
+
 
     dispatch(deleteReview(elem.UserId, elem.id))
     dispatch(putRating(restaurant.id, changeRating()));
     setTimeout(() => {
-      dispatch(getRestaurantReviews(restaurant.id))  
+      dispatch(getRestaurantReviews(restaurant.id))
     }, 100);
-  
+
 
 
 
