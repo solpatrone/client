@@ -109,6 +109,9 @@ h3 {
   padding: 5px 20px;
   align-items: center;
 }
+.edit{
+  margin-right: 15px;
+}
 
 .restoName {
   font-family: var(--important-font);
@@ -159,6 +162,12 @@ h3 {
 .option:hover{
   background-color:#f0ede0;
   cursor: pointer;    
+}
+.delete_btn{
+  border:none;
+  background: #fff;
+  padding-left: 10px;
+  margin-right: 10px
 }
 @media screen and (max-width:800px){
   .centeredContainer{

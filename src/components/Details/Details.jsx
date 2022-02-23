@@ -193,7 +193,7 @@ function Details() {
                             <Carousel.Item key={index}>
                               <img
                                 className={[
-                                  "d-block w-100",
+                                  // "d-block w-100",
                                   styles.restauranteImage,
                                 ]}
                                 src={el}

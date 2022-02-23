@@ -196,7 +196,7 @@ export default function Reservations({ userId, restoId }) {
                   {reservations.time.label ? reservations.time.label : "--"} hs
                   para {reservations.pax ? reservations.pax : "--"} personas
                 </p>
-                <div>La reserva tiene un costo de $100 por persona</div>
+                <div className={s.price}>La reserva tiene un costo de $100 por persona</div>
               </div>
             )}
           </form>

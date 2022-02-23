@@ -1,30 +1,63 @@
 .review{
     display:flex;
-    justify-content: space-around;
     border-radius: 5px;
     box-shadow: 1px 1px 13px rgb(197, 196, 196);
     margin-top: 10px;
     height: fit-content;
     flex-direction: column;
     margin-left: 20px;
+    text-align: start;
 }
 .text{ 
-    padding-right: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    justify-content: center;
+    margin-left: 1vw;
+    margin-top: 15px;
+    padding-right: 1vw;
+    font-family: var(--input-font);
+    font-size: 15px;
 }
 .rating{
-    margin-bottom: 2px;
+    margin-top: 2px;
+    margin-left: 20px;
 }
 
 .topRow{
     display: flex;
     justify-content: space-between;
-
-   
+    border-bottom: 1px solid var(--background-color);
+    padding: 10px;
+    padding-bottom: 2px;
+}
+.restoName{
+    font-family: var(--important-font);
+    font-size: 20px;
+    text-decoration: none;
+    align-items: center;
+    color: var(--medium-color);
+    margin-left: 10px;
+    margin-top: 5px;
+    text-transform: capitalize;
+}
+.restoName:hover{
+    text-decoration: none;
+    color: var(--dark-color);
+}
+.restoIcon{
+   margin-left: 10px;
+    display: flex;
+    align-items: center;
 }
 .a{
-
+   text-decoration: none;
    display: flex;
-   margin-left: 10px;
+   
+}
+.btn{
+    border:none;
+    background: #fff;
 }
 
 /*@media screen and (max-width:1200px){

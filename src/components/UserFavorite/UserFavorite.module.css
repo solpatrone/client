@@ -42,8 +42,13 @@
 }
 .rating{
     margin-top: 2px;
-    margin-left: 20px;
+    display:flex;
+    flex-direction: row;
+    gap: 10px
 }
+/* .stars{
+    margin-left: 10px
+} */
 
 .topRow{
     display: flex;
@@ -61,12 +66,12 @@
     margin-left: 10px;
     margin-top: 5px
 }
-.retoName:hover{
+.restoName:hover{
     text-decoration: none;
     color: var(--dark-color);
 }
 .restoIcon{
-   margin-left: 10px;
+   /* margin-left: 10px; */
     display: flex;
     align-items: center;
 }
