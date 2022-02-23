@@ -7,6 +7,7 @@
   line-height: 30px;
   border-radius: 50%;
   background-color: var(--medium-color);
+  cursor: pointer;
 }
 .ul {
   margin-right: 25px;
