@@ -41,9 +41,9 @@ export default function Navbar() {
               Iniciar sesión
             </NavLink>
           ) : (
-            <h3 className={styles.user}>
-              Bienvenido, {cookies.get("username")}
-            </h3>
+            <h2 className={styles.user}>
+              Hola {cookies.get("username")}
+            </h2>
           )}
           {!usuario ? (
             <NavLink to="/registerclient" className={styles.navlinks}>
