@@ -13,6 +13,7 @@ export default function NewPassword() {
     email: "",
     password: "",
     password2: "",
+    secretword: "",
   });
 
   let [errors, setErrors] = useState({ hasErrors: true });
@@ -29,6 +30,12 @@ export default function NewPassword() {
       !/(\W|^)[\w.]{0,30}@(yahoo|hotmail|gmail)\.com(\W|$)/.test(input.email)
     ) {
       errors.email = `El email debe ser una dirección válida`;
+      errors.hasErrors = true;
+    }
+
+
+    if (!input.secretword) {
+      errors.secretword = `Por favor ingrese su comida favorita`;
       errors.hasErrors = true;
     }
 
@@ -104,6 +111,19 @@ export default function NewPassword() {
           />
           {errors.email && <p >{errors.email}</p>}
         </div>
+        <div className={style.inputContainer}>
+         
+         <label>Comida favorita </label>
+         <input
+           type={"text"}
+           name={"secretword"}
+           placeholder="Ingrese su comida favorita"
+           value={input.secretword}
+           autoComplete="off"
+           onChange={(e) => handleChange(e)}
+         />
+         {errors.secretword && <p >{errors.secretword}</p>}
+       </div>
         <div className={style.inputContainer}>
           <label>Nueva Contraseña </label>
           <input
