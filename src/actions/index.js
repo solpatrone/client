@@ -26,7 +26,9 @@ import {
 } from "./types";
 
 const url = "https://rapiresto.herokuapp.com";
+
 // const url = "http://localhost:8080";
+
 const userModif = url + "/users";
 const restoModif = url + "/restaurants";
 const neighModif = url + "/neighborhoods";
