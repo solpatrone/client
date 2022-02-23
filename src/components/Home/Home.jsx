@@ -10,11 +10,16 @@ import { getRestos, getNeighborhoods, getCuisines } from "../../actions/index";
 import s from "./Home.module.css";
 import Loading from "../Loading/Loading";
 import Recomendations from "../Recomendations/Recomendations";
+import { Button } from "react-bootstrap";
+import Nosotros from "../nosotros/Nosotros";
+
 
 export default function Home() {
   const dispatch = useDispatch();
 
   const loading = useSelector((state) => state.loading);
+
+  const [modalShow, setModalShow] = React.useState(false);
 
   const allRestaurants = useSelector((state) => state.restaurants);
   // const allRestaurantsNo = allRestaurantsRaw.filter(resto => resto.status === "ENABLED")
@@ -199,6 +204,21 @@ export default function Home() {
           paginado={paginado}
         />
       </div>
+      <hr/>
+      <>
+        <footer>
+          <Button variant="primary" onClick={() => setModalShow(true)}>
+            Conocenos
+          </Button>
+          <Nosotros
+            show={modalShow}
+            onHide={() => setModalShow(false)}
+            />
+        </footer>
+      </>
     </div>
+    
   );
 }
+
+
