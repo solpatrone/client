@@ -107,7 +107,7 @@ export function createOwner(info) {
       const cuisineCopy = JSON.parse(JSON.stringify(info.cuisine)); //stringfyle== pasa un objeto a un string en format JSON
       info.cuisine = cuisineCopy.map((e) => e.name);
       info.personas_max = Number(info.personas_max);
-      console.log("try");
+      
       var newOwner = await axios.post(restoModif, info);
 
       Swal.fire({
@@ -118,7 +118,7 @@ export function createOwner(info) {
       window.location.href = "/home";
       return newOwner;
     } catch (e) {
-      console.log("catch");
+      
       console.error(e);
     }
   };
@@ -203,7 +203,7 @@ export function postReview(payload) {
     };
   };
   let revFormated = revToBack(payload);
-  console.log("id", revFormated.id);
+  
   return async (dispatch) => {
     try {
       let newReview = await axios.post(
@@ -272,7 +272,7 @@ export function postReservation(date, time, pax, email, id) {
       );
       return newRes;
     } catch (e) {
-      alert(e.response.data.message);
+      console.log(e.response.data.message);
     }
   };
 }
@@ -415,7 +415,7 @@ export function modifyUser(request, id) {
 }
 
 export function changePassword(payload) {
-  console.log("payloadd", JSON.stringify(payload));
+  
   return async () => {
     try {
       let response = await axios.put(`${userModif}/resetPassword`, payload);

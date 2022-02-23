@@ -122,7 +122,7 @@ export default function RegisterOwner() {
   //validate function for inputs
   function validate(owner) {
     const errors = { hasErrors: false };
-    console.log("input", owner);
+    
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
     if (!owner.name) {

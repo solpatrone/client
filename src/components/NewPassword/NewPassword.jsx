@@ -20,7 +20,7 @@ export default function NewPassword() {
 
   function validate(input) {
     let errors = { hasErrors: false };
-    console.log("input", input);
+    
 
     if (!input.email) {
       errors.email = `* El email es requerido`;

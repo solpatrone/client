@@ -6,7 +6,7 @@ import s from "./Review.module.css";
 
 export default function Review({ reviews }) {
 
-  console.log(reviews);
+  
 
   return (
     reviews &&

@@ -50,7 +50,7 @@ export default function ReviewForm({setNewReview}) {
     }
     return newRating
   }
-  console.log("resp de la funcionn" + JSON.stringify(changeRating()))
+  
   
 
   function validate(review) {
