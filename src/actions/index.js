@@ -24,7 +24,7 @@ import {
   ADD_FAVORITE,
 } from "./types";
 
-const url = "http://localhost:8080";
+const url = "https://rapiresto.herokuapp.com";
 const userModif = url + "/users";
 const restoModif = url + "/restaurants";
 const neighModif = url + "/neighborhoods";
