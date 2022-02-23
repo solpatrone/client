@@ -11,7 +11,7 @@ export default function Nosotros(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-           Quines somos?
+           Quienes somos?
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>

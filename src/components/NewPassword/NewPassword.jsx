@@ -72,10 +72,10 @@ export default function NewPassword() {
   let handleSubmit = (e) => {
     e.preventDefault();
      dispatch(changePassword(input));
-      Swal.fire({
-        text: "Su contraseña fue actualizada con éxito" ,
-        confirmButtonColor: "#8aa899"
-      })
+      // Swal.fire({
+      //   text: "Su contraseña fue actualizada con éxito" ,
+      //   confirmButtonColor: "#8aa899"
+      // })
     }
 
   return (

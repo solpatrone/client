@@ -25,8 +25,8 @@ import {
   ADD_FAVORITE,
 } from "./types";
 
-const url = "https://rapiresto.herokuapp.com";
-//const url = "http://localhost:8080";
+// const url = "https://rapiresto.herokuapp.com";
+const url = "http://localhost:8080";
 const userModif = url + "/users";
 const restoModif = url + "/restaurants";
 const neighModif = url + "/neighborhoods";
@@ -420,6 +420,10 @@ export function changePassword(payload) {
   return async () => {
     try {
       let response = await axios.put(`${userModif}/resetPassword`, payload);
+      Swal.fire({
+        text: "Su contraseña fue actualizada con éxito" ,
+        confirmButtonColor: "#8aa899"
+      })
       window.location.href = "/login";
       return response;
     } catch (e) {
