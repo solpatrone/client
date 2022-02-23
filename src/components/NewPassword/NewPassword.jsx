@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import React, { useState } from "react";
 import { changePassword } from "../../actions";
 import {NavLink} from "react-router-dom";
-import Swal from 'sweetalert2'
+// import Swal from 'sweetalert2'
 import logo from "../../assets/rapiresto.png";
 import style from "./NewPassword.module.css";
 
@@ -72,10 +72,10 @@ export default function NewPassword() {
   let handleSubmit = (e) => {
     e.preventDefault();
      dispatch(changePassword(input));
-      Swal.fire({
-        text: "Su contraseña fue actualizada con éxito" ,
-        confirmButtonColor: "#8aa899"
-      })
+      // Swal.fire({
+      //   text: "Su contraseña fue actualizada con éxito" ,
+      //   confirmButtonColor: "#8aa899"
+      // })
     }
 
   return (
