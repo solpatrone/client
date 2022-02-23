@@ -32,8 +32,6 @@ export default function UserReview(props) {
     return newRating
   }
 
-
-
   useEffect(() => {
     dispatch(getUserReviews(elem.UserId))
     // eslint-disable-next-line
@@ -42,17 +40,11 @@ export default function UserReview(props) {
   function handleDelete(e) {
     e.preventDefault()
 
-
-
     dispatch(deleteReview(elem.UserId, elem.id))
     dispatch(putRating(restaurant.id, changeRating()));
     setTimeout(() => {
       dispatch(getRestaurantReviews(restaurant.id))
     }, 100);
-
-
-
-
 
     // Swal.fire({
     //   text: `Vas a eliminar tu reseña`,
