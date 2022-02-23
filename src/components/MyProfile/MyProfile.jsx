@@ -59,7 +59,7 @@ export default function MyProfile() {
 
               <div className={s.reviewsContainer}>
                   {
-                    reservesInProgress >0 ?
+                    reservesInProgress  ?
                     reservesInProgress.map( (e, index) =>
                         <UserReserve key={index} elem ={e}/>             
                         )
