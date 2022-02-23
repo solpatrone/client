@@ -174,6 +174,15 @@ export default function Home() {
           value={filteredByNeighborhood}
           name={"neighborhood"}
           onChange={(e) => handleNeighborhood(e)}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: '#8aa899',
+              primary: '#8aa899',
+            },
+          })}
         />
         <Select
           className={s.options}
@@ -181,6 +190,15 @@ export default function Home() {
           value={filteredByPrice}
           name={"price"}
           onChange={(e) => handlePrice(e)}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: '#8aa899',
+              primary: '#8aa899',
+            },
+          })}
         />
         <Select
           className={s.options}
@@ -188,6 +206,15 @@ export default function Home() {
           value={filteredByFoodTypes}
           name={"types"}
           onChange={(e) => handleFoodTypes(e)}
+          theme={(theme) => ({
+            ...theme,
+            borderRadius: 0,
+            colors: {
+              ...theme.colors,
+              primary25: '#8aa899',
+              primary: '#8aa899',
+            },
+          })}
         />
       </div>
       {loading ? (
