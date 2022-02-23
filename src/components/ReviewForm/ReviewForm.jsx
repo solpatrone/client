@@ -128,7 +128,7 @@ export default function ReviewForm({setNewReview}) {
             required
             name="description"
             cols="50"
-            rows="15"
+            rows="8"
             placeholder="Escribe tu reseña"
             onChange={(e) => handleRev(e)}
           ></textarea>

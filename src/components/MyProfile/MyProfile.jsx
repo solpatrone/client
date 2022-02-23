@@ -11,6 +11,7 @@ import UserFavorite from '../UserFavorite/UserFavorite';
 
 import { Tab, Row, Col, Nav } from "react-bootstrap";
 
+  
 export default function MyProfile() {
   const history = useHistory();
   const dispatch = useDispatch();
@@ -55,11 +56,12 @@ export default function MyProfile() {
             <Col sm={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="first">
-                  <div className={s.reviewsContainer}>
-                    {
-                      reservesInProgress ?
-                        reservesInProgress.map((e, index) =>
-                          <UserReserve key={index} elem={e} />
+
+              <div className={s.reviewsContainer}>
+                  {
+                    reservesInProgress >0 ?
+                    reservesInProgress.map( (e, index) =>
+                        <UserReserve key={index} elem ={e}/>             
                         )
                       :
                       <div className={s.review} >

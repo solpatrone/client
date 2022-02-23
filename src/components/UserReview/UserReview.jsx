@@ -1,11 +1,12 @@
 import s from "./UserReview.module.css"
 import {RiStarFill }from 'react-icons/ri'
-import { AiOutlineDelete } from "react-icons/ai";
+import { AiOutlineDelete, AiOutlineShop } from "react-icons/ai";
 import { useDispatch } from "react-redux";
 import { deleteReview, getRestaurantReviews, putRating, getUserReviews } from "../../actions";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import Swal from "sweetalert2";
+import {Link} from "react-router-dom"
 
 export default function UserReview(props) {
 
@@ -52,17 +53,16 @@ export default function UserReview(props) {
             }
 
               dispatch(deleteReview(elem.UserId, elem.id))
-              setTimeout(() => {
-                dispatch(getRestaurantReviews(restaurant.id))
-                dispatch(putRating(restaurant.id,changeRating()))
-              }, 1000);
+              dispatch(putRating(restaurant.id,changeRating()));
+          
             Swal.fire({
               text: `Reseña eliminada con éxito`,
               confirmButtonColor: "#8aa899",
-            });
+            }).then(dispatch(getRestaurantReviews(restaurant.id)))
           } else if (result.dismiss === "cancel") {
             Swal.fire({
               text: "No se guardaron los cambios",
+              confirmButtonColor: "#8aa899"
             });
           }
         });
@@ -73,27 +73,32 @@ export default function UserReview(props) {
         <div className={s.review}>
             <div className={s.topRow} >
                 <div className={s.a}>
-                      <h4 >{elem.restaurant}</h4>
-                      <div className={elem.rating} > 
+                      <div className={s.restoIcon}>
+                        <AiOutlineShop size={25} style={{ fill:"#8aa899" }}/>
+                <Link to = {`/restaurants/${elem.RestaurantId}`} className={s.restoName}>
+                      {elem.restaurant}
+                      </Link>
+                      </div>
+                      <div className={s.rating} > 
                         {[...Array(Number(elem.rating)).keys()].map((index) => (
                           <RiStarFill size={20} style={{ fill: "#f2d349" }} key={index} />
                           ))}
                       </div>
                 </div>
 
-                  <div className={s.btn}>
-                      <button onClick={ e => handleDelete(e)}>
+                  <div>
+                      <button onClick={ e => handleDelete(e)} className={s.btn}>
                           <AiOutlineDelete
                             style={{
                               color: "var(--error-color)",
                               fontSize: "25px",
                               float: "left",
+                              backgroundColor: "var(-white-color)"
                             }}
                             />
                       </button>
                   </div>
             </div>
-
             <div className={s.text}>
                 <p>{elem.description}</p>
             </div>

@@ -3,6 +3,7 @@
   height: 350px;
   background: white;
   font-family: var(--input-font);
+  font-size: 13px;
   border-radius: 6px;
   margin: 3px;
   padding: 3px;
