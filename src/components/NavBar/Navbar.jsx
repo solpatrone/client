@@ -91,7 +91,7 @@ export default function Navbar() {
                       <DropdownButton
                         drop={"start"}
                         as={ButtonGroup}
-                        title="Mis restaurantes"
+                        title="MIS RESTAURANTS"
                         variant=""
                         className={styles.dropB}
                       >

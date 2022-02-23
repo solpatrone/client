@@ -12,7 +12,6 @@ export default function UserReview(props) {
 
     const dispatch = useDispatch()
     const elem = props.elem;
-    console.log('resenias', elem)
     const allRestaurants = useSelector(state => state.allRestaurants)
     const restaurant = allRestaurants.find(el => el.id === elem.RestaurantId)
     const reviews = useSelector(state => state.reviews)
@@ -58,7 +57,9 @@ export default function UserReview(props) {
             Swal.fire({
               text: `Reseña eliminada con éxito`,
               confirmButtonColor: "#8aa899",
-            }).then(dispatch(getRestaurantReviews(restaurant.id)))
+            }).then(
+            dispatch(getRestaurantReviews(restaurant.id))
+            ).then(window.location.reload(false))
           } else if (result.dismiss === "cancel") {
             Swal.fire({
               text: "No se guardaron los cambios",

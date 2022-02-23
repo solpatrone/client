@@ -137,7 +137,7 @@ export default function RegisterOwner() {
         cuisine: owner.cuisine.length > 0 ? owner.cuisine.map((e) => e.name) : [],
         price: owner.price ? owner.price.value : null,
       }
-      console.log(request)
+     
       dispatch(addImagesToRestos(request, params.id));
       history.push(`/myrestaurant/${params.id}`)
     }    
@@ -146,7 +146,7 @@ export default function RegisterOwner() {
   //validate function for inputs
   function validate(owner) {
     const errors = { hasErrors: false };
-    console.log("input", owner);
+    
     const regexEmail = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
     if (owner.name === '') {
@@ -169,7 +169,7 @@ export default function RegisterOwner() {
     
     return errors;
   }
-console.log(owner.email)
+
 
   return (<div>
     <Loading />
