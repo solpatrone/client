@@ -64,6 +64,7 @@ export default function MyProfile() {
                     reservesInProgress ?
        reservesInProgress.map( (e, index) =>
 
+
                         <UserReserve key={index} elem ={e}/>             
                         )
                       :
