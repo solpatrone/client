@@ -195,9 +195,6 @@ h3 {
   flex-direction: column;
 }
 
-.restauranteImage {
-  object-fit: cover;
-}
 .btn {
   margin: auto;
   color: black;
@@ -211,6 +208,14 @@ h3 {
   justify-content: center;
 }
 
+.restauranteImage {
+  width: 100%;
+  height: auto;
+  margin: auto;
+  max-height: 300px;
+  box-shadow: 1px 1px 6px var(--background-color),
+    -1px -1px 6px var(--background-color);
+}
 .reviews h3 {
   font-family: var(--important-font);
   color: var(--dark-color);
@@ -219,10 +224,10 @@ h3 {
 }
 
 .imagesCarrousel {
-  width: 600px;
-  height: 600px;
+  width: 200px;
+  height: 200px;
 }
-/* @media screen and (max-width: 800px) {
+@media screen and (max-width: 800px) {
   .wrapper {
     display: inline-block;
     flex-direction: column;
@@ -256,13 +261,13 @@ h3 {
   .reviews {
     position: static;
   }
-} */
-/*@media screen and (max-width:1500px )  {
+} 
+ @media screen and (max-width:1500px )  {
   .container{
     display:block;
   }
-}*/
-/* @media screen and (max-width: 1400px) {
+}
+ @media screen and (max-width: 1400px) {
   .restaurantInfo {
     margin-left: 5vw;
     display: flex;
@@ -270,4 +275,4 @@ h3 {
     flex-wrap: wrap;
     width: 400px;
   }
-} */
+}

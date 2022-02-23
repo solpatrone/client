@@ -52,13 +52,18 @@ export default function UserFavorite(props) {
         <div className={s.favorite}>
             <div className={s.topRow} >
                 <div className={s.a}>
-                  <div className={elem.rating} >    
+                  <div className={s.rating} > 
+                  <div className={s.restoIcon}>
+                  <AiOutlineShop size={25} style={{ fill:"#8aa899" }} />  
                   <Link className={s.restoName} to = {`/restaurants/${elem.id}`} >
-                  <AiOutlineShop />   {elem.name}
+                     {elem.name}
                   </Link>
+                  </div> 
+                  <div className={s.stars}>
                     {[...Array(Number(elem.rating)).keys()].map((index) => (
-                        <RiStarFill size={20} style={{ fill: "#f2d349" }} key={index} />
+                        <RiStarFill size={18} style={{ fill: "#f2d349" }} key={index} />
                     ))}
+                    </div>
                   </div>
                 </div>
                 <div className={s.btn}>
