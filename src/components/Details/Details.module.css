@@ -266,13 +266,51 @@ h3 {
   .container{
     display:block;
   }
+  .restaurantInfo{
+    width: 400px;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
 }
  @media screen and (max-width: 1400px) {
-  .restaurantInfo {
-    margin-left: 5vw;
+  .restaurantInfo {    
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
-    width: 400px;
+    width: 350px;
+    align-items: center;
+  }
+ .wrapper{
+   display: block;
+ }
+ .review{
+   width: 300px;
+ }
+ .reviewsCont{
+  margin: auto;
+}
+}
+@media screen and (max-width: 800px) {
+  .reviewsCont{
+    width: auto;
+  }
+  .review{
+    width: 100%;
   }
 }
+
+@media screen and (max-width: 700px){
+  .main {
+    border-left: none;
+    border-right: none;  
+    padding-top: 30px;  
+    width: 100%;
+    margin: auto;
+  }
+  .reservations{
+    margin-left: auto;
+  }
+}
+
+
