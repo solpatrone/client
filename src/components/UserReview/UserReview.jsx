@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { deleteReview, getRestaurantReviews, putRating, getUserReviews } from "../../actions";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
-import Swal from "sweetalert2";
 import { Link } from "react-router-dom"
 
 export default function UserReview(props) {
