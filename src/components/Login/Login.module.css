@@ -130,6 +130,8 @@
   padding: 4px;
   font-family: var(--input-font);
   font-style: italic;
+  /*para hacerla visible bold*/
+  font-weight: bold;
   font-size: 15px;
   border-radius: 3px;
 }
@@ -141,6 +143,8 @@
   border-radius: 3px;
   font-family: var(--important-font);
   font-style: normal;
+  /*para hacerla visible y que no quede bold en focus*/
+  font-weight: 100;
   color: var(--dark-color);
 }
 

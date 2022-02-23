@@ -56,6 +56,7 @@ export default function MyProfile() {
             <Col sm={9}>
               <Tab.Content>
                 <Tab.Pane eventKey="first">
+
               <div className={s.reviewsContainer}>
                   {
                     reservesInProgress >0 ?

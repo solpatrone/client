@@ -8,10 +8,13 @@ import axios from "axios";
 
 import logo from "../../assets/rapiresto.png";
 
-import Swal from 'sweetalert2'
+
+import Swal from "sweetalert2";
+
 
 export default function Login() {
-  const url = "http://localhost:8080";
+  const url = "https://rapiresto.herokuapp.com";
+
   const loginModif = url + "/logins";
 
   const history = useHistory();

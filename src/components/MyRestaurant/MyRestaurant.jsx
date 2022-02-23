@@ -92,6 +92,7 @@ export default function Restaurant() {
       } else if (result.dismiss === "cancel") {
         Swal.fire({
           text: "No se guardaron los cambios",
+          confirmButtonColor: "#8aa899"
         });
       }
     });
@@ -125,6 +126,7 @@ export default function Restaurant() {
       } else if (result.dismiss === "cancel") {
         Swal.fire({
           text: "No se guardaron los cambios",
+          confirmButtonColor: "#8aa899"
         });
       }
     });
@@ -162,6 +164,7 @@ export default function Restaurant() {
                         <h2 className={styles.restoName}>
                           {myRestaurant.name}
                         </h2>
+                        <div className ={styles.edit}>
                         <Link to={`/modify/${myRestaurant.id}`}>
                         <BsPencil
                           style={{
@@ -169,7 +172,7 @@ export default function Restaurant() {
                           }}
                         />
                         </Link>
-                        <button onClick={ e => handleDelete(e)}>
+                        <button onClick={ e => handleDelete(e)} className={styles.delete_btn}>
                         <AiOutlineDelete
                           style={{
                             color: "var(--error-color)",
@@ -177,6 +180,7 @@ export default function Restaurant() {
                           }}
                         />
                         </button>
+                        </div>
                       </div>
                       <div className={styles.address_icons}>
                         <div className={styles.address}>
@@ -292,11 +296,11 @@ export default function Restaurant() {
                   </Tab.Pane>
                   <Tab.Pane eventKey="third">
                     <div className={styles.reviewsContainer}>
-                      {hasReviews.length > 0 && (
+                      {hasReviews.length > 0 ? (
                         <div className={styles.reviews}>
                           <Review reviews={hasReviews} />
                         </div>
-                      )}
+                      ) : "Aun no hay reseñas"}
                     </div>
                   </Tab.Pane>
                 </Tab.Content>
