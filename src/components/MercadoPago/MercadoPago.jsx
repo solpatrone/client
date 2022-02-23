@@ -34,7 +34,7 @@ export default function MercadoPago(){
            date: fullDate,
            user_email: email,
          };
-         console.log(templateParams)
+         
          emailjs.send(
              "service_vwcqene",
              "template_zn5kw4j",
@@ -43,11 +43,11 @@ export default function MercadoPago(){
            )
            .then(
              (result) => {
-               console.log(result.text);
+              
                history.push('/myProfile')
              },
              (error) => {
-               console.log(error.text);
+              
              }
            );
          

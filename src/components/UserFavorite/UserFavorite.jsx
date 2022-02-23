@@ -48,7 +48,7 @@ export default function UserFavorite(props) {
       }
 
 
-      console.log('elem', elem)
+      
       return (
         <div className={s.favorite}>
             <div className={s.topRow} >

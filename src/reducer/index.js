@@ -61,7 +61,7 @@ export default function rootReducer(state = initialState, action) {
       };
     case CREATE_CLIENT:
       let exists = state.clients.find((u) => u.email === action.payload.email);
-      console.log(state.clients);
+      
       if (!exists) {
         return {
           ...state,

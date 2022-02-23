@@ -23,7 +23,7 @@ export default function Nosotros(props) {
             <a href="https://www.linkedin.com/in/christian-hampel88/" target="_blank"  rel="noreferrer" className={s.link}> Christian Hampel</a><br></br>
             <a href="https://www.linkedin.com/in/sergio-cepeda-dev/" target="_blank"  rel="noreferrer" className={s.link}> Sergio Cepeda</a><br></br>
             <a href="https://www.linkedin.com/in/juanmurillop/" target="_blank"  rel="noreferrer" className={s.link}> Juan Carlos Murrillo </a><br></br>
-            <a href="https://www.linkedin.com/in/mprecelle/" target="_blank"  rel="noreferrer" className={s.link}> MartinPrecelle</a><br></br>
+            <a href="https://www.linkedin.com/in/mprecelle/" target="_blank"  rel="noreferrer" className={s.link}> Martin Precelle</a><br></br>
             <a href="https://www.linkedin.com/in/josecossibracho/" target="_blank"  rel="noreferrer" className={s.link}> Jose Cossi</a><br></br>
             </div>
         </Modal.Body>

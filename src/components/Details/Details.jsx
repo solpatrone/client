@@ -52,7 +52,7 @@ function Details() {
 
   useEffect(() => {
     const findFavorite = userFavorites.find(el => el.name === myRestaurant.name)
-    console.log('findFAv', findFavorite)
+
     if (findFavorite) {
       setFavorite(true)
     }
