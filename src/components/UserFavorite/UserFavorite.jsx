@@ -47,6 +47,7 @@ export default function UserFavorite(props) {
         }, 100);
       }
 
+
       console.log('elem', elem)
       return (
         <div className={s.favorite}>
@@ -63,6 +64,7 @@ export default function UserFavorite(props) {
                     {[...Array(Number(elem.rating)).keys()].map((index) => (
                         <RiStarFill size={18} style={{ fill: "#f2d349" }} key={index} />
                     ))}
+
                     </div>
                   </div>
                 </div>
@@ -73,6 +75,7 @@ export default function UserFavorite(props) {
                               style={{
                                 display: "inline-block",
                                 fontSize: "25px",
+
                                 color: "var(--error-color)",
                                 
                               }}

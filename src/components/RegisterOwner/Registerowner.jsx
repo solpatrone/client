@@ -106,11 +106,11 @@ export default function RegisterOwner() {
     setOwner((prev) => ({ ...prev, cuisine: e }));
   }
 
-  let onlyNumbers = (e) => {
-    if (!/[0-9]/.test(e.key)) {
-      e.preventDefault();
-    }
-  };
+  // let onlyNumbers = (e) => {
+  //   if (!/[0-9]/.test(e.key)) {
+  //     e.preventDefault();
+  //   }
+  // };
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -238,7 +238,9 @@ export default function RegisterOwner() {
               </div>
               <div class="col-9">
                 <Form.Control
+
                   onKeyPress={onlyNumbers}
+
                   className={style.input}
                   type="text"
                   name="personas_max"
@@ -246,6 +248,7 @@ export default function RegisterOwner() {
                   placeholder="ingresa cantidad de reservas maximas diarias"
                   autoComplete="off"
                   onChange={(e) => handleChange(e)} />
+
               </div>
             </div>
           </Form.Group>

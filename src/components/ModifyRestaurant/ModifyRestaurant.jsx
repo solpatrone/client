@@ -52,6 +52,14 @@ export default function RegisterOwner() {
   ];
 
   useEffect(() => {
+    if (myRestaurant && myRestaurant.id) {
+      if (myRestaurant.owner !== cookies.get("email")) {
+        history.push("/home");
+      }
+    } // eslint-disable-next-line
+  }, [myRestaurant]);
+
+  useEffect(() => {
     dispatch(getCuisines());
     dispatch(getNeighborhoods());
     dispatch(getRestoDetails(params.id)); // eslint-disable-next-line

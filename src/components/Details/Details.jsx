@@ -35,6 +35,7 @@ function Details() {
   const hasReviews = useSelector((state) => state.reviews);
   const userFavorites = useSelector((state) => state.userFavorites);
   const [favorite, setFavorite] = useState(false);
+
   const cookies = new Cookies();
   const usuario = cookies.get("username");
   const userId = cookies.get("id");

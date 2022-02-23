@@ -197,6 +197,7 @@ export default function Reservations({ userId, restoId }) {
                   para {reservations.pax ? reservations.pax : "--"} personas
                 </p>
                 <div className={s.price}>La reserva tiene un costo de $100 por persona</div>
+
               </div>
             )}
           </form>
