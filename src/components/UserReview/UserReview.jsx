@@ -15,6 +15,23 @@ export default function UserReview(props) {
   const restaurant = allRestaurants.find(el => el.id === elem.RestaurantId)
   const reviews = useSelector(state => state.reviews)
 
+  function changeRating() {
+    let newRating = {};
+    if (reviews.length === 1) {
+
+      newRating = { rating: "0", owner: restaurant.owner }
+
+    } else if (reviews.length > 1) {
+      let reviewRaw = reviews.filter(el => el.id !== elem.id)
+      let ratingRev = reviewRaw.map(el => Number(el.rating))
+      let sum = ratingRev.reduce((acc, curr) => acc + curr, 0)
+      let prom = Math.round(sum / ratingRev.length)
+      newRating = { rating: String(prom), owner: restaurant.owner }
+    }
+
+    return newRating
+  }
+
 
   useEffect(() => {
     dispatch(getUserReviews(elem.UserId))
@@ -24,22 +41,7 @@ export default function UserReview(props) {
 
   function handleDelete(e) {
     e.preventDefault()
-    function changeRating() {
-      let newRating = {};
-      if (reviews.length === 1) {
-
-        newRating = { rating: "0", owner: restaurant.owner }
-
-      } else if (reviews.length > 1) {
-        let reviewRaw = reviews.filter(el => el.id !== elem.id)
-        let ratingRev = reviewRaw.map(el => Number(el.rating))
-        let sum = ratingRev.reduce((acc, curr) => acc + curr, 0)
-        let prom = Math.round(sum / ratingRev.length)
-        newRating = { rating: String(prom), owner: restaurant.owner }
-      }
-
-      return newRating
-    }
+    
 
     dispatch(deleteReview(elem.UserId, elem.id))
     dispatch(putRating(restaurant.id, changeRating()));

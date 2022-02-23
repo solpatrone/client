@@ -15,6 +15,7 @@ export default function RegisterUser() {
     email: "",
     password: "",
     password2: "",
+    secretword: "",
   });
 
   let [errors, setErrors] = useState({ hasErrors: true });
@@ -29,6 +30,11 @@ export default function RegisterUser() {
       errors.hasErrors = true;
     } else if (!/^[a-zA-Z\s]{5,20}$/.test(input.username)) {
       errors.username = `El nombre debe ser letras entre 5 y 20 caracteres`;
+      errors.hasErrors = true;
+    }
+
+    if (!input.secretword) {
+      errors.secretword = `Por favor ingrese un valor`;
       errors.hasErrors = true;
     }
 
@@ -160,6 +166,28 @@ export default function RegisterUser() {
                   />
                 </div>
                 {errors.email && <p className={style.errors}>{errors.email}</p>}
+              </div>
+            </Form.Group>
+
+            <Form.Group className="mb-3">
+              <div class="row">
+                <div class="col text-right my-auto">
+                  <Form.Label className={["align-middle m-0", style.label]}>
+                    Comida favorita
+                  </Form.Label>
+                </div>
+                <div class="col-9">
+                  <Form.Control
+                    type={"text"}
+                    name={"secretword"}
+                    placeholder="Ingrese su comida favorita"
+                    value={input.secretword}
+                    autoComplete="off"
+                    onChange={(e) => handleChange(e)}
+                    className={style.input}
+                  />
+                </div>
+                {errors.secretword && <p className={style.errors}>{errors.secretword}</p>}
               </div>
             </Form.Group>
 
