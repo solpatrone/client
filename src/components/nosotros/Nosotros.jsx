@@ -18,7 +18,7 @@ export default function Nosotros(props) {
           <h4>Team Hero</h4>
           <div>
             <a href="https://www.linkedin.com/in/erikaberenicemasini/" target="_blank"  rel="noreferrer" className={s.link}> Erika Masini</a><br></br>
-            <a href="https://www.linkedin.com/in/florenciaperezduarte/" target="_blank"  rel="noreferrer" className={s.link}> Florencia Pereze Duarte</a><br></br>
+            <a href="https://www.linkedin.com/in/florenciaperezduarte/" target="_blank"  rel="noreferrer" className={s.link}> Florencia Perez Duarte</a><br></br>
             <a href="https://www.linkedin.com/in/sol-patrone/" target="_blank"  rel="noreferrer" className={s.link}> Sol Patrone</a><br></br>
             <a href="https://www.linkedin.com/in/christian-hampel88/" target="_blank"  rel="noreferrer" className={s.link}> Christian Hampel</a><br></br>
             <a href="https://www.linkedin.com/in/sergio-cepeda-dev/" target="_blank"  rel="noreferrer" className={s.link}> Sergio Cepeda</a><br></br>
