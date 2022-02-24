@@ -2,7 +2,7 @@ import s from "./UserReview.module.css"
 import { RiStarFill } from 'react-icons/ri'
 import { AiOutlineDelete, AiOutlineShop } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { deleteReview, putRating, getUserReviews } from "../../actions";
+import { deleteReview, putRating, getUserReviews, getRestos } from "../../actions";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
@@ -12,9 +12,9 @@ export default function UserReview(props) {
   const dispatch = useDispatch()
   const elem = props.elem;
   const allRestaurants = useSelector(state => state.allRestaurants)
-  const restaurant = allRestaurants.find(el => el.id === elem.RestaurantId)
   const reviews = useSelector(state => state.reviews)
   const [showReview, setShowReview] = useState(true);
+  const [restaurant, setRestaurant] = useState();
 
   function changeRating() {
     let newRating = {};
@@ -32,6 +32,17 @@ export default function UserReview(props) {
 
     return newRating
   }
+
+  useEffect(() => {
+    dispatch(getRestos()); // eslint-disable-next-line
+  }, [])
+
+  useEffect(() => {
+    if (allRestaurants && allRestaurants.length > 0){
+      const restaurant = allRestaurants.find(el => el.id === elem.RestaurantId)
+      setRestaurant(restaurant)
+    }// eslint-disable-next-line
+  }, [allRestaurants])
 
   useEffect(() => {
     dispatch(getUserReviews(elem.UserId))
