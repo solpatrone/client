@@ -2,9 +2,9 @@ import s from "./UserReview.module.css"
 import { RiStarFill } from 'react-icons/ri'
 import { AiOutlineDelete, AiOutlineShop } from "react-icons/ai";
 import { useDispatch } from "react-redux";
-import { deleteReview, getRestaurantReviews, putRating, getUserReviews } from "../../actions";
+import { deleteReview, putRating, getUserReviews } from "../../actions";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom"
 
 export default function UserReview(props) {
@@ -14,6 +14,7 @@ export default function UserReview(props) {
   const allRestaurants = useSelector(state => state.allRestaurants)
   const restaurant = allRestaurants.find(el => el.id === elem.RestaurantId)
   const reviews = useSelector(state => state.reviews)
+  const [showReview, setShowReview] = useState(true);
 
   function changeRating() {
     let newRating = {};
@@ -40,11 +41,10 @@ export default function UserReview(props) {
   function handleDelete(e) {
     e.preventDefault()
 
-    dispatch(deleteReview(elem.UserId, elem.id))
+    dispatch(deleteReview(elem.UserId, elem.id));
+    setShowReview(false);
     dispatch(putRating(restaurant.id, changeRating()));
-    setTimeout(() => {
-      dispatch(getRestaurantReviews(restaurant.id))
-    }, 100);
+    
 
     // Swal.fire({
     //   text: `Vas a eliminar tu reseña`,
@@ -91,7 +91,7 @@ export default function UserReview(props) {
   }
 
 
-  return (
+  return ( showReview && (
     <div className={s.review}>
       <div className={s.topRow} >
         <div className={s.a}>
@@ -125,6 +125,5 @@ export default function UserReview(props) {
         <p>{elem.description}</p>
       </div>
     </div>
-
-  )
+  ))
 }
