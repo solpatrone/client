@@ -9,7 +9,7 @@ import { Link } from "react-router-dom"
 
 export default function UserReview(props) {
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch()asdsa
   const elem = props.elem;
   const allRestaurants = useSelector(state => state.allRestaurants)
   const restaurant = allRestaurants.find(el => el.id === elem.RestaurantId)
